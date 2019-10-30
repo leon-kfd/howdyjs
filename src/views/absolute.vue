@@ -1,39 +1,37 @@
 <template>
   <div class="page">
-    <div class="wrapper-x">
-      <div class="box1 text"
-           v-resize:right
+    <div class="wrapper x">
+      <div class="box1"
+           v-resize:right="options"
            @resize="handleResizeX">Set this box -> resize:right</div>
       <div class="box2"
            ref="a"></div>
     </div>
-    <div class="wrapper-y">
-      <div class="box1 text"
+    <div class="wrapper y">
+      <div class="box1"
            v-resize:bottom
            @resize="handleResizeY">Set this box -> resize:bottom</div>
       <div class="box2"
            ref="b"></div>
     </div>
-    <div class="wrapper-x">
+    <div class="wrapper x">
       <div class="box1"
            ref="c"></div>
-      <div class="box2 text"
+      <div class="box2"
            v-resize:left
            @resize="handleResizeX1">Set this box -> resize:left</div>
     </div>
-    <div class="wrapper-y">
+    <div class="wrapper y">
       <div class="box1"
            ref="d"></div>
-      <div class="box2 text"
+      <div class="box2"
            v-resize:top
            @resize="handleResizeY1">Set this box -> resize:top</div>
     </div>
-    <div class="wrapper-all">
-      <div class="box1">
-        <div class="box2 text"
-             v-resize="allOption"
-             @resize="handleResizeAll">Set this box -> resize:all</div>
-      </div>
+    <div class="outer-box">
+      <div class="inner-box"
+           v-resize="allOption"
+           @resize="handleResizeAll">Set this box -> resize:all</div>
     </div>
   </div>
 </template>
@@ -43,7 +41,11 @@ export default {
   name: 'absolute',
   data () {
     return {
+      options: {
+        immediate: true
+      },
       allOption: {
+        immediate: true,
         direction: ['right', 'bottom', 'left', 'top']
       }
     }
@@ -106,70 +108,70 @@ export default {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.wrapper-x {
+.wrapper {
   width: 800px;
   height: 400px;
-  position: relative;
   margin: 20px;
+  position: relative;
+  box-shadow: 0 1px 5px #ccc;
   .box1 {
-    width: 400px;
-    height: 100%;
     background: #c2c2e0;
     position: absolute;
-    left: 0;
-    top: 0;
   }
   .box2 {
-    width: 400px;
-    height: 100%;
-    right: 0;
-    top: 0;
     background: #ffe0e0;
     position: absolute;
   }
 }
-.wrapper-y {
-  width: 800px;
-  height: 400px;
-  position: relative;
-  margin: 20px;
+.x {
+  .box1,
+  .box2 {
+    width: 400px;
+    height: 100%;
+  }
   .box1 {
-    width: 100%;
-    height: 200px;
-    background: #c2c2e0;
-    position: absolute;
     left: 0;
     top: 0;
   }
   .box2 {
+    right: 0;
+    top: 0;
+  }
+}
+.y {
+  .box1,
+  .box2 {
     width: 100%;
     height: 200px;
-    background: #ffe0e0;
-    position: absolute;
+  }
+  .box1 {
+    left: 0;
+    top: 0;
+  }
+  .box2 {
     left: 0;
     bottom: 0;
   }
 }
-.wrapper-all {
+.outer-box {
   width: 800px;
   height: 400px;
   margin: 20px;
-  .box1 {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background: #c2c2e0;
-    .box2 {
-      position: absolute;
-      width: 50%;
-      height: 50%;
-      top: 25%;
-      left: 25%;
-      background: #ffe0e0;
-    }
+  box-shadow: 0 1px 5px #ccc;
+  position: relative;
+  background: #c2c2e0;
+  .inner-box {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    background: #ffe0e0;
   }
 }
-.text {
+.box1,
+.box2,
+.inner-box {
   padding: 10px;
   font-size: 13px;
   color: #667;

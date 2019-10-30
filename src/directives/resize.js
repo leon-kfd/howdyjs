@@ -1,8 +1,8 @@
 const createDashedLineEl = (direction, options) => {
-  let { tipLineColor, tipLineWidth, tipLineStyle, zIndex } = options
+  const { tipLineColor, tipLineWidth, tipLineStyle, zIndex } = options
   let dashedLine = document.createElement('div')
-  let cssText = `position:absolute;z-index: ${zIndex};visibility: hidden;`
-  let isX = direction === 'left' || direction === 'right'
+  const cssText = `position:absolute;z-index: ${zIndex};visibility: hidden;`
+  const isX = direction === 'left' || direction === 'right'
   dashedLine.style.cssText = isX
     ? `${cssText};top:0;bottom: 0;${direction}:0;border-${direction}:${tipLineWidth}px ${tipLineStyle} ${tipLineColor}`
     : `${cssText};left:0;right: 0;${direction}:0;border-${direction}:${tipLineWidth}px ${tipLineStyle} ${tipLineColor}`
@@ -11,12 +11,12 @@ const createDashedLineEl = (direction, options) => {
 }
 
 const createLineEl = (direction, element, options, dashedLine) => {
-  let { scrollElSelector, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex } = options
+  const { immediate, scrollElSelector, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex } = options
   let line = document.createElement('div')
   let cssText = `position: absolute;background: ${lineColor};z-index: ${zIndex}`
-  let isX = direction === 'left' || direction === 'right'
-  let isBefore = direction === 'right' || direction === 'bottom'
-  let isFlex = getComputedStyle(element.parentNode).display === 'flex'
+  const isX = direction === 'left' || direction === 'right'
+  const isBefore = direction === 'right' || direction === 'bottom'
+  const isFlex = getComputedStyle(element.parentNode).display === 'flex'
   line.style.cssText = isX
     ? `${cssText};width: ${lineWidth}px;top:0;bottom: 0;${direction}: -${lineWidth / 2}px;cursor: col-resize;`
     : `${cssText};height: ${lineWidth}px;left:0;right: 0;${direction}: -${lineWidth / 2}px;cursor: row-resize;`
@@ -31,16 +31,31 @@ const createLineEl = (direction, element, options, dashedLine) => {
     line.style[direction] = `-${lineWidth / 2}px`
   }
   line.onmousedown = function (e) {
-    let el = element || e.target.parentNode
-    let elParent = el.parentNode
+    const el = element || e.target.parentNode
+    const elParent = el.parentNode
     let moveOffset
-    let elSize = isX ? el.offsetWidth : el.offsetHeight
-    let elParentSize = isX ? elParent.offsetWidth : elParent.offsetHeight
-    let elOffset = isX ? el.offsetLeft : el.offsetTop
-    let elParentOffset = isX ? elParent.offsetLeft : elParent.offsetTop
-    let scrollEl = scrollElSelector ? document.querySelector(scrollElSelector) : document.documentElement
-    let scrollSize = isX ? scrollEl.scrollLeft : scrollEl.scrollTop
+    const elSize = isX ? el.offsetWidth : el.offsetHeight
+    const elParentSize = isX ? elParent.offsetWidth : elParent.offsetHeight
+    const elOffset = isX ? el.offsetLeft : el.offsetTop
+    const elParentOffset = isX ? elParent.offsetLeft : elParent.offsetTop
+    const scrollEl = scrollElSelector ? document.querySelector(scrollElSelector) : document.documentElement
+    const scrollSize = isX ? scrollEl.scrollLeft : scrollEl.scrollTop
     let moveValidFlag = true
+    const resizeFn = () => {
+      let resize = document.createEvent('HTMLEvents')
+      resize.initEvent('resize')
+      resize['direction'] = direction
+      resize['moveOffset'] = moveOffset
+      resize['moveOffsetPercent'] = moveOffset / elParentSize * 100
+      if (isFlex) {
+        resize[isX ? 'resizeWidth' : 'resizeHeight'] = isBefore ? moveOffset - elOffset + elParentOffset : elSize + elOffset - moveOffset - elParentOffset
+        resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = (isBefore ? (moveOffset - elOffset + elParentOffset) / elParentSize : (elSize + elOffset - moveOffset - elParentOffset) / elParentSize) * 100
+      } else {
+        resize[isX ? 'resizeWidth' : 'resizeHeight'] = isBefore ? moveOffset - elOffset : elSize + elOffset - moveOffset
+        resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = (isBefore ? (moveOffset - elOffset) / elParentSize : (elSize + elOffset - moveOffset) / elParentSize) * 100
+      }
+      el.dispatchEvent(resize)
+    }
     document.onmousemove = function (e) {
       event.preventDefault()
       moveOffset = isX ? e.clientX - elParent.offsetLeft + scrollSize : e.clientY - elParent.offsetTop + scrollSize
@@ -52,33 +67,27 @@ const createLineEl = (direction, element, options, dashedLine) => {
           ? moveValidFlag = moveOffset >= 0 && moveOffset <= elOffset - elParentOffset + elSize
           : moveValidFlag = moveOffset >= 0 && moveOffset <= (elOffset + elSize)
       if (moveValidFlag) {
-        dashedLine.style.visibility = 'visible'
-        if (isFlex) {
-          dashedLine.style[direction] = isBefore ? `${elSize - moveOffset + elOffset - elParentOffset}px` : `${moveOffset + elParentOffset - elOffset}px`
+        if (immediate) {
+          resizeFn()
         } else {
-          dashedLine.style[direction] = isBefore ? `${elOffset + elSize - moveOffset}px` : `${moveOffset - elOffset}px`
+          dashedLine.style.visibility = 'visible'
+          if (isFlex) {
+            dashedLine.style[direction] = isBefore ? `${elSize - moveOffset + elOffset - elParentOffset}px` : `${moveOffset + elParentOffset - elOffset}px`
+          } else {
+            dashedLine.style[direction] = isBefore ? `${elOffset + elSize - moveOffset}px` : `${moveOffset - elOffset}px`
+          }
         }
       }
     }
     document.onmouseup = function () {
       document.onmousemove = null
       document.onmouseup = null
-      dashedLine.style.visibility = 'hidden'
-      if (moveValidFlag) {
-        let resize = document.createEvent('HTMLEvents')
-        resize.initEvent('resize')
-        resize['direction'] = direction
-        resize['moveOffset'] = moveOffset
-        resize['moveOffsetPercent'] = moveOffset / elParentSize * 100
-        if (isFlex) {
-          resize[isX ? 'resizeWidth' : 'resizeHeight'] = isBefore ? moveOffset - elOffset + elParentOffset : elSize + elOffset - moveOffset - elParentOffset
-          resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = (isBefore ? (moveOffset - elOffset + elParentOffset) / elParentSize : (elSize + elOffset - moveOffset - elParentOffset) / elParentSize) * 100
-        } else {
-          resize[isX ? 'resizeWidth' : 'resizeHeight'] = isBefore ? moveOffset - elOffset : elSize + elOffset - moveOffset
-          resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = (isBefore ? (moveOffset - elOffset) / elParentSize : (elSize + elOffset - moveOffset) / elParentSize) * 100
+      if (!immediate) {
+        dashedLine.style.visibility = 'hidden'
+        if (moveValidFlag) {
+          resizeFn()
+          dashedLine.style[direction] = 0
         }
-        dashedLine.style[direction] = 0
-        el.dispatchEvent(resize)
       }
     }
   }
@@ -90,6 +99,7 @@ export default {
   inserted: function (el, binding) {
     const { arg, value } = binding
     let options = {
+      immediate: false,
       direction: [],
       scrollElSelector: null,
       lineColor: '#aab',
@@ -115,10 +125,16 @@ export default {
       directionArr = options.direction
     }
     directionArr.map(direction => {
-      let dashedLine = createDashedLineEl(direction, options)
-      el.appendChild(dashedLine)
-      let line = createLineEl(direction, el, options, dashedLine)
-      el.appendChild(line)
+      let dashedLine
+      if (options.immediate) {
+        let line = createLineEl(direction, el, options, dashedLine)
+        el.appendChild(line)
+      } else {
+        dashedLine = createDashedLineEl(direction, options)
+        el.appendChild(dashedLine)
+        let line = createLineEl(direction, el, options, dashedLine)
+        el.appendChild(line)
+      }
     })
   }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "resize-directive",
+  "version": "1.0.0",
+  "description": "A vue directive for resize box.",
+  "main": "resize.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rezise",
+    "directive"
+  ],
+  "author": "leon-kfd",
+  "license": "ISC"
+}

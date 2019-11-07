@@ -20,7 +20,7 @@ const createLineEl = (direction, element, options, dashedLine) => {
   line.style.cssText = isX
     ? `${cssText};width: ${lineWidth}px;top:0;bottom: 0;${direction}: -${lineWidth / 2}px;cursor: col-resize;`
     : `${cssText};height: ${lineWidth}px;left:0;right: 0;${direction}: -${lineWidth / 2}px;cursor: row-resize;`
-  line.onmouseover = function (e) {
+  line.onmouseover = function () {
     line.style.background = lineHoverColor
     line.style[isX ? 'width' : 'height'] = `${lineHoverWidth}px`
     line.style[direction] = `-${lineHoverWidth / 2}px`
@@ -100,7 +100,7 @@ export default {
     const { arg, value } = binding
     let options = {
       immediate: false,
-      direction: [],
+      direction: ['right'],
       scrollElSelector: null,
       lineColor: '#aab',
       lineWidth: 2,

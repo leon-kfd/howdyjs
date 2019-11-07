@@ -11,12 +11,17 @@ const routes = [
   {
     path: '/absolute',
     name: 'absolute',
-    component: () => import('../views/absolute.vue')
+    component: () => import('../views/absolute')
   },
   {
     path: '/flex',
     name: 'flex',
-    component: () => import('../views/flex.vue')
+    component: () => import('../views/flex')
+  },
+  {
+    path: '/scroll',
+    name: 'scroll',
+    component: () => import('../views/scroll')
   }
 ]
 

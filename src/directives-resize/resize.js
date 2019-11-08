@@ -20,17 +20,17 @@ const createLineEl = (direction, element, options, dashedLine) => {
   line.style.cssText = isX
     ? `${cssText};width: ${lineWidth}px;top:0;bottom: 0;${direction}: -${lineWidth / 2}px;cursor: col-resize;`
     : `${cssText};height: ${lineWidth}px;left:0;right: 0;${direction}: -${lineWidth / 2}px;cursor: row-resize;`
-  line.onmouseover = function () {
+  line.mouseoverEvent = function () {
     line.style.background = lineHoverColor
     line.style[isX ? 'width' : 'height'] = `${lineHoverWidth}px`
     line.style[direction] = `-${lineHoverWidth / 2}px`
   }
-  line.onmouseout = function () {
+  line.mouseoutEvent = function () {
     line.style.background = lineColor
     line.style[isX ? 'width' : 'height'] = `${lineWidth}px`
     line.style[direction] = `-${lineWidth / 2}px`
   }
-  line.onmousedown = function (e) {
+  line.mousedownEvent = function (e) {
     const el = element || e.target.parentNode
     const elParent = el.parentNode
     let moveOffset
@@ -92,6 +92,10 @@ const createLineEl = (direction, element, options, dashedLine) => {
     }
   }
   line.setAttribute('class', 'resize__line')
+
+  line.addEventListener('mousemove', line.mouseoverEvent)
+  line.addEventListener('mouseout', line.mouseoutEvent)
+  line.addEventListener('mousedown', line.mousedownEvent)
   return line
 }
 
@@ -135,6 +139,13 @@ export default {
         let line = createLineEl(direction, el, options, dashedLine)
         el.appendChild(line)
       }
+    })
+  },
+  unbind: function (el) {
+    [...el.querySelectorAll('.resize__line')].map(line => {
+      line.removeEventListener('mousemove', line.mouseoverEvent)
+      line.removeEventListener('mouseout', line.mouseoutEvent)
+      line.removeEventListener('mousedown', line.mousedownEvent)
     })
   }
 }

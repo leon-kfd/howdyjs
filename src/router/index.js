@@ -22,6 +22,11 @@ const routes = [
     path: '/scroll',
     name: 'scroll',
     component: () => import('../views/scroll')
+  },
+  {
+    path: '/mouseMenu',
+    name: 'mouseMenu',
+    component: () => import('../views/mouseMenu')
   }
 ]
 

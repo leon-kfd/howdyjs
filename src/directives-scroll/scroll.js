@@ -137,6 +137,7 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
 
 const setTranslate = function (el, direction, value) {
   let { transform } = window.getComputedStyle(el)
+  // let [a, b, c, d, x, y] = transform.match(/-?\d+\.?\d{0,}/g)
   let [a, b, c, d, x, y] = transform.slice(7, -1).split(',')
   if (direction === 'x') {
     el.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`

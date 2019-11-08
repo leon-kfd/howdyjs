@@ -1,19 +1,26 @@
-const createScrollBarTrack = (el, direction, options) => {
+const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   el.style.position = 'relative'
+  let isY = direction === 'y'
   let { scrollBarWidth, scrollBarOffsetX, scrollBarOffsetY, scrollBarThumbColor, scrollBarThumbHoverColor, scrollBarThumbBorderRadius, scrollBarTrackColor, speedOfClickToScroll } = options
   scrollBarThumbBorderRadius = scrollBarThumbBorderRadius ? scrollBarWidth / 2 : 0
   const track = document.createElement('div')
-  let trackCssText = `position: absolute;right: 0;top: 0;height: 100%; width: ${scrollBarWidth + scrollBarOffsetX * 2}px;background: ${scrollBarTrackColor};`
+  let trackCssText = isY
+    ? `position: absolute;right: 0;top: 0;height: 100%; width: ${scrollBarWidth + scrollBarOffsetX * 2}px;background: ${scrollBarTrackColor};`
+    : `position: absolute;left: 0;bottom: 0;width: 100%; height: ${scrollBarWidth + scrollBarOffsetX * 2}px;background: ${scrollBarTrackColor};`
   track.style.cssText = trackCssText
-  track.setAttribute('class', 'scroll__track')
-  el.appendChild(track)
+  track.setAttribute('class', `scroll__track_${direction}`)
+  scrollWrapper.appendChild(track)
   const thumb = document.createElement('div')
-  let thumbCssText = `position: relative;top: 0;right: 0;width: ${scrollBarWidth + scrollBarOffsetX * 2}px;padding: ${scrollBarOffsetY}px ${scrollBarOffsetX}px;box-sizing:border-box;cursor: pointer;`
+  let thumbCssText = isY
+    ? `position: relative;top: 0;right: 0;width: ${scrollBarWidth + scrollBarOffsetX * 2}px;padding: ${scrollBarOffsetY}px ${scrollBarOffsetX}px;box-sizing:border-box;cursor: pointer;`
+    : `position: relative;bottom: 0;left: 0;height: ${scrollBarWidth + scrollBarOffsetX * 2}px;padding: ${scrollBarOffsetX}px ${scrollBarOffsetY}px;box-sizing:border-box;cursor: pointer;`
   const thumbInner = document.createElement('div')
   let thumbInnerCssText = `width: 100%;height:100%;background: ${scrollBarThumbColor};border-radius: ${scrollBarThumbBorderRadius}px;`
-  let { offsetHeight, scrollHeight } = el
-  let thumbHeight = (offsetHeight / scrollHeight) * offsetHeight
-  thumbCssText += `height: ${thumbHeight}px;`
+  let { offsetHeight, scrollHeight, offsetWidth, scrollWidth } = el
+  let offsetSize = isY ? offsetHeight : offsetWidth
+  let scrollSize = isY ? scrollHeight : scrollWidth
+  let thumbSize = offsetSize / scrollSize * offsetSize
+  thumbCssText += isY ? `height: ${thumbSize}px;` : `width: ${thumbSize}px`
   thumb.style.cssText = thumbCssText
   thumb.setAttribute('class', 'scroll__thumb')
   thumbInner.style.cssText = thumbInnerCssText
@@ -22,22 +29,26 @@ const createScrollBarTrack = (el, direction, options) => {
   track.appendChild(thumb)
   let elScrollTop = 0
   let isInThumbMouseMove = false
-  const elScrollTopMax = scrollHeight - offsetHeight
-  const thumbScrollTopMax = offsetHeight - thumbHeight
-  el.addEventListener('mousewheel', function (wheel) {
-    if (!isInThumbMouseMove) {
-      elScrollTop = wheel.deltaY < 0
-        ? elScrollTop < -wheel.deltaY
-          ? 0
-          : elScrollTop + wheel.deltaY
-        : elScrollTop >= elScrollTopMax - wheel.deltaY
-          ? elScrollTopMax
-          : elScrollTop + wheel.deltaY
-      track.style.transform = `translateY(${elScrollTop}px)`
-      thumb.style.transform = `translateY(${elScrollTop / scrollHeight * offsetHeight}px)`
-      el.scrollTop = elScrollTop
+  const elScrollTopMax = scrollSize - offsetSize
+  const thumbScrollTopMax = offsetSize - thumbSize
+  if (isY) {
+    el.onmousewheel = function (wheel) {
+      if (!isInThumbMouseMove) {
+        elScrollTop = wheel.deltaY < 0
+          ? elScrollTop < -wheel.deltaY
+            ? 0
+            : elScrollTop + wheel.deltaY
+          : elScrollTop >= elScrollTopMax - wheel.deltaY
+            ? elScrollTopMax
+            : elScrollTop + wheel.deltaY
+        // scrollWrapper.style.transform = `translateY(${elScrollTop}px)`
+        setTranslate(scrollWrapper, 'y', elScrollTop)
+        thumb.style.transform = `translateY(${elScrollTop / scrollSize * offsetSize}px)`
+        el.scrollTop = elScrollTop
+      }
+      return false
     }
-  })
+  }
   thumb.onmouseenter = function () {
     thumbInner.style.background = scrollBarThumbHoverColor
   }
@@ -47,15 +58,15 @@ const createScrollBarTrack = (el, direction, options) => {
   thumb.onmousedown = function (downEvent) {
     downEvent.stopPropagation()
     const thumbEl = downEvent.target.parentNode
-    const beforeClientY = downEvent.clientY
+    const beforeClientY = isY ? downEvent.clientY : downEvent.clientX
     let [thumbBeforeOffset] = thumbEl.style.transform.match(/\d+(\.\d+)?/) || [0]
     thumbBeforeOffset = ~~thumbBeforeOffset
     isInThumbMouseMove = true
     document.onmousemove = function (moveEvent) {
       document.body.style.userSelect = 'none'
-      let { clientY } = moveEvent
-      let thumbMoveOffset = clientY - beforeClientY + thumbBeforeOffset
-      elScrollTop = thumbMoveOffset / offsetHeight * scrollHeight
+      let { clientY, clientX } = moveEvent
+      let thumbMoveOffset = (isY ? clientY : clientX) - beforeClientY + thumbBeforeOffset
+      elScrollTop = thumbMoveOffset / offsetSize * scrollSize
       if (elScrollTop < 0) {
         thumbMoveOffset = 0
         elScrollTop = 0
@@ -63,9 +74,14 @@ const createScrollBarTrack = (el, direction, options) => {
         thumbMoveOffset = thumbScrollTopMax
         elScrollTop = elScrollTopMax
       }
-      track.style.transform = `translateY(${elScrollTop}px)`
-      thumb.style.transform = `translateY(${thumbMoveOffset}px)`
-      el.scrollTop = elScrollTop
+      // scrollWrapper.style.transform = isY ? `translateY(${elScrollTop}px)` : `translateX(${elScrollTop}px)`
+      setTranslate(scrollWrapper, direction, elScrollTop)
+      thumb.style.transform = isY ? `translateY(${thumbMoveOffset}px)` : `translateX(${thumbMoveOffset}px)`
+      if (isY) {
+        el.scrollTop = elScrollTop
+      } else {
+        el.scrollLeft = elScrollTop
+      }
     }
     document.onmouseup = function () {
       isInThumbMouseMove = false
@@ -78,39 +94,54 @@ const createScrollBarTrack = (el, direction, options) => {
     const trackEl = e.target
     let [thumbBeforeOffset] = trackEl.childNodes[0].style.transform.match(/\d+(\.\d+)?/) || [0]
     thumbBeforeOffset = ~~thumbBeforeOffset
-    const clickPosition = e.clientY - trackEl.getBoundingClientRect().top
-    const thumbMoveOffset = clickPosition - thumbHeight / 2
+    const clickPosition = isY ? (e.clientY - trackEl.getBoundingClientRect().top) : (e.clientX - trackEl.getBoundingClientRect().left)
+    const thumbMoveOffset = clickPosition - thumbSize / 2
     const animateScroll = function () {
       let thumbScrollTop, breakAnimation
       if (thumbMoveOffset > thumbBeforeOffset) {
         thumbBeforeOffset += speedOfClickToScroll
         if (thumbBeforeOffset < thumbMoveOffset) {
-          elScrollTop = thumbBeforeOffset / offsetHeight * scrollHeight
+          elScrollTop = thumbBeforeOffset / offsetSize * scrollSize
           thumbScrollTop = thumbBeforeOffset
           breakAnimation = false
         } else {
-          elScrollTop = thumbBeforeOffset > thumbScrollTopMax ? elScrollTopMax : (thumbMoveOffset / offsetHeight * scrollHeight)
+          elScrollTop = thumbBeforeOffset > thumbScrollTopMax ? elScrollTopMax : (thumbMoveOffset / offsetSize * scrollSize)
           thumbScrollTop = thumbBeforeOffset > thumbScrollTopMax ? thumbScrollTopMax : thumbMoveOffset
           breakAnimation = true
         }
       } else {
         thumbBeforeOffset -= speedOfClickToScroll
         if (thumbBeforeOffset > thumbMoveOffset) {
-          elScrollTop = thumbBeforeOffset / offsetHeight * scrollHeight
+          elScrollTop = thumbBeforeOffset / offsetSize * scrollSize
           thumbScrollTop = thumbBeforeOffset
           breakAnimation = false
         } else {
-          elScrollTop = thumbBeforeOffset < 0 ? 0 : thumbMoveOffset / offsetHeight * scrollHeight
+          elScrollTop = thumbBeforeOffset < 0 ? 0 : thumbMoveOffset / offsetSize * scrollSize
           thumbScrollTop = thumbBeforeOffset < 0 ? 0 : thumbMoveOffset
           breakAnimation = true
         }
       }
-      track.style.transform = `translateY(${elScrollTop}px)`
-      thumb.style.transform = `translateY(${thumbScrollTop}px)`
-      el.scrollTop = elScrollTop
+      // scrollWrapper.style.transform = isY ? `translateY(${elScrollTop}px)` : `translateX(${elScrollTop}px)`
+      setTranslate(scrollWrapper, direction, elScrollTop)
+      thumb.style.transform = isY ? `translateY(${thumbScrollTop}px)` : `translateX(${thumbScrollTop}px)`
+      if (isY) {
+        el.scrollTop = elScrollTop
+      } else {
+        el.scrollLeft = elScrollTop
+      }
       breakAnimation ? window.cancelAnimationFrame(animateScroll) : window.requestAnimationFrame(animateScroll)
     }
     window.requestAnimationFrame(animateScroll)
+  }
+}
+
+const setTranslate = function (el, direction, value) {
+  let { transform } = window.getComputedStyle(el)
+  let [a, b, c, d, x, y] = transform.slice(7, -1).split(',')
+  if (direction === 'x') {
+    el.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`
+  } else if (direction === 'y') {
+    el.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
   }
 }
 
@@ -140,8 +171,12 @@ export default {
     } else {
       directionArr = options.direction
     }
+    const scrollWrapper = document.createElement('div')
+    scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(0,0)`
+    scrollWrapper.setAttribute('class', 'scroll__wrapper')
+    el.appendChild(scrollWrapper)
     directionArr.map(item => {
-      createScrollBarTrack(el, item, options)
+      createScrollBarTrack(el, item, options, scrollWrapper)
     })
   }
 }

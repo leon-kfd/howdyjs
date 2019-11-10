@@ -33,18 +33,16 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   const thumbScrollTopMax = offsetSize - thumbSize
   if (isY) {
     el.onmousewheel = function (wheel) {
+      let deltaY = wheel.deltaY
       if (!isInThumbMouseMove) {
-        elScrollTop = wheel.deltaY < 0
-          ? elScrollTop < -wheel.deltaY
+        elScrollTop = deltaY < 0
+          ? elScrollTop < -deltaY
             ? 0
-            : elScrollTop + wheel.deltaY
-          : elScrollTop >= elScrollTopMax - wheel.deltaY
+            : elScrollTop + deltaY
+          : elScrollTop >= elScrollTopMax - deltaY
             ? elScrollTopMax
-            : elScrollTop + wheel.deltaY
-        // scrollWrapper.style.transform = `translateY(${elScrollTop}px)`
-        setTranslate(scrollWrapper, 'y', elScrollTop)
-        thumb.style.transform = `translateY(${elScrollTop / scrollSize * offsetSize}px)`
-        el.scrollTop = elScrollTop
+            : elScrollTop + deltaY
+        __scroll__(track, elScrollTop / scrollSize * offsetSize)
       }
       return false
     }
@@ -74,14 +72,7 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
         thumbMoveOffset = thumbScrollTopMax
         elScrollTop = elScrollTopMax
       }
-      // scrollWrapper.style.transform = isY ? `translateY(${elScrollTop}px)` : `translateX(${elScrollTop}px)`
-      setTranslate(scrollWrapper, direction, elScrollTop)
-      thumb.style.transform = isY ? `translateY(${thumbMoveOffset}px)` : `translateX(${thumbMoveOffset}px)`
-      if (isY) {
-        el.scrollTop = elScrollTop
-      } else {
-        el.scrollLeft = elScrollTop
-      }
+      __scroll__(track, thumbMoveOffset)
     }
     document.onmouseup = function () {
       isInThumbMouseMove = false
@@ -92,12 +83,15 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   }
   track.onmousedown = function (e) {
     const trackEl = e.target
-    let [thumbBeforeOffset] = trackEl.childNodes[0].style.transform.match(/\d+(\.\d+)?/) || [0]
-    thumbBeforeOffset = ~~thumbBeforeOffset
     const clickPosition = isY ? (e.clientY - trackEl.getBoundingClientRect().top) : (e.clientX - trackEl.getBoundingClientRect().left)
     const thumbMoveOffset = clickPosition - thumbSize / 2
+    __scroll__(trackEl, thumbMoveOffset)
+  }
+  const __scroll__ = function (trackEl, thumbMoveOffset) {
     const animateScroll = function () {
       let thumbScrollTop, breakAnimation
+      let [thumbBeforeOffset] = trackEl.childNodes[0].style.transform.match(/\d+(\.\d+)?/) || [0]
+      thumbBeforeOffset = ~~thumbBeforeOffset
       if (thumbMoveOffset > thumbBeforeOffset) {
         thumbBeforeOffset += speedOfClickToScroll
         if (thumbBeforeOffset < thumbMoveOffset) {

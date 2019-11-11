@@ -140,38 +140,85 @@ const setTranslate = function (el, direction, value) {
   }
 }
 
+// Drag scroll
+const addDragScroll = function (el) {
+  el.onmousedown = function (e) {
+    // const { top: elClientRectTop, left: elClientRectLeft } = el.getBoundingClientRect()
+    const { scrollTop, scrollLeft, scrollHeight, offsetHeight, scrollWidth, offsetWidth } = el
+    const { clientX: beforeClientX, clientY: beforeClientY } = e
+    const [elScrollLeftMax, elScrollTopMax] = [scrollWidth - offsetWidth, scrollHeight - offsetHeight]
+    const [thumbScrollLeftMax, thumbScrollTopMax] = [offsetWidth - (offsetWidth / scrollWidth * offsetWidth), offsetHeight - (offsetHeight / scrollHeight * offsetHeight)]
+    document.body.style.userSelect = 'none'
+    document.onmousemove = function (moveEvent) {
+      const { clientX, clientY } = moveEvent
+      let [elScrollLeft, elScrollTop] = [beforeClientX - clientX + scrollLeft, beforeClientY - clientY + scrollTop]
+      let [thumbMoveOffsetX, thumbMoveOffsetY] = [elScrollLeft / scrollWidth * offsetWidth, elScrollTop / scrollHeight * offsetHeight]
+      if (elScrollLeft < 0) {
+        thumbMoveOffsetX = 0
+        elScrollLeft = 0
+      } else if (elScrollLeft > elScrollLeftMax) {
+        thumbMoveOffsetX = thumbScrollLeftMax
+        elScrollLeft = elScrollLeftMax
+      }
+      if (elScrollTop < 0) {
+        thumbMoveOffsetY = 0
+        elScrollTop = 0
+      } else if (elScrollTop > elScrollTopMax) {
+        thumbMoveOffsetY = thumbScrollTopMax
+        elScrollTop = elScrollTopMax
+      }
+      el.querySelector('.scroll__wrapper').style.transform = `translate(${elScrollLeft}px, ${elScrollTop}px)`
+      el.querySelector('.scroll__track_x .scroll__thumb').style.transform = `translateX(${thumbMoveOffsetX}px)`
+      el.querySelector('.scroll__track_y .scroll__thumb').style.transform = `translateY(${thumbMoveOffsetY}px)`
+      el.scrollTop = elScrollTop
+      el.scrollLeft = elScrollLeft
+    }
+    document.onmouseup = function () {
+      document.onmousemove = null
+      document.onmouseup = null
+      document.body.style.userSelect = 'default'
+    }
+  }
+}
+
 export default {
   inserted: function (el, binding) {
     const { arg, value } = binding
-    el.style.overflow = 'hidden'
-    const options = {
-      direction: ['y'],
-      scrollBarWidth: 6,
-      scrollBarOffsetX: 0,
-      scrollBarOffsetY: 0,
-      scrollBarThumbColor: '#aab',
-      scrollBarThumbBorderRadius: true,
-      scrollBarTrackColor: 'transparent',
-      scrollBarThumbHoverColor: '#889',
-      speedOfClickToScroll: 20,
-      ...value
-    }
-    let directionArr = []
-    if (arg) {
-      if (arg === 'all') {
-        directionArr = ['x', 'y']
-      } else {
-        directionArr = [arg]
+    const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
+    if (!isMobile) {
+      el.style.overflow = 'hidden'
+      const options = {
+        direction: ['y'],
+        scrollBarWidth: 6,
+        scrollBarOffsetX: 0,
+        scrollBarOffsetY: 0,
+        scrollBarThumbColor: '#aab',
+        scrollBarThumbBorderRadius: true,
+        scrollBarTrackColor: 'transparent',
+        scrollBarThumbHoverColor: '#889',
+        speedOfClickToScroll: 20,
+        ...value
       }
+      let directionArr = []
+      if (arg) {
+        if (arg === 'all') {
+          directionArr = ['x', 'y']
+        } else {
+          directionArr = [arg]
+        }
+      } else {
+        directionArr = options.direction
+      }
+      const scrollWrapper = document.createElement('div')
+      scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(0,0)`
+      scrollWrapper.setAttribute('class', 'scroll__wrapper')
+      el.appendChild(scrollWrapper)
+      directionArr.map(item => {
+        createScrollBarTrack(el, item, options, scrollWrapper)
+      })
+      addDragScroll(el)
     } else {
-      directionArr = options.direction
+      el.style.overflow = 'auto'
     }
-    const scrollWrapper = document.createElement('div')
-    scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(0,0)`
-    scrollWrapper.setAttribute('class', 'scroll__wrapper')
-    el.appendChild(scrollWrapper)
-    directionArr.map(item => {
-      createScrollBarTrack(el, item, options, scrollWrapper)
-    })
   }
 }

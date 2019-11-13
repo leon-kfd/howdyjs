@@ -84,7 +84,12 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   track.onmousedown = function (e) {
     const trackEl = e.target
     const clickPosition = isY ? (e.clientY - trackEl.getBoundingClientRect().top) : (e.clientX - trackEl.getBoundingClientRect().left)
-    const thumbMoveOffset = clickPosition - thumbSize / 2
+    let thumbMoveOffset = clickPosition - thumbSize / 2
+    if (thumbMoveOffset < 0) {
+      thumbMoveOffset = 0
+    } else if (thumbMoveOffset > thumbScrollTopMax) {
+      thumbMoveOffset = thumbScrollTopMax
+    }
     __scroll__(trackEl, thumbMoveOffset)
   }
   const __scroll__ = function (trackEl, thumbMoveOffset) {
@@ -138,6 +143,27 @@ const setTranslate = function (el, direction, value) {
   } else if (direction === 'y') {
     el.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
   }
+}
+
+// Set thumb show for hover
+const setDisplayForHover = function (el) {
+  const thumbAppendCss = `opacity: 0;transition: opacity .4s ease-in-out`
+  const scrollThumb = [...el.querySelectorAll('.scroll__thumb')]
+  scrollThumb.map(item => {
+    item.style.cssText = item.style.cssText + thumbAppendCss
+  })
+  el.mouseenterEvent = function () {
+    scrollThumb.map(item => {
+      item.style.opacity = 1
+    })
+  }
+  el.mouseleaveEvent = function () {
+    scrollThumb.map(item => {
+      item.style.opacity = 0
+    })
+  }
+  el.addEventListener('mouseenter', el.mouseenterEvent)
+  el.addEventListener('mouseleave', el.mouseleaveEvent)
 }
 
 // Drag scroll
@@ -197,6 +223,8 @@ export default {
         scrollBarTrackColor: 'transparent',
         scrollBarThumbHoverColor: '#889',
         speedOfClickToScroll: 20,
+        dragScroll: false,
+        thumbShow: 'always',
         ...value
       }
       let directionArr = []
@@ -216,7 +244,12 @@ export default {
       directionArr.map(item => {
         createScrollBarTrack(el, item, options, scrollWrapper)
       })
-      addDragScroll(el)
+      if (options.dragScroll) {
+        addDragScroll(el)
+      }
+      if (options.thumbShow === 'hover') {
+        setDisplayForHover(el)
+      }
     } else {
       el.style.overflow = 'auto'
     }

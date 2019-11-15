@@ -1,88 +1,38 @@
 import { createDom } from './utils/dom'
-const initContextMenu = function (el, options, e) {
-  const { x, y } = e
-  const { innerWidth: windowWidth, innerHeight: windowHeight } = window
-  const {
-    menuList,
-    width: menuWidth,
-    hasIcon,
-    hasSubMenu
-  } = options
-  let menu = document.querySelector('.__menu__wrapper')
-  if (!menu) {
-    menu = createDom('div', '__menu__wrapper')
-    document.body.appendChild(menu)
-  }
-  let menuFragment = document.createDocumentFragment()
-  menuList.map(item => {
-    let menuItem = createDom('div', '__menu__item')
-    let menuItemFragment = document.createDocumentFragment()
-    if (hasIcon) {
-      menuItemFragment.appendChild(createDom('span', '__menu__item-icon'))
-    }
-    menuItemFragment.appendChild(createDom('span', '__menu__item-label', item.label))
-    menuItemFragment.appendChild(createDom('span', '__menu__item-tips', item.tips || ''))
-    if (hasSubMenu) {
-      menuItemFragment.appendChild(createDom('span', `__menu__item-right ${item.children ? 'show' : ''}`))
-      if (item.children) {
-        let menuSubWrapper = createDom('div', '__menu__sub__wrapper')
-        let menuSubFragment = document.createDocumentFragment()
-        item.children.map(subItem => {
-          let menuSubItem = createDom('div', '__menu__sub__item')
-          menuSubItem.innerHTML = `<span class="__menu__sub__item-label">${subItem.label}</span><span class="__menu__sub__item-tips">${subItem.tips || ''}</span>`
-          if (subItem.fn) {
-            menuSubItem.clickEvent = function (e) {
-              e.stopPropagation()
-              subItem.fn(document.elementFromPoint(x, y))
-              document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
-            }
-            menuSubItem.addEventListener('click', menuSubItem.clickEvent, false)
-          }
-          menuSubFragment.appendChild(menuSubItem)
-        })
-        menuSubWrapper.appendChild(menuSubFragment)
-        menuItemFragment.appendChild(menuSubWrapper)
-      }
-    }
-    menuItem.appendChild(menuItemFragment)
-    menuItem.onmousedown = function (e) {
-      e.stopPropagation()
-    }
-    if (item.fn) {
-      menuItem.clickEvent = function (e) {
-        e.stopPropagation()
-        item.fn(document.elementFromPoint(x, y))
-        document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
-      }
-      menuItem.addEventListener('click', menuItem.clickEvent, false)
-    }
-    menuFragment.appendChild(menuItem)
-  })
-  emptyElement(menu)
-  menu.appendChild(menuFragment)
-  let menuHeight = menu.offsetHeight
-  let menuLeft = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1
-  let menuTop = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1
-  menu.style.top = `${menuTop}px`
-  menu.style.left = `${menuLeft}px`
-  menu.style.visibility = 'visible'
-}
-const emptyElement = function (el) {
-  while (el.firstChild) {
-    el.removeChild(el.firstChild)
-  }
-}
-
+import Vue from 'vue'
+import MouseMenu from './mouse-menu.vue'
 export default {
   inserted: function (el, binding) {
-    const { arg, value } = binding
-    console.log(arg, value)
+    const { value } = binding
     const options = {
       width: 200,
       menuList: [],
       hasIcon: false,
-      hasSubMenu: false,
       ...value
+    }
+    const menuWrapperCss = {
+      'width': '200px',
+      'background': '#c8f2f0',
+      'box-shadow': '0 1px 5px #888',
+      'padding': '5px 0',
+      'border-radius': '4px',
+      ...value.menuWrapperCss
+    }
+    const menuItemCss = {
+      'height': '30px',
+      'padding': '0 10px',
+      iconSize: '20px',
+      labelColor: '#484852',
+      labelFontSize: '14px',
+      tipsColor: '#889',
+      tipsSize: '12px',
+      arrowColor: '#484852',
+      arrowSize: '10px',
+      hoverBackground: 'rgba(255, 255, 255, 0.8)',
+      hoverLabelColor: null,
+      hoverTipsColor: null,
+      hoverArrowColor: null,
+      ...value.menuItemCss
     }
     if (options.menuList.length > 0) {
       el.onmousedown = function (e) {
@@ -93,19 +43,53 @@ export default {
           document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
         }
       }
-      document.onmousedown = function () {
+      document.onmousedown = function (e) {
         document.removeEventListener('contextmenu', contextmenuEvent)
         document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
       }
+      const menu = createDom('div', '__menu__wrapper')
+      document.body.appendChild(menu)
+      const menuVue = new Vue({
+        el: menu,
+        data () {
+          return {
+            menuList: options.menuList,
+            hasIcon: options.hasIcon,
+            clickDomEl: null,
+            menuWrapperCss,
+            menuItemCss
+          }
+        },
+        components: {
+          MouseMenu
+        },
+        render (createElement) {
+          return createElement('mouse-menu', {
+            props: {
+              menuList: this.menuList,
+              hasIcon: this.hasIcon,
+              clickDomEl: this.clickDomEl,
+              menuWrapperCss: this.menuWrapperCss,
+              menuItemCss: this.menuItemCss
+            }
+          })
+        }
+      })
       const contextmenuEvent = function (e) {
         e.preventDefault()
-        initContextMenu(el, options, e)
-      }
-      for (let i = 0; i <= options.menuList.length; i++) {
-        if (options.menuList[i].children && options.menuList[i].children.length > 0) {
-          options.hasSubMenu = true
-          break
-        }
+        const { x, y } = e
+        const { innerWidth: windowWidth, innerHeight: windowHeight } = window
+        const {
+          width: menuWidth
+        } = options
+        menuVue.clickDomEl = document.elementFromPoint(x - 1, y - 1)
+        let menu = document.querySelector('.__menu__wrapper')
+        let menuHeight = menu.offsetHeight
+        let menuLeft = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1
+        let menuTop = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1
+        menu.style.top = `${menuTop}px`
+        menu.style.left = `${menuLeft}px`
+        menu.style.visibility = 'visible'
       }
     } else {
       throw new Error('At least set one menu list!')

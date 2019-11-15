@@ -13,21 +13,19 @@
 </template>
 
 <script>
-import '../directives-mouse-menu/mouse-menu.css'
 export default {
   name: 'mouseMenu',
   data () {
     return {
       options: {
-        hoverBgColor: 'rgba(255,255,255,.8)',
         menuList: [
           {
             label: '检查',
             tips: 'Check',
-            fn: (el) => this.detail(el),
             children: [
               {
-                label: '文本'
+                label: '文本',
+                fn: (el) => this.detail(el)
               },
               {
                 label: '源码'
@@ -36,7 +34,8 @@ export default {
           },
           {
             label: '打开',
-            tips: 'Open'
+            tips: 'Open',
+            fn: (el) => this.detail(el)
           },
           {
             label: '删除'
@@ -44,7 +43,16 @@ export default {
           {
             label: '浏览'
           }
-        ]
+        ],
+        menuWrapperCss: {
+          'border-radius': 0
+        },
+        menuItemCss: {
+          hoverBackground: 'rgba(240,125,88,.8)',
+          hoverLabelColor: '#fff',
+          hoverTipsColor: '#fff',
+          hoverArrowColor: '#fff'
+        }
       }
     }
   },

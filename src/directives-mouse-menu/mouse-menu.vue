@@ -1,56 +1,66 @@
 <template>
   <div class="__menu__wrapper"
-       :style="{...menuWrapperCss}">
-    <div class="__menu__item"
-         :style="{height: menuItemCss['height'], padding: menuItemCss['padding']}"
-         v-for="(item,index) in menuList"
-         :key="index"
-         @mousedown.stop="handleMenuItemClick(item)"
-         @mouseenter="handleMenuMouseEnter($event,item)"
-         @mouseleave="handleMenuMouseLeave">
-      <span class="__menu__item-icon"
-            :style="{width: menuItemCss['iconSize'], height: menuItemCss['iconSize'], 'line-height': menuItemCss['iconSize']}"
-            v-if="hasIcon"></span>
-      <span class="__menu__item-label"
-            :style="{color: menuItemCss['labelColor'], 'font-size': menuItemCss['labelFontSize']}">{{item.label}}</span>
-      <span class="__menu__item-tips"
-            :style="{color: menuItemCss['tipsColor'], 'font-size': menuItemCss['tipsFontSize']}">{{item.tips || ''}}</span>
-      <span class="__menu__item-arrow"
-            v-if="hasSubMenu"
-            :class="{show: hasSubMenu && item.children}"
-            :style="{width: menuItemCss['arrowSize'],height: menuItemCss['arrowSize']}">
-        <span class="__menu__item-arrow-after"
-              v-show="hasSubMenu && item.children"
-              :style="`border-left: ${arrowRealSize}px solid ${menuItemCss['arrowColor']};border-top: ${arrowRealSize}px solid transparent;border-bottom: ${arrowRealSize}px solid transparent`"></span>
-      </span>
-      <div class="__menu__sub__wrapper"
-           :style="{top: `${subTop}px`, left: `${subLeft}px`, ...menuWrapperCss}"
-           v-show="hoverFlag"
-           v-if="item.children && item.children.length > 0">
-        <div class="__menu__sub__item"
-             :style="{height: menuItemCss['height'], padding: menuItemCss['padding']}"
-             v-for="(subItem,subIndex) in item.children"
-             :key="subIndex"
-             @mousedown.stop="handleSubMenuItemClick(subItem)"
-             @mouseenter="handleSubMenuMouseEnter"
-             @mouseleave="handleSubMenuMouseLeave">
-          <span class="__menu__sub__item-label"
-                :style="{color: menuItemCss['labelColor'], 'font-size': menuItemCss['labelFontSize']}">{{subItem.label}}</span>
-          <span class="__menu__sub__item-label"
-                :style="{color: menuItemCss['tipsColor'], 'font-size': menuItemCss['tipsFontSize']}">{{subItem.tips || ''}}</span>
+       v-show="showMenu"
+       ref="MenuWrapper"
+       :style="{...menuWrapperCss, width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}">
+    <template v-for="(item,index) in calcMenuList">
+      <div class="__menu__item"
+           v-if="!item.hidden"
+           :key="index"
+           :style="{height: menuItemCss['height'], padding: menuItemCss['padding']}"
+           :class="{disabled: item.disabled}"
+           @mousedown.stop="handleMenuItemClick(item)"
+           @mouseenter="handleMenuMouseEnter($event,item)"
+           @mouseleave="handleMenuMouseLeave">
+        <span class="__menu__item-icon"
+              :style="{width: menuItemCss['iconSize'], height: menuItemCss['iconSize'], 'line-height': menuItemCss['iconSize']}"
+              v-if="hasIcon"></span>
+        <span class="__menu__item-label"
+              :style="{color: menuItemCss['labelColor'], 'font-size': menuItemCss['labelFontSize']}">{{item.label}}</span>
+        <span class="__menu__item-tips"
+              :style="{color: menuItemCss['tipsColor'], 'font-size': menuItemCss['tipsFontSize']}">{{item.tips || ''}}</span>
+        <span class="__menu__item-arrow"
+              v-if="hasSubMenu"
+              :class="{show: hasSubMenu && item.children}"
+              :style="{width: menuItemCss['arrowSize'],height: menuItemCss['arrowSize']}">
+          <span class="__menu__item-arrow-after"
+                v-show="hasSubMenu && item.children"
+                :style="`border-left: ${arrowRealSize}px solid ${menuItemCss['arrowColor']};border-top: ${arrowRealSize}px solid transparent;border-bottom: ${arrowRealSize}px solid transparent`"></span>
+        </span>
+        <div class="__menu__sub__wrapper"
+             :style="{top: `${subTop}px`, left: `${subLeft}px`, ...menuWrapperCss}"
+             v-show="hoverFlag"
+             v-if="item.children && item.children.length > 0">
+          <template v-for="(subItem,subIndex) in item.children">
+            <div class="__menu__sub__item"
+                 :key="subIndex"
+                 v-if="!subItem.hidden"
+                 :style="{height: menuItemCss['height'], padding: menuItemCss['padding']}"
+                 :class="{disabled: subItem.disabled}"
+                 @mousedown.stop="handleSubMenuItemClick(subItem)"
+                 @mouseenter="handleSubMenuMouseEnter"
+                 @mouseleave="handleSubMenuMouseLeave">
+              <span class="__menu__sub__item-label"
+                    :style="{color: menuItemCss['labelColor'], 'font-size': menuItemCss['labelFontSize']}">{{subItem.label}}</span>
+              <span class="__menu__sub__item-label"
+                    :style="{color: menuItemCss['tipsColor'], 'font-size': menuItemCss['tipsFontSize']}">{{subItem.tips || ''}}</span>
+            </div>
+          </template>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
+import { clone } from './utils/helper'
 export default {
   name: 'MouseMenuV',
   props: {
+    menuHiddenFn: Function,
+    menuWidth: Number,
     menuList: Array,
     hasIcon: Boolean,
-    clickDomEl: HTMLElement,
     menuWrapperCss: Object,
     menuItemCss: Object
   },
@@ -58,7 +68,12 @@ export default {
     return {
       subLeft: 0,
       subTop: 0,
-      hoverFlag: false
+      hoverFlag: false,
+      menuTop: 0,
+      menuLeft: 0,
+      showMenu: true,
+      calcMenuList: [],
+      clickDomEl: null
     }
   },
   computed: {
@@ -80,13 +95,13 @@ export default {
   },
   methods: {
     handleMenuItemClick (item) {
-      if (item.fn && typeof item.fn === 'function') {
+      if (item.fn && typeof item.fn === 'function' && !item.disabled) {
         item.fn(this.clickDomEl)
         document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
       }
     },
     handleSubMenuItemClick (subItem) {
-      if (subItem.fn && typeof subItem.fn === 'function') {
+      if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
         subItem.fn(this.clickDomEl)
         this.hoverFlag = false
         document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
@@ -94,7 +109,7 @@ export default {
     },
     handleMenuMouseEnter ($event, item) {
       $event.currentTarget.style.background = this.menuItemCss['hoverBackground']
-      if (item.children) {
+      if (item.children && !item.needDisabled) {
         this.hoverFlag = true
         const el = $event.currentTarget
         const subEl = el.querySelector('.__menu__sub__wrapper')
@@ -122,6 +137,42 @@ export default {
     },
     handleSubMenuMouseLeave (e) {
       e.currentTarget.style.background = this.menuWrapperCss['background']
+    },
+    handleShowMenu (x, y) {
+      this.clickDomEl = document.elementFromPoint(x - 1, y - 1)
+      if (this.menuHiddenFn && typeof this.menuHiddenFn === 'function') {
+        this.showMenu = !this.menuHiddenFn(this.clickDomEl)
+      }
+      if (this.showMenu) {
+        this.calcMenuList = clone(this.menuList)
+        this.setHiddenAndDisabled(this.calcMenuList, this.clickDomEl)
+        this.$nextTick(() => {
+          const { innerWidth: windowWidth, innerHeight: windowHeight } = window
+          const menu = this.$refs.MenuWrapper
+          const menuHeight = menu.offsetHeight
+          const menuWidth = this.menuWidth
+          this.menuLeft = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1
+          this.menuTop = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1
+          menu.style.visibility = 'visible'
+        })
+      }
+    },
+    setHiddenAndDisabled (list, clickDomEl) {
+      list.map(item => {
+        if (item.children) {
+          this.setHiddenAndDisabled(item.children, clickDomEl)
+        }
+        if (item.hidden && typeof item.hidden === 'function') {
+          item.hidden = item.hidden(clickDomEl)
+        } else {
+          item.hidden = false
+        }
+        if (item.disabled && typeof item.disabled === 'function') {
+          item.disabled = item.disabled(clickDomEl)
+        } else {
+          item.disabled = false
+        }
+      })
     }
   }
 }
@@ -147,6 +198,10 @@ export default {
 .__menu__item:hover,
 .__menu__sub__item:hover {
   background: rgba(255, 255, 255, 0.8);
+}
+.__menu__item.disabled,
+.__menu__sub__item.disabled {
+  cursor: not-allowed;
 }
 .__menu__item-icon {
   width: 20px;

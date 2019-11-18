@@ -18,6 +18,9 @@ export default {
   data () {
     return {
       options: {
+        hidden: (el) => {
+          return !el.getAttribute('class').includes('box-listitem')
+        },
         menuList: [
           {
             label: '检查',
@@ -25,12 +28,19 @@ export default {
             children: [
               {
                 label: '文本',
-                fn: (el) => this.detail(el)
+                fn: (el) => this.detail(el),
+                disabled: (el) => {
+                  return true
+                }
               },
               {
                 label: '源码'
               }
-            ]
+            ],
+            hidden: (el) => {
+              console.log('el', el)
+              return el.getAttribute('data-id') == 2
+            }
           },
           {
             label: '打开',

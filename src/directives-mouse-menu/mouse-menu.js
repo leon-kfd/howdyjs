@@ -1,4 +1,4 @@
-import { createDom } from './utils/dom'
+import { createDom } from './utils/helper'
 import Vue from 'vue'
 import MouseMenu from './mouse-menu.vue'
 export default {
@@ -53,9 +53,10 @@ export default {
         el: menu,
         data () {
           return {
+            menuHiddenFn: options.hidden,
+            menuWidth: options.width,
             menuList: options.menuList,
             hasIcon: options.hasIcon,
-            clickDomEl: null,
             menuWrapperCss,
             menuItemCss
           }
@@ -66,30 +67,26 @@ export default {
         render (createElement) {
           return createElement('mouse-menu', {
             props: {
+              menuHiddenFn: this.menuHiddenFn,
+              menuWidth: this.menuWidth,
               menuList: this.menuList,
               hasIcon: this.hasIcon,
-              clickDomEl: this.clickDomEl,
               menuWrapperCss: this.menuWrapperCss,
               menuItemCss: this.menuItemCss
-            }
+            },
+            ref: 'MouseMenu'
           })
+        },
+        methods: {
+          handleShowMenu (x, y) {
+            this.$refs.MouseMenu.handleShowMenu(x, y)
+          }
         }
       })
       const contextmenuEvent = function (e) {
         e.preventDefault()
         const { x, y } = e
-        const { innerWidth: windowWidth, innerHeight: windowHeight } = window
-        const {
-          width: menuWidth
-        } = options
-        menuVue.clickDomEl = document.elementFromPoint(x - 1, y - 1)
-        let menu = document.querySelector('.__menu__wrapper')
-        let menuHeight = menu.offsetHeight
-        let menuLeft = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1
-        let menuTop = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1
-        menu.style.top = `${menuTop}px`
-        menu.style.left = `${menuLeft}px`
-        menu.style.visibility = 'visible'
+        menuVue.handleShowMenu(x, y)
       }
     } else {
       throw new Error('At least set one menu list!')

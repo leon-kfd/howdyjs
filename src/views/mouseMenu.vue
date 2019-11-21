@@ -21,6 +21,8 @@ export default {
         hidden: (el) => {
           return !el.getAttribute('class').includes('box-listitem')
         },
+        hasIcon: true,
+        iconType: 'font-icon',
         menuList: [
           {
             label: '检查',
@@ -45,10 +47,12 @@ export default {
           {
             label: '打开',
             tips: 'Open',
+            icon: 'fas fa-folder-open',
             fn: (el) => this.detail(el)
           },
           {
-            label: '删除'
+            label: '删除',
+            icon: 'fas fa-trash-alt'
           },
           {
             label: '浏览'
@@ -58,7 +62,9 @@ export default {
           'border-radius': 0
         },
         menuItemCss: {
+          iconFontSize: '14px',
           hoverBackground: 'rgba(240,125,88,.8)',
+          hoverIconColor: '#fff',
           hoverLabelColor: '#fff',
           hoverTipsColor: '#fff',
           hoverArrowColor: '#fff'

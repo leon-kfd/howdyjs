@@ -6,6 +6,7 @@ import resize from './directives-resize/resize'
 // import resize from 'resize-directive'
 import scroll from './directives-scroll/scroll'
 import mouseMenu from './directives-mouse-menu/mouse-menu'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false
 

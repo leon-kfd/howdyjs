@@ -8,24 +8,26 @@ export default {
       width: 200,
       menuList: [],
       hasIcon: false,
+      IconType: 'font-icon',
       ...value
     }
     const menuWrapperCss = {
-      'width': '200px',
       'background': '#c8f2f0',
-      'box-shadow': '0 1px 5px #888',
+      'boxShadow': '0 1px 5px #888',
       'padding': '5px 0',
-      'border-radius': '4px',
+      'borderRadius': '4px',
       ...value.menuWrapperCss
     }
     const menuItemCss = {
       'height': '30px',
       'padding': '0 10px',
       iconSize: '20px',
+      iconFontSize: null, // 字体图标时可用
+      iconColor: '#484852',
       labelColor: '#484852',
       labelFontSize: '14px',
       tipsColor: '#889',
-      tipsSize: '12px',
+      tipsFontSize: '12px',
       arrowColor: '#484852',
       arrowSize: '10px',
       hoverBackground: 'rgba(255, 255, 255, 0.8)',
@@ -57,6 +59,7 @@ export default {
             menuWidth: options.width,
             menuList: options.menuList,
             hasIcon: options.hasIcon,
+            IconType: options.IconType,
             menuWrapperCss,
             menuItemCss
           }
@@ -71,6 +74,7 @@ export default {
               menuWidth: this.menuWidth,
               menuList: this.menuList,
               hasIcon: this.hasIcon,
+              IconType: this.IconType,
               menuWrapperCss: this.menuWrapperCss,
               menuItemCss: this.menuItemCss
             },

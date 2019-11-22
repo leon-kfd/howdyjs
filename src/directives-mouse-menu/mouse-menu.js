@@ -30,6 +30,7 @@ export default {
       tipsFontSize: '12px',
       arrowColor: '#484852',
       arrowSize: '10px',
+      disabledColor: '#bcc',
       hoverBackground: 'rgba(255, 255, 255, 0.8)',
       hoverLabelColor: null,
       hoverTipsColor: null,

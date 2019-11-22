@@ -23,8 +23,7 @@
               :class="{show: hasSubMenu && item.children}"
               :style="{width: menuItemCss['arrowSize'],height: menuItemCss['arrowSize']}">
           <span class="__menu__item-arrow-after"
-                v-show="hasSubMenu && item.children"
-                :style="`border-left: ${arrowRealSize}px solid ${menuItemCss['arrowColor']};border-top: ${arrowRealSize}px solid transparent;border-bottom: ${arrowRealSize}px solid transparent`"></span>
+                v-show="hasSubMenu && item.children"></span>
         </span>
         <div class="__menu__sub__wrapper"
              :style="{top: `${subTop}px`, left: `${subLeft}px`}"
@@ -34,7 +33,6 @@
             <div class="__menu__sub__item"
                  :key="subIndex"
                  v-if="!subItem.hidden"
-                 :style="{height: menuItemCss['height'], padding: menuItemCss['padding']}"
                  :class="{disabled: subItem.disabled}"
                  @mousedown.stop="handleSubMenuItemClick(subItem)">
               <span class="__menu__sub__item-label">{{subItem.label}}</span>
@@ -81,6 +79,9 @@ export default {
       Object.keys(this.menuItemCss).map(item => {
         el.style.setProperty(`--menu-item-${item}`, this.menuItemCss[item])
       })
+      let arrowSize = this.menuItemCss.arrowSize.match(/\d+/)
+      if (arrowSize) arrowSize = ~~arrowSize[0] || 10
+      el.style.setProperty(`--menu-item-arrowRealSize`, arrowSize / 2 + 'px')
     })
   },
   computed: {
@@ -93,11 +94,6 @@ export default {
         }
       }
       return flag
-    },
-    arrowRealSize () {
-      let full = this.menuItemCss.arrowSize.match(/\d+/)
-      if (full) full = ~~full[0] || 10
-      return full / 2
     }
   },
   methods: {
@@ -115,8 +111,7 @@ export default {
       }
     },
     handleMenuMouseEnter ($event, item) {
-      // $event.currentTarget.style.background = this.menuItemCss['hoverBackground']
-      if (item.children && !item.needDisabled) {
+      if (item.children && !item.disabled) {
         this.hoverFlag = true
         const el = $event.currentTarget
         const subEl = el.querySelector('.__menu__sub__wrapper')
@@ -136,15 +131,6 @@ export default {
         }
       }
     },
-    // handleMenuMouseLeave (e) {
-    //   e.currentTarget.style.background = this.menuWrapperCss['background']
-    // },
-    // handleSubMenuMouseEnter (e) {
-    //   e.currentTarget.style.background = this.menuItemCss['hoverBackground']
-    // },
-    // handleSubMenuMouseLeave (e) {
-    //   e.currentTarget.style.background = this.menuWrapperCss['background']
-    // },
     handleShowMenu (x, y) {
       this.clickDomEl = document.elementFromPoint(x - 1, y - 1)
       if (this.menuHiddenFn && typeof this.menuHiddenFn === 'function') {
@@ -171,13 +157,9 @@ export default {
         }
         if (item.hidden && typeof item.hidden === 'function') {
           item.hidden = item.hidden(clickDomEl)
-        } else {
-          item.hidden = false
         }
         if (item.disabled && typeof item.disabled === 'function') {
           item.disabled = item.disabled(clickDomEl)
-        } else {
-          item.disabled = false
         }
       })
     }
@@ -186,21 +168,6 @@ export default {
 </script>
 <style lang="scss">
 .__menu__wrapper {
-  // --menu-background: #c8f2f0;
-  // --menu-boxShadow: 0 1px 5px #888;
-  // --menu-padding: 5px 0;
-  // --menu-borderRadius: 4px;
-  // --menu-item-height: 30px;
-  // --menu-item-padding: 0 10px;
-  // --menu-item-iconSize: 20px;
-  // --menu-item-iconFontSize: inherit;
-  // --menu-item-iconColor: #484852;
-  // --menu-item-labelColor: #484852;
-  // --menu-item-labelFontSize: 14px;
-  // --menu-item-tipsColor: #889;
-  // --menu-item-tipsFontSize: 12px;
-  // --menu-item-arrowColor: #484852;
-  // --menu-item-hoverBackground: rgba(255, 255, 255, 0.8);
   --menu-item-hoverIconColor: inherit;
   --menu-item-hoverLabelColor: inherit;
   --menu-item-hoverTipsColor: inherit;
@@ -257,10 +224,23 @@ export default {
   }
   &.disabled {
     cursor: not-allowed;
+    .__menu__item-icon,
+    .__menu__item-label,
+    .__menu__sub__item-label,
+    .__menu__item-tips,
+    .__menu__sub__item-tips {
+      color: var(--menu-item-disabledColor);
+    }
+    .__menu__item-arrow {
+      .__menu__item-arrow-after {
+        border-left: var(--menu-item-arrowRealSize) solid
+          var(--menu-item-disabledColor);
+      }
+    }
   }
 }
 .__menu__item {
-  &:hover {
+  &:not(.disabled):hover {
     background: var(--menu-item-hoverBackground);
     .__menu__item-icon {
       color: var(--menu-item-hoverIconColor);
@@ -277,7 +257,7 @@ export default {
   }
 }
 .__menu__sub__item {
-  &:hover {
+  &:not(.disabled):hover {
     background: var(--menu-item-hoverBackground);
     .__menu__sub__item-label {
       color: var(--menu-item-hoverLabelColor);
@@ -299,9 +279,9 @@ export default {
   width: 0;
   height: 0;
   left: 8px;
-  border-left: 5px solid #484852;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
+  border-left: var(--menu-item-arrowRealSize) solid var(--menu-item-arrowColor);
+  border-top: var(--menu-item-arrowRealSize) solid transparent;
+  border-bottom: var(--menu-item-arrowRealSize) solid transparent;
 }
 .__menu__sub__wrapper {
   position: fixed;

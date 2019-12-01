@@ -1,4 +1,4 @@
-# scroll-directives
+# scroll-directive
 
 **Vue指令-scroll**
 

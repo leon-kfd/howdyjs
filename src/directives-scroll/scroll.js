@@ -167,7 +167,7 @@ const setDisplayForHover = function (el) {
 }
 
 // Drag scroll
-const addDragScroll = function (el) {
+const addDragScroll = function (el, directionArr) {
   el.onmousedown = function (e) {
     // const { top: elClientRectTop, left: elClientRectLeft } = el.getBoundingClientRect()
     const { scrollTop, scrollLeft, scrollHeight, offsetHeight, scrollWidth, offsetWidth } = el
@@ -194,8 +194,12 @@ const addDragScroll = function (el) {
         elScrollTop = elScrollTopMax
       }
       el.querySelector('.scroll__wrapper').style.transform = `translate(${elScrollLeft}px, ${elScrollTop}px)`
-      el.querySelector('.scroll__track_x .scroll__thumb').style.transform = `translateX(${thumbMoveOffsetX}px)`
-      el.querySelector('.scroll__track_y .scroll__thumb').style.transform = `translateY(${thumbMoveOffsetY}px)`
+      if (directionArr.includes('x')) {
+        el.querySelector('.scroll__track_x .scroll__thumb').style.transform = `translateX(${thumbMoveOffsetX}px)`
+      }
+      if (directionArr.includes('y')) {
+        el.querySelector('.scroll__track_y .scroll__thumb').style.transform = `translateY(${thumbMoveOffsetY}px)`
+      }
       el.scrollTop = elScrollTop
       el.scrollLeft = elScrollLeft
     }
@@ -245,7 +249,7 @@ export default {
         createScrollBarTrack(el, item, options, scrollWrapper)
       })
       if (options.dragScroll) {
-        addDragScroll(el)
+        addDragScroll(el, directionArr)
       }
       if (options.thumbShow === 'hover') {
         setDisplayForHover(el)

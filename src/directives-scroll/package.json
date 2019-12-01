@@ -1,6 +1,6 @@
 {
   "name": "scroll-directive",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "A vue directive for custom scroll bar.",
   "main": "scroll.js",
   "scripts": {

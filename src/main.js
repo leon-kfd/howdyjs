@@ -2,10 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import resize from './directives-resize/resize'
+import resize from './directive-resize/resize'
 // import resize from 'resize-directive'
-import scroll from './directives-scroll/scroll'
-import mouseMenu from './directives-mouse-menu/mouse-menu'
+import scroll from './directive-scroll/scroll'
+import mouseMenu from './directive-mouse-menu/mouse-menu'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false

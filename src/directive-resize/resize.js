@@ -40,6 +40,7 @@ const createLineEl = (direction, element, options, dashedLine) => {
     const elParentOffset = isX ? elParent.offsetLeft : elParent.offsetTop
     const scrollEl = scrollElSelector ? document.querySelector(scrollElSelector) : document.documentElement
     const scrollSize = isX ? scrollEl.scrollLeft : scrollEl.scrollTop
+    console.log('scrollSize', scrollSize)
     document.body.style.userSelect = 'none'
     let moveValidFlag = true
     const resizeFn = () => {

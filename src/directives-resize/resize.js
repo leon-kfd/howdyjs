@@ -40,6 +40,7 @@ const createLineEl = (direction, element, options, dashedLine) => {
     const elParentOffset = isX ? elParent.offsetLeft : elParent.offsetTop
     const scrollEl = scrollElSelector ? document.querySelector(scrollElSelector) : document.documentElement
     const scrollSize = isX ? scrollEl.scrollLeft : scrollEl.scrollTop
+    document.body.style.userSelect = 'none'
     let moveValidFlag = true
     const resizeFn = () => {
       let resize = document.createEvent('HTMLEvents')
@@ -82,6 +83,7 @@ const createLineEl = (direction, element, options, dashedLine) => {
     document.onmouseup = function () {
       document.onmousemove = null
       document.onmouseup = null
+      document.body.style.userSelect = 'auto'
       if (!immediate) {
         dashedLine.style.visibility = 'hidden'
         if (moveValidFlag) {

@@ -88,6 +88,10 @@ export default {
         {
           name: 'Absolute Basic',
           introduce: 'Absolute定位布局'
+        },
+        {
+          name: 'All Direction',
+          introduce: 'Abosulute-全方向'
         }
       ],
       page: '',

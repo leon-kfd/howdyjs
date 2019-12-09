@@ -23,6 +23,11 @@ const resizeRouter = [
     path: '/resize-directive/example3',
     name: 'resize-example3',
     component: () => import('@/pages/resize-directive/example/example3')
+  },
+  {
+    path: '/resize-directive/example4',
+    name: 'resize-example4',
+    component: () => import('@/pages/resize-directive/example/example4')
   }
 ]
 

@@ -8,7 +8,9 @@ export default `
            ref="box1"></div>
       <div class="box2"
            v-resize="options"
-           @resize="handleResize"></div>
+           @resize="handleResize">
+        <p class="text">Set this box resize left & right</p>
+      </div>
       <div class="box3"
            ref="box3"></div>
     </div>
@@ -17,12 +19,12 @@ export default `
 
 <script>
 export default {
-  name: 'flex',
+  name: 'example2',
   data () {
     return {
       options: {
         direction: ['left', 'right'],
-        scrollElSelector: '#example1' // Demo中可能会出现滚动条
+        scrollElSelector: '#example2' // Demo中可能会出现滚动条
       }
     }
   },
@@ -49,6 +51,7 @@ export default {
   height: 500px;
   margin: 20px auto;
   display: flex;
+  box-shadow: 0 1px 5px #ccc;
 }
 .box1 {
   width: 33.33%;
@@ -65,6 +68,12 @@ export default {
   height: 100%;
   background: #ddf1d5;
 }
+.text {
+  font-size: 12px;
+  color: #889;
+  padding: 5px;
+}
 </style>
+
 \`\`\`
 `

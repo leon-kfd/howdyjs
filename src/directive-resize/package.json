@@ -1,6 +1,6 @@
 {
   "name": "resize-directive",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A vue directive for resize box.",
   "main": "resize.js",
   "scripts": {

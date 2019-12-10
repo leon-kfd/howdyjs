@@ -92,6 +92,10 @@ export default {
         {
           name: 'All Direction',
           introduce: 'Abosulute-全方向'
+        },
+        {
+          name: 'Immediate',
+          introduce: '直接更改宽高'
         }
       ],
       page: '',

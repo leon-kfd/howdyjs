@@ -46,7 +46,7 @@ export default `
 
 <script>
 export default {
-  name: 'flex',
+  name: 'example3',
   data () {
     return {
       options: {
@@ -60,7 +60,7 @@ export default {
       let el = e.target
       let resizeWidth = e.resizeWidth
       el.style.width = \`\${resizeWidth}px\`
-      this.$refs.a.style.width = \`\${800 - resizeWidth}px\`
+      this.$refs.a.style.width = \`\${600 - resizeWidth}px\`
     },
     handleResizeY (e) {
       console.log(e)
@@ -74,7 +74,7 @@ export default {
       let el = e.target
       let resizeWidth = e.resizeWidth
       el.style.width = \`\${resizeWidth}px\`
-      this.$refs.c.style.width = \`\${800 - resizeWidth}px\`
+      this.$refs.c.style.width = \`\${600 - resizeWidth}px\`
     },
     handleResizeY1 (e) {
       console.log(e)
@@ -98,7 +98,7 @@ export default {
   flex-wrap: wrap;
 }
 .wrapper {
-  width: 800px;
+  width: 600px;
   height: 400px;
   margin: 20px;
   position: relative;
@@ -113,13 +113,13 @@ export default {
   position: absolute;
 }
 .x .box1 {
-  width: 400px;
+  width: 300px;
   height: 100%;
   left: 0;
   top: 0;
 }
 .x .box2 {
-  width: 400px;
+  width: 300px;
   height: 100%;
   right: 0;
   top: 0;
@@ -142,5 +142,6 @@ export default {
   padding: 5px;
 }
 </style>
+
 \`\`\`
 `

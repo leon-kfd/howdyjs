@@ -42,6 +42,7 @@ export default {
   height: 500px;
   margin: 20px auto;
   display: flex;
+  box-shadow: 0 1px 5px #ccc;
 }
 .box1 {
   width: 50%;

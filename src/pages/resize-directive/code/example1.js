@@ -17,7 +17,7 @@ export default `
 
 <script>
 export default {
-  name: 'flex',
+  name: 'example1',
   data () {
     return {
       options: {
@@ -29,8 +29,8 @@ export default {
     handleResizeX (e) {
       console.log(e)
       let el = e.target
-      el.style.width = \`\${ e.resizeWidthPercent }% \`
-      this.$refs.resize.style.width = \`\${ 100 - e.resizeWidthPercent }% \`
+      el.style.width = \`\${e.resizeWidthPercent}%\`
+      this.$refs.resize.style.width = \`\${100 - e.resizeWidthPercent}%\`
     }
   }
 }
@@ -44,6 +44,7 @@ export default {
   height: 500px;
   margin: 20px auto;
   display: flex;
+  box-shadow: 0 1px 5px #ccc;
 }
 .box1 {
   width: 50%;
@@ -61,5 +62,6 @@ export default {
   padding: 5px;
 }
 </style>
+
 \`\`\`
 `

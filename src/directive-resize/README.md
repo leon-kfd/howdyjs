@@ -30,3 +30,14 @@
 |zIndex|生成的线条的zIndex|Number|-|999|
 
 > *Width属性的单位为px*
+
+### Event
+> 使用指令后，会自动加入一个resize的自定义事件监听。本指令并不会直接更改盒子的宽度高度，使用时需要在resize事件的回调中自行处理更改盒子宽高的逻辑,可直接使用“@resize="someMethod"”操作回调函数
+回调函数中提供以下参数
+|参数|说明|类型|
+|:---|:---|:---|
+|direction|本次操作的方向|String|
+|moveOffset|resize改变的偏移量，单位为px|Number|
+|moveOffsetPercent|resize改变的偏移量百分比，单位为%|Number|
+|resizeWidth/resizeHeight|更改的宽或高|Number|
+|resizeWidthPercent/resizeHeightPercent|更改的宽或高的百分比|Number|

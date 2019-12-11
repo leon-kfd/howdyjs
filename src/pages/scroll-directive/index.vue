@@ -14,7 +14,7 @@ export default {
   },
   data () {
     return {
-      mainName: 'resize',
+      mainName: 'scroll',
       readmeList: [
         {
           name: 'README',
@@ -25,22 +25,6 @@ export default {
         {
           name: 'Flex Basic',
           introduce: 'Flex布局-默认'
-        },
-        {
-          name: 'Flex Multiple',
-          introduce: 'Flex布局-两列'
-        },
-        {
-          name: 'Absolute Basic',
-          introduce: 'Absolute定位布局'
-        },
-        {
-          name: 'All Direction',
-          introduce: 'Abosulute-全方向'
-        },
-        {
-          name: 'Immediate',
-          introduce: '直接更改宽高'
         }
       ]
     }

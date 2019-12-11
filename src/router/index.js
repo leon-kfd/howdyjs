@@ -9,31 +9,28 @@ const resizeRouter = [
     name: 'resize-readme',
     component: () => import('@/pages/resize-directive/example/readme')
   },
+  ...new Array(5).fill(0).map((item, index) => {
+    return {
+      path: `/resize-directive/example${index + 1}`,
+      name: `resize-example${index + 1}`,
+      component: () => import(`@/pages/resize-directive/example/example${index + 1}`)
+    }
+  })
+]
+
+const scrollRouter = [
   {
-    path: '/resize-directive/example1',
-    name: 'resize-example1',
-    component: () => import('@/pages/resize-directive/example/example1')
-  },
-  {
-    path: '/resize-directive/example2',
-    name: 'resize-example2',
-    component: () => import('@/pages/resize-directive/example/example2')
-  },
-  {
-    path: '/resize-directive/example3',
-    name: 'resize-example3',
-    component: () => import('@/pages/resize-directive/example/example3')
-  },
-  {
-    path: '/resize-directive/example4',
-    name: 'resize-example4',
-    component: () => import('@/pages/resize-directive/example/example4')
-  },
-  {
-    path: '/resize-directive/example5',
-    name: 'resize-example5',
-    component: () => import('@/pages/resize-directive/example/example5')
+    path: '/scroll-directive/readme',
+    name: 'scroll-readme',
+    component: () => import('@/pages/scroll-directive/example/readme')
   }
+  // ...new Array(5).fill(0).map((item, index) => {
+  //   return {
+  //     path: `/scroll-directive/example${index + 1}`,
+  //     name: `scroll-example${index + 1}`,
+  //     component: () => import(`@/pages/scroll-directive/example/example${index + 1}`)
+  //   }
+  // })
 ]
 
 const routes = [
@@ -67,6 +64,13 @@ const routes = [
     component: () => import('@/pages/resize-directive'),
     children: resizeRouter,
     redirect: '/resize-directive/readme'
+  },
+  {
+    path: '/scroll-directive',
+    name: 'scroll-directive',
+    component: () => import('@/pages/scroll-directive'),
+    children: scrollRouter,
+    redirect: '/scroll-directive/readme'
   }
 ]
 

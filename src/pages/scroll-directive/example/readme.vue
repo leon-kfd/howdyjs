@@ -13,7 +13,7 @@ export default {
   },
   data () {
     return {
-      mainName: 'resize'
+      mainName: 'scroll'
     }
   }
 }

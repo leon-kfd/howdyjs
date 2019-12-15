@@ -62,6 +62,8 @@ export default {
 <style lang='scss' scoped>
 .page {
   overflow-x: auto;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
 }
 .flex-wrapper {
   width: 600px;

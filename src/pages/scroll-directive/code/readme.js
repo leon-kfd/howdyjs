@@ -28,7 +28,8 @@ export default `
 |scrollBarThumbBorderRadius|滚动条滑块是否需要圆角|Boolean|-|true|
 |scrollBarThumbBorderRadius|滚动条轨道颜色|String|-|transparent|
 |scrollBarThumbHoverColor|滚动条滑块Hover时的颜色|String|-|#889|
-|speedOfClickToScroll|点击轨道时的滚动速度（滚动效果使用requestAnimationFrame实现，该值表示每帧的位移量）|String|-|#889|
+|enableTrackClickScroll|是否允许点击轨道进行滚动|Boolean|-|true|
+|scrollSpeed|点击轨道时的滚动速度（滚动效果使用requestAnimationFrame实现，该值表示每帧的位移量，单位PX）|Number|-|20|
 |dragScroll|是否开启拖拽滚动|Boolean|-|false|
 |thumbShow|滚动条滑块显示方式，可选一直显示与Hover显示|String|always/hover|always|
 

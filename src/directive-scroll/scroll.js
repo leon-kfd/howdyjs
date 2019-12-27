@@ -1,7 +1,17 @@
 const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   el.style.position = 'relative'
   let isY = direction === 'y'
-  let { scrollBarWidth, scrollBarOffsetX, scrollBarOffsetY, scrollBarThumbColor, scrollBarThumbHoverColor, scrollBarThumbBorderRadius, scrollBarTrackColor, speedOfClickToScroll } = options
+  let {
+    scrollBarWidth,
+    scrollBarOffsetX,
+    scrollBarOffsetY,
+    scrollBarThumbColor,
+    scrollBarThumbHoverColor,
+    scrollBarThumbBorderRadius,
+    scrollBarTrackColor,
+    enableTrackClickScroll,
+    scrollSpeed
+  } = options
   scrollBarThumbBorderRadius = scrollBarThumbBorderRadius ? scrollBarWidth / 2 : 0
   const track = document.createElement('div')
   let trackCssText = isY
@@ -19,6 +29,9 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   let { offsetHeight, scrollHeight, offsetWidth, scrollWidth } = el
   let offsetSize = isY ? offsetHeight : offsetWidth
   let scrollSize = isY ? scrollHeight : scrollWidth
+  if (scrollSize <= offsetSize) { // Don't need show overflow scroll
+    return
+  }
   let thumbSize = offsetSize / scrollSize * offsetSize
   thumbCssText += isY ? `height: ${thumbSize}px;` : `width: ${thumbSize}px`
   thumb.style.cssText = thumbCssText
@@ -81,24 +94,30 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
       document.onmouseup = null
     }
   }
-  track.onmousedown = function (e) {
-    const trackEl = e.target
-    const clickPosition = isY ? (e.clientY - trackEl.getBoundingClientRect().top) : (e.clientX - trackEl.getBoundingClientRect().left)
-    let thumbMoveOffset = clickPosition - thumbSize / 2
-    if (thumbMoveOffset < 0) {
-      thumbMoveOffset = 0
-    } else if (thumbMoveOffset > thumbScrollTopMax) {
-      thumbMoveOffset = thumbScrollTopMax
+
+  // 允许点击轨道进行滚动
+  if (enableTrackClickScroll) {
+    track.onmousedown = function (e) {
+      const trackEl = e.target
+      const clickPosition = isY ? (e.clientY - trackEl.getBoundingClientRect().top) : (e.clientX - trackEl.getBoundingClientRect().left)
+      let thumbMoveOffset = clickPosition - thumbSize / 2
+      if (thumbMoveOffset < 0) {
+        thumbMoveOffset = 0
+      } else if (thumbMoveOffset > thumbScrollTopMax) {
+        thumbMoveOffset = thumbScrollTopMax
+      }
+      __scroll__(trackEl, thumbMoveOffset)
     }
-    __scroll__(trackEl, thumbMoveOffset)
   }
+
+  // 滚动函数，使用requestAnimationFrame实现滚动动画
   const __scroll__ = function (trackEl, thumbMoveOffset) {
     const animateScroll = function () {
       let thumbScrollTop, breakAnimation
       let [thumbBeforeOffset] = trackEl.childNodes[0].style.transform.match(/\d+(\.\d+)?/) || [0]
       thumbBeforeOffset = ~~thumbBeforeOffset
       if (thumbMoveOffset > thumbBeforeOffset) {
-        thumbBeforeOffset += speedOfClickToScroll
+        thumbBeforeOffset += scrollSpeed
         if (thumbBeforeOffset < thumbMoveOffset) {
           elScrollTop = thumbBeforeOffset / offsetSize * scrollSize
           thumbScrollTop = thumbBeforeOffset
@@ -109,7 +128,7 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
           breakAnimation = true
         }
       } else {
-        thumbBeforeOffset -= speedOfClickToScroll
+        thumbBeforeOffset -= scrollSpeed
         if (thumbBeforeOffset > thumbMoveOffset) {
           elScrollTop = thumbBeforeOffset / offsetSize * scrollSize
           thumbScrollTop = thumbBeforeOffset
@@ -226,7 +245,8 @@ export default {
         scrollBarThumbBorderRadius: true,
         scrollBarTrackColor: 'transparent',
         scrollBarThumbHoverColor: '#889',
-        speedOfClickToScroll: 20,
+        enableTrackClickScroll: true,
+        scrollSpeed: 20,
         dragScroll: false,
         thumbShow: 'always',
         ...value

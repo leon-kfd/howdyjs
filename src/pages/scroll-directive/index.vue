@@ -23,8 +23,8 @@ export default {
       ],
       exampleList: [
         {
-          name: 'Flex Basic',
-          introduce: 'Flex布局-默认'
+          name: 'Basic',
+          introduce: '默认'
         }
       ]
     }

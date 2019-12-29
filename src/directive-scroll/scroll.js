@@ -1,3 +1,12 @@
+window.requestAnimFrame = (function () {
+  return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback, 1000 / 60)
+    }
+})()
+
 const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   el.style.position = 'relative'
   let isY = direction === 'y'
@@ -46,7 +55,7 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   const thumbScrollTopMax = offsetSize - thumbSize
   if (isY) {
     el.onmousewheel = function (wheel) {
-      let deltaY = wheel.deltaY
+      let deltaY = wheel.deltaY || 100
       if (!isInThumbMouseMove) {
         elScrollTop = deltaY < 0
           ? elScrollTop < -deltaY
@@ -111,8 +120,12 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   }
 
   // 滚动函数，使用requestAnimationFrame实现滚动动画
+  let animateScroll
   const __scroll__ = function (trackEl, thumbMoveOffset) {
-    const animateScroll = function () {
+    if (animateScroll) {
+      window.cancelAnimationFrame(animateScroll)
+    }
+    animateScroll = function () {
       let thumbScrollTop, breakAnimation
       let [thumbBeforeOffset] = trackEl.childNodes[0].style.transform.match(/\d+(\.\d+)?/) || [0]
       thumbBeforeOffset = ~~thumbBeforeOffset
@@ -155,12 +168,14 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
 
 const setTranslate = function (el, direction, value) {
   let { transform } = window.getComputedStyle(el)
-  // let [a, b, c, d, x, y] = transform.match(/-?\d+\.?\d{0,}/g)
-  let [a, b, c, d, x, y] = transform.slice(7, -1).split(',')
+  let [a, b, c, d, x, y] = transform.match(/-?\d+\.?\d{0,}/g)
+  // let [, , , , x, y] = transform.slice(7, -1).split(',')
   if (direction === 'x') {
     el.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`
+    // el.style.transform = `translate(${value}px, ${y}px)`
   } else if (direction === 'y') {
     el.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
+    // el.style.transform = `translate(${x}px, ${value}px)`
   }
 }
 

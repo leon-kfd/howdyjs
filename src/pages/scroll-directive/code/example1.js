@@ -1,3 +1,5 @@
+export default `
+\`\`\`
 <template>
   <div id="example1">
     <div class="wrapper">
@@ -16,9 +18,9 @@ export default {
   name: 'example1',
   data () {
     return {
-      text: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
+      text: \`Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
             cupiditate fugiat, libero, doloremque veniam dolorem autem praesentium qui laudantium voluptas omnis. 
-            Odit optio nulla quis perspiciatis!`
+            Odit optio nulla quis perspiciatis!\`
     }
   }
 }
@@ -44,3 +46,5 @@ export default {
   padding: 5px;
 }
 </style>
+\`\`\`
+`

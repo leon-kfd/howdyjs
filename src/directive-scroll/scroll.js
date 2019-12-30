@@ -1,12 +1,3 @@
-window.requestAnimFrame = (function () {
-  return window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    function (callback) {
-      window.setTimeout(callback, 1000 / 60)
-    }
-})()
-
 const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   el.style.position = 'relative'
   let isY = direction === 'y'
@@ -55,7 +46,8 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   const thumbScrollTopMax = offsetSize - thumbSize
   if (isY) {
     el.onmousewheel = function (wheel) {
-      let deltaY = wheel.deltaY || 100
+      console.log(wheel)
+      let deltaY = -wheel.wheelDelta || wheel.deltaY
       if (!isInThumbMouseMove) {
         elScrollTop = deltaY < 0
           ? elScrollTop < -deltaY

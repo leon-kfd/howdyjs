@@ -1,15 +1,11 @@
+export default `
+\`\`\`
 <template>
-  <div id="example1">
+  <div id="example3">
     <div class="wrapper">
-      <div class="scroll-box1"
-           v-scroll>
-        <p v-for="num in 20"
-           class="text"
-           :key="num">{{text}}</p>
-      </div>
-      <div class="scroll-box2"
-           v-scroll:all>
-        <p v-for="num in 20"
+      <div class="scroll-box"
+           v-scroll:all="scrollSetting">
+        <p v-for="num in 30"
            class="text"
            style="width: 800px"
            :key="num">{{text}}</p>
@@ -17,15 +13,22 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
-  name: 'example1',
+  name: 'example2',
   data () {
     return {
-      text: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
+      scrollSetting: {
+        scrollBarWidth: 8,
+        scrollBarOffsetX: 3,
+        scrollBarOffsetY: 4,
+        scrollBarThumbColor: 'rgb(225, 243, 216)',
+        scrollBarThumbHoverColor: 'rgb(200, 243, 199)',
+        dragScroll: true
+      },
+      text: \`Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
             cupiditate fugiat, libero, doloremque veniam dolorem autem praesentium qui laudantium voluptas omnis. 
-            Odit optio nulla quis perspiciatis!`
+            Odit optio nulla quis perspiciatis!\`
     }
   }
 }
@@ -36,17 +39,13 @@ export default {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.scroll-box1,
-.scroll-box2 {
-  width: 400px;
+.scroll-box {
+  width: 500px;
   height: 500px;
   margin: 20px;
   background: #c2c2e0;
-  overflow: auto;
+  overflow-y: auto;
   padding-right: 10px;
-}
-.scroll-box2 {
-  padding: 10px;
 }
 .text {
   font-size: 0.8rem;
@@ -56,3 +55,6 @@ export default {
   padding: 5px;
 }
 </style>
+
+\`\`\`
+`

@@ -102,7 +102,7 @@ const createLineEl = (direction, element, options, dashedLine) => {
 }
 
 export default {
-  inserted: function (el, binding) {
+  inserted (el, binding) {
     const { arg, value } = binding
     let options = {
       immediate: false,
@@ -143,7 +143,7 @@ export default {
       }
     })
   },
-  unbind: function (el) {
+  unbind (el) {
     [...el.querySelectorAll('.resize__line')].map(line => {
       line.removeEventListener('mousemove', line.mouseoverEvent)
       line.removeEventListener('mouseout', line.mouseoutEvent)

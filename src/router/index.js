@@ -24,7 +24,7 @@ const scrollRouter = [
     name: 'scroll-readme',
     component: () => import('@/pages/scroll-directive/example/readme')
   },
-  ...Array.from({ length: 1 }, (item, index) => {
+  ...Array.from({ length: 4 }, (item, index) => {
     return {
       path: `/scroll-directive/example${index + 1}`,
       name: `scroll-example${index + 1}`,

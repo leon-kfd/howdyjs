@@ -22,5 +22,6 @@ new Vue({
 }).$mount('#app')
 
 Vue.directive('resize', resize)
-Vue.directive('scroll', scroll)
+// Vue.directive('scroll', scroll)
 Vue.directive('mouseMenu', mouseMenu)
+Vue.use(scroll)

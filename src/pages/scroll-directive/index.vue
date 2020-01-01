@@ -25,6 +25,18 @@ export default {
         {
           name: 'Basic',
           introduce: '默认'
+        },
+        {
+          name: 'Custom Style',
+          introduce: '自定义样式'
+        },
+        {
+          name: 'Hover Mode',
+          introduce: '悬停展示'
+        },
+        {
+          name: 'Drag Scroll',
+          introduce: '拖拽滚动'
         }
       ]
     }

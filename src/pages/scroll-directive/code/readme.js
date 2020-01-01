@@ -23,11 +23,11 @@ export default `
 |direction|与上方Arg中的一致|String|x/y/all|y|
 |scrollBarWidth|滚动条宽度（轨道）|Number|-|6|
 |scrollBarOffsetX|滚动条水平偏移（padding)|Number|-|0|
-|scrollBarOffsetY|滚动条水平偏移（padding)|Number|-|0|
+|scrollBarOffsetY|滚动条垂直偏移（padding)|Number|-|0|
 |scrollBarThumbColor|滚动条滑块颜色|String|-|#aab|
 |scrollBarThumbBorderRadius|滚动条滑块是否需要圆角|Boolean|-|true|
 |scrollBarThumbBorderRadius|滚动条轨道颜色|String|-|transparent|
-|scrollBarThumbHoverColor|滚动条滑块Hover时的颜色|String|-|#889|
+|scrollBarThumbHoverColor|滚动条滑块Hover时的颜色（默认不设置）|String|-|-|
 |enableTrackClickScroll|是否允许点击轨道进行滚动|Boolean|-|true|
 |scrollSpeed|点击轨道时的滚动速度（滚动效果使用requestAnimationFrame实现，该值表示每帧的位移量，单位PX）|Number|-|20|
 |dragScroll|是否开启拖拽滚动|Boolean|-|false|

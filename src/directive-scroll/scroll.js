@@ -12,6 +12,7 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
     enableTrackClickScroll,
     scrollSpeed
   } = options
+  let scrollBarThumbColorIsGradient = scrollBarThumbColor.includes('gradient')
   scrollBarThumbBorderRadius = scrollBarThumbBorderRadius ? scrollBarWidth / 2 : 0
   const track = document.createElement('div')
   let trackCssText = isY
@@ -25,7 +26,12 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
     ? `position: relative;top: 0;right: 0;width: ${scrollBarWidth + scrollBarOffsetX * 2}px;padding: ${scrollBarOffsetY}px ${scrollBarOffsetX}px;box-sizing:border-box;cursor: pointer;`
     : `position: relative;bottom: 0;left: 0;height: ${scrollBarWidth + scrollBarOffsetX * 2}px;padding: ${scrollBarOffsetX}px ${scrollBarOffsetY}px;box-sizing:border-box;cursor: pointer;`
   const thumbInner = document.createElement('div')
-  let thumbInnerCssText = `width: 100%;height:100%;background: ${scrollBarThumbColor};border-radius: ${scrollBarThumbBorderRadius}px;`
+  let thumbInnerCssText = `width: 100%;height:100%;border-radius: ${scrollBarThumbBorderRadius}px;`
+  if (scrollBarThumbColorIsGradient) {
+    thumbInnerCssText += `background-image: ${scrollBarThumbColor};`
+  } else {
+    thumbInnerCssText += `background: ${scrollBarThumbColor};`
+  }
   let { offsetHeight, scrollHeight, offsetWidth, scrollWidth } = el
   let offsetSize = isY ? offsetHeight : offsetWidth
   let scrollSize = isY ? scrollHeight : scrollWidth
@@ -46,7 +52,6 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
   const thumbScrollTopMax = offsetSize - thumbSize
   if (isY) {
     el.onmousewheel = function (wheel) {
-      console.log(wheel)
       let deltaY = -wheel.wheelDelta || wheel.deltaY
       if (!isInThumbMouseMove) {
         elScrollTop = deltaY < 0
@@ -61,11 +66,13 @@ const createScrollBarTrack = (el, direction, options, scrollWrapper) => {
       return false
     }
   }
-  thumb.onmouseenter = function () {
-    thumbInner.style.background = scrollBarThumbHoverColor
-  }
-  thumb.onmouseleave = function () {
-    thumbInner.style.background = scrollBarThumbColor
+  if (scrollBarThumbHoverColor) {
+    thumb.onmouseenter = function () {
+      thumbInner.style.background = scrollBarThumbHoverColor
+    }
+    thumb.onmouseleave = function () {
+      thumbInner.style.background = scrollBarThumbColor
+    }
   }
   thumb.onmousedown = function (downEvent) {
     downEvent.stopPropagation()
@@ -201,6 +208,7 @@ const addDragScroll = function (el, directionArr) {
     const [elScrollLeftMax, elScrollTopMax] = [scrollWidth - offsetWidth, scrollHeight - offsetHeight]
     const [thumbScrollLeftMax, thumbScrollTopMax] = [offsetWidth - (offsetWidth / scrollWidth * offsetWidth), offsetHeight - (offsetHeight / scrollHeight * offsetHeight)]
     document.body.style.userSelect = 'none'
+    document.body.style.cursor = 'pointer'
     document.onmousemove = function (moveEvent) {
       const { clientX, clientY } = moveEvent
       let [elScrollLeft, elScrollTop] = [beforeClientX - clientX + scrollLeft, beforeClientY - clientY + scrollTop]
@@ -233,12 +241,63 @@ const addDragScroll = function (el, directionArr) {
       document.onmousemove = null
       document.onmouseup = null
       document.body.style.userSelect = 'default'
+      document.body.style.cursor = 'default'
     }
   }
 }
 
 export default {
-  inserted: function (el, binding) {
+  install (Vue, userOptions) {
+    Vue.directive('scroll', {
+      inserted (el, binding) {
+        const { arg, value } = binding
+        const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
+        const customGlobalOptions = userOptions || {}
+        if (!isMobile) {
+          el.style.overflow = 'hidden'
+          const options = {
+            direction: ['y'],
+            scrollBarWidth: 6,
+            scrollBarOffsetX: 0,
+            scrollBarOffsetY: 0,
+            scrollBarThumbColor: '#aab',
+            scrollBarThumbBorderRadius: true,
+            scrollBarTrackColor: 'transparent',
+            enableTrackClickScroll: true,
+            scrollSpeed: 20,
+            dragScroll: false,
+            thumbShow: 'always',
+            ...customGlobalOptions,
+            ...value
+          }
+          let directionArr = []
+          if (arg) {
+            if (arg === 'all') {
+              directionArr = ['x', 'y']
+            } else {
+              directionArr = [arg]
+            }
+          } else {
+            directionArr = options.direction
+          }
+          const scrollWrapper = document.createElement('div')
+          scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(0,0)`
+          scrollWrapper.setAttribute('class', 'scroll__wrapper')
+          el.appendChild(scrollWrapper)
+          directionArr.map(item => {
+            createScrollBarTrack(el, item, options, scrollWrapper)
+          })
+          if (options.dragScroll) {
+            addDragScroll(el, directionArr)
+          }
+          if (options.thumbShow === 'hover') {
+            setDisplayForHover(el)
+          }
+        }
+      }
+    })
+  },
+  inserted (el, binding) {
     const { arg, value } = binding
     const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
     if (!isMobile) {
@@ -251,7 +310,6 @@ export default {
         scrollBarThumbColor: '#aab',
         scrollBarThumbBorderRadius: true,
         scrollBarTrackColor: 'transparent',
-        scrollBarThumbHoverColor: '#889',
         enableTrackClickScroll: true,
         scrollSpeed: 20,
         dragScroll: false,
@@ -281,8 +339,6 @@ export default {
       if (options.thumbShow === 'hover') {
         setDisplayForHover(el)
       }
-    } else {
-      el.style.overflow = 'auto'
     }
   }
 }

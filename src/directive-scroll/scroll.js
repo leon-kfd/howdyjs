@@ -27,11 +27,12 @@ class ScrollDirective {
     }
     this.directionArr = directionArr
     this.el = el
+    this.timer = null
   }
 
-  init () {
+  init (defaultX = 0, defaultY = 0) {
     this.scrollWrapper = document.createElement('div')
-    this.scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(0,0)`
+    this.scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(${defaultX}px,${defaultY}px)`
     this.scrollWrapper.setAttribute('class', 'scroll__wrapper')
     this.el.appendChild(this.scrollWrapper)
     this.directionArr.map(item => {
@@ -62,6 +63,7 @@ class ScrollDirective {
     let scrollBarThumbColorIsGradient = scrollBarThumbColor.includes('gradient')
     scrollBarThumbBorderRadius = scrollBarThumbBorderRadius ? scrollBarWidth / 2 : 0
     const track = document.createElement('div')
+    track.setAttribute('direction', direction)
     let trackCssText = isY
       ? `position: absolute;right: 0;top: 0;height: 100%; width: ${scrollBarWidth + scrollBarOffsetX * 2}px;background: ${scrollBarTrackColor};`
       : `position: absolute;left: 0;bottom: 0;width: 100%; height: ${scrollBarWidth + scrollBarOffsetX * 2}px;background: ${scrollBarTrackColor};`
@@ -79,9 +81,9 @@ class ScrollDirective {
     } else {
       thumbInnerCssText += `background: ${scrollBarThumbColor};`
     }
-    let { offsetHeight, scrollHeight, offsetWidth, scrollWidth } = this.el
-    let offsetSize = isY ? offsetHeight : offsetWidth
-    let scrollSize = isY ? scrollHeight : scrollWidth
+    const { offsetHeight, scrollHeight, offsetWidth, scrollWidth, scrollTop, scrollLeft } = this.el
+    const offsetSize = isY ? offsetHeight : offsetWidth
+    const scrollSize = isY ? scrollHeight : scrollWidth
     if (scrollSize <= offsetSize) { // Don't need show overflow scroll
       return
     }
@@ -93,7 +95,9 @@ class ScrollDirective {
     thumbInner.setAttribute('class', 'scroll__thumb_inner')
     thumb.appendChild(thumbInner)
     track.appendChild(thumb)
-    let elScrollTop = 0
+    let elScrollTop = isY ? scrollTop : scrollLeft
+    let thumbScrollTop = elScrollTop / scrollSize * offsetSize
+    thumb.style.transform = isY ? `translateY(${thumbScrollTop}px)` : `translateX(${thumbScrollTop}px)`
     let isInThumbMouseMove = false
     const elScrollTopMax = scrollSize - offsetSize
     const thumbScrollTopMax = offsetSize - thumbSize
@@ -198,7 +202,7 @@ class ScrollDirective {
             breakAnimation = true
           }
         }
-        this.setTranslate(direction, elScrollTop)
+        this.setTranslate(direction, elScrollTop, this.scrollWrapper)
         thumb.style.transform = isY ? `translateY(${thumbScrollTop}px)` : `translateX(${thumbScrollTop}px)`
         if (isY) {
           this.el.scrollTop = elScrollTop
@@ -211,25 +215,40 @@ class ScrollDirective {
     }
   }
 
-  setTranslate (direction, value) {
-    let { transform } = window.getComputedStyle(this.scrollWrapper)
+  update (wait = 200) {
+    if (this.timer !== null) clearTimeout(this.timer)
+    this.timer = setTimeout(() => {
+      let { transform } = window.getComputedStyle(this.scrollWrapper)
+      let [, , , , x, y] = transform.match(/-?\d+\.?\d{0,}/g)
+      this.destory()
+      this.init(x, y)
+    }, wait)
+  }
+
+  destory () {
+    if (this.scrollWrapper) {
+      this.scrollWrapper.parentNode.removeChild(this.scrollWrapper)
+      this.scrollWrapper = null
+    }
+  }
+
+  setTranslate (direction, value, scrollWrapper) {
+    let { transform } = window.getComputedStyle(scrollWrapper)
     let [a, b, c, d, x, y] = transform.match(/-?\d+\.?\d{0,}/g)
     if (direction === 'x') {
-      this.scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`
+      scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`
     } else if (direction === 'y') {
-      this.scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
+      scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
     }
   }
 
   setDisplayForHover (el) {
     const thumbAppendCss = `opacity: 0;transition: opacity .4s ease-in-out`
     const scrollThumb = [...el.querySelectorAll('.scroll__thumb')]
-    console.log(scrollThumb)
     scrollThumb.map(item => {
       item.style.cssText = item.style.cssText + thumbAppendCss
     })
     el.mouseenterEvent = function () {
-      console.log(1)
       scrollThumb.map(item => {
         item.style.opacity = 1
       })
@@ -241,7 +260,6 @@ class ScrollDirective {
     }
     el.addEventListener('mouseenter', el.mouseenterEvent)
     el.addEventListener('mouseleave', el.mouseleaveEvent)
-    console.log(el)
   }
 
   setDragScroll (el, directionArr) {
@@ -302,6 +320,7 @@ export default {
           el.style.overflow = 'hidden'
           const scroll = new ScrollDirective(el, arg, customGlobalOptions, value)
           scroll.init()
+          el.$scroll = scroll
         }
       }
     })

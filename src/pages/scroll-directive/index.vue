@@ -37,6 +37,10 @@ export default {
         {
           name: 'Drag Scroll',
           introduce: '拖拽滚动'
+        },
+        {
+          name: 'Update',
+          introduce: '更新滚动条'
         }
       ]
     }

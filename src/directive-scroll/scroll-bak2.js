@@ -1,12 +1,7 @@
-class CustomScrollBar {
-  constructor({ el, options }) {
-    if (el instanceof HTMLElement) {
-      this.el = el
-    } else if (typeof el === 'string') {
-      this.el = document.querySelector(el)
-    }
+class ScrollDirective {
+  constructor(el, direction, option1, option2) {
     this.options = {
-      direction: 'y',
+      direction: ['y'],
       scrollBarWidth: 6,
       scrollBarOffsetX: 0,
       scrollBarOffsetY: 0,
@@ -17,11 +12,22 @@ class CustomScrollBar {
       scrollSpeed: 20,
       dragScroll: false,
       thumbShow: 'always',
-      ...options
+      ...option1,
+      ...option2
     }
-    this.directionArr = this.options.direction === 'all' ? ['x', 'y'] : ['x', 'y'].includes(this.options.direction) ? [this.direction] : ['y']
+    let directionArr = []
+    if (direction) {
+      if (direction === 'all') {
+        directionArr = ['x', 'y']
+      } else {
+        directionArr = [direction]
+      }
+    } else {
+      directionArr = this.options.direction
+    }
+    this.directionArr = directionArr
+    this.el = el
     this.timer = null
-    this.el.$scroll = this
   }
 
   init (defaultX = 0, defaultY = 0) {
@@ -29,8 +35,6 @@ class CustomScrollBar {
     this.scrollWrapper.style.cssText = `position: absolute;top:0;left:0;bottom:0;right:0;transform:translate(${defaultX}px,${defaultY}px)`
     this.scrollWrapper.setAttribute('class', 'scroll__wrapper')
     this.el.appendChild(this.scrollWrapper)
-    this.el.style.position = 'relative'
-    this.el.style.overflow = 'hidden'
     this.directionArr.map(item => {
       this.createScrollBarTrack(item)
     })
@@ -43,6 +47,7 @@ class CustomScrollBar {
   }
 
   createScrollBarTrack (direction) {
+    this.el.style.position = 'relative'
     const isY = direction === 'y'
     let {
       scrollBarWidth,
@@ -197,7 +202,7 @@ class CustomScrollBar {
             breakAnimation = true
           }
         }
-        this.setTranslate(direction, elScrollTop)
+        this.setTranslate(direction, elScrollTop, this.scrollWrapper)
         thumb.style.transform = isY ? `translateY(${thumbScrollTop}px)` : `translateX(${thumbScrollTop}px)`
         if (isY) {
           this.el.scrollTop = elScrollTop
@@ -227,13 +232,13 @@ class CustomScrollBar {
     }
   }
 
-  setTranslate (direction, value) {
-    let { transform } = window.getComputedStyle(this.scrollWrapper)
+  setTranslate (direction, value, scrollWrapper) {
+    let { transform } = window.getComputedStyle(scrollWrapper)
     let [a, b, c, d, x, y] = transform.match(/-?\d+\.?\d{0,}/g)
     if (direction === 'x') {
-      this.scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`
+      scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${value},${y})`
     } else if (direction === 'y') {
-      this.scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
+      scrollWrapper.style.transform = `matrix(${a},${b},${c},${d},${x},${value})`
     }
   }
 
@@ -312,16 +317,10 @@ export default {
         const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
         const customGlobalOptions = userOptions || {}
         if (!isMobile) {
-          let options = {
-            ...customGlobalOptions,
-            ...value,
-            direction: arg
-          }
-          const scroll = new CustomScrollBar({
-            el,
-            options
-          })
+          el.style.overflow = 'hidden'
+          const scroll = new ScrollDirective(el, arg, customGlobalOptions, value)
           scroll.init()
+          el.$scroll = scroll
         }
       }
     })
@@ -330,17 +329,9 @@ export default {
     const { arg, value } = binding
     const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
     if (!isMobile) {
-      let options = {
-        ...value,
-        direction: arg
-      }
-      const scroll = new CustomScrollBar({
-        el,
-        options
-      })
+      el.style.overflow = 'hidden'
+      const scroll = new ScrollDirective(el, arg, value)
       scroll.init()
     }
   }
 }
-
-export { CustomScrollBar }

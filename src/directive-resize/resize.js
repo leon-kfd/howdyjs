@@ -86,7 +86,7 @@ class CustomResize {
       let moveValidFlag = true
       const resizeFn = () => {
         let resize = document.createEvent('HTMLEvents')
-        resize.initEvent('resize')
+        resize.initEvent('resize', false, false)
         resize['direction'] = direction
         resize['moveOffset'] = moveOffset
         resize['moveOffsetPercent'] = moveOffset / elParentSize * 100
@@ -143,7 +143,7 @@ class CustomResize {
     return line
   }
 
-  destory () {
+  destroy () {
     [...this.el.querySelectorAll('.resize__line')].map(line => {
       line.removeEventListener('mousemove', line.mouseoverEvent)
       line.removeEventListener('mouseout', line.mouseoutEvent)
@@ -190,7 +190,7 @@ export default {
         resize.init()
       },
       unbind (el) {
-        el.$resize && el.$resize.destory()
+        el.$resize && el.$resize.destroy()
       }
     })
   },
@@ -220,7 +220,7 @@ export default {
     resize.init()
   },
   unbind (el) {
-    el.$resize && el.$resize.destory()
+    el.$resize && el.$resize.destroy()
   }
 }
 

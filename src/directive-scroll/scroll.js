@@ -220,7 +220,7 @@ class CustomScrollBar {
     }, wait)
   }
 
-  destory () {
+  destroy () {
     if (this.scrollWrapper) {
       this.scrollWrapper.parentNode.removeChild(this.scrollWrapper)
       this.scrollWrapper = null
@@ -312,7 +312,7 @@ export default {
         const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
         const customGlobalOptions = userOptions || {}
         if (!isMobile) {
-          let options = {
+          const options = {
             ...customGlobalOptions,
             ...value,
             direction: arg
@@ -330,7 +330,7 @@ export default {
     const { arg, value } = binding
     const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
     if (!isMobile) {
-      let options = {
+      const options = {
         ...value,
         direction: arg
       }

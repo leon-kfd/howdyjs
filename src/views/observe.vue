@@ -1,0 +1,47 @@
+<template>
+  <div id="observe">
+    <div class="container">
+      <div class="wrapper">
+        <div class="box"
+             ref="box"
+             v-observe="{wait: 500, immediate:false}"
+             @sizeChange="handleSizeChange"></div>
+        <div class="box">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import SizeObserve from '../directive-size-observe/size-observe'
+export default {
+  name: 'observe',
+  directives: {
+    observe: SizeObserve
+  },
+  methods: {
+    handleSizeChange (a) {
+      console.log(a)
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.container {
+  width: 100%;
+  // margin: 20px auto;
+  .wrapper {
+    width: 100%;
+    display: flex;
+    .box {
+      width: 80%;
+      height: 400px;
+      background: #ddf1d5;
+      box-shadow: 0 1px 10px #ccc;
+      border-radius: 5px;
+      margin: 20px;
+    }
+  }
+}
+</style>

@@ -59,15 +59,15 @@ export default {
           }
         ],
         menuWrapperCss: {
-          'border-radius': 0
+          // 'border-radius': 0
         },
         menuItemCss: {
-          iconFontSize: '14px',
-          hoverBackground: 'rgba(240,125,88,.8)',
-          hoverIconColor: '#fff',
-          hoverLabelColor: '#fff',
-          hoverTipsColor: '#fff',
-          hoverArrowColor: '#fff'
+          // iconFontSize: '14px',
+          // hoverBackground: 'rgba(240,125,88,.8)',
+          // hoverIconColor: '#fff',
+          // hoverLabelColor: '#fff',
+          // hoverTipsColor: '#fff',
+          // hoverArrowColor: '#fff'
         }
       }
     }

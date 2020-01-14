@@ -166,8 +166,24 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .__menu__wrapper {
+  --menu-background: #c8f2f0;
+  --menu-boxShadow: 0 1px 5px #888;
+  --menu-padding: 5px 0;
+  --menu-borderRadius: 0;
+  --menu-item-height: 30px;
+  --menu-item-padding: 0 10px;
+  --menu-item-iconSize: 20px;
+  --menu-item-iconFontSize: 14px;
+  --menu-item-iconColor: #484852;
+  --menu-item-labelColor: #484852;
+  --menu-item-labelFontSize: 14px;
+  --menu-item-tipsColor: #889;
+  --menu-item-tipsFontSize: 12px;
+  --menu-item-arrowColor: #484852;
+  --menu-item-disabledColor: #bcc;
+  --menu-item-hoverBackground: rgba(255, 255, 255, 0.8);
   --menu-item-hoverIconColor: inherit;
   --menu-item-hoverLabelColor: inherit;
   --menu-item-hoverTipsColor: inherit;
@@ -290,7 +306,7 @@ export default {
   background: #c8f2f0;
   box-shadow: 0 1px 5px #888;
   padding: 5px 0;
-  border-radius: 4px;
+  border-radius: var(--menu-borderRadius);
 }
 .__menu__item:hover .__menu__sub__wrapper {
   visibility: visible;

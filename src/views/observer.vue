@@ -4,7 +4,7 @@
       <div class="wrapper">
         <div class="box"
              ref="box"
-             v-observe="{wait: 500, immediate:false}"
+             v-observer="{wait: 500, immediate:false}"
              @sizeChange="handleSizeChange"></div>
         <div class="box">
         </div>
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import SizeObserve from '../directive-size-observe/size-observe'
+import SizeObserver from '../directive-size-observer/size-observer'
 export default {
-  name: 'observe',
+  name: 'observer',
   directives: {
-    observe: SizeObserve
+    observer: SizeObserver
   },
   methods: {
     handleSizeChange (a) {

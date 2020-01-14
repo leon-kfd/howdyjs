@@ -59,9 +59,9 @@ const routes = [
     component: () => import('../views/mouseMenu')
   },
   {
-    path: '/observe',
-    name: 'observe',
-    component: () => import('../views/observe')
+    path: '/observer',
+    name: 'observer',
+    component: () => import('../views/observer')
   },
   {
     path: '/resize-directive',

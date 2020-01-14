@@ -1,6 +1,6 @@
-import ResizeObserve from 'resize-observer-polyfill'
+import ResizeObserver from 'resize-observer-polyfill'
 
-class SizeObserve {
+class SizeObserver {
   constructor({ el, options }) {
     if (el instanceof HTMLElement) {
       this.el = el
@@ -33,7 +33,7 @@ class SizeObserve {
         this.el.dispatchEvent(sizeChange)
       }, this.options.wait)
     }
-    this.instance = new ResizeObserve(callback)
+    this.instance = new ResizeObserver(callback)
     this.instance.observe(this.el)
   }
 
@@ -44,7 +44,7 @@ class SizeObserve {
 
 export default {
   install (Vue, userOptions) {
-    Vue.directive('scroll', {
+    Vue.directive('observer', {
       inserted (el, binding) {
         const { value } = binding
         const customGlobalOptions = userOptions || {}
@@ -52,7 +52,7 @@ export default {
           ...customGlobalOptions,
           ...value
         }
-        const resizeObserve = new SizeObserve({ el, options })
+        const resizeObserve = new SizeObserver({ el, options })
         resizeObserve.init()
       },
       unbind (el) {
@@ -65,7 +65,7 @@ export default {
     const options = {
       ...value
     }
-    const resizeObserve = new SizeObserve({ el, options })
+    const resizeObserve = new SizeObserver({ el, options })
     resizeObserve.init()
   },
   unbind (el) {
@@ -73,4 +73,4 @@ export default {
   }
 }
 
-export { SizeObserve }
+export { SizeObserver }

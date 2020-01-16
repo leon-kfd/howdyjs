@@ -76,6 +76,11 @@ const routes = [
     component: () => import('@/pages/scroll-directive'),
     children: scrollRouter,
     redirect: '/scroll-directive/readme'
+  },
+  {
+    path: '/dialog-test',
+    name: 'dialog-test',
+    component: () => import('@/views/dialog-test')
   }
 ]
 

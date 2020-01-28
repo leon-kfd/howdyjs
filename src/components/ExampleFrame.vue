@@ -34,7 +34,6 @@
         </div>
       </div>
       <div class="code"
-           v-loading="codeLoading"
            v-resize:left="resizeOptions"
            @resize="handleResize">
         <p class="title">Code</p>
@@ -94,7 +93,7 @@ export default {
     async loadCode () {
       try {
         this.codeLoading = true
-        let code = await import(`@/pages/${this.mainName}-directive/code/${this.page.replace(this.mainName + '-', '')}`)
+        let code = await import(`@/pages/${this.mainName}/code/${this.page.replace(this.mainName + '-', '')}`)
         this.code = marked(code.default)
         this.codeLoading = false
       } catch (e) {
@@ -220,7 +219,7 @@ export default {
       padding: 0 20px;
       position: relative;
       &:after {
-        content: "";
+        content: '';
         position: absolute;
         left: 10px;
         top: 15px;

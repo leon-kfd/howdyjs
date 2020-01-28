@@ -1,4 +1,4 @@
-# resize-directive
+# Resize Directive
 
 **Vue指令-resize**
 

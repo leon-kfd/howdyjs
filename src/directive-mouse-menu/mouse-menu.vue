@@ -5,7 +5,7 @@
        :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}">
     <template v-for="(item,index) in calcMenuList">
       <div class="__menu__item"
-           v-if="!item.hidden"
+           v-if="!item.hidden && !item.line"
            :key="index"
            :class="{disabled: item.disabled}"
            @mousedown.stop="handleMenuItemClick(item)"
@@ -32,15 +32,21 @@
           <template v-for="(subItem,subIndex) in item.children">
             <div class="__menu__sub__item"
                  :key="subIndex"
-                 v-if="!subItem.hidden"
+                 v-if="!subItem.hidden && !subItem.line"
                  :class="{disabled: subItem.disabled}"
                  @mousedown.stop="handleSubMenuItemClick(subItem)">
               <span class="__menu__sub__item-label">{{subItem.label}}</span>
               <span class="__menu__sub__item-tips">{{subItem.tips || ''}}</span>
             </div>
+            <div class="__menu__line"
+                 v-if="subItem.line"
+                 :key="subIndex"></div>
           </template>
         </div>
       </div>
+      <div class="__menu__line"
+           v-if="item.line"
+           :key="index"></div>
     </template>
   </div>
 </template>
@@ -56,7 +62,8 @@ export default {
     hasIcon: Boolean,
     IconType: String,
     menuWrapperCss: Object,
-    menuItemCss: Object
+    menuItemCss: Object,
+    activeEl: {}
   },
   data () {
     return {
@@ -99,13 +106,13 @@ export default {
   methods: {
     handleMenuItemClick (item) {
       if (item.fn && typeof item.fn === 'function' && !item.disabled) {
-        item.fn(this.clickDomEl)
+        item.fn(this.clickDomEl, this.activeEl)
         document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
       }
     },
     handleSubMenuItemClick (subItem) {
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
-        subItem.fn(this.clickDomEl)
+        subItem.fn(this.clickDomEl, this.activeEl)
         this.hoverFlag = false
         document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
       }
@@ -138,7 +145,7 @@ export default {
       }
       if (this.showMenu) {
         this.calcMenuList = clone(this.menuList)
-        this.setHiddenAndDisabled(this.calcMenuList, this.clickDomEl)
+        this.formatterFnOption(this.calcMenuList, this.clickDomEl)
         this.$nextTick(() => {
           const { innerWidth: windowWidth, innerHeight: windowHeight } = window
           const menu = this.$refs.MenuWrapper
@@ -150,19 +157,28 @@ export default {
         })
       }
     },
-    setHiddenAndDisabled (list, clickDomEl) {
+    formatterFnOption (list, clickDomEl, activeEl) {
       list.map(item => {
         if (item.children) {
-          this.setHiddenAndDisabled(item.children, clickDomEl)
+          this.formatterFnOption(item.children, clickDomEl, activeEl)
+        }
+        if (item.label && typeof item.label === 'function') {
+          item.label = item.label(clickDomEl, activeEl)
+        }
+        if (item.tips && typeof item.tips === 'function') {
+          item.tips = item.tips(clickDomEl, activeEl)
         }
         if (item.hidden && typeof item.hidden === 'function') {
-          item.hidden = item.hidden(clickDomEl)
+          item.hidden = item.hidden(clickDomEl, activeEl)
         }
         if (item.disabled && typeof item.disabled === 'function') {
-          item.disabled = item.disabled(clickDomEl)
+          item.disabled = item.disabled(clickDomEl, activeEl)
         }
       })
     }
+  },
+  destroyed () {
+    this.showMenu = false
   }
 }
 </script>
@@ -188,6 +204,8 @@ export default {
   --menu-item-hoverLabelColor: inherit;
   --menu-item-hoverTipsColor: inherit;
   --menu-item-hoverArrowColor: inherit;
+  --menu-lineColor: #ccc;
+  --menu-lineMargin: 5px 0;
 }
 .__menu__wrapper {
   position: fixed;
@@ -197,6 +215,12 @@ export default {
   padding: var(--menu-padding);
   border-radius: var(--menu-borderRadius);
   visibility: hidden;
+  z-index: 99999;
+}
+.__menu__line,
+.__menu__sub__line {
+  border-top: 1px solid var(--menu-lineColor);
+  margin: var(--menu-lineMargin);
 }
 .__menu__item,
 .__menu__sub__item {
@@ -303,9 +327,9 @@ export default {
   position: fixed;
   visibility: hidden;
   width: 200px;
-  background: #c8f2f0;
-  box-shadow: 0 1px 5px #888;
-  padding: 5px 0;
+  background: var(--menu-background);
+  box-shadow: var(--menu-boxShadow);
+  padding: var(--menu-padding);
   border-radius: var(--menu-borderRadius);
 }
 .__menu__item:hover .__menu__sub__wrapper {

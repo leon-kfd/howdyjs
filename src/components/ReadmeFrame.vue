@@ -41,7 +41,7 @@ export default {
     async loadMarkdown () {
       try {
         this.apiLoading = true
-        let api = await import(`@/pages/${this.mainName}-directive/code/readme`)
+        let api = await import(`@/pages/${this.mainName}/code/readme`)
         this.readme = marked(api.default)
         this.apiLoading = false
       } catch (e) {
@@ -159,11 +159,11 @@ export default {
     line-height: 1.8;
   }
   a {
-    color: #f22f27;
+    color: #5b9df3;
     text-decoration: none;
   }
   a:hover {
-    color: #f55852;
+    color: #5b9df3;
     text-decoration: underline;
   }
   a:focus {
@@ -181,7 +181,7 @@ export default {
     color: #888;
   }
   blockquote:before {
-    content: "“";
+    content: '“';
     left: 12px;
     top: 0;
     color: #e0e0e0;
@@ -192,7 +192,7 @@ export default {
     position: absolute;
   }
   blockquote:after {
-    content: "”";
+    content: '”';
     right: 12px;
     bottom: -26px;
     color: #e0e0e0;
@@ -239,7 +239,7 @@ export default {
     color: #c7254e;
     background-color: #f9f2f4;
     border-radius: 4px;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
     padding: 2px 4px;
     font-size: 90%;
   }
@@ -296,7 +296,7 @@ export default {
     list-style-type: none;
   }
   ol#footnotes li:before {
-    content: counter(footer-counter) ". ";
+    content: counter(footer-counter) '. ';
     counter-increment: footer-counter;
     font-weight: 800;
     font-size: 0.95em;

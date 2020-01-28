@@ -1,5 +1,5 @@
 export default `
-# resize-directive
+# Resize Directive
 
 **Vue指令-resize**
 
@@ -47,4 +47,4 @@ export default `
 |resizeWidth/resizeHeight|更改的宽或高|Number|
 |resizeWidthPercent/resizeHeightPercent|更改的宽或高的百分比|Number|
 
-`
+`;

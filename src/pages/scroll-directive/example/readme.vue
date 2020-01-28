@@ -13,7 +13,7 @@ export default {
   },
   data () {
     return {
-      mainName: 'scroll'
+      mainName: 'scroll-directive'
     }
   }
 }

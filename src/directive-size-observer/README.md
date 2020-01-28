@@ -1,6 +1,6 @@
-# observer-directive
+# Size Observer Directive
 
-**Vue指令-observer**
+**Vue指令-sizeObserver**
 
 ## 特性
 1. 使用该指令可为绑定元素添加一个大小改变的监听
@@ -12,7 +12,7 @@
 ### Value (Object)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
-|wait|节流延迟(s)|Number|-|0|
+|wait|节流延迟(ms)|Number|-|0|
 |immediate|是否立即先执行一遍回调|Boolean|-|true|
 
 ### Event

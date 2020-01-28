@@ -44,7 +44,7 @@ class SizeObserver {
 
 export default {
   install (Vue, userOptions) {
-    Vue.directive('observer', {
+    Vue.directive('sizeObserver', {
       inserted (el, binding) {
         const { value } = binding
         const customGlobalOptions = userOptions || {}

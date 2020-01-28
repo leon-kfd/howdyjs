@@ -1,6 +1,6 @@
-# menu-directive
+# Mouse Menu Directive
 
-**Vue指令-menu**
+**Vue指令-mouse-menu**
 
 ## 特性
 1. 通过vue指令使用自定义菜单覆盖原生右键菜单
@@ -23,13 +23,14 @@
 #### menuList-菜单项数组配置
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
-|label|菜单名|String|-|-|
-|tips|菜单辅助文本（处于右侧的文本）|String|-|-|
-|children|子菜单的菜单项数组（配置与此表一致，但目前仅支持二级菜单）|Array|-|-|
+|fn|点击菜单后执行的回调,回调参数1为点击右键时所在的HtmlElement元素（使用document.elementFromPoint获取）,参数2为指令绑定的当前元素|Function|-|-|
+|label|菜单名, 可使用函数，回调参数同fn选项|String, Function|-|-|
+|tips|菜单辅助文本（处于右侧的文本），可使用函数，回调参数同fn选项|String, Function|-|-|
 |icon|菜单图标的类名（字体图标)|String|-|-|
-|fn|点击菜单后执行的回调,回调参数为点击右键时所在的HtmlElement元素（使用document.elementFromPoint获取）|Function|-|-|
-|hidden|判断是否隐藏的函数，回调参数同上|Function|-|-|
-|disabled|判断菜单项是否disabled的函数，回调参数同上|Function|-|-|
+|hidden|菜单项是否隐藏，可使用函数，回调参数同fn选项|Boolean, Function|-|-|
+|disabled|菜单项是否不可点击，可使用函数，回调参数同fn选项|Boolean, Function|-|-|
+|children|子菜单的菜单项数组（配置与此表一致，但目前仅支持二级菜单）|Array|-|-|
+|line|是否为分割线,该值为True时,以上设置均失效|Boolean|-|-|
 
 #### menuWrapperCss-菜单容器CSS设置
 |参数|说明|类型|可选值|默认值|
@@ -38,6 +39,8 @@
 |boxShadow|菜单容器阴影|String|-|0 1px 5px #888|
 |padding|默认padding|String|-|5px 0|
 |borderRadius|圆角|String|-|4px|
+|lineColor|分割线颜色|String|-|#ccc|
+|lineMargin|分割线Margin|String|-|5px 0|
 
 ### menuItemCss-菜单项CSS设置
 |参数|说明|类型|可选值|默认值|
@@ -59,4 +62,4 @@
 |hoverTipsColor|hover时菜单项tips的颜色|String|-|null|
 |hoverArrowColor|hover时菜单项arrow的颜色|String|-|null|
 
-> 以上涉及的CSS部分配置使用css3的css变量实现，若需兼容请自己定义样式表
+> 以上涉及的CSS部分配置使用css3的css变量实现，若需兼容IE请自己定义样式表

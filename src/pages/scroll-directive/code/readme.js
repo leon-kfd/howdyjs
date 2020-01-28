@@ -1,5 +1,5 @@
 export default `
-# scroll-directive
+# Scroll Directive
 
 **Vue指令-scroll**
 
@@ -35,4 +35,4 @@ export default `
 
 > *以上所有属性的单位为px*
 
-`
+`;

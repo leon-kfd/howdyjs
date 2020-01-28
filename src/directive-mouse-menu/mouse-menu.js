@@ -24,14 +24,18 @@ export default {
         if (e.button === 2) {
           document.addEventListener('contextmenu', contextmenuEvent)
         } else {
-          document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
+          if (document.querySelector('.__menu__wrapper')) {
+            document.querySelector('.__menu__wrapper').style.visibility = 'hidden'
+          }
         }
       }
       document.onmousedown = function (e) {
         document.removeEventListener('contextmenu', contextmenuEvent)
-        document.querySelector('.__menu__wrapper') && (document.querySelector('.__menu__wrapper').style.visibility = 'hidden')
+        if (document.querySelector('.__menu__wrapper')) {
+          document.querySelector('.__menu__wrapper').style.visibility = 'hidden'
+        }
       }
-      const menu = createDom('div', '__menu__wrapper')
+      const menu = document.querySelector('.__menu__wrapper') || createDom('div', '__menu__wrapper')
       document.body.appendChild(menu)
       const menuVue = new Vue({
         el: menu,
@@ -47,7 +51,8 @@ export default {
               hasIcon: options.hasIcon,
               IconType: options.IconType,
               menuWrapperCss,
-              menuItemCss
+              menuItemCss,
+              activeEl: el
             },
             ref: 'MouseMenu'
           })

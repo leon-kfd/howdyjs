@@ -45,7 +45,11 @@
          v-if="page===`${mainName}-readme`">
       <router-view></router-view>
     </div>
-    <div class="copyright">Copyright &copy; <a href="mailto:kfd_personal@163.com">Leon.KFD</a></div>
+    <div class="copyright">
+      <img :src="homeImg"
+           @click="$router.push('/')"
+           class="home-img">Copyright &copy; <a href="mailto:kfd_personal@163.com">Leon.KFD</a>
+    </div>
   </div>
 </template>
 
@@ -80,7 +84,8 @@ export default {
       resizeOptions: {
         zIndex: 9999,
         tipLineColor: '#889'
-      }
+      },
+      homeImg: require('@/assets/Home.svg')
     }
   },
   mounted () {
@@ -243,6 +248,15 @@ export default {
   a {
     color: #f2c299;
     text-decoration: none;
+  }
+  .home-img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: rgb(91, 157, 243);
   }
 }
 </style>

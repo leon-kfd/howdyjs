@@ -51,7 +51,7 @@ export default {
   flex-wrap: wrap;
 }
 .box {
-  background: #ffe0e0;
+  background: linear-gradient(45deg, #bdc3c7, #2c3e50);
   height: 160px;
   width: 160px;
   margin: 20px;

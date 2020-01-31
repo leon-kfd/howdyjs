@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example">
     <div class="wrapper">
@@ -20,30 +19,22 @@ export default {
           {
             label: '打开',
             tips: 'Open',
-            fn: (currentEl, bindingEl) => {
-              console.log(currentEl, bindingEl)
-            }
+            fn: (currentEl, bindingEl) => console.log(currentEl, bindingEl)
           },
           {
             label: '编辑',
             tips: 'Edit',
-            fn: (currentEl, bindingEl) => {
-              console.log(currentEl, bindingEl)
-            }
+            fn: (currentEl, bindingEl) => console.log(currentEl, bindingEl)
           },
           {
             label: '删除',
             tips: 'Delete',
-            fn: (currentEl, bindingEl) => {
-              console.log(currentEl, bindingEl)
-            }
+            fn: (currentEl, bindingEl) => console.log(currentEl, bindingEl)
           },
           {
             label: '重命名',
             tips: 'Rename',
-            fn: (currentEl, bindingEl) => {
-              console.log(currentEl, bindingEl)
-            }
+            fn: (currentEl, bindingEl) => console.log(currentEl, bindingEl)
           }
         ]
       }
@@ -65,5 +56,5 @@ export default {
   padding: 5px;
 }
 </style>
-\`\`\`
-`
+
+```

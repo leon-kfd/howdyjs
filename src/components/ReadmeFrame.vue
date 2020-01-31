@@ -8,45 +8,15 @@
 </template>
 
 <script>
-// import marked from 'marked'
-// import hljs from 'highlight.js'
-// import 'highlight.js/styles/atom-one-dark-reasonable.css'
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: (code) => hljs.highlight('html', code).value,
-  pedantic: false,
-  gfm: true,
-  tables: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
-})
 export default {
   name: 'readmeFrame',
   props: {
-    mainName: String
+    mainName: String,
+    readme: String
   },
   data () {
     return {
-      apiLoading: false,
-      readme: ''
-    }
-  },
-  mounted () {
-    this.loadMarkdown()
-  },
-  methods: {
-    async loadMarkdown () {
-      try {
-        this.apiLoading = true
-        let api = await import(`@/pages/${this.mainName}/code/readme`)
-        this.readme = marked(api.default)
-        this.apiLoading = false
-      } catch (e) {
-        console.log(e)
-      }
+      apiLoading: false
     }
   }
 }

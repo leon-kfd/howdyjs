@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div class="page"
        id="example1">
@@ -29,8 +28,8 @@ export default {
     handleResizeX (e) {
       console.log(e)
       let el = e.target
-      el.style.width = \`\${e.resizeWidthPercent}%\`
-      this.$refs.resize.style.width = \`\${100 - e.resizeWidthPercent}%\`
+      el.style.width = `${e.resizeWidthPercent}%`
+      this.$refs.resize.style.width = `${100 - e.resizeWidthPercent}%`
     }
   }
 }
@@ -63,5 +62,4 @@ export default {
 }
 </style>
 
-\`\`\`
-`
+```

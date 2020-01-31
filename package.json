@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "npm run vue-to-md && vue-cli-service serve",
+    "build": "npm run vue-to-md && vue-cli-service build",
+    "lint": "npm run vue-to-md && vue-cli-service lint",
+    "vue-to-md": "node src/utils/vue-to-md.js"
   },
   "dependencies": {
     "core-js": "^3.1.2",
@@ -25,6 +26,8 @@
     "babel-eslint": "^8.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "html-loader": "^0.5.5",
+    "markdown-loader": "^5.1.0",
     "node-sass": "^4.12.0",
     "resize-observer-polyfill": "^1.5.1",
     "sass-loader": "^8.0.0",

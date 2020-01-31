@@ -54,21 +54,21 @@
 </template>
 
 <script>
-import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/atom-one-dark-reasonable.css'
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: (code) => hljs.highlight('html', code).value,
-  pedantic: false,
-  gfm: true,
-  tables: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false
-})
+// import marked from 'marked'
+// import hljs from 'highlight.js'
+// import 'highlight.js/styles/atom-one-dark-reasonable.css'
+// marked.setOptions({
+//   renderer: new marked.Renderer(),
+//   highlight: (code) => hljs.highlight('html', code).value,
+//   pedantic: false,
+//   gfm: true,
+//   tables: true,
+//   breaks: false,
+//   sanitize: false,
+//   smartLists: true,
+//   smartypants: false,
+//   xhtml: false
+// })
 export default {
   name: 'ExampleFrame',
   props: {
@@ -88,9 +88,6 @@ export default {
       homeImg: require('@/assets/Home.svg')
     }
   },
-  mounted () {
-    this.loadCode()
-  },
   methods: {
     handleNavClick (index) {
       this.$router.push({ name: `${this.mainName}-example${index + 1}` })
@@ -98,8 +95,10 @@ export default {
     async loadCode () {
       try {
         this.codeLoading = true
-        let code = await import(`@/pages/${this.mainName}/code/${this.page.replace(this.mainName + '-', '')}`)
-        this.code = marked(code.default)
+        // let code = await import(`@/pages/${this.mainName}/code/${this.page.replace(this.mainName + '-', '')}`)
+        // this.code = marked(code.default)
+        let code = await import(`@/code/${this.mainName}/${this.page.replace(this.mainName + '-', '')}.md`)
+        this.code = code.default
         this.codeLoading = false
       } catch (e) {
         console.log(e)
@@ -115,7 +114,9 @@ export default {
     '$route.name': {
       handler (val) {
         this.page = val
-        this.loadCode()
+        if (val.includes('example')) {
+          this.loadCode()
+        }
       },
       immediate: true
     }

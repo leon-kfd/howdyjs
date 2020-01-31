@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example2">
     <div class="wrapper">
@@ -26,9 +25,9 @@ export default {
         scrollBarThumbColor: 'rgb(225, 243, 216)',
         scrollBarThumbHoverColor: 'rgb(200, 243, 199)'
       },
-      text: \`Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
+      text: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
             cupiditate fugiat, libero, doloremque veniam dolorem autem praesentium qui laudantium voluptas omnis. 
-            Odit optio nulla quis perspiciatis!\`
+            Odit optio nulla quis perspiciatis!`
     }
   },
   mounted () {
@@ -66,5 +65,5 @@ export default {
   padding: 5px;
 }
 </style>
-\`\`\`
-`
+
+```

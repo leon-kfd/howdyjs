@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div class="page"
        id="example4">
@@ -29,18 +28,18 @@ export default {
       let { direction } = e
       if (direction === 'right') {
         let resizeWidthPercent = e.resizeWidthPercent
-        el.style.width = \`\${resizeWidthPercent}%\`
+        el.style.width = `${resizeWidthPercent}%`
       } else if (direction === 'bottom') {
         let resizeHeightPercent = e.resizeHeightPercent
-        el.style.height = \`\${resizeHeightPercent}%\`
+        el.style.height = `${resizeHeightPercent}%`
       } else if (direction === 'left') {
         let { moveOffsetPercent, resizeWidthPercent } = e
-        el.style.width = \`\${resizeWidthPercent}%\`
-        el.style.left = \`\${moveOffsetPercent}%\`
+        el.style.width = `${resizeWidthPercent}%`
+        el.style.left = `${moveOffsetPercent}%`
       } else if (direction === 'top') {
         let { moveOffsetPercent, resizeHeightPercent } = e
-        el.style.height = \`\${resizeHeightPercent}%\`
-        el.style.top = \`\${moveOffsetPercent}%\`
+        el.style.height = `${resizeHeightPercent}%`
+        el.style.top = `${moveOffsetPercent}%`
       }
     }
   }
@@ -73,5 +72,5 @@ export default {
   padding: 5px;
 }
 </style>
-\`\`\`
-`
+
+```

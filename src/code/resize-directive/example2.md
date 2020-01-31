@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div class="page"
        id="example2">
@@ -32,11 +31,11 @@ export default {
     handleResize (e) {
       let el = e.target
       if (e.direction === 'left') {
-        el.style.width = \`\${e.resizeWidthPercent}%\`
-        this.$refs.box1.style.width = \`\${e.moveOffsetPercent}%\`
+        el.style.width = `${e.resizeWidthPercent}%`
+        this.$refs.box1.style.width = `${e.moveOffsetPercent}%`
       } else if (e.direction === 'right') {
-        el.style.width = \`\${e.resizeWidthPercent}%\`
-        this.$refs.box3.style.width = \`\${100 - e.moveOffsetPercent}%\`
+        el.style.width = `${e.resizeWidthPercent}%`
+        this.$refs.box3.style.width = `${100 - e.moveOffsetPercent}%`
       }
     }
   }
@@ -75,5 +74,4 @@ export default {
 }
 </style>
 
-\`\`\`
-`
+```

@@ -1,13 +1,11 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example3">
     <div class="wrapper">
       <div class="scroll-box"
-           v-scroll:all="scrollSetting">
-        <p v-for="num in 30"
+           v-scroll="scrollSetting1">
+        <p v-for="num in 20"
            class="text"
-           style="width: 800px"
            :key="num">{{text}}</p>
       </div>
     </div>
@@ -18,17 +16,17 @@ export default {
   name: 'example2',
   data () {
     return {
-      scrollSetting: {
+      scrollSetting1: {
         scrollBarWidth: 8,
         scrollBarOffsetX: 3,
         scrollBarOffsetY: 4,
         scrollBarThumbColor: 'rgb(225, 243, 216)',
         scrollBarThumbHoverColor: 'rgb(200, 243, 199)',
-        dragScroll: true
+        thumbShow: 'hover'
       },
-      text: \`Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
+      text: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
             cupiditate fugiat, libero, doloremque veniam dolorem autem praesentium qui laudantium voluptas omnis. 
-            Odit optio nulla quis perspiciatis!\`
+            Odit optio nulla quis perspiciatis!`
     }
   }
 }
@@ -56,5 +54,4 @@ export default {
 }
 </style>
 
-\`\`\`
-`
+```

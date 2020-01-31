@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example2">
     <div class="wrapper">
@@ -18,6 +17,7 @@ export default `
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'example2',
@@ -34,13 +34,13 @@ export default {
         scrollBarWidth: 8,
         scrollBarOffsetY: 2,
         scrollBarTrackColor: '#eee',
-        scrollBarThumbColor: \`linear-gradient(45deg, #ff80ab 5%, #ffc400 5%, #ffc400 15%, #ff80ab 15%, #ff80ab 25%, #ffc400 25%,
+        scrollBarThumbColor: `linear-gradient(45deg, #ff80ab 5%, #ffc400 5%, #ffc400 15%, #ff80ab 15%, #ff80ab 25%, #ffc400 25%,
                               #ffc400 35%, #ff80ab 35%, #ff80ab 45%, #ffc400 45%, #ffc400 55%, #ff80ab 55%, #ff80ab 65%, #ffc400 65%,
-                              #ffc400 75%, #ff80ab 75%, #ff80ab 85%, #ffc400 85%, #ffc400 95%, #ff80ab 95%, #ff80ab)\`
+                              #ffc400 75%, #ff80ab 75%, #ff80ab 85%, #ffc400 85%, #ffc400 95%, #ff80ab 95%, #ff80ab)`
       },
-      text: \`Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
+      text: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. In obcaecati sit asperiores dignissimos, 
             cupiditate fugiat, libero, doloremque veniam dolorem autem praesentium qui laudantium voluptas omnis. 
-            Odit optio nulla quis perspiciatis!\`
+            Odit optio nulla quis perspiciatis!`
     }
   }
 }
@@ -83,5 +83,5 @@ export default {
   }
 }
 </style>
-\`\`\`
-`
+
+```

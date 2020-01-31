@@ -1,10 +1,9 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example">
     <div class="wrapper">
       <ul class="btn-list">
-        <li><button @click="handleShowBounceDialog">Default (BounceIn / Out)</button></li>
+        <li><button @click="handleShowBounceDialog">BounceIn / Out (Default)</button></li>
         <li><button @click="handleShowFadeDialog">FadeInLeft / FadeOutRight</button></li>
         <li><button @click="handleShowZoomDialog">ZoomIn / ZoomOut</button></li>
         <li><button @click="handleShowFlipDialog">FlipInX / FlipOutX</button></li>
@@ -70,5 +69,5 @@ export default {
   cursor: pointer;
 }
 </style>
-\`\`\`
-`
+
+```

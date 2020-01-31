@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div class="page"
        id="example5">
@@ -36,26 +35,26 @@ export default {
   methods: {
     handleResizeX (e) {
       let el = e.target
-      el.style.width = \`\${e.resizeWidthPercent}%\`
-      this.$refs.resize.style.width = \`\${100 - e.resizeWidthPercent}%\`
+      el.style.width = `${e.resizeWidthPercent}%`
+      this.$refs.resize.style.width = `${100 - e.resizeWidthPercent}%`
     },
     handleResizeAll (e) {
       let el = e.target
       let { direction } = e
       if (direction === 'right') {
         let resizeWidthPercent = e.resizeWidthPercent
-        el.style.width = \`\${resizeWidthPercent}%\`
+        el.style.width = `${resizeWidthPercent}%`
       } else if (direction === 'bottom') {
         let resizeHeightPercent = e.resizeHeightPercent
-        el.style.height = \`\${resizeHeightPercent}%\`
+        el.style.height = `${resizeHeightPercent}%`
       } else if (direction === 'left') {
         let { moveOffsetPercent, resizeWidthPercent } = e
-        el.style.width = \`\${resizeWidthPercent}%\`
-        el.style.left = \`\${moveOffsetPercent}%\`
+        el.style.width = `${resizeWidthPercent}%`
+        el.style.left = `${moveOffsetPercent}%`
       } else if (direction === 'top') {
         let { moveOffsetPercent, resizeHeightPercent } = e
-        el.style.height = \`\${resizeHeightPercent}%\`
-        el.style.top = \`\${moveOffsetPercent}%\`
+        el.style.height = `${resizeHeightPercent}%`
+        el.style.top = `${moveOffsetPercent}%`
       }
     }
   }
@@ -107,5 +106,4 @@ export default {
 }
 </style>
 
-\`\`\`
-`
+```

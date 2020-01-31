@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example">
     <div class="wrapper">
@@ -105,5 +104,5 @@ export default {
   padding: 5px;
 }
 </style>
-\`\`\`
-`
+
+```

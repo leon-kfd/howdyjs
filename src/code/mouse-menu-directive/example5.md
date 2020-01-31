@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div id="example">
     <div class="wrapper">
@@ -28,7 +27,7 @@ export default {
         hidden: (el) => !el.getAttribute('class').includes('box-listitem'),
         menuList: [
           {
-            label: (currentEl) => \`#\${ currentEl.getAttribute('data-id') }\`,
+            label: (currentEl) => `#${currentEl.getAttribute('data-id')}`,
             disabled: true
           },
           {
@@ -82,5 +81,5 @@ export default {
   padding: 5px;
 }
 </style>
-\`\`\`
-`
+
+```

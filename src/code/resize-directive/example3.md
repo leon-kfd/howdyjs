@@ -1,5 +1,4 @@
-export default `
-\`\`\`
+```vue
 <template>
   <div class="page"
        id="example3">
@@ -59,29 +58,29 @@ export default {
       console.log(e)
       let el = e.target
       let resizeWidth = e.resizeWidth
-      el.style.width = \`\${resizeWidth}px\`
-      this.$refs.a.style.width = \`\${600 - resizeWidth}px\`
+      el.style.width = `${resizeWidth}px`
+      this.$refs.a.style.width = `${600 - resizeWidth}px`
     },
     handleResizeY (e) {
       console.log(e)
       let el = e.target
       let resizeHeight = e.resizeHeight
-      el.style.height = \`\${resizeHeight}px\`
-      this.$refs.b.style.height = \`\${400 - resizeHeight}px\`
+      el.style.height = `${resizeHeight}px`
+      this.$refs.b.style.height = `${400 - resizeHeight}px`
     },
     handleResizeX1 (e) {
       console.log(e)
       let el = e.target
       let resizeWidth = e.resizeWidth
-      el.style.width = \`\${resizeWidth}px\`
-      this.$refs.c.style.width = \`\${600 - resizeWidth}px\`
+      el.style.width = `${resizeWidth}px`
+      this.$refs.c.style.width = `${600 - resizeWidth}px`
     },
     handleResizeY1 (e) {
       console.log(e)
       let el = e.target
       let resizeHeight = e.resizeHeight
-      el.style.height = \`\${resizeHeight}px\`
-      this.$refs.d.style.height = \`\${400 - resizeHeight}px\`
+      el.style.height = `${resizeHeight}px`
+      this.$refs.d.style.height = `${400 - resizeHeight}px`
     }
   }
 }
@@ -143,5 +142,4 @@ export default {
 }
 </style>
 
-\`\`\`
-`
+```

@@ -1,4 +1,4 @@
-# animation-dialog
+# Animation Dialog
 
 **Vue组件-AnimationDialog**
 

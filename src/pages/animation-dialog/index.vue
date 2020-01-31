@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ExampleFrame from '@/components/ExampleFrame';
+import ExampleFrame from '@/components/ExampleFrame'
 export default {
   components: {
     ExampleFrame

@@ -12,8 +12,8 @@ module.exports = {
         {
           loader: 'markdown-loader',
           options: {
-            // highlight: (code) => hljs.highlight('html', code).value,
-            highlight: (code) => hljs.highlightAuto(code).value,
+            highlight: (code) => hljs.highlight('html', code).value,
+            // highlight: (code) => hljs.highlightAuto(code).value,
             pedantic: false,
             gfm: true,
             tables: true,

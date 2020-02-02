@@ -15,7 +15,8 @@ glob('src/pages/**/example/example*.vue', (err, files) => {
     const code = fs.readFileSync(file, 'utf8')
     const output = `\`\`\`vue
 ${code}
-\`\`\``
+\`\`\`
+`
     fs.writeFileSync(codeFileName, output)
   })
 })

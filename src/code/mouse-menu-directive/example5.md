@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       options: {
-        hidden: (el) => !el.getAttribute('class').includes('box-listitem'),
+        hidden: (el) => !(el.getAttribute('class') && el.getAttribute('class').includes('box-listitem')),
         menuList: [
           {
             label: (currentEl) => `#${currentEl.getAttribute('data-id')}`,

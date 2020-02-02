@@ -23,6 +23,11 @@
           <p class="introduce">{{item.introduce}}</p>
         </li>
       </ul>
+      <div class="copyright">
+        <img :src="homeImg"
+             @click="$router.push('/')"
+             class="home-img">Copyright &copy; <a href="mailto:kfd_personal@163.com">Leon.KFD</a>
+      </div>
     </div>
     <div class="content"
          v-if="page!==`${mainName}-readme`">
@@ -44,11 +49,6 @@
     <div class="readme-content"
          v-if="page===`${mainName}-readme`">
       <router-view></router-view>
-    </div>
-    <div class="copyright">
-      <img :src="homeImg"
-           @click="$router.push('/')"
-           class="home-img">Copyright &copy; <a href="mailto:kfd_personal@163.com">Leon.KFD</a>
     </div>
   </div>
 </template>

@@ -17,7 +17,9 @@
 
 ### Event
 > 使用指令后，会自动加入一个sizeChange的自定义事件监听,可直接使用“@sizeChange="someMethod"”操作回调函数
+
 回调函数中提供以下参数
+
 |参数|说明|类型|
 |:---|:---|:---|
 |contentRect|Dom大小改变后的位置信息|Object|

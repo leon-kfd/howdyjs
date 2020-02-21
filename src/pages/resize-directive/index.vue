@@ -2,7 +2,8 @@
   <div id="resizeDirective">
     <example-frame :mainName="mainName"
                    :readmeList="readmeList"
-                   :exampleList="exampleList"></example-frame>
+                   :exampleList="exampleList"
+                   disabledMobile></example-frame>
   </div>
 </template>
 

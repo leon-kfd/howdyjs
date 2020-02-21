@@ -2,7 +2,7 @@
   <div id="API">
     <div class="container">
       <div class="readme"
-           v-html="readme"></div>
+           v-html="transformReadme"></div>
     </div>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
     return {
       apiLoading: false
     }
+  },
+  computed: {
+    transformReadme () {
+      return this.readme.replace(/<table>(.|\n)*?<\/table>/g, '<div class="table-wrapper">$&</div>')
+    }
   }
 }
 </script>
@@ -32,10 +37,15 @@ export default {
 }
 </style>
 <style lang='scss'>
+.table-wrapper {
+  width: 100%;
+  overflow: auto;
+}
 .readme {
   table {
     width: 100%;
     max-width: 65em;
+    max-width: 100vw;
     border: 1px solid #c0c2e0;
     margin: 15px auto;
     border-collapse: collapse;

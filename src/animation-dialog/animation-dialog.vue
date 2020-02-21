@@ -29,7 +29,7 @@ export default {
   props: {
     width: {
       type: String,
-      default: '50vw'
+      default: '60vw'
     },
     height: {
       type: String,

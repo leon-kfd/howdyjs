@@ -291,7 +291,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 210px;
-  text-align: center;
+  padding-left: 50px;
   font-size: 13px;
   color: #889;
   line-height: 36px;
@@ -306,7 +306,7 @@ export default {
     height: 16px;
     cursor: pointer;
     position: absolute;
-    left: 10px;
+    left: 25px;
     top: 10px;
     color: rgb(91, 157, 243);
   }

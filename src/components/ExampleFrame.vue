@@ -268,6 +268,7 @@ export default {
       padding-top: 0;
       overflow-y: auto;
       font-size: 14px;
+      background: #282c34;
     }
   }
   .example,

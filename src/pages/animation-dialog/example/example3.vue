@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import AnimationDialog from '@/animation-dialog'
+import AnimationDialog from '@/packages/animation-dialog'
 export default {
   components: {
     AnimationDialog

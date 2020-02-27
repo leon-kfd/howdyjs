@@ -1,5 +1,5 @@
-// import Vue from 'vue'
-// import VueRouter from 'vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
@@ -83,6 +83,22 @@ const animationDialogRouter = [
   })
 ]
 
+const standardTableRouter = [
+  {
+    path: '/standard-table/readme',
+    name: 'standard-table-readme',
+    component: () => import('@/pages/standard-table/example/readme')
+  },
+  ...Array.from({ length: 9 }, (item, index) => {
+    return {
+      path: `/standard-table/example${index + 1}`,
+      name: `standard-table-example${index + 1}`,
+      component: () =>
+        import(`@/pages/standard-table/example/example${index + 1}`)
+    }
+  })
+]
+
 const routes = [
   {
     path: '/',
@@ -123,6 +139,13 @@ const routes = [
     component: () => import('@/pages/animation-dialog'),
     children: animationDialogRouter,
     redirect: '/animation-dialog/readme'
+  },
+  {
+    path: '/standard-table',
+    name: 'standard-table',
+    component: () => import('@/pages/standard-table'),
+    children: standardTableRouter,
+    redirect: '/standard-table/readme'
   }
 ]
 

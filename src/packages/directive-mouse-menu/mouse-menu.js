@@ -1,4 +1,4 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 import MouseMenu from './mouse-menu.vue'
 import { createDom } from './utils/helper'
 export default {

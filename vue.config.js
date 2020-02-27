@@ -26,5 +26,11 @@ module.exports = {
         }
       ]
     })
+    config.externals = {
+      mockjs: 'Mock',
+      vue: 'Vue',
+      'vue-router': 'VueRouter',
+      axios: 'axios'
+    }
   }
 }

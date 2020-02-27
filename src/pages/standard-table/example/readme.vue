@@ -7,7 +7,7 @@
 
 <script>
 import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/packages/directive-resize/README.md'
+import readme from '@/packages/standard-table/README.md'
 export default {
   name: 'readme',
   components: {
@@ -15,9 +15,9 @@ export default {
   },
   data () {
     return {
-      mainName: 'resize-directive',
+      mainName: 'standard-table',
       readme
-    }
+    };
   }
-}
+};
 </script>

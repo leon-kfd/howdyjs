@@ -18,28 +18,30 @@
          @click.self="navActive = false"></div>
     <div class="nav"
          :class="{active: navActive}">
-      <p class="nav-title">Document</p>
-      <ul class="nav-list">
-        <li class="nav-listitem"
-            v-for="(item,index) in readmeList"
-            :key="index"
-            :class="{active: page === `${mainName}-readme`}"
-            @click="$router.push({name: `${mainName}-readme`})">
-          <p class="title">#.{{item.name}}</p>
-          <p class="introduce">{{item.introduce}}</p>
-        </li>
-      </ul>
-      <p class="nav-title">Example</p>
-      <ul class="nav-list">
-        <li class="nav-listitem"
-            v-for="(item,index) in exampleList"
-            :key="index"
-            :class="{active: page == `${mainName}-example${index+1}`}"
-            @click="handleNavClick(index)">
-          <p class="title">{{index + 1}}.{{item.name}}</p>
-          <p class="introduce">{{item.introduce}}</p>
-        </li>
-      </ul>
+      <div class="nav-content">
+        <p class="nav-title">Document</p>
+        <ul class="nav-list">
+          <li class="nav-listitem"
+              v-for="(item,index) in readmeList"
+              :key="index"
+              :class="{active: page === `${mainName}-readme`}"
+              @click="$router.push({name: `${mainName}-readme`})">
+            <p class="title">#.{{item.name}}</p>
+            <p class="introduce">{{item.introduce}}</p>
+          </li>
+        </ul>
+        <p class="nav-title">Example</p>
+        <ul class="nav-list">
+          <li class="nav-listitem"
+              v-for="(item,index) in exampleList"
+              :key="index"
+              :class="{active: page == `${mainName}-example${index+1}`}"
+              @click="handleNavClick(index)">
+            <p class="title">{{index + 1}}.{{item.name}}</p>
+            <p class="introduce">{{item.introduce}}</p>
+          </li>
+        </ul>
+      </div>
       <div class="copyright">
         <img :src="homeImg"
              @click="$router.push('/')"
@@ -168,12 +170,14 @@ export default {
   width: 220px;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: 100%;
   background: #fff;
   box-shadow: 0 0 10px #ccc;
   z-index: 9999;
-  overflow-y: auto;
-  padding-bottom: 40px;
+  .nav-content {
+    height: calc(100% - 38px);
+    overflow-y: auto;
+  }
   .nav-title {
     font-size: 12px;
     color: #889;

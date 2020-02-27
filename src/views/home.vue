@@ -9,6 +9,10 @@
           <router-link :to="{name: item.link}">{{item.name}}</router-link>
         </li>
       </ul>
+      <p class="blog">
+        <a href="http://106.53.72.27"
+           target="_blank">VIEW THE BLOG</a>
+      </p>
     </div>
   </div>
 </template>
@@ -19,6 +23,10 @@ export default {
   data () {
     return {
       navList: [
+        {
+          name: 'Standard Table',
+          link: 'standard-table'
+        },
         {
           name: 'Animation Dialog',
           link: 'animation-dialog'
@@ -67,5 +75,11 @@ h2.title {
 }
 .entry-listitem a:hover {
   text-decoration: underline;
+}
+.blog {
+  border-top: 1px solid #ddeeff;
+  padding-top: 20px;
+  margin: 20px 0;
+  font-weight: bold;
 }
 </style>

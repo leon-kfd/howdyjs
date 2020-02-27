@@ -9,10 +9,13 @@
     "vue-to-md": "node src/utils/vue-to-md.js"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.1.2",
     "element-ui": "^2.13.0",
     "highlight.js": "^9.16.2",
     "marked": "^0.7.0",
+    "mockjs": "^1.1.0",
+    "promise.prototype.finally": "^3.1.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vuex": "^3.0.1"

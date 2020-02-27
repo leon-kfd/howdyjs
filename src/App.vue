@@ -11,17 +11,19 @@
   box-sizing: border-box;
 }
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-  background-color: #eee;
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #eee;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 6px;
   background: #bbb;
+  background-clip: padding-box;
 }
 </style>

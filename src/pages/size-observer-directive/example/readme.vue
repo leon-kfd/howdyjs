@@ -7,7 +7,7 @@
 
 <script>
 import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/directive-size-observer/README.md'
+import readme from '@/packages/directive-size-observer/README.md'
 export default {
   name: 'readme',
   components: {

@@ -7,7 +7,7 @@
 
 <script>
 import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/directive-mouse-menu/README.md'
+import readme from '@/packages/directive-mouse-menu/README.md'
 export default {
   name: 'readme',
   components: {

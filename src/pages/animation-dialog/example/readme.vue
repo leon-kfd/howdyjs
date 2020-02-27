@@ -7,7 +7,7 @@
 
 <script>
 import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/animation-dialog/README.md'
+import readme from '@/packages/animation-dialog/README.md'
 export default {
   name: 'readme',
   components: {

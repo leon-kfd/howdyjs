@@ -10,7 +10,7 @@
         </li>
       </ul>
       <p class="blog">
-        <a href="http://106.53.72.27"
+        <a href="http://www.kongfandong.cn"
            target="_blank">VIEW THE BLOG</a>
       </p>
     </div>

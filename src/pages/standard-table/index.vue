@@ -1,6 +1,7 @@
 <template>
   <div id="standardTable">
-    <example-frame :mainName="mainName"
+    <example-frame v-if="canLoad"
+                   :mainName="mainName"
                    :readmeList="readmeList"
                    :exampleList="exampleList"></example-frame>
   </div>
@@ -8,12 +9,49 @@
 
 <script>
 import ExampleFrame from '@/components/ExampleFrame'
+import { loadScriptSync } from '@/utils/helper'
+// import StandardTable from '@/packages/standard-table'
 export default {
   components: {
     ExampleFrame
   },
+  async created () {
+    await Promise.all([
+      loadScriptSync('https://cdn.bootcss.com/element-ui/2.12.0/index.js'),
+      loadScriptSync('https://cdn.bootcss.com/Mock.js/1.0.1-beta3/mock-min.js'),
+      loadScriptSync('https://cdn.bootcss.com/axios/0.19.2/axios.min.js')
+    ])
+    const { default: StandardTable } = await import('@/packages/standard-table')
+    Vue.use(ELEMENT, {
+      size: 'small',
+      zIndex: 8888
+    })
+    Vue.use(StandardTable, {
+      responseItems: 'data.data.items',
+      responseTotal: 'data.data.total',
+      pageSize: 15,
+      pageSizes: [10, 15, 20, 50, 100]
+      // axiosInstance: instance
+    })
+    this.canLoad = true
+    // loadScript('https://cdn.bootcss.com/element-ui/2.12.0/index.js', () => {
+    //   Vue.use(ELEMENT, {
+    //     size: 'small',
+    //     zIndex: 8888
+    //   })
+    //   Vue.use(StandardTable, {
+    //     responseItems: 'data.data.items',
+    //     responseTotal: 'data.data.total',
+    //     pageSize: 15,
+    //     pageSizes: [10, 15, 20, 50, 100]
+    //     // axiosInstance: instance
+    //   })
+    //   this.canLoad = true
+    // })
+  },
   data () {
     return {
+      canLoad: false,
       mainName: 'standard-table',
       readmeList: [
         {

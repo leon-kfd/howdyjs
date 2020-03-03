@@ -27,9 +27,9 @@ module.exports = {
       ]
     })
     config.externals = {
-      mockjs: 'Mock',
       vue: 'Vue',
       'vue-router': 'VueRouter',
+      mockjs: 'Mock',
       axios: 'axios'
     }
   }

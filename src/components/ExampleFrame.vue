@@ -167,7 +167,7 @@ export default {
 <style lang="scss" scoped>
 .nav {
   position: fixed;
-  width: 220px;
+  width: 230px;
   left: 0;
   top: 0;
   height: 100%;
@@ -221,10 +221,10 @@ export default {
   }
 }
 .readme-content {
-  margin-left: 220px;
+  margin-left: 230px;
 }
 .content {
-  margin-left: 220px;
+  margin-left: 230px;
   display: flex;
   height: 100vh;
   overflow-y: hidden;

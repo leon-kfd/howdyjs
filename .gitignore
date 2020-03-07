@@ -2,6 +2,8 @@
 node_modules
 /dist
 /src/code
+/src/howdy/lib
+/src/howdy/node_modules
 
 # local env files
 .env.local

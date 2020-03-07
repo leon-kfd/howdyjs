@@ -1,4 +1,4 @@
-import StandardTable from './src/standard-table'
+import StandardTable from './src/standard-table.vue'
 StandardTable.install = function (Vue, opt = {}) {
   const defaultOption = {
     requestPage: 'page',

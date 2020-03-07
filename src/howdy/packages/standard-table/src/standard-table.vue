@@ -234,8 +234,6 @@
 <script>
 import axios from 'axios'
 import { clone, addPropertyFromObj } from '../utils/object-method'
-import promiseFinally from 'promise.prototype.finally'
-promiseFinally.shim()
 export default {
   name: 'StandardTable',
   model: {
@@ -402,10 +400,10 @@ export default {
               this.$message ? this.$message.error(`返回数据items字段映射失败,请检查Map配置与后端返回数据是否正确...`) : alert(`返回数据items字段映射失败,请检查Map配置与后端返回数据是否正确...`)
             }
             resolve(data)
+            this.$emit('update:loading', false)
           }
         }, data => {
           reject(data)
-        }).finally(() => {
           this.$emit('update:loading', false)
         })
       })

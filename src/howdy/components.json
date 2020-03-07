@@ -1,0 +1,8 @@
+{
+  "animation-dialog": "./src/howdy/packages/animation-dialog/index.js",
+  "directive-mouse-menu": "./src/howdy/packages/directive-mouse-menu/index.js",
+  "directive-resize": "./src/howdy/packages/directive-resize/index.js",
+  "directive-scroll": "./src/howdy/packages/directive-scroll/index.js",
+  "directive-size-observer": "./src/howdy/packages/directive-size-observer/index.js",
+  "standard-table": "./src/howdy/packages/standard-table/index.js"
+}

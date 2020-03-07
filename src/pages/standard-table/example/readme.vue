@@ -7,7 +7,7 @@
 
 <script>
 import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/packages/standard-table/README.md'
+import readme from '@/howdy/packages/standard-table/README.md'
 export default {
   name: 'readme',
   components: {

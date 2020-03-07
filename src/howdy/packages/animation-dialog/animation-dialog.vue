@@ -24,6 +24,7 @@
 
 <script>
 import { insertAfter } from './utils/helper'
+import 'animate.css'
 export default {
   name: 'AnimationDialog',
   props: {
@@ -179,7 +180,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import url('./animate.css');
 .animation-dialog-wrapper {
   position: fixed;
   top: 0;

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import AnimationDialog from '@/packages/animation-dialog'
+import { AnimationDialog } from 'howdy'
 export default {
   components: {
     AnimationDialog

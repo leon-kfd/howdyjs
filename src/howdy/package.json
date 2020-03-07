@@ -1,0 +1,23 @@
+{
+  "name": "howdy",
+  "version": "1.0.4",
+  "description": "A collection of personal vue components or vue directives",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "VueComponents",
+    "VueDirective"
+  ],
+  "author": "leon-kfd",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "animate.css": "^3.7.2"
+  }
+}

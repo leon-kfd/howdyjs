@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import { AnimationDialog } from 'howdy'
+// import { AnimationDialog } from 'howdy'
 export default {
   components: {
-    AnimationDialog
+    // AnimationDialog
   },
   methods: {
     handleShowDialog (e) {

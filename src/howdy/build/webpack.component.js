@@ -7,7 +7,6 @@ module.exports = {
   entry: Components,
   output: {
     filename: '[name].js',
-    chunkFilename: '[id].js',
     libraryTarget: 'commonjs2',
     libraryExport: 'default',
     path: path.resolve(__dirname, '../lib')

@@ -1,4 +1,5 @@
 const hljs = require('highlight.js')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   productionSourceMap: false,
   publicPath: '/pratice',
@@ -32,5 +33,8 @@ module.exports = {
       mockjs: 'Mock',
       axios: 'axios'
     }
+    config.plugins.push(
+      new BundleAnalyzerPlugin()
+    )
   }
 }

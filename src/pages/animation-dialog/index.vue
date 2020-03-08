@@ -8,6 +8,8 @@
 
 <script>
 import ExampleFrame from '@/components/ExampleFrame'
+import { AnimationDialog } from '@/howdy/index.js'
+Vue.use(AnimationDialog)
 export default {
   components: {
     ExampleFrame

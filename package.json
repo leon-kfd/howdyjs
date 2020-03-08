@@ -7,11 +7,11 @@
     "build": "npm run vue-to-md && vue-cli-service build",
     "lint": "npm run vue-to-md && vue-cli-service lint",
     "vue-to-md": "node src/utils/vue-to-md.js",
-    "dist": "webpack --config src/howdy/build/webpack.config.js",
-    "dist1": "webpack --config src/howdy/build/webpack.component.js"
+    "dist": "webpack --config src/howdy/build/webpack.config.js && webpack --config src/howdy/build/webpack.component.js"
   },
   "dependencies": {
     "animate.css": "^3.7.2",
+    "resize-observer-polyfill": "^1.5.1",
     "axios": "^0.19.2",
     "core-js": "^3.1.2",
     "element-ui": "^2.13.0",
@@ -39,7 +39,6 @@
     "markdown-loader": "^5.1.0",
     "node-sass": "^4.12.0",
     "progress-bar-webpack-plugin": "^2.1.0",
-    "resize-observer-polyfill": "^1.5.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "uglifyjs-webpack-plugin": "^2.2.0",

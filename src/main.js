@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-// import resize from './packages/directive-resize/resize'
-// import scroll from './packages//directive-scroll/scroll'
-// import mouseMenu from './packages//directive-mouse-menu/mouse-menu'
-// import sizeObserver from './packages//directive-size-observer/size-observer'
+// import Resize from '@/howdy/lib/directive-resize'
+// import Scroll from '@/howdy/lib/directive-scroll'
+// import MouseMenu from '@/howdy/lib/directive-mouse-menu'
+// import SizeObserver from '@/howdy/lib/directive-size-observer'
 
 // import { Resize, Scroll, MouseMenu, SizeObserver } from './howdy'
-import { Resize, Scroll, MouseMenu, SizeObserver } from 'howdy'
+
+import { Resize, Scroll, MouseMenu, SizeObserver } from '@/howdy/index.js'
 
 Vue.config.productionTip = false
 

@@ -10,7 +10,7 @@
 <script>
 import ExampleFrame from '@/components/ExampleFrame'
 import { loadScriptSync } from '@/utils/helper'
-import { StandardTable } from 'howdy'
+import { StandardTable } from '@/howdy/index.js'
 export default {
   components: {
     ExampleFrame
@@ -21,7 +21,6 @@ export default {
       loadScriptSync('https://cdn.bootcss.com/Mock.js/1.0.1-beta3/mock-min.js'),
       loadScriptSync('https://cdn.bootcss.com/axios/0.19.2/axios.min.js')
     ])
-    // const { StandardTable } = await import('@/howdy')
     Vue.use(ELEMENT, {
       size: 'small',
       zIndex: 8888

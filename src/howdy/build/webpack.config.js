@@ -1,7 +1,8 @@
 const path = require('path')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   mode: 'production',
   entry: {
@@ -22,9 +23,24 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
-            plugins: ["transform-class-properties"]
+            "presets": [
+              [
+                "env",
+                {
+                  "loose": true,
+                  "modules": false,
+                  "targets": {
+                    "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+                  }
+                }
+              ],
+              "stage-2"
+            ]
           }
+          // options: {
+          //   presets: ['@babel/preset-env'],
+          //   plugins: ["transform-class-properties"]
+          // }
         }
       },
       {
@@ -49,7 +65,15 @@ module.exports = {
   plugins: [
     new ProgressBarPlugin(),
     new VueLoaderPlugin(),
-    // new BundleAnalyzerPlugin()
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        output: {
+          comments: false,
+          beautify: false
+        }
+      }
+    }),
+    new BundleAnalyzerPlugin()
   ],
   externals: {
     vue: 'Vue',

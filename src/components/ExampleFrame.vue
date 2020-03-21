@@ -45,7 +45,7 @@
       <div class="copyright">
         <img :src="homeImg"
              @click="$router.push('/')"
-             class="home-img">Copyright &copy; <a href="mailto:kfd_personal@163.com">Leon.KFD</a>
+             class="home-img">Copyright &copy; <a href="http://kongfandong.cn/blog/about">Leon.KFD</a>
       </div>
     </div>
     <div class="content"

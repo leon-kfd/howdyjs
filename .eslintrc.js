@@ -18,7 +18,7 @@ module.exports = {
     "no-trailing-spaces": "off",
     semi: "off",
     "no-prototype-builtins": "off",
-    "no-console": "off"
+    "no-console": "off",
   },
   parserOptions: {
     parser: "babel-eslint"

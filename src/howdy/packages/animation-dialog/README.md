@@ -20,11 +20,17 @@
 |time|动画执行时间|Number|-|500|
 |timingFunction|当animationMode为false时有效，过渡动画曲线|String|-|cubic-bezier(0.55,-0.15, 0.71, 1.35)|
 |openFromItself|是否使用自身作为Dialog，即Dialog为点击的元素(但打开的其实为Clone的Dom)|Boolean|-|false|
-|customStyle|自定义Dialog的样式|Object|-|-|
+|customClass|自定义Dialog的类名|String|-|-|
 
 
 ### 2 Methods 方法
-|参数|说明|参数|
+|方法名|说明|参数|
 |:---|:---|:---|
 |open|打开Dialog|el (在默认模式下，需要传实现交互的Dom，即点击元素，不传默认从中间打开)|
 |close|关闭Dialog|-|
+
+
+### 3 Events 事件
+|事件名|说明|回调参数|
+|:---|:---|:---|
+|beforeClose|关闭动画前执行事件|-|

@@ -8,7 +8,7 @@
     <div class="dialog-center-fake"
          ref="centerFake"></div>
     <div class="dialog"
-         :style="{ ...customStyle }"
+         :class="customClass"
          ref="main">
       <div class="icon-close"
            @click="close">
@@ -60,75 +60,76 @@ export default {
       type: Boolean,
       default: false
     },
-    customStyle: Object
+    customClass: String
   },
   data () {
     return {
       openerEl: null,
       cloneOpenerEl: null,
       show: false
-    };
+    }
   },
   computed: {
     animationTime () {
-      return this.time / 1000;
+      return this.time / 1000
     }
   },
   methods: {
     open (el) {
       if (this.animationMode) {
-        this.show = true;
+        this.show = true
         this.$nextTick(() => {
           const {
             width: staticWidth,
             height: staticHeight
-          } = this.$refs.staticFake.getBoundingClientRect();
-          this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`;
-          this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`;
+          } = this.$refs.staticFake.getBoundingClientRect()
+          this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`
+          this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`
           this.$nextTick(() => {
             const {
               top: afterTop,
               left: afterLeft,
               width: afterWidth,
               height: afterHeight
-            } = this.$refs.staticFake.getBoundingClientRect();
+            } = this.$refs.staticFake.getBoundingClientRect()
             this.$refs.main.style.cssText = `top:${afterTop}px; 
                                             left: ${afterLeft}px;
                                             width: ${afterWidth}px;
                                             height: ${afterHeight}px;
-                                            animation: ${this.animationIn} ${this.animationTime}s`;
-          });
-        });
+                                            animation: ${this.animationIn} ${this.animationTime}s`
+          })
+        })
       } else {
-        this.show = true;
+        this.show = true
         this.openerEl = !el
           ? this.$refs.centerFake
           : typeof el === 'string'
             ? document.querySelector(el)
-            : el;
-        this.openerEl.classList.add('is-open');
+            : el
+        this.openerEl.classList.add('is-open')
         this.$nextTick(() => {
           const {
             top,
             left,
             width,
             height
-          } = this.openerEl.getBoundingClientRect();
-          this.$refs.main.style.cssText = `top:${top}px; left: ${left}px;width: ${width}px;height: ${height}px;`;
+          } = this.openerEl.getBoundingClientRect()
+          this.$refs.main.classList.add('animating')
+          this.$refs.main.style.cssText = `top:${top}px; left: ${left}px;width: ${width}px;height: ${height}px;`
           const {
             width: staticWidth,
             height: staticHeight
-          } = this.$refs.staticFake.getBoundingClientRect();
-          this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`;
-          this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`;
+          } = this.$refs.staticFake.getBoundingClientRect()
+          this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`
+          this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`
           if (this.openFromItself) {
-            this.cloneOpenerEl = this.openerEl.cloneNode(true);
-            this.openerEl.style.visibility = 'hidden';
-            insertAfter(this.cloneOpenerEl, this.openerEl);
-            this.cloneOpenerEl.style.cssText = `position:absolute;top:0;left:0;right:0;bottom:0;margin:0;width: auto;height:auto;`;
+            this.cloneOpenerEl = this.openerEl.cloneNode(true)
+            this.openerEl.style.visibility = 'hidden'
+            insertAfter(this.cloneOpenerEl, this.openerEl)
+            this.cloneOpenerEl.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;margin:0;width: auto;height:auto;'
             this.$refs.main
               .querySelector('.dialog-body')
-              .appendChild(this.cloneOpenerEl);
+              .appendChild(this.cloneOpenerEl)
           }
           this.$nextTick(() => {
             const {
@@ -136,48 +137,55 @@ export default {
               left: afterLeft,
               width: afterWidth,
               height: afterHeight
-            } = this.$refs.staticFake.getBoundingClientRect();
+            } = this.$refs.staticFake.getBoundingClientRect()
             this.$refs.main.style.cssText = `top:${afterTop}px; 
                                           left: ${afterLeft}px;
                                           width: ${afterWidth}px;
                                           height: ${afterHeight}px;
-                                          transition: ${this.animationTime}s all ${this.timingFunction}`;
-          });
-        });
+                                          transition: ${this.animationTime}s all ${this.timingFunction}`
+            setTimeout(() => {
+              this.$refs.main.classList.remove('animating')
+            }, this.time + 100)
+          })
+        })
       }
     },
     close () {
       if (this.animationMode) {
-        this.$refs.main.style.animation = `${this.animationOut} ${this.animationTime}s`;
+        this.$refs.main.style.animation = `${this.animationOut} ${this.animationTime}s`
+        this.$emit('beforeClose')
         setTimeout(() => {
-          this.show = false;
-        }, this.time - 100);
+          this.show = false
+        }, this.time - 100)
       } else {
         const {
           top,
           left,
           width,
           height
-        } = this.openerEl.getBoundingClientRect();
+        } = this.openerEl.getBoundingClientRect()
+        this.$refs.main.classList.add('animating')
         this.$refs.main.style.cssText = `top:${top}px; 
                                       left: ${left}px;
                                       width: ${width}px;
                                       height: ${height}px;
-                                      transition: ${this.animationTime}s all ${this.timingFunction}`;
+                                      transition: ${this.animationTime}s all ${this.timingFunction}`
+        this.$emit('beforeClose')
         setTimeout(() => {
-          this.openerEl.classList.remove('is-open');
-          this.show = false;
+          this.openerEl.classList.remove('is-open')
+          this.$refs.main.classList.remove('animating')
+          this.show = false
           if (this.openFromItself) {
-            this.openerEl.style.visibility = 'visible';
+            this.openerEl.style.visibility = 'visible'
             this.$refs.main
               .querySelector('.dialog-body')
-              .removeChild(this.cloneOpenerEl);
+              .removeChild(this.cloneOpenerEl)
           }
-        }, this.time + 100);
+        }, this.time + 100)
       }
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .animation-dialog-wrapper {
@@ -214,6 +222,12 @@ export default {
       height: 100%;
       overflow-y: auto;
       padding: 20px;
+      text-align: left;
+    }
+    &.animating {
+      .dialog-body {
+        overflow: hidden;
+      }
     }
     .icon-close {
       width: 36px;

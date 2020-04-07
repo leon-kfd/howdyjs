@@ -98,15 +98,23 @@ export default {
       if (this.timer) clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         const {
-          top: afterTop,
-          left: afterLeft,
-          width: afterWidth,
-          height: afterHeight
+          width: staticWidth,
+          height: staticHeight
         } = this.$refs.staticFake.getBoundingClientRect()
-        this.$refs.main.style.top = `${afterTop}px`
-        this.$refs.main.style.left = `${afterLeft}px`
-        this.$refs.main.style.width = `${afterWidth}px`
-        this.$refs.main.style.height = `${afterHeight}px`
+        this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`
+        this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`
+        this.$nextTick(() => {
+          const {
+            top: afterTop,
+            left: afterLeft,
+            width: afterWidth,
+            height: afterHeight
+          } = this.$refs.staticFake.getBoundingClientRect()
+          this.$refs.main.style.top = `${afterTop}px`
+          this.$refs.main.style.left = `${afterLeft}px`
+          this.$refs.main.style.width = `${afterWidth}px`
+          this.$refs.main.style.height = `${afterHeight}px`
+        })
       }, this.debounceWait)
     },
     open (el) {
@@ -117,6 +125,7 @@ export default {
             width: staticWidth,
             height: staticHeight
           } = this.$refs.staticFake.getBoundingClientRect()
+          console.log(staticWidth, staticHeight)
           this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`
           this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`
           this.$nextTick(() => {

@@ -15,7 +15,8 @@
     </div>
     <AnimationDialog ref="dialog"
                      class="an-dialog"
-                     :openFromItself="true">
+                     :openFromItself="true"
+                     :listenWindowSizeChange="true">
       <div class="dialog-content">#{{active}}</div>
     </AnimationDialog>
   </div>

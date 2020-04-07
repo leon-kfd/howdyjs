@@ -60,13 +60,22 @@ export default {
       type: Boolean,
       default: false
     },
-    customClass: String
+    customClass: String,
+    listenWindowSizeChange: {
+      type: Boolean,
+      default: false
+    },
+    debounceWait: {
+      type: Number,
+      default: 200
+    }
   },
   data () {
     return {
       openerEl: null,
       cloneOpenerEl: null,
-      show: false
+      show: false,
+      timer: null
     }
   },
   computed: {
@@ -74,7 +83,32 @@ export default {
       return this.time / 1000
     }
   },
+  mounted () {
+    if (this.listenWindowSizeChange) {
+      window.addEventListener('resize', this.resetSize)
+    }
+  },
+  beforeDestroy () {
+    if (this.listenWindowSizeChange) {
+      window.removeEventListener('resize', this.resetSize)
+    }
+  },
   methods: {
+    resetSize () {
+      if (this.timer) clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        const {
+          top: afterTop,
+          left: afterLeft,
+          width: afterWidth,
+          height: afterHeight
+        } = this.$refs.staticFake.getBoundingClientRect()
+        this.$refs.main.style.top = `${afterTop}px`
+        this.$refs.main.style.left = `${afterLeft}px`
+        this.$refs.main.style.width = `${afterWidth}px`
+        this.$refs.main.style.height = `${afterHeight}px`
+      }, this.debounceWait)
+    },
     open (el) {
       if (this.animationMode) {
         this.show = true

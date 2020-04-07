@@ -21,7 +21,8 @@
 |timingFunction|当animationMode为false时有效，过渡动画曲线|String|-|cubic-bezier(0.55,-0.15, 0.71, 1.35)|
 |openFromItself|是否使用自身作为Dialog，即Dialog为点击的元素(但打开的其实为Clone的Dom)|Boolean|-|false|
 |customClass|自定义Dialog的类名|String|-|-|
-
+|listenWindowSizeChange|是否需要监听Window宽度变化而改变dialog宽度,默认不监听|Boolean|-|false|
+|debounceWait|监听Window宽度变化的延迟时间|Number|-|200|
 
 ### 2 Methods 方法
 |方法名|说明|参数|

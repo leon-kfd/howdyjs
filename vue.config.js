@@ -1,5 +1,5 @@
 const hljs = require('highlight.js')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   productionSourceMap: false,
   publicPath: '/pratice',
@@ -8,7 +8,7 @@ module.exports = {
       test: /\.md$/,
       use: [
         {
-          loader: "html-loader"
+          loader: 'html-loader'
         },
         {
           loader: 'markdown-loader',
@@ -34,7 +34,7 @@ module.exports = {
       axios: 'axios'
     }
     config.plugins.push(
-      new BundleAnalyzerPlugin()
+      // new BundleAnalyzerPlugin()
     )
   }
 }

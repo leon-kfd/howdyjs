@@ -1,7 +1,9 @@
 <template>
   <div id="Home">
     <div class="wrapper">
-      <h2 class="title">Entry</h2>
+      <h2 class="title">Howdy</h2>
+      <div class="tips">A package of mix some vue components and vue directive.</div>
+      <h3 class="title">Document Entry</h3>
       <ul class="entry-list">
         <li class="entry-listitem"
             v-for="(item,index) in navList"
@@ -11,7 +13,7 @@
       </ul>
       <p class="blog">
         <a href="http://www.kongfandong.cn"
-           target="_blank">VIEW THE BLOG</a>
+           target="_blank">VIEW AUTHOR BLOG</a>
       </p>
     </div>
   </div>
@@ -62,6 +64,15 @@ export default {
 }
 h2.title {
   margin: 20px 0;
+}
+.tips {
+  color: #778;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddeeff;
+}
+h3.title {
+  margin: 15px 0;
 }
 .entry-list {
   padding: 0 20px;

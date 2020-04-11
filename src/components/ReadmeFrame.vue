@@ -11,13 +11,7 @@
 export default {
   name: 'readmeFrame',
   props: {
-    mainName: String,
     readme: String
-  },
-  data () {
-    return {
-      apiLoading: false
-    }
   },
   computed: {
     transformReadme () {
@@ -29,6 +23,8 @@ export default {
 <style lang="scss" scoped>
 #API {
   width: 100%;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 .container {
   max-width: 800px;
@@ -130,7 +126,7 @@ export default {
   ul {
     margin-top: 12px;
     margin-bottom: 20px;
-    padding-left: 5%;
+    padding-left: 20px;
     line-height: 1.8;
   }
   p {
@@ -214,22 +210,6 @@ export default {
     margin-bottom: 25px;
     color: #666;
     font-family: Courier, sans-serif;
-  }
-  code {
-    color: #c7254e;
-    background-color: #f9f2f4;
-    border-radius: 4px;
-    font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
-    padding: 2px 4px;
-    font-size: 90%;
-  }
-  p > code {
-    color: #c7264e;
-    background-color: #f9f2f4;
-    font-size: 0.95em;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
   }
   figure {
     margin: 1em 0;
@@ -318,6 +298,21 @@ export default {
   a:target {
     border: 0;
     outline: 0;
+  }
+}
+.language-js {
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-builtin-name {
+    color: #c7490c;
+  }
+  .hljs-string,
+  .hljs-meta-string {
+    color: #63609e;
+  }
+  .hljs-number,
+  .hljs-class {
+    color: #76a755;
   }
 }
 </style>

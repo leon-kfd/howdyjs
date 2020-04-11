@@ -2,7 +2,7 @@ const hljs = require('highlight.js')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   productionSourceMap: false,
-  publicPath: '/pratice',
+  publicPath: '/howdy',
   configureWebpack: config => {
     config.module.rules.push({
       test: /\.md$/,
@@ -13,7 +13,15 @@ module.exports = {
         {
           loader: 'markdown-loader',
           options: {
-            highlight: (code) => hljs.highlight('html', code).value,
+            highlight: (code) => {
+              if (code.includes('template')) {
+                return hljs.highlight('html', code).value
+              } else if (code.includes('npm')) {
+                return hljs.highlight('bash', code).value
+              } else {
+                return hljs.highlight('js', code).value
+              }
+            },
             // highlight: (code) => hljs.highlightAuto(code).value,
             pedantic: false,
             gfm: true,

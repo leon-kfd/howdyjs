@@ -20,3 +20,5 @@ ${code}
     fs.writeFileSync(codeFileName, output)
   })
 })
+
+// fs.copyFileSync('README.md', 'src/README.md')

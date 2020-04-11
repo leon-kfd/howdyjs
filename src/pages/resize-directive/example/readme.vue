@@ -1,7 +1,6 @@
 <template>
   <div id="Readme">
-    <readme-frame :mainName="mainName"
-                  :readme="readme"></readme-frame>
+    <readme-frame :readme="readme"></readme-frame>
   </div>
 </template>
 
@@ -15,7 +14,6 @@ export default {
   },
   data () {
     return {
-      mainName: 'resize-directive',
       readme
     }
   }

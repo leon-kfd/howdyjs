@@ -158,7 +158,7 @@ class CustomResize {
 
 export default {
   install (Vue, userOptions) {
-    Vue.directive('scroll', {
+    Vue.directive('resize', {
       inserted (el, binding) {
         const { arg, value } = binding
         const customGlobalOptions = userOptions || {}

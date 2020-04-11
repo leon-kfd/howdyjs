@@ -7,22 +7,22 @@
 ---
 
 ## 组件
-1. **<a href="/standard-table" target="_blank">Standard Table</a>**  
+1. **<a href="http://kongfandong.cn/howdy/standard-table" target="_blank">Standard Table</a>**  
 基于ElementUI table的二次封装
 
-2. **<a href="/animation-dialog" target="_blank">Animation Dialog</a>**  
+2. **<a href="http://kongfandong.cn/howdy/animation-dialog" target="_blank">Animation Dialog</a>**  
 使用动画打开模态框
 
-3. **<a href="/resize-directive" target="_blank">Resize Directive</a>**  
+3. **<a href="http://kongfandong.cn/howdy/resize-directive" target="_blank">Resize Directive</a>**  
 为HTML盒子加入拖拽更改大小功能
 
-4. **<a href="/scroll-directive" target="_blank">Scroll Directive</a>**  
+4. **<a href="http://kongfandong.cn/howdy/scroll-directive" target="_blank">Scroll Directive</a>**  
 为HTML盒子加入自定义滚动条
 
-5. **<a href="/mouse-menu-directive" target="_blank">Mouse Menu Directive</a>**  
+5. **<a href="http://kongfandong.cn/howdy/mouse-menu-directive" target="_blank">Mouse Menu Directive</a>**  
 为HTML盒子加入自定义右键菜单
 
-6. **<a href="/size-observer-directive" target="_blank">Size Observer Directive</a>**  
+6. **<a href="http://kongfandong.cn/howdy/size-observer-directive" target="_blank">Size Observer Directive</a>**  
 监听盒子大小变化
 
 ---

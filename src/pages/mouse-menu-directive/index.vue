@@ -1,5 +1,5 @@
 <template>
-  <div id="mouseMenuDirective">
+  <div id="mouse-menuDirective">
     <example-frame :mainName="mainName"
                    :readmeList="readmeList"
                    :exampleList="exampleList"

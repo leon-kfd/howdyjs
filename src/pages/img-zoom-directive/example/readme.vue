@@ -6,7 +6,7 @@
 
 <script>
 import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/howdy/packages/size-observer-directive/README.md'
+import readme from '@/howdy/packages/img-zoom-directive/README.md'
 export default {
   name: 'readme',
   components: {

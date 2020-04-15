@@ -204,11 +204,11 @@ export default {
     border-radius: 4px;
     white-space: pre-wrap;
     display: block;
-    background: #f8f8f8;
+    background: #282c34;
     padding: 10px 20px;
     border: none;
     margin-bottom: 25px;
-    color: #666;
+    color: #9b9b9b;
     font-family: Courier, sans-serif;
   }
   figure {

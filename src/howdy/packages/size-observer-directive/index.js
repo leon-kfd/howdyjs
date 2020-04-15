@@ -42,35 +42,29 @@ class SizeObserver {
   }
 }
 
+const inserted = (el, binding, userOptions) => {
+  const { value } = binding
+  const customGlobalOptions = userOptions || {}
+  const options = {
+    ...customGlobalOptions,
+    ...value
+  }
+  const resizeObserve = new SizeObserver({ el, options })
+  resizeObserve.init()
+}
+const unbind = (el) => {
+  el.$sizeObserve && el.$sizeObserve.destroy()
+}
+
 export default {
   install (Vue, userOptions) {
     Vue.directive('sizeObserver', {
-      inserted (el, binding) {
-        const { value } = binding
-        const customGlobalOptions = userOptions || {}
-        const options = {
-          ...customGlobalOptions,
-          ...value
-        }
-        const resizeObserve = new SizeObserver({ el, options })
-        resizeObserve.init()
-      },
-      unbind (el) {
-        el.$sizeObserve && el.$sizeObserve.destroy()
-      }
+      inserted,
+      unbind
     })
   },
-  inserted (el, binding) {
-    const { value } = binding
-    const options = {
-      ...value
-    }
-    const resizeObserve = new SizeObserver({ el, options })
-    resizeObserve.init()
-  },
-  unbind (el) {
-    el.$sizeObserve && el.$sizeObserve.destroy()
-  }
+  inserted,
+  unbind
 }
 
 export { SizeObserver }

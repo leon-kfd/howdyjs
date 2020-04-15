@@ -25,6 +25,9 @@
 6. **<a href="http://kongfandong.cn/howdy/size-observer-directive" target="_blank">Size Observer Directive</a>**  
 监听盒子大小变化
 
+7. **<a href="http://kongfandong.cn/howdy/img-zoom-directive" target="_blank">Img Zoom Directive</a>**  
+点击图片放大
+
 ---
 
 ## 开始使用

@@ -1,8 +1,9 @@
 {
   "animation-dialog": "./src/howdy/packages/animation-dialog/index.js",
-  "mouse-menu": "./src/howdy/packages/directive-mouse-menu/index.js",
-  "resize": "./src/howdy/packages/directive-resize/index.js",
-  "scroll": "./src/howdy/packages/directive-scroll/index.js",
-  "size-observer": "./src/howdy/packages/directive-size-observer/index.js",
-  "standard-table": "./src/howdy/packages/standard-table/index.js"
+  "mouse-menu": "./src/howdy/packages/mouse-menu-directive/index.js",
+  "resize": "./src/howdy/packages/resize-directive/index.js",
+  "scroll": "./src/howdy/packages/scroll-directive/index.js",
+  "size-observer": "./src/howdy/packages/size-observer-directive/index.js",
+  "standard-table": "./src/howdy/packages/standard-table/index.js",
+  "img-zoom": "./src/howdy/packages/img-zoom-directive/index.js"
 }

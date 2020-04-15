@@ -2,7 +2,7 @@
   <div id="example">
     <div class="wrapper">
       <div class="box"
-           v-mouseMenu="options">
+           v-mouse-menu="options">
         <p class="text">Right Click This box.</p>
       </div>
     </div>

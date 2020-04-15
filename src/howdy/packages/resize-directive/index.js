@@ -156,72 +156,49 @@ class CustomResize {
   }
 }
 
+const inserted = (el, binding, userOptions) => {
+  const { arg, value } = binding
+  const customGlobalOptions = userOptions || {}
+  let direction
+  let options
+  if (arg) {
+    if (arg === 'all') {
+      direction = ['top', 'left', 'bottom', 'right']
+    } else {
+      direction = [arg]
+    }
+  }
+  if (direction) {
+    options = {
+      ...customGlobalOptions,
+      ...value,
+      direction
+    }
+  } else {
+    options = {
+      ...customGlobalOptions,
+      ...value
+    }
+  }
+  const resize = new CustomResize({
+    el,
+    options
+  })
+  resize.init()
+}
+const unbind = (el) => {
+  el.$resize && el.$resize.destroy()
+}
+
 export default {
   install (Vue, userOptions) {
     Vue.directive('resize', {
-      inserted (el, binding) {
-        const { arg, value } = binding
-        const customGlobalOptions = userOptions || {}
-        let direction
-        let options
-        if (arg) {
-          if (arg === 'all') {
-            direction = ['top', 'left', 'bottom', 'right']
-          } else {
-            direction = [arg]
-          }
-        }
-        if (direction) {
-          options = {
-            ...customGlobalOptions,
-            ...value,
-            direction
-          }
-        } else {
-          options = {
-            ...customGlobalOptions,
-            ...value
-          }
-        }
-        const resize = new CustomResize({
-          el,
-          options
-        })
-        resize.init()
-      },
-      unbind (el) {
-        el.$resize && el.$resize.destroy()
-      }
+      inserted,
+      unbind
     })
   },
-  inserted (el, binding) {
-    const { arg, value } = binding
-    let direction
-    let options
-    if (arg) {
-      if (arg === 'all') {
-        direction = ['top', 'left', 'bottom', 'right']
-      } else {
-        direction = [arg]
-      }
-    }
-    if (direction) {
-      options = {
-        ...value,
-        direction
-      }
-    } else {
-      options = value
-    }
-    const resize = new CustomResize({
-      el,
-      options
-    })
-    resize.init()
-  },
-  unbind (el) {
-    el.$resize && el.$resize.destroy()
-  }
+  inserted,
+  unbind
 }
 
 export { CustomResize }

@@ -304,43 +304,31 @@ class CustomScrollBar {
   }
 }
 
+const inserted = (el, binding, userOptions) => {
+  const { arg, value } = binding
+  const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
+  const customGlobalOptions = userOptions || {}
+  if (!isMobile) {
+    const options = {
+      ...customGlobalOptions,
+      ...value,
+      direction: arg
+    }
+    const scroll = new CustomScrollBar({
+      el,
+      options
+    })
+    scroll.init()
+  }
+}
+
 export default {
   install (Vue, userOptions) {
     Vue.directive('scroll', {
-      inserted (el, binding) {
-        const { arg, value } = binding
-        const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
-        const customGlobalOptions = userOptions || {}
-        if (!isMobile) {
-          const options = {
-            ...customGlobalOptions,
-            ...value,
-            direction: arg
-          }
-          const scroll = new CustomScrollBar({
-            el,
-            options
-          })
-          scroll.init()
-        }
-      }
+      inserted
     })
   },
-  inserted (el, binding) {
-    const { arg, value } = binding
-    const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
-    if (!isMobile) {
-      const options = {
-        ...value,
-        direction: arg
-      }
-      const scroll = new CustomScrollBar({
-        el,
-        options
-      })
-      scroll.init()
-    }
-  }
+  inserted
 }
 
 export { CustomScrollBar }

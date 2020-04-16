@@ -6,7 +6,7 @@ import SizeObserver from './packages/size-observer-directive'
 import StandardTable from './packages/standard-table'
 import ImgZoom from './packages/img-zoom-directive'
 
-export default {
+export {
   AnimationDialog,
   MouseMenu,
   Resize,

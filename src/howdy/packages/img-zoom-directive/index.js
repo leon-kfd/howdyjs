@@ -94,9 +94,10 @@ class ImgZoom {
         mask.appendChild(rightBtn)
       }
     }
-    el.addEventListener('click', this.clickHandler)
+    this.el.addEventListener('click', this.clickHandler)
   }
   destory () {
+    this.el.removeEventListener('click', this.clickHandler)
     if (this.group && this.groupIndex >= 0) {
       let index = groupMap[this.group].findIndex(item => item.imgSrc = this.imgSrc)
       if (~index) {
@@ -135,7 +136,8 @@ export default {
     })
   },
   inserted,
-  unbind
+  unbind,
+  ImgZoom
 }
 
 export { ImgZoom }

@@ -10,7 +10,7 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
     libraryExport: 'default',
     library: 'howdy',
     path: path.resolve(__dirname, '../lib')

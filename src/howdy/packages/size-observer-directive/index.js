@@ -64,7 +64,8 @@ export default {
     })
   },
   inserted,
-  unbind
+  unbind,
+  SizeObserver
 }
 
 export { SizeObserver }

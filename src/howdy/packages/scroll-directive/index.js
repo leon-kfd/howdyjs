@@ -328,7 +328,8 @@ export default {
       inserted
     })
   },
-  inserted
+  inserted,
+  CustomScrollBar
 }
 
 export { CustomScrollBar }

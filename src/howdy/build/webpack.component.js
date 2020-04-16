@@ -2,15 +2,15 @@ const path = require('path')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const Components = require('../components.json');
+const Components = require('../components.json')
 module.exports = {
   mode: 'production',
   entry: Components,
   output: {
     filename: '[name].js',
     chunkFilename: '[id].js',
-    libraryTarget: 'commonjs2',
+    library: ['howdy', '[name]'],
+    libraryTarget: 'umd',
     // libraryExport: 'default',
     path: path.resolve(__dirname, '../lib')
   },
@@ -61,7 +61,6 @@ module.exports = {
   plugins: [
     new ProgressBarPlugin(),
     new VueLoaderPlugin(),
-    // new BundleAnalyzerPlugin(),
     new UglifyJsPlugin({
       uglifyOptions: {
         output: {

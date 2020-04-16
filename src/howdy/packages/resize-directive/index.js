@@ -198,7 +198,8 @@ export default {
     })
   },
   inserted,
-  unbind
+  unbind,
+  CustomResize
 }
 
 export { CustomResize }

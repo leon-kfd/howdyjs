@@ -18,6 +18,7 @@
 |group|启用图片分组功能，传一个自定义组名|String|-|-|
 |zoomCursor|是否显示放大镜cursor|Boolean|-|false|
 |showCloseBtn|是否显示关闭按钮，开启后只能通过点击关闭按钮关闭模态框|Boolean|-|false|
+|preventDefault|是否阻止默认行为，例如父元素的A标签跳转|Boolean|-|false|
 
 **指令支持简写**
 ```html

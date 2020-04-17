@@ -28,6 +28,7 @@ class ImgZoom {
     }
     if (options.zoomCursor) el.style.cursor = 'zoom-in'
     this.clickHandler = e => {
+      if (options.preventDefault) e.preventDefault()
       const mask = createIdDom('div', '__imgZoomMask')
       document.body.append(mask)
       const loader = createIdDom('div', '__imgZoomLoader')

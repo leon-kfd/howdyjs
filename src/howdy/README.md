@@ -34,7 +34,7 @@
 
 ### 安装
 ```cmd
-npm i -S howdy --registry=http://kongfandong.cn/npm/
+npm i -S howdyjs
 ```
 
 ### 使用
@@ -42,14 +42,14 @@ npm i -S howdy --registry=http://kongfandong.cn/npm/
 
 ```js
 // 全局使用: main.js
-import { Resize } from 'howdy'
+import { Resize } from 'howdyjs'
 Vue.directive('resize', Resize)
 // or (带默认参数安装)
 // Vue.use(Resize, someGlobalOption)
 
 
 // 组件内直接使用
-import { Resize } from 'howdy'
+import { Resize } from 'howdyjs'
 export default {
   directives: {
     resize: Resize
@@ -60,7 +60,7 @@ export default {
 
 ```js
 // 全局使用: main.js
-import { StandardTable } from 'howdy'
+import { StandardTable } from 'howdyjs'
 Vue.use(StandardTable, {
   responseItems: 'data.data.items',
   responseTotal: 'data.data.total',
@@ -69,7 +69,7 @@ Vue.use(StandardTable, {
 })
 
 // 组件内直接使用
-import { StandardTable } from 'howdy'
+import { StandardTable } from 'howdyjs'
 export default {
   components: {
     StandardTable
@@ -81,9 +81,9 @@ export default {
 1. 方式一：更改引用路径
 ```js
 // 将原来的
-import { StandardTable } from 'howdy'
+import { StandardTable } from 'howdyjs'
 // 改为
-import StandardTable from 'howdy/lib/standard-table'
+import StandardTable from 'howdyjs/lib/standard-table'
 ```
 2. 方式二：使用<a href="https://www.npmjs.com/package/babel-plugin-component" target="_blank">babel-plugin-component</a>插件
 

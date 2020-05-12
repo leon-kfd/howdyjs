@@ -15,3 +15,13 @@ export {
   StandardTable,
   ImgZoom
 }
+
+export default {
+  AnimationDialog,
+  MouseMenu,
+  Resize,
+  Scroll,
+  SizeObserver,
+  StandardTable,
+  ImgZoom
+}

@@ -2,7 +2,7 @@
   <div id="example">
     <div class="wrapper">
       <div class="box"
-           v-mouseMenu="options">
+           v-mouse-menu="options">
         <div class="box-listitem"
              v-for="num in 9"
              :key="num"

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="box"
-         v-sizeObserver
+         v-size-observer
          @sizeChange="handleSizeChange">
       <p class="text">{{width}} &times; {{height}}</p>
     </div>

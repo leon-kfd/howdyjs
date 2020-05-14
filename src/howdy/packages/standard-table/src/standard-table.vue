@@ -217,17 +217,22 @@
                :row="conf.row"
                :operation="conf.operation"
                :cardSetting="conf.cardSetting"></card-mode>
-    <div class="__pagination-box"
-         v-if="conf.pagination"
-         :style="{'text-align': (conf.pagination && conf.pagination.align) || 'right'}">
-      <el-pagination @size-change="handleSizeChange"
-                     @current-change="handleCurrentChange"
-                     :current-page="currentPage"
-                     :page-size="currentPageSize"
-                     :page-sizes="(conf.pagination && conf.pagination.pageSizes) || this.$STANDARD.pageSizes"
-                     :layout="(conf.pagination && conf.pagination.layout) || this.$STANDARD.pageLayout"
-                     :total="total">
-      </el-pagination>
+    <div class="__footer-box">
+      <div class="__footer-btn-box">
+        <slot name="footerLeft"></slot>
+      </div>
+      <div class="__pagination-box"
+           v-if="conf.pagination"
+           :style="{'text-align': (conf.pagination && conf.pagination.align) || 'right'}">
+        <el-pagination @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"
+                       :current-page="currentPage"
+                       :page-size="currentPageSize"
+                       :page-sizes="(conf.pagination && conf.pagination.pageSizes) || this.$STANDARD.pageSizes"
+                       :layout="(conf.pagination && conf.pagination.layout) || this.$STANDARD.pageLayout"
+                       :total="total">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -318,7 +323,7 @@ export default {
       }
     },
     handleMoreRowSelect ($event, item) {
-      let index = this.conf.row.findIndex(el => el.label === item.label)
+      const index = this.conf.row.findIndex(el => el.label === item.label)
       if (index > -1) {
         this.$set(this.conf.row[index], 'hidden', !$event)
       }
@@ -327,10 +332,10 @@ export default {
       this.conf.data = this.staticData.slice(((this.currentPage - 1) * this.currentPageSize), this.currentPage * this.currentPageSize)
     },
     getMap (result, mapRule) {
-      let mapItems = mapRule.split('.') || []
+      const mapItems = mapRule.split('.') || []
       mapItems.map(item => {
         if (typeof result !== 'undefined' && result !== null) {
-          result = result[item]
+          result = item ? result[item] : result
         } else {
           this.$message ? this.$message.error(`返回${mapRule}映射失败,请检查Map配置与后端返回数据是否配置正确..`) : alert(`返回${mapRule}映射失败,请检查Map配置与后端返回数据是否配置正确..`)
           throw new Error('规则映射出错')
@@ -341,15 +346,15 @@ export default {
     fetch () {
       return new Promise((resolve, reject) => {
         this.$emit('update:loading', true)
-        let params = this.conf.params || {}
+        const params = this.conf.params || {}
         if (this.conf.pagination && !this.isStaticPagination) {
-          let page = this.conf.pagination.requestPage || this.$STANDARD.requestPage
-          let pageSize = this.conf.pagination.requestPageSize || this.$STANDARD.requestPageSize
+          const page = this.conf.pagination.requestPage || this.$STANDARD.requestPage
+          const pageSize = this.conf.pagination.requestPageSize || this.$STANDARD.requestPageSize
           params[page] = this.currentPage
           params[pageSize] = this.currentPageSize
         }
-        let method = this.conf.axiosMethod || this.$STANDARD.axiosMethod
-        let config = Object.assign(this.$STANDARD.axiosConfig, this.conf.axiosConfig)
+        const method = this.conf.axiosMethod || this.$STANDARD.axiosMethod
+        const config = Object.assign(this.$STANDARD.axiosConfig, this.conf.axiosConfig)
         let instance
         if (this.$STANDARD.axiosInstance) {
           if (method === 'post') {
@@ -371,7 +376,7 @@ export default {
             data = this.conf.formatRespone(data)
           }
           if (data) {
-            let resultItems = this.getMap(data, this.conf.responseItems || this.$STANDARD.responseItems)
+            const resultItems = this.getMap(data, typeof this.conf.responseItems === undefined ? this.$STANDARD.responseItems : this.conf.responseItems)
             if (typeof resultItems !== 'undefined' && resultItems !== null) {
               if (!this.conf.pagination) {
                 if (this.conf.fixedRender) {
@@ -388,16 +393,16 @@ export default {
               } else {
                 this.conf.data = resultItems
                 if (this.conf.pagination) {
-                  let resultTotal = this.getMap(data, this.conf.responseTotal || this.$STANDARD.responseTotal)
+                  const resultTotal = this.getMap(data, typeof this.conf.responseTotal === undefined ? this.$STANDARD.responseTotal : this.conf.responseTotal)
                   if (typeof resultTotal !== 'undefined' && resultTotal !== null) {
                     this.total = resultTotal
                   } else {
-                    this.$message ? this.$message.error(`返回数据total字段映射失败,请检查Map配置与后端返回数据是否配置正确..`) : alert(`返回数据total字段映射失败,请检查Map配置与后端返回数据是否配置正确..`)
+                    this.$message ? this.$message.error('返回数据total字段映射失败,请检查Map配置与后端返回数据是否配置正确..') : alert('返回数据total字段映射失败,请检查Map配置与后端返回数据是否配置正确..')
                   }
                 }
               }
             } else {
-              this.$message ? this.$message.error(`返回数据items字段映射失败,请检查Map配置与后端返回数据是否正确...`) : alert(`返回数据items字段映射失败,请检查Map配置与后端返回数据是否正确...`)
+              this.$message ? this.$message.error('返回数据items字段映射失败,请检查Map配置与后端返回数据是否正确...') : alert('返回数据items字段映射失败,请检查Map配置与后端返回数据是否正确...')
             }
             resolve(data)
             this.$emit('update:loading', false)
@@ -411,16 +416,16 @@ export default {
     renderFakeRow () {
       this.$nextTick(() => {
         if (!this.isRender) {
-          let table = this.$refs.table.$el
-          let rowHeight = table.querySelector('.el-table__body-wrapper .el-table__row').offsetHeight
-          let wrapper = document.createElement('div')
+          const table = this.$refs.table.$el
+          const rowHeight = table.querySelector('.el-table__body-wrapper .el-table__row').offsetHeight
+          const wrapper = document.createElement('div')
           wrapper.setAttribute('class', 'new-wrapper')
-          wrapper.style.cssText = `position:relative`
+          wrapper.style.cssText = 'position:relative'
           wrapper.style.height = `${rowHeight * this.conf.cloneData.length}px`
           this.tableBodyWrapper = table.querySelector('.el-table__body-wrapper')
           this.tableBodyWrapper.appendChild(wrapper)
           this.tableBody = this.tableBodyWrapper.removeChild(table.querySelector('.el-table__body-wrapper table.el-table__body'))
-          this.tableBody.style.cssText = `position:absolute;width: 100%;top: 0;left: 0`
+          this.tableBody.style.cssText = 'position:absolute;width: 100%;top: 0;left: 0'
           this.tableBody.style.top = `${rowHeight * this.fixedRenderIndex}px`
           wrapper.appendChild(this.tableBody)
           this.scrollFn = (e) => {
@@ -435,8 +440,8 @@ export default {
     },
     fixedRenderJump (index) {
       if (index >= 0 & index <= this.conf.cloneData.length) {
-        let table = this.$refs.table.$el
-        let rowHeight = table.querySelector('.el-table__body-wrapper .el-table__row').offsetHeight
+        const table = this.$refs.table.$el
+        const rowHeight = table.querySelector('.el-table__body-wrapper .el-table__row').offsetHeight
         this.fixedRenderIndex = index
         this.tableBody.style.top = `${rowHeight * this.fixedRenderIndex}px`
         this.tableBodyWrapper.scrollTop = rowHeight * this.fixedRenderIndex
@@ -451,8 +456,20 @@ export default {
 }
 </script>
 <style scoped>
-.__pagination-box {
+.__footer-box {
   margin-top: 15px;
+  zoom: 1;
+}
+.__footer-box:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.__footer-btn-box {
+  float: left;
+}
+.__pagination-box {
+  float: right;
 }
 .__table-box {
   position: relative;

@@ -14,7 +14,7 @@ module.exports = {
           loader: 'markdown-loader',
           options: {
             highlight: (code) => {
-              if (code.includes('template')) {
+              if (code[0] === '<' || code.includes('template') || code.includes('script')) {
                 return hljs.highlight('html', code).value
               } else if (code.includes('npm')) {
                 return hljs.highlight('bash', code).value

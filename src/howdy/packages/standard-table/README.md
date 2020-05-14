@@ -118,3 +118,6 @@
 + 表格方法与el-table的Methods一致，具体请参考<a href="https://element.eleme.cn/#/zh-CN/component/table#table-methods" target="_blank">Table Methods</a>
 + 新增fetch方法，参数：无，用于自动发送axios请求获取表格数据渲染表格
 + 新增fixedRenderJump方法，参数：index【number】，用于在大数据表格中自动滚动到相应index行
+
+### 5 Table Slot
++ 新增名称为footerLeft的slot，一般用于放置页脚左侧的批量按钮

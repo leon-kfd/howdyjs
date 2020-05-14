@@ -29,7 +29,7 @@ export default {
   },
   data () {
     return {
-      imgList: Array.from({ length: 9 }, (item, index) => require(`../assets/img/${index + 1}.jpg`)),
+      imgList: Array.from({ length: 9 }, (item, index) => require(`@/assets/img/${index + 1}.jpg`)),
       active: 0
     }
   },

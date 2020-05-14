@@ -332,7 +332,7 @@ export default {
       this.conf.data = this.staticData.slice(((this.currentPage - 1) * this.currentPageSize), this.currentPage * this.currentPageSize)
     },
     getMap (result, mapRule) {
-      const mapItems = mapRule.split('.') || []
+      const mapItems = mapRule ? mapRule.split('.') : []
       mapItems.map(item => {
         if (typeof result !== 'undefined' && result !== null) {
           result = item ? result[item] : result
@@ -376,7 +376,7 @@ export default {
             data = this.conf.formatRespone(data)
           }
           if (data) {
-            const resultItems = this.getMap(data, typeof this.conf.responseItems === undefined ? this.$STANDARD.responseItems : this.conf.responseItems)
+            const resultItems = this.getMap(data, typeof this.conf.responseItems === 'undefined' ? this.$STANDARD.responseItems : this.conf.responseItems)
             if (typeof resultItems !== 'undefined' && resultItems !== null) {
               if (!this.conf.pagination) {
                 if (this.conf.fixedRender) {
@@ -393,7 +393,7 @@ export default {
               } else {
                 this.conf.data = resultItems
                 if (this.conf.pagination) {
-                  const resultTotal = this.getMap(data, typeof this.conf.responseTotal === undefined ? this.$STANDARD.responseTotal : this.conf.responseTotal)
+                  const resultTotal = this.getMap(data, typeof this.conf.responseTotal === 'undefined' ? this.$STANDARD.responseTotal : this.conf.responseTotal)
                   if (typeof resultTotal !== 'undefined' && resultTotal !== null) {
                     this.total = resultTotal
                   } else {
@@ -461,7 +461,7 @@ export default {
   zoom: 1;
 }
 .__footer-box:after {
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }

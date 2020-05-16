@@ -7,22 +7,22 @@
 ---
 
 ## 组件
-1. **<a href="http://kongfandong.cn/howdy/standard-table" target="_blank">Standard Table</a>**  
+1. **<a href="https://kongfandong.cn/howdy/standard-table" target="_blank">Standard Table</a>**  
 基于ElementUI table的二次封装
 
-2. **<a href="http://kongfandong.cn/howdy/animation-dialog" target="_blank">Animation Dialog</a>**  
+2. **<a href="https://kongfandong.cn/howdy/animation-dialog" target="_blank">Animation Dialog</a>**  
 使用动画打开模态框
 
-3. **<a href="http://kongfandong.cn/howdy/resize-directive" target="_blank">Resize Directive</a>**  
+3. **<a href="https://kongfandong.cn/howdy/resize-directive" target="_blank">Resize Directive</a>**  
 为HTML盒子加入拖拽更改大小功能
 
-4. **<a href="http://kongfandong.cn/howdy/scroll-directive" target="_blank">Scroll Directive</a>**  
+4. **<a href="https://kongfandong.cn/howdy/scroll-directive" target="_blank">Scroll Directive</a>**  
 为HTML盒子加入自定义滚动条
 
-5. **<a href="http://kongfandong.cn/howdy/mouse-menu-directive" target="_blank">Mouse Menu Directive</a>**  
+5. **<a href="https://kongfandong.cn/howdy/mouse-menu-directive" target="_blank">Mouse Menu Directive</a>**  
 为HTML盒子加入自定义右键菜单
 
-6. **<a href="http://kongfandong.cn/howdy/size-observer-directive" target="_blank">Size Observer Directive</a>**  
+6. **<a href="https://kongfandong.cn/howdy/size-observer-directive" target="_blank">Size Observer Directive</a>**  
 监听盒子大小变化
 
 ---
@@ -31,7 +31,7 @@
 
 ### 安装
 ```cmd
-npm i -S howdy --registry=http://kongfandong.cn/npm/
+npm i -S howdyjs
 ```
 
 ### 使用
@@ -39,14 +39,14 @@ npm i -S howdy --registry=http://kongfandong.cn/npm/
 
 ```js
 // 全局使用: main.js
-import { Resize } from 'howdy'
+import { Resize } from 'howdyjs'
 Vue.directive('resize', Resize)
 // or (带默认参数安装)
 // Vue.use(Resize, someGlobalOption)
 
 
 // 组件内直接使用
-import { Resize } from 'howdy'
+import { Resize } from 'howdyjs'
 export default {
   directives: {
     resize: Resize
@@ -57,7 +57,7 @@ export default {
 
 ```js
 // 全局使用: main.js
-import { StandardTable } from 'howdy'
+import { StandardTable } from 'howdyjs'
 Vue.use(StandardTable, {
   responseItems: 'data.data.items',
   responseTotal: 'data.data.total',
@@ -66,7 +66,7 @@ Vue.use(StandardTable, {
 })
 
 // 组件内直接使用
-import { StandardTable } from 'howdy'
+import { StandardTable } from 'howdyjs'
 export default {
   components: {
     StandardTable
@@ -78,13 +78,13 @@ export default {
 1. 方式一：更改引用路径
 ```js
 // 将原来的
-import { StandardTable } from 'howdy'
+import { StandardTable } from 'howdyjs'
 // 改为
-import StandardTable from 'howdy/lib/standard-table'
+import StandardTable from 'howdyjs/lib/standard-table'
 ```
 2. 方式二：使用<a href="https://www.npmjs.com/package/babel-plugin-component" target="_blank">babel-plugin-component</a>插件
 
 ---
 
 
-#### <a href="http://www.kongfandong.cn" target="_blank" style="color: rgb(75, 9, 150)">VIEW AUTHOR BLOG</a>
+#### <a href="https://www.kongfandong.cn" target="_blank" style="color: rgb(75, 9, 150)">VIEW AUTHOR BLOG</a>

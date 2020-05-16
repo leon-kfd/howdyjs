@@ -208,7 +208,7 @@ export default {
     padding: 10px 20px;
     border: none;
     margin-bottom: 25px;
-    color: #9b9b9b;
+    color: #cacaca;
     font-family: Courier, sans-serif;
   }
   figure {
@@ -304,15 +304,15 @@ export default {
   .hljs-attr,
   .hljs-attribute,
   .hljs-builtin-name {
-    color: #c7490c;
+    color: #ee9263;
   }
   .hljs-string,
   .hljs-meta-string {
-    color: #63609e;
+    color: #bebceb;
   }
   .hljs-number,
   .hljs-class {
-    color: #76a755;
+    color: #c1e6a8;
   }
 }
 </style>

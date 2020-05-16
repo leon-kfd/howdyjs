@@ -1,4 +1,4 @@
-# Standard-table
+# Standard Table
 
 **基于ElementUI table的二次封装**
 

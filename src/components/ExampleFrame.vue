@@ -19,6 +19,11 @@
     <div class="nav"
          :class="{active: navActive}">
       <div class="nav-content">
+        <div class="logo">
+          <h1 id="howdy"
+              @click="$router.push('/')">Howdy</h1>
+          <p id="moduleName">{{moduleName}}</p>
+        </div>
         <p class="nav-title">Document</p>
         <ul class="nav-list">
           <li class="nav-listitem"
@@ -128,6 +133,9 @@ export default {
     showMobileWarning () {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
       return isMobile && this.disabledMobile
+    },
+    moduleName () {
+      return this.mainName.split('-').map(name => name.slice(0, 1).toUpperCase() + name.slice(1)).join(' ')
     }
   },
   methods: {
@@ -167,9 +175,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.logo {
+  padding: 0 10px;
+  #howdy {
+    font-size: 28px;
+    line-height: 36px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      width: 30px;
+      left: 0;
+      border-top: 2px solid #5b9df3;
+    }
+  }
+  #moduleName {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: rgb(95, 105, 128);
+  }
+}
 .nav {
   position: fixed;
-  width: 230px;
+  width: 240px;
   left: 0;
   top: 0;
   height: 100%;
@@ -185,7 +218,7 @@ export default {
     color: #889;
     line-height: 30px;
     padding: 0 10px;
-    margin-top: 36px;
+    margin-top: 18px;
   }
   .nav-list {
     list-style: none;
@@ -223,10 +256,10 @@ export default {
   }
 }
 .readme-content {
-  margin-left: 230px;
+  margin-left: 240px;
 }
 .content {
-  margin-left: 230px;
+  margin-left: 240px;
   display: flex;
   height: 100vh;
   overflow-y: hidden;
@@ -327,11 +360,16 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .logo {
+    #howdy {
+      padding-top: 42px;
+    }
+  }
   .readme {
     font-size: 13px;
   }
   .nav {
-    transform: translateX(-230px);
+    transform: translateX(-245px);
     transition: transform 0.4s ease-in-out;
     &.active {
       transform: translateX(0);

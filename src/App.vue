@@ -26,4 +26,34 @@
   background: #bbb;
   background-clip: padding-box;
 }
+/* fredericka-the-great-regular */
+@font-face {
+  font-family: 'Fredericka the Great';
+  font-style: normal;
+  font-weight: regular;
+  src: url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.eot');
+  /* IE9 Compat Modes */
+  src: local('Fredericka the Great'), local('Frederickathe Great-Normal'),
+    url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */
+      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.woff')
+      format('woff'),
+    /* Modern Browsers */
+      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.svg#Frederickathe Great')
+      format('svg');
+  /* Legacy iOS */
+}
+#howdy {
+  font-family: fredericka the great, cursive;
+  font-weight: 500;
+  color: rgb(92, 157, 243);
+  letter-spacing: 1px;
+}
 </style>

@@ -5,6 +5,7 @@ import Scroll from './packages/scroll-directive'
 import SizeObserver from './packages/size-observer-directive'
 import StandardTable from './packages/standard-table'
 import ImgZoom from './packages/img-zoom-directive'
+import ToDrag from './packages/to-drag-directive'
 
 export {
   AnimationDialog,
@@ -13,7 +14,8 @@ export {
   Scroll,
   SizeObserver,
   StandardTable,
-  ImgZoom
+  ImgZoom,
+  ToDrag
 }
 
 export default {
@@ -23,5 +25,6 @@ export default {
   Scroll,
   SizeObserver,
   StandardTable,
-  ImgZoom
+  ImgZoom,
+  ToDrag
 }

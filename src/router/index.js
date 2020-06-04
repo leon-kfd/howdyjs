@@ -31,6 +31,10 @@ const packageList = [
   {
     name: 'img-zoom-directive',
     exampleNum: 3
+  },
+  {
+    name: 'to-drag-directive',
+    exampleNum: 4
   }
 ]
 

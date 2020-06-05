@@ -34,7 +34,7 @@ const packageList = [
   },
   {
     name: 'to-drag-directive',
-    exampleNum: 4
+    exampleNum: 5
   }
 ]
 

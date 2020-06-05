@@ -6,6 +6,16 @@ const getScrollbarWidth = () => {
   document.body.removeChild(el)
   return scrollbarWidth
 }
+
+const defaultOptions = {
+  moveCursor: true,
+  adsorb: 0,
+  adsorbOffset: 0,
+  transitionDuration: 400,
+  transitionTimingFunction: 'ease-in-out',
+  immediateEvent: false
+}
+
 class ToDrag {
   constructor({ el, options }) {
     this.el = el instanceof HTMLElement ? el : document.querySelector(el)
@@ -18,14 +28,11 @@ class ToDrag {
     this.startTop = 0
     this.width = 0
     this.height = 0
-    this.adsorb = options.adsorb
-    this.adsorbOffset = options.adsorbOffset
-    this.transitionDuration = options.transitionDuration / 1000
-    this.transitionTimingFunction = options.transitionTimingFunction
-
-    if (options.moveCursor) {
-      this.el.style.cursor = 'move'
+    this.options = {
+      ...defaultOptions,
+      ...options
     }
+    this.options.transitionDuration = this.options.transitionDuration / 1000
 
     // init
     this.handleTouchStart = this.handleTouchStart.bind(this)
@@ -48,7 +55,17 @@ class ToDrag {
     } else {
       this.el.addEventListener('mousedown', this.handleMousedown)
     }
-    this.handleAdsorb()
+    if (this.options.moveCursor) {
+      this.el.style.cursor = 'move'
+    }
+    if (this.options.immediateEvent) {
+      setTimeout(() => {
+        this.emitEvent('toDragEnd')
+      })
+    }
+    if (this.options.adsorb) {
+      this.handleAdsorb()
+    }
   }
 
   handleMousedown (e) {
@@ -76,6 +93,8 @@ class ToDrag {
     this.el.style.transition = ''
     this.maxX = document.body.scrollWidth > window.innerWidth ? window.innerWidth - this.width - this.scrollbarWidth : window.innerWidth - this.width
     this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height
+    document.body.style.userSelect = 'none'
+    this.emitEvent('toDragStart')
   }
 
   moveEvent (e) {
@@ -93,6 +112,7 @@ class ToDrag {
     if (this.top < 0) this.top = 0
     this.el.style.left = this.left + 'px'
     this.el.style.top = this.top + 'px'
+    this.emitEvent('toDragMove')
   }
 
   endEvent () {
@@ -101,34 +121,28 @@ class ToDrag {
     document.removeEventListener('mouseup', this.endEvent)
     document.removeEventListener('touchmove', this.moveEvent)
     document.removeEventListener('touchend', this.endEvent)
+    document.body.style.userSelect = 'auto'
     this.handleAdsorb()
-    const toDragEnd = document.createEvent('HTMLEvents')
-    toDragEnd.initEvent('toDragEnd', false, false)
-    const { left, top, width, height, maxX, maxY } = this
-    toDragEnd['left'] = left
-    toDragEnd['top'] = top
-    toDragEnd['width'] = width
-    toDragEnd['height'] = height
-    toDragEnd['maxX'] = maxX
-    toDragEnd['maxY'] = maxY
-    this.el.dispatchEvent(toDragEnd)
+    this.emitEvent('toDragEnd')
   }
+
 
   handleAdsorb () {
     const endPoint = [this.left + this.width / 2, this.top + this.height / 2]
     const maxPoint = [window.innerWidth, window.innerHeight]
-    this.el.style.transition = `left ${this.transitionDuration}s ${this.transitionTimingFunction}, 
-                                top ${this.transitionDuration}s ${this.transitionTimingFunction}`
-    if (this.adsorb === 1) {
+    this.el.style.transition = `left ${this.options.transitionDuration}s ${this.options.transitionTimingFunction}, 
+                                top ${this.options.transitionDuration}s ${this.options.transitionTimingFunction}`
+    if (this.options.adsorb === 1) {
       // 左右吸附
       if (endPoint[0] <= window.innerWidth / 2) {
         // left
-        this.left = this.adsorbOffset
+        this.left = this.options.adsorbOffset
       } else {
         // right
-        this.left = this.maxX - this.adsorbOffset
+        this.left = this.maxX - this.options.adsorbOffset
       }
-    } else if (this.adsorb === 2) {
+      console.log(this.left)
+    } else if (this.options.adsorb === 2) {
       // 四方向吸附
       const k1 = maxPoint[1] / maxPoint[0]
       const k2 = maxPoint[1] / -maxPoint[0]
@@ -136,26 +150,39 @@ class ToDrag {
       const k4 = endPoint[1] / (endPoint[0] - maxPoint[0])
       if (k1 >= k3 && k2 < k4) {
         // top
-        this.top = this.adsorbOffset
+        this.top = this.options.adsorbOffset
       } else if (k1 >= k3 && k2 >= k4) {
         // right
-        this.left = this.maxX - this.adsorbOffset
+        this.left = this.maxX - this.options.adsorbOffset
       } else if (k1 < k3 && k2 >= k4) {
         // bottom
-        this.top = this.maxY - this.adsorbOffset
+        this.top = this.maxY - this.options.adsorbOffset
       } else {
         // left
-        this.left = this.adsorbOffset
+        this.left = this.options.adsorbOffset
       }
-      if (this.adsorbOffset) {
-        if (this.top === 0) this.top = this.adsorbOffset
-        if (this.top === this.maxY) this.top = this.maxY - this.adsorbOffset
-        if (this.left === 0) this.left = this.adsorbOffset
-        if (this.left === this.maxX) this.left = this.maxX - this.adsorbOffset
+      if (this.options.adsorbOffset) {
+        if (this.top === 0) this.top = this.options.adsorbOffset
+        if (this.top === this.maxY) this.top = this.maxY - this.options.adsorbOffset
+        if (this.left === 0) this.left = this.options.adsorbOffset
+        if (this.left === this.maxX) this.left = this.maxX - this.options.adsorbOffset
       }
     }
     this.el.style.left = this.left + 'px'
     this.el.style.top = this.top + 'px'
+  }
+
+  emitEvent (type) {
+    const evnet = document.createEvent('HTMLEvents')
+    evnet.initEvent(type, false, false)
+    const { left, top, width, height, maxX, maxY } = this
+    evnet['left'] = left
+    evnet['top'] = top
+    evnet['width'] = width
+    evnet['height'] = height
+    evnet['maxX'] = maxX
+    evnet['maxY'] = maxY
+    this.el.dispatchEvent(evnet)
   }
 
   destroy () {
@@ -167,14 +194,11 @@ class ToDrag {
   }
 }
 
-const inserted = (el, binding) => {
+const inserted = (el, binding, userOptions) => {
   const { value } = binding
+  const customGlobalOptions = userOptions || {}
   const options = {
-    moveCursor: true,
-    adsorb: 0,
-    adsorbOffset: 0,
-    transitionDuration: 400,
-    transitionTimingFunction: 'ease-in-out',
+    ...customGlobalOptions,
     ...value
   }
   el.$toDarg = new ToDrag({

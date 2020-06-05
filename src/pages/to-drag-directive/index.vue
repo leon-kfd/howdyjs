@@ -37,6 +37,10 @@ export default {
         {
           name: 'Other Options',
           introduce: '其他配置'
+        },
+        {
+          name: 'Drag End Event',
+          introduce: '事件回调'
         }
       ]
     };

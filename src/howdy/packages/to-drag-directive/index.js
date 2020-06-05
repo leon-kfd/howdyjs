@@ -177,10 +177,14 @@ const inserted = (el, binding) => {
     transitionTimingFunction: 'ease-in-out',
     ...value
   }
-  new ToDrag({
+  el.$toDarg = new ToDrag({
     el,
     options
   })
+}
+
+const unbind = (el) => {
+  el.$toDarg && el.$toDarg.destroy()
 }
 
 export { ToDrag }
@@ -188,9 +192,11 @@ export { ToDrag }
 export default {
   install (Vue, userOptions) {
     Vue.directive('to-drag', {
-      inserted
+      inserted,
+      unbind
     })
   },
   inserted,
+  unbind,
   ToDrag
 }

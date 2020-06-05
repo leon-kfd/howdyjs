@@ -25,6 +25,12 @@
 6. **[Size Observer Directive](https://kongfandong.cn/howdy/size-observer-directive)**  
 监听盒子大小变化
 
+7. **[Img Zoom Directive](https://kongfandong.cn/howdy/img-zoom-directive)**  
+为Img标签加入图片放大功能，支持按组浏览下一张图片
+
+8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  
+为Fixed定位的元素加入可拖拽功能
+
 ---
 
 ## 开始使用

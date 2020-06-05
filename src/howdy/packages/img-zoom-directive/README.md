@@ -31,14 +31,14 @@
 
 可以在其他非Vue应用中使用该功能，你只需要在你的页面中引入以下JS
 ```html
-<script src="http://kongfandong.cn/cdn/howdy/img-zoom.js"></script>
+<script src="https://kongfandong.cn/cdn/howdy/img-zoom.js"></script>
 <script>
   // 使用
   const { ImgZoom } = howdy['img-zoom']
   new ImgZoom(document.querySelector('#demo'))
 </script>
 ```
-**原生方式使用: <a href="http://kongfandong.cn/demo/img-zoom-native-usage.html" target="_blank">在线DEMO</a>**
+**原生方式使用: <a href="https://kongfandong.cn/demo/img-zoom-native-usage.html" target="_blank">在线DEMO</a>**
 
 
 

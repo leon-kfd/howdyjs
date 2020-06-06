@@ -13,8 +13,10 @@
     <div class="move-box"
          ref="move"
          v-to-drag="options"
+         @toDragInit="setCompassRotate"
+         @toDragStart="handleToDragStart"
          @toDragMove="setCompassRotate"
-         @toDragEnd="setCompassRotate">DRAG</div>
+         @toDragEnd="handleToDragEnd">DRAG</div>
   </div>
 </template>
 
@@ -24,7 +26,8 @@ export default {
   data () {
     return {
       options: {
-        immediateEvent: true
+        immediateEvent: true,
+        forbidBodyScroll: false // 自行处理滚动穿透
       },
       rotate: 0
     }
@@ -37,6 +40,12 @@ export default {
       const movePoint = [left - width / 2, top - height / 2]
       const deg = Math.atan2(movePoint[1] - compassPoint[1], movePoint[0] - compassPoint[0]) / Math.PI * 180
       this.rotate = deg + 90
+    },
+    handleToDragStart () {
+      document.body.style.overflow = 'hidden'
+    },
+    handleToDragEnd () {
+      document.body.style.overflow = 'visible'
     }
   }
 }
@@ -45,7 +54,7 @@ export default {
 <style lang='scss' scoped>
 .move-box {
   position: fixed;
-  bottom: 50px;
+  bottom: 80px;
   right: 50px;
   width: 80px;
   height: 80px;

@@ -261,7 +261,8 @@ export default {
 .content {
   margin-left: 240px;
   display: flex;
-  height: 100vh;
+  // height: 100vh;
+  height: 100%;
   overflow-y: hidden;
   .example {
     height: 100%;
@@ -283,7 +284,7 @@ export default {
       }
     }
     .example-content {
-      height: calc(100% - 50px);
+      height: calc(100vh - 50px);
       overflow-y: auto;
       padding: 10px 15px;
       padding-top: 0;
@@ -298,7 +299,7 @@ export default {
       color: #c8c8c8;
     }
     .code-box {
-      height: calc(100% - 50px);
+      height: calc(100vh - 50px);
       padding: 10px 15px;
       padding-top: 0;
       overflow-y: auto;
@@ -379,7 +380,8 @@ export default {
   .readme-content {
     margin-left: 0;
     margin-top: 40px;
-    height: calc(100vh - 40px);
+    // height: calc(100vh - 40px);
+    height: calc(100% - 40px);
   }
   .content {
     flex-wrap: wrap;

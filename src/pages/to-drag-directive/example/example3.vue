@@ -2,7 +2,7 @@
   <div class="page">
     <div class="text">请拖拽屏幕上的紫色浮块</div>
     <div class="move-box"
-         v-to-drag="{adsorb: 2}">DRAG</div>
+         v-to-drag="{ adsorb: 2 }">DRAG</div>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 <style lang='scss' scoped>
 .move-box {
   position: fixed;
-  bottom: 50px;
+  bottom: 80px;
   right: 50px;
   width: 80px;
   height: 80px;

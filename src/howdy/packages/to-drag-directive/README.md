@@ -16,10 +16,11 @@
 |adsorbOffset|开启吸附后，吸附边缘的偏移量，单位为px|Number|-|0|
 |transitionDuration|吸附动画的过渡效果的持续时间,单位为ms|Number|-|400|
 |transitionTimingFunction|吸附动画的过渡效果的动画曲线|String|-|ease-in-out|
-|immediateEvent|是否初始化时立即执行一遍toDragEnd事件回调|Boolean|-|false|
+|**forbidBodyScroll**|默认开启，处理移动端滚动穿透问题，当前使用设置body的overflow实现，设为false时需自行处理滚动穿透问题|Boolean|-|true|
 
 ### Event
 
++ **toDragInit**：初始化完成事件
 + **toDragStart**: 拖拽开始事件
 + **toDragMove**：拖拽移动事件
 + **toDragEnd**：拖拽结束时间

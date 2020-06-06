@@ -13,7 +13,7 @@ const defaultOptions = {
   adsorbOffset: 0,
   transitionDuration: 400,
   transitionTimingFunction: 'ease-in-out',
-  immediateEvent: false
+  forbidBodyScroll: true
 }
 
 class ToDrag {
@@ -58,14 +58,12 @@ class ToDrag {
     if (this.options.moveCursor) {
       this.el.style.cursor = 'move'
     }
-    if (this.options.immediateEvent) {
-      setTimeout(() => {
-        this.emitEvent('toDragEnd')
-      })
-    }
     if (this.options.adsorb) {
       this.handleAdsorb()
     }
+    setTimeout(() => {
+      this.emitEvent('toDragInit')
+    })
   }
 
   handleMousedown (e) {
@@ -94,6 +92,7 @@ class ToDrag {
     this.maxX = document.body.scrollWidth > window.innerWidth ? window.innerWidth - this.width - this.scrollbarWidth : window.innerWidth - this.width
     this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height
     document.body.style.userSelect = 'none'
+    if (this.options.forbidBodyScroll) document.body.style.overflow = 'hidden'
     this.emitEvent('toDragStart')
   }
 
@@ -122,6 +121,7 @@ class ToDrag {
     document.removeEventListener('touchmove', this.moveEvent)
     document.removeEventListener('touchend', this.endEvent)
     document.body.style.userSelect = 'auto'
+    if (this.options.forbidBodyScroll) document.body.style.overflow = 'visible'
     this.handleAdsorb()
     this.emitEvent('toDragEnd')
   }

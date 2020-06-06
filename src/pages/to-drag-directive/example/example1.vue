@@ -15,7 +15,7 @@ export default {
 <style lang='scss' scoped>
 .move-box {
   position: fixed;
-  bottom: 50px;
+  bottom: 80px;
   right: 50px;
   width: 80px;
   height: 80px;

@@ -35,6 +35,10 @@ const packageList = [
   {
     name: 'to-drag-directive',
     exampleNum: 5
+  },
+  {
+    name: 'standard-tabs',
+    exampleNum: 1
   }
 ]
 

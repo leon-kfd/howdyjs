@@ -4,6 +4,7 @@ import Resize from './packages/resize-directive'
 import Scroll from './packages/scroll-directive'
 import SizeObserver from './packages/size-observer-directive'
 import StandardTable from './packages/standard-table'
+import StandardTabs from './packages/standard-tabs'
 import ImgZoom from './packages/img-zoom-directive'
 import ToDrag from './packages/to-drag-directive'
 
@@ -15,7 +16,8 @@ export {
   SizeObserver,
   StandardTable,
   ImgZoom,
-  ToDrag
+  ToDrag,
+  StandardTabs
 }
 
 export default {
@@ -26,5 +28,6 @@ export default {
   SizeObserver,
   StandardTable,
   ImgZoom,
-  ToDrag
+  ToDrag,
+  StandardTabs
 }

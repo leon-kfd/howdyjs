@@ -8,7 +8,7 @@ import router from './router'
 
 // import { Resize, Scroll, MouseMenu, SizeObserver } from './howdy'
 
-import { Resize, Scroll, MouseMenu, SizeObserver, ImgZoom, ToDrag } from '@/howdy/index.js'
+import { Resize, Scroll, MouseMenu, SizeObserver, ImgZoom, ToDrag, AnimationDialog, StandardTabs } from '@/howdy/index.js'
 
 Vue.config.productionTip = false
 
@@ -22,6 +22,8 @@ Vue.use(MouseMenu)
 Vue.use(SizeObserver)
 Vue.use(ImgZoom)
 Vue.use(ToDrag)
+Vue.use(AnimationDialog)
+Vue.use(StandardTabs)
 
 new Vue({
   router,

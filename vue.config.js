@@ -1,7 +1,8 @@
 const hljs = require('highlight.js')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
-  productionSourceMap: false,
+  productionSourceMap: !isProduction,
   publicPath: '/howdy',
   configureWebpack: config => {
     config.module.rules.push({
@@ -35,11 +36,13 @@ module.exports = {
         }
       ]
     })
-    config.externals = {
-      vue: 'Vue',
-      'vue-router': 'VueRouter',
-      mockjs: 'Mock',
-      axios: 'axios'
+    if (isProduction) {
+      config.externals = {
+        vue: 'Vue',
+        'vue-router': 'VueRouter',
+        mockjs: 'Mock',
+        axios: 'axios'
+      }
     }
     config.plugins.push(
       // new BundleAnalyzerPlugin()

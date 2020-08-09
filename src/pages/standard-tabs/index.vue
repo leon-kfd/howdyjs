@@ -8,15 +8,15 @@
 
 <script>
 import ExampleFrame from '@/components/ExampleFrame'
-// import { AnimationDialog } from '@/howdy/index.js'
-// Vue.use(AnimationDialog)
+// import { StandardTabs } from '@/howdy/index.js'
+// Vue.use(StandardTabs)
 export default {
   components: {
     ExampleFrame
   },
   data () {
     return {
-      mainName: 'animation-dialog',
+      mainName: 'standard-tabs',
       readmeList: [
         {
           name: 'README',
@@ -27,14 +27,6 @@ export default {
         {
           name: 'Basic',
           introduce: '默认'
-        },
-        {
-          name: 'Self Open',
-          introduce: '以自身作为打开元素'
-        },
-        {
-          name: 'Animation Mode',
-          introduce: 'Animate.css动画模式'
         }
       ]
     }

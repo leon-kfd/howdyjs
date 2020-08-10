@@ -1,6 +1,7 @@
 <template>
   <div class="__tab-wrapper" :style="`width: ${tabContentRealWidth}px`">
-    <div class="__tab-list" :class="{transition1:transition}" :style="`width:${tabListMaxWidth}px;transform: translateX(${tabListMove}px)`"
+    <div class="__tab-list"
+      :style="`width:${tabListMaxWidth}px;transform: translateX(${tabListMove}px);${tabCustomStyle};${transition && computedTabTransitionStr};`"
       @touchstart="tabListEvent.touchStart"
       @touchmove="tabListEvent.touchMove"
       @touchend="tabListEvent.touchEnd">
@@ -8,16 +9,21 @@
         :class="{active: preActive === index}" v-for="(item,index) in tabList" 
         :key="item"
         @click="setActive(index)">{{item}}</div>
-      <div class="__line-wrapper" :class="{'deny-transition': denyLineTransition}" :style="`width: ${tabWidth}px;transform: translateX(${lineLeft}px)`">
-        <div class="__line" :class="{'line-transition': transition}" :style="`width: ${lineWidth + lineDynamicWidth}px;${isDragRight ? 'left' : 'right'}: ${lineSpacing}px`"></div>
+      <div class="__line-wrapper" 
+        :class="{'deny-transition': denyLineTransition}" 
+        :style="`width: ${tabWidth}px;transform: translateX(${lineLeft}px);${transition && computedMainTransitionStr}`">
+        <div class="__line" 
+          :style="`width: ${lineWidth + lineDynamicWidth}px;${isDragRight ? 'left' : 'right'}: ${lineSpacing}px;`">
+        </div>
       </div>
     </div>
-    <div class="__tab-content" :class="{transition}" :style="`width:${tabList.length * 100}vw;transform: translateX(${tabContentMove}px)`"
+    <div class="__tab-content" 
+      :style="`width:${tabList.length * 100}vw;transform: translateX(${tabContentMove}px);${transition && computedMainTransitionStr}`"
       @touchstart="tabContentEvent.touchStart"
       @touchmove="tabContentEvent.touchMove"
       @touchend="tabContentEvent.touchEnd">
       <div class="__tab-content-item" :style="`width: ${tabContentRealWidth}px;min-height: ${tabContentMinHeight}`" :class="{active: active === index}" v-for="(item,index) in tabList" :key="item">
-        <slot :name="`tab${index}`"></slot>
+        <slot :name="`tab${index + 1}`"></slot>
       </div>
     </div>
   </div>
@@ -47,7 +53,27 @@ export default {
       type: Array[String],
       require: true
     },
+    transitionDuration: {
+      type: Number,
+      default: 400
+    },
+    mainTransitionTimingFunction: {
+      type: String,
+      default: 'cubic-bezier(0.075, 0.82, 0.165, 1)'
+    },
+    tabTransitionTimingFunction: {
+      type: String,
+      default: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+    },
+    tabCustomStyle: {
+      type: String,
+      default: ''
+    },
     stopPropagation: {
+      type: Boolean,
+      default: false
+    },
+    preventDefault: {
       type: Boolean,
       default: false
     }
@@ -104,6 +130,7 @@ export default {
           }, 300)
           this.$emit('contentTouchStart', e)
           this.stopPropagation && e.stopPropagation()
+          this.preventDefault && e.preventDefault()
         },
         touchMove: (e) => {
           const rate = this.tabWidth /this.tabContentRealWidth
@@ -149,6 +176,7 @@ export default {
           startY1 = clientY
           this.$emit('contentTouchMove', e)
           this.stopPropagation && e.stopPropagation()
+          this.preventDefault && e.preventDefault()
         },
         touchEnd: (e) => {
           isStart = false
@@ -181,6 +209,7 @@ export default {
             this.$emit('contentTouchEnd', e)
           })
           this.stopPropagation && e.stopPropagation()
+          this.preventDefault && e.preventDefault()
         }
       }
     }
@@ -212,6 +241,12 @@ export default {
     },
     lineSpacing () {
       return (this.tabWidth - this.lineWidth) / 2
+    },
+    computedMainTransitionStr () {
+      return `transition: all ${this.transitionDuration / 1000}s ${this.mainTransitionTimingFunction}`
+    },
+    computedTabTransitionStr () {
+      return `transition: all ${this.transitionDuration / 1000}s ${this.tabTransitionTimingFunction}`
     }
   },
   watch: {
@@ -248,14 +283,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.transition {
-  transition: transform .4s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.transition1 {
-  transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
 .deny-transition {
-  transition: none;
+  transition: none !important;
 }
 .__tab-wrapper {
   width: 100vw;
@@ -266,13 +295,14 @@ export default {
     flex-wrap: nowrap;
     position: relative;
     margin-bottom: 10px;
+    z-index: 9;
     .__tab-list-item {
       width: 80px;
       height: 40px;
-      line-height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       &.active {
         font-weight: bold;
         color: #262626;
@@ -280,7 +310,6 @@ export default {
     }
     .__line-wrapper {
       position: absolute;
-      transition: transform .4s cubic-bezier(0.075, 0.82, 0.165, 1);
       bottom: -2px;
       .__line {
         position: absolute;
@@ -288,9 +317,6 @@ export default {
         height: 4px;
         border-radius: 2px;
         background: linear-gradient(75deg, rgb(233, 132, 101), rgb(245, 97, 11));
-        &.line-transition {
-          transition: width .4s cubic-bezier(0.075, 0.82, 0.165, 1);
-        }
       }
     }
   }

@@ -1,17 +1,17 @@
 <template>
   <div>
-    <StandardTabs :tabList="tabList" stopPropagation>
-      <template #tab0>
-        <div class="tab-content tab0">Tab1</div>
-      </template>
+    <StandardTabs :tabList="tabList" :tabContentWidth="tabContentWidth">
       <template #tab1>
-        <div class="tab-content tab1">Tab2</div>
+        <div class="tab-content tab1">Tab1</div>
       </template>
       <template #tab2>
-        <div class="tab-content tab2">Tab3</div>
+        <div class="tab-content tab2">Tab2</div>
       </template>
       <template #tab3>
-        <div class="tab-content tab3">Tab4</div>
+        <div class="tab-content tab3">Tab3</div>
+      </template>
+      <template #tab4>
+        <div class="tab-content tab4">Tab4</div>
       </template>
     </StandardTabs>
   </div>
@@ -26,30 +26,34 @@ export default {
   },
   data () {
     return {
-      tabList: ['测试1', '测试2', '测试3', '测试4']
+      tabList: ['测试1', '测试2', '测试3', '测试4'],
+      tabContentWidth: '100vw'
     }
+  },
+  mounted () {
+    this.tabContentWidth = this.$el.parentNode.offsetWidth
   }
 }
 </script>
 
 <style scoped lang="scss">
 .tab-content {
-  width:100vw;
-  height:calc(100vh - 90px);
+  width:100% !important;
+  height:calc(100vh - 120px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.tab0 {
+.tab1 {
   background: rgb(231, 202, 255);
 }
-.tab1 {
+.tab2 {
   background: rgb(255, 227, 191);
 }
-.tab2 {
+.tab3 {
   background: rgb(195, 248, 250);
 }
-.tab3 {
+.tab4 {
   background: rgb(209, 236, 255);
 }
 </style>

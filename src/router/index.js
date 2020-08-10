@@ -38,7 +38,7 @@ const packageList = [
   },
   {
     name: 'standard-tabs',
-    exampleNum: 1
+    exampleNum: 2
   }
 ]
 

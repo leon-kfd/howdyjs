@@ -27,6 +27,10 @@ export default {
         {
           name: 'Basic',
           introduce: '默认'
+        },
+        {
+          name: 'Fixed',
+          introduce: '固定标签栏'
         }
       ]
     }

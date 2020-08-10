@@ -7,23 +7,32 @@
 ---
 
 ## 组件
-1. **<a href="https://kongfandong.cn/howdy/standard-table" target="_blank">Standard Table</a>**  
+1. **[Standard Table](https://kongfandong.cn/howdy/standard-table)**  
 基于ElementUI table的二次封装
 
-2. **<a href="https://kongfandong.cn/howdy/animation-dialog" target="_blank">Animation Dialog</a>**  
+2. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
 使用动画打开模态框
 
-3. **<a href="https://kongfandong.cn/howdy/resize-directive" target="_blank">Resize Directive</a>**  
+3. **[Resize Directive](https://kongfandong.cn/howdy/resize-directive)**  
 为HTML盒子加入拖拽更改大小功能
 
-4. **<a href="https://kongfandong.cn/howdy/scroll-directive" target="_blank">Scroll Directive</a>**  
+4. **[Scroll Directive](https://kongfandong.cn/howdy/scroll-directive)**  
 为HTML盒子加入自定义滚动条
 
-5. **<a href="https://kongfandong.cn/howdy/mouse-menu-directive" target="_blank">Mouse Menu Directive</a>**  
+5. **[Mouse Menu Directive](https://kongfandong.cn/howdy/mouse-menu-directive)**  
 为HTML盒子加入自定义右键菜单
 
-6. **<a href="https://kongfandong.cn/howdy/size-observer-directive" target="_blank">Size Observer Directive</a>**  
+6. **[Size Observer Directive](https://kongfandong.cn/howdy/size-observer-directive)**  
 监听盒子大小变化
+
+7. **[Img Zoom Directive](https://kongfandong.cn/howdy/img-zoom-directive)**  
+为Img标签加入图片放大功能，支持按组浏览下一张图片
+
+8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  
+为Fixed定位的元素加入可拖拽功能
+
+9. **[Standard Tabs](https://kongfandong.cn/howdy/standard-tabs)**
+移动端标签页
 
 ---
 
@@ -53,6 +62,7 @@ export default {
   }
 }
 ```  
+
 2. **组件** | <small>以StandardTable组件为例</small>
 
 ```js
@@ -76,12 +86,14 @@ export default {
 
 ### 按需加载及打包
 1. 方式一：更改引用路径
+
 ```js
 // 将原来的
 import { StandardTable } from 'howdyjs'
 // 改为
 import StandardTable from 'howdyjs/lib/standard-table'
 ```
+
 2. 方式二：使用<a href="https://www.npmjs.com/package/babel-plugin-component" target="_blank">babel-plugin-component</a>插件
 
 ---

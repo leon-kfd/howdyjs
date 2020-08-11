@@ -1,6 +1,6 @@
 {
   "name": "howdyjs",
-  "version": "0.2.5",
+  "version": "0.3.1",
   "description": "A collection of personal vue components or vue directives",
   "main": "lib/index.js",
   "directories": {

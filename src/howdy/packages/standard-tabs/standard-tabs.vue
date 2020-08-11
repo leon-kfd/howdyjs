@@ -13,7 +13,7 @@
         :class="{'deny-transition': denyLineTransition}" 
         :style="`width: ${tabWidth}px;transform: translateX(${lineLeft}px);${transition && computedMainTransitionStr}`">
         <div class="__line" 
-          :style="`width: ${lineWidth + lineDynamicWidth}px;${isDragRight ? 'left' : 'right'}: ${lineSpacing}px;`">
+          :style="`width: ${lineWidth + lineDynamicWidth}px;${isDragRight ? 'left' : 'right'}: ${lineSpacing}px;${transition && computedMainTransitionStr};`">
         </div>
       </div>
     </div>

@@ -31,7 +31,7 @@
 8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  
 为Fixed定位的元素加入可拖拽功能
 
-9. **[Standard Tabs](https://kongfandong.cn/howdy/standard-tabs)**
+9. **[Standard Tabs](https://kongfandong.cn/howdy/standard-tabs)**  
 移动端标签页
 
 ---

@@ -6,5 +6,6 @@
   "size-observer": "./src/howdy/packages/size-observer-directive/index.js",
   "standard-table": "./src/howdy/packages/standard-table/index.js",
   "img-zoom": "./src/howdy/packages/img-zoom-directive/index.js",
-  "to-drag": "./src/howdy/packages/to-drag-directive/index.js"
+  "to-drag": "./src/howdy/packages/to-drag-directive/index.js",
+  "standard-tabs": "./src/howdy/packages/standard-tabs/index.js"
 }

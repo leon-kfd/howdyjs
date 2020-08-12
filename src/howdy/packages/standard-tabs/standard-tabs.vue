@@ -73,9 +73,9 @@ export default {
       type: Boolean,
       default: false
     },
-    preventDefault: {
+    moveEventPrevent: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data () {
@@ -130,7 +130,6 @@ export default {
           }, 300)
           this.$emit('contentTouchStart', e)
           this.stopPropagation && e.stopPropagation()
-          this.preventDefault && e.preventDefault()
         },
         touchMove: (e) => {
           const rate = this.tabWidth /this.tabContentRealWidth
@@ -143,6 +142,7 @@ export default {
           }
           this.isDragRight = clientX - saveStartX1 < 0
           if (this.isYScroll) return
+          if (this.moveEventPrevent) e.preventDefault()
           const maxLeft =this.tabContentRealWidth * (this.tabList.length - 1)
           this.tabContentMove = this.tabContentMove + move
           if (this.isDragRight) {
@@ -176,7 +176,6 @@ export default {
           startY1 = clientY
           this.$emit('contentTouchMove', e)
           this.stopPropagation && e.stopPropagation()
-          this.preventDefault && e.preventDefault()
         },
         touchEnd: (e) => {
           isStart = false
@@ -209,7 +208,6 @@ export default {
             this.$emit('contentTouchEnd', e)
           })
           this.stopPropagation && e.stopPropagation()
-          this.preventDefault && e.preventDefault()
         }
       }
     }

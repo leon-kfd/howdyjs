@@ -1,6 +1,6 @@
 {
   "name": "howdyjs",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "description": "A collection of personal vue components or vue directives",
   "main": "lib/index.js",
   "directories": {
@@ -15,7 +15,12 @@
     "VueDirective"
   ],
   "author": "leon-kfd",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:leon-kfd/howdyjs.git"
+  },
+  "homepage": "https://kongfandong.cn/howdy",
   "dependencies": {
     "axios": "^0.19.2",
     "animate.css": "^3.7.2",

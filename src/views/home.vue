@@ -14,7 +14,7 @@ export default {
   },
   data () {
     return {
-      readme
+      readme: readme.replaceAll(`https://kongfandong.cn/howdy`, '.')
     }
   }
 }

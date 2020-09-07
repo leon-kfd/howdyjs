@@ -11,26 +11,36 @@
 import ExampleFrame from '@/components/ExampleFrame'
 import { loadScriptSync } from '@/utils/helper'
 import { StandardTable } from '@/howdy/index.js'
+if (process.env.NODE_ENV !== 'production') {
+  ;(async() => {
+    const { default: Vue } = await import('vue')
+    const { default: Element } = await import('element-ui')
+    Vue.use(Element)
+    Vue.use(StandardTable)
+  })()
+}
 export default {
   components: {
     ExampleFrame
   },
   async created () {
     await Promise.all([
-      loadScriptSync('https://cdn.bootcss.com/element-ui/2.12.0/index.js'),
+      process.env.NODE_ENV === 'production' && loadScriptSync('https://cdn.bootcss.com/element-ui/2.12.0/index.js'),
       loadScriptSync('https://cdn.bootcss.com/Mock.js/1.0.1-beta3/mock-min.js'),
       loadScriptSync('https://cdn.bootcss.com/axios/0.19.2/axios.min.js')
     ])
-    Vue.use(ELEMENT, {
-      size: 'small',
-      zIndex: 8888
-    })
-    Vue.use(StandardTable, {
-      responseItems: 'data.data.items',
-      responseTotal: 'data.data.total',
-      pageSize: 15,
-      pageSizes: [10, 15, 20, 50, 100]
-    })
+    if (process.env.NODE_ENV === 'production') {
+      Vue.use(ELEMENT, {
+        size: 'small',
+        zIndex: 8888
+      })
+      Vue.use(StandardTable, {
+        responseItems: 'data.data.items',
+        responseTotal: 'data.data.total',
+        pageSize: 15,
+        pageSizes: [10, 15, 20, 50, 100]
+      })
+    }
     this.canLoad = true
   },
   data () {

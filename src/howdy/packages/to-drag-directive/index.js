@@ -141,7 +141,6 @@ class ToDrag {
         // right
         this.left = this.maxX - this.options.adsorbOffset
       }
-      console.log(this.left)
     } else if (this.options.adsorb === 2) {
       // 四方向吸附
       const k1 = maxPoint[1] / maxPoint[0]

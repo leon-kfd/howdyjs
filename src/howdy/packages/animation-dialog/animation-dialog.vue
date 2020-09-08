@@ -125,7 +125,6 @@ export default {
             width: staticWidth,
             height: staticHeight
           } = this.$refs.staticFake.getBoundingClientRect()
-          console.log(staticWidth, staticHeight)
           this.$refs.staticFake.style.left = `calc(50% - ${staticWidth / 2}px`
           this.$refs.staticFake.style.top = `calc(50% - ${staticHeight / 2}px)`
           this.$nextTick(() => {

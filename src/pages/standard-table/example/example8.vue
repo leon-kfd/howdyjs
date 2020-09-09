@@ -72,7 +72,7 @@ export default {
           }
         ],
         data: [],
-        url: '../../page',
+        url: `${this.$baseURL}/page`,
         axiosMethod: 'post',
         pagination: {
           requestPage: 'page',

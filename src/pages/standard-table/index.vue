@@ -11,14 +11,6 @@
 import ExampleFrame from '@/components/ExampleFrame'
 import { loadScriptSync } from '@/utils/helper'
 import { StandardTable } from '@/howdy/index.js'
-if (process.env.NODE_ENV !== 'production') {
-  ;(async() => {
-    const { default: Vue } = await import('vue')
-    const { default: Element } = await import('element-ui')
-    Vue.use(Element)
-    Vue.use(StandardTable)
-  })()
-}
 export default {
   components: {
     ExampleFrame
@@ -34,6 +26,16 @@ export default {
         size: 'small',
         zIndex: 8888
       })
+      Vue.use(StandardTable, {
+        responseItems: 'data.data.items',
+        responseTotal: 'data.data.total',
+        pageSize: 15,
+        pageSizes: [10, 15, 20, 50, 100]
+      })
+    } else {
+      const { default: Vue } = await import('vue')
+      const { default: Element } = await import('element-ui')
+      Vue.use(Element)
       Vue.use(StandardTable, {
         responseItems: 'data.data.items',
         responseTotal: 'data.data.total',

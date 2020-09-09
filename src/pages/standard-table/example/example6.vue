@@ -94,7 +94,7 @@ export default {
           }
         ],
         data: [],
-        url: '../../page',
+        url: `${this.$baseURL}/page`,
         params: {
           userName: '',
           startDate: '',

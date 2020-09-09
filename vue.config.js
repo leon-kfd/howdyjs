@@ -47,5 +47,15 @@ module.exports = {
     config.plugins.push(
       // new BundleAnalyzerPlugin()
     )
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://kongfandong.cn',
+        pathRewrite: {
+          '/api': ''
+        }
+      }
+    }
   }
 }

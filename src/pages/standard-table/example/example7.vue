@@ -59,7 +59,7 @@ export default {
           }
         ],
         data: [],
-        url: '../../bigData',
+        url: `${this.$baseURL}/bigData`,
         axiosMethod: 'get'
       }
     }

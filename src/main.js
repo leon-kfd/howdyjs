@@ -25,6 +25,8 @@ Vue.use(ToDrag)
 Vue.use(AnimationDialog)
 Vue.use(StandardTabs)
 
+Vue.prototype.$baseURL = process.env.NODE_ENV === 'production' ? '../..' : '/api'
+
 new Vue({
   router,
   render: h => h(App)

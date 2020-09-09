@@ -34,7 +34,7 @@ export default {
           }
         ],
         data: [],
-        url: '../../static',
+        url: `${this.$baseURL}/static`,
         axiosMethod: 'get',
         pagination: {
           static: true

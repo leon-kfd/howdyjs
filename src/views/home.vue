@@ -14,7 +14,7 @@ export default {
   },
   data () {
     return {
-      readme: readme.replaceAll(`https://kongfandong.cn/howdy`, '.')
+      readme: process.env.NODE_ENV === 'production' ? readme : readme.replaceAll(`https://kongfandong.cn/howdy`, '.')
     }
   }
 }

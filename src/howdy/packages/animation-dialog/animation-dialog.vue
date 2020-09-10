@@ -60,6 +60,10 @@ export default {
       type: Boolean,
       default: false
     },
+    appendToBody: {
+      type: Boolean,
+      default: false
+    },
     customClass: String,
     listenWindowSizeChange: {
       type: Boolean,
@@ -84,11 +88,17 @@ export default {
     }
   },
   mounted () {
+    if (this.appendToBody) {
+      document.body.appendChild(this.$el);
+    }
     if (this.listenWindowSizeChange) {
       window.addEventListener('resize', this.resetSize)
     }
   },
-  beforeDestroy () {
+  destroyed() {
+    if (this.appendToBody && this.$el && this.$el.parentNode) {
+      this.$el.parentNode.removeChild(this.$el);
+    }
     if (this.listenWindowSizeChange) {
       window.removeEventListener('resize', this.resetSize)
     }

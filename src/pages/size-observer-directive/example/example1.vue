@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="box"
          v-size-observer
-         @sizeChange="handleSizeChange">
+         @sizechange="handleSizeChange">
       <p class="text">{{width}} &times; {{height}}</p>
     </div>
   </div>

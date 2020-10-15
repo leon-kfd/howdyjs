@@ -325,10 +325,12 @@ const inserted = (el, binding, userOptions) => {
 export default {
   install (Vue, userOptions) {
     Vue.directive('scroll', {
-      inserted
+      inserted,
+      mounted: inserted
     })
   },
   inserted,
+  mounted: inserted,
   CustomScrollBar
 }
 

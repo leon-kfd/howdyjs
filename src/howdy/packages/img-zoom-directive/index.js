@@ -133,7 +133,9 @@ export default {
   install (Vue, userOptions) {
     Vue.directive('img-zoom', {
       inserted,
-      unbind
+      unbind,
+      mounted: inserted,
+      unmounted: unbind
     })
   },
   inserted,

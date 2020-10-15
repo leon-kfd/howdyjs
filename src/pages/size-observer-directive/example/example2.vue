@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="box"
          v-size-observer="options"
-         @sizeChange="handleSizeChange">
+         @sizechange="handleSizeChange">
       <p class="tips">Delay: 1s, Immediate: false</p>
       <p class="text">{{width}} &times; {{height}}</p>
     </div>

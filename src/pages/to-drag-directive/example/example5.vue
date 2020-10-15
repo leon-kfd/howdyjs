@@ -13,10 +13,10 @@
     <div class="move-box"
          ref="move"
          v-to-drag="options"
-         @toDragInit="setCompassRotate"
-         @toDragStart="handleToDragStart"
-         @toDragMove="setCompassRotate"
-         @toDragEnd="handleToDragEnd">DRAG</div>
+         @todraginit="setCompassRotate"
+         @todragstart="handleToDragStart"
+         @todragmove="setCompassRotate"
+         @todragend="handleToDragEnd">DRAG</div>
   </div>
 </template>
 

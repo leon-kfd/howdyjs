@@ -62,7 +62,7 @@ class ToDrag {
       this.handleAdsorb()
     }
     setTimeout(() => {
-      this.emitEvent('toDragInit')
+      this.emitEvent('todraginit')
     })
   }
 
@@ -93,7 +93,7 @@ class ToDrag {
     this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height
     document.body.style.userSelect = 'none'
     if (this.options.forbidBodyScroll) document.body.style.overflow = 'hidden'
-    this.emitEvent('toDragStart')
+    this.emitEvent('todragstart')
   }
 
   moveEvent (e) {
@@ -111,7 +111,7 @@ class ToDrag {
     if (this.top < 0) this.top = 0
     this.el.style.left = this.left + 'px'
     this.el.style.top = this.top + 'px'
-    this.emitEvent('toDragMove')
+    this.emitEvent('todragmove')
   }
 
   endEvent () {
@@ -123,7 +123,7 @@ class ToDrag {
     document.body.style.userSelect = 'auto'
     if (this.options.forbidBodyScroll) document.body.style.overflow = 'visible'
     this.handleAdsorb()
-    this.emitEvent('toDragEnd')
+    this.emitEvent('todragend')
   }
 
 
@@ -216,10 +216,14 @@ export default {
   install (Vue, userOptions) {
     Vue.directive('to-drag', {
       inserted,
-      unbind
+      unbind,
+      mounted: inserted,
+      unmounted: unbind
     })
   },
   inserted,
   unbind,
+  mounted: inserted,
+  unmounted: unbind,
   ToDrag
 }

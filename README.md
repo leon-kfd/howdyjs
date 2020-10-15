@@ -2,7 +2,12 @@
 <br>
 
 **一个集合个人封装的VUE组件与指令的混合包**  
-*A package of mix some vue components and vue directive*
+*A package of mix some vue components and vue directive* 
+
+## Link
++ <a href="https://github.com/leon-kfd/howdyjs" target="_blank">⚡Github</a>
++ <a href="https://www.npmjs.com/package/howdyjs" target="_blank">💾NPM</a>
++ <a href="https://kongfandong.cn/howdy" target="_blank">📖Document</a>
 
 ---
 
@@ -36,6 +41,9 @@
 
 ---
 
+*部分指令已兼容支持Vue3，包括：`Resize Directive`、`Scroll Directive`、`Size Observer Directive`、`Img Zoom Directive`*
+
+
 ## 开始使用
 
 ### 安装
@@ -52,6 +60,9 @@ import { Resize } from 'howdyjs'
 Vue.directive('resize', Resize)
 // or (带默认参数安装)
 // Vue.use(Resize, someGlobalOption)
+
+// 在Vue3中使用（部分指令已作兼容支持）
+// app.use(Resize)
 
 
 // 组件内直接使用

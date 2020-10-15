@@ -20,10 +20,10 @@
 
 ### Event
 
-+ **toDragInit**：初始化完成事件
-+ **toDragStart**: 拖拽开始事件
-+ **toDragMove**：拖拽移动事件
-+ **toDragEnd**：拖拽结束时间
++ **todraginit**：初始化完成事件
++ **todragstart**: 拖拽开始事件
++ **todragmove**：拖拽移动事件
++ **todragend**：拖拽结束时间
 
 它们都提供以下的回调参数：
 + width：当前拖拽元素的宽

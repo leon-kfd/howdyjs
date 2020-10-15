@@ -12,15 +12,15 @@ class SizeObserver {
       immediate: true,
       ...options
     }
+    this.timer = null
     this.el.$sizeObserve = this
   }
 
-  timer = null
 
   init () {
     let firstFlag = this.options.immediate
     const sizeChange = document.createEvent('HTMLEvents')
-    sizeChange.initEvent('sizeChange', false, false)
+    sizeChange.initEvent('sizechange', false, false)
     const callback = (e) => {
       if (!firstFlag) {
         firstFlag = true
@@ -58,13 +58,17 @@ const unbind = (el) => {
 
 export default {
   install (Vue, userOptions) {
-    Vue.directive('sizeObserver', {
+    Vue.directive('size-observer', {
       inserted,
-      unbind
+      unbind,
+      mounted: inserted,
+      unmounted: unbind
     })
   },
   inserted,
   unbind,
+  mounted: inserted,
+  unmounted: unbind,
   SizeObserver
 }
 

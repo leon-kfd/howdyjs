@@ -16,7 +16,7 @@
 |immediate|是否立即先执行一遍回调|Boolean|-|true|
 
 ### Event
-> 使用指令后，会自动加入一个sizeChange的自定义事件监听,可直接使用“@sizeChange="someMethod"”操作回调函数
+> 使用指令后，会自动加入一个sizechange的自定义事件监听,可直接使用“@sizechange="someMethod"”操作回调函数
 
 回调函数中提供以下参数
 

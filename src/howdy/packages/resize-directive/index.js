@@ -17,6 +17,7 @@ class CustomResize {
       tipLineWidth: 1,
       tipLineStyle: 'dashed',
       zIndex: 999,
+      needParentNodeOffset: true,
       ...options
     }
     this.directionArr = this.options.direction || ['right']
@@ -52,7 +53,7 @@ class CustomResize {
   }
 
   createLineEl (direction, dashedLineEl) {
-    const { immediate, scrollElSelector, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex } = this.options
+    const { immediate, scrollElSelector, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex, needParentNodeOffset } = this.options
     let line = document.createElement('div')
     let cssText = `position: absolute;background: ${lineColor};z-index: ${zIndex}`
     const isX = direction === 'left' || direction === 'right'
@@ -79,7 +80,7 @@ class CustomResize {
       const elSize = isX ? el.offsetWidth : el.offsetHeight
       const elParentSize = isX ? elParent.offsetWidth : elParent.offsetHeight
       const elOffset = isX ? el.offsetLeft : el.offsetTop
-      const elParentOffset = isX ? elParent.offsetLeft : elParent.offsetTop
+      const elParentOffset = needParentNodeOffset ? (isX ? elParent.offsetLeft : elParent.offsetTop) : 0
       const scrollEl = scrollElSelector ? document.querySelector(scrollElSelector) : document.documentElement
       const scrollSize = isX ? scrollEl.scrollLeft : scrollEl.scrollTop
       document.body.style.userSelect = 'none'
@@ -100,7 +101,9 @@ class CustomResize {
         element.dispatchEvent(resize)
       }
       document.onmousemove = function (e) {
-        event.preventDefault()
+        e.preventDefault()
+        console.log(e)
+        console.log('e.clientY', e.clientY, 'elParent.offsetTop', elParent.offsetTop)
         moveOffset = isX ? e.clientX - elParent.offsetLeft + scrollSize : e.clientY - elParent.offsetTop + scrollSize
         moveValidFlag = isBefore
           ? isFlex

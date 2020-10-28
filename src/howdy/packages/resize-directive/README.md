@@ -28,6 +28,7 @@
 |tipLineWidth|生成提示线的宽度,immediate为true时无效|Number|-|1|
 |tipLineStyle|生成提示线的线条样式,immediate为true时无效|String|-|dashed|
 |zIndex|生成的线条的zIndex|Number|-|999|
+|needParentNodeOffset|是否需要计算父元素offset,某些情况下若出现线定位不准可更改该属性试试|Boolean|-|true|
 
 > *Width属性的单位为px*
 

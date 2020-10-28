@@ -102,8 +102,6 @@ class CustomResize {
       }
       document.onmousemove = function (e) {
         e.preventDefault()
-        console.log(e)
-        console.log('e.clientY', e.clientY, 'elParent.offsetTop', elParent.offsetTop)
         moveOffset = isX ? e.clientX - elParent.offsetLeft + scrollSize : e.clientY - elParent.offsetTop + scrollSize
         moveValidFlag = isBefore
           ? isFlex

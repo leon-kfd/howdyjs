@@ -212,11 +212,6 @@
              :key="num + 'fake'"></div>
       </div>
     </div>
-    <card-mode v-if="conf.isCard"
-               :listData="conf.data"
-               :row="conf.row"
-               :operation="conf.operation"
-               :cardSetting="conf.cardSetting"></card-mode>
     <div class="__footer-box">
       <div class="__footer-btn-box">
         <slot name="footerLeft"></slot>

@@ -21,8 +21,8 @@
               slot-scope="data">
       <el-select v-model="data.row.position"
                  size="small">
-        <el-option v-for="(item,index) in positionList"
-                   :key="index"
+        <el-option v-for="item in positionList"
+                   :key="item"
                    :label="item"
                    :value="item"></el-option>
       </el-select>
@@ -31,6 +31,7 @@
               slot-scope="data">
       <el-date-picker v-model="data.row.birth"
                       style="width: 150px"
+                      size="small"
                       type="date"
                       value-format="yyyy-MM-dd"></el-date-picker>
     </template>

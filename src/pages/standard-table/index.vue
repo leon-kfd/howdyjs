@@ -89,6 +89,10 @@ export default {
           introduce: '表格Slot'
         },
         {
+          name: 'JSX Slot',
+          introduce: 'JSX Slot'
+        },
+        {
           name: 'Custom Column',
           introduce: '自定义列'
         }

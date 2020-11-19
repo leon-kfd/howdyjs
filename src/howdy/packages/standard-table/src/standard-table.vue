@@ -101,10 +101,10 @@
                            :show-overflow-tooltip="typeof item['show-overflow-tooltip']!== 'undefined' ? item['show-overflow-tooltip'] : true"
                            v-bind="{...item}">
             <template #default="scope">
-              <slot :name="item.slot"
-                    v-bind="{...scope}">
+              <slot v-if="typeof item.slot !== 'function'" :name="item.slot" v-bind="{...scope}">
                 <span :style="item.style ? item.style(scope.row) : ''">{{item.formatter ? item.formatter(scope.row) : scope.row[item.prop]}}</span>
               </slot>
+              <jsx-render v-if="typeof item.slot === 'function'" :scope="scope" :render="item.slot"></jsx-render>
             </template>
           </el-table-column>
         </template>
@@ -114,7 +114,7 @@
                          :fixed="typeof conf.operation.fixed ==='undefined' ? 'right': conf.operation.fixed"
                          :min-width="conf.operation['min-width'] || '150px'"
                          :width="conf.operation.width || '150px'">
-          <template slot-scope="scope">
+          <template #default="scope">
             <template v-for="(item,index) in conf.operation.btns">
               <el-button v-if="item.show ? item.show(scope.row) : true"
                          :key="index"
@@ -234,8 +234,12 @@
 <script>
 import axios from 'axios'
 import { clone, addPropertyFromObj } from '../utils/object-method'
+import JsxRender from './jsx-render.vue'
 export default {
   name: 'StandardTable',
+  components: {
+    JsxRender
+  },
   model: {
     prop: 'conf',
     event: 'update'

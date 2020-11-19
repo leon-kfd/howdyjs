@@ -26,7 +26,7 @@ const packageList = [
   },
   {
     name: 'standard-table',
-    exampleNum: 9
+    exampleNum: 10
   },
   {
     name: 'img-zoom-directive',

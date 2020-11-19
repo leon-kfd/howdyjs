@@ -8,7 +8,8 @@
 3. 可配置使用axios自动获取后端数据
 4. 可配置自动分页
 5. 可配置自动生成条件过滤表单
-6. 可配置大数据表格，固定表格渲染行数（试验阶段）
+6. 可配置大数据表格，固定表格渲染行数
+7. Slot支持JSX语法（新增）
 
 ## 配置
 
@@ -37,7 +38,7 @@
 + 表格列配置使用el-table-column的所有Attributes，主要是将列配置写在了js中
 + 重设了show-overflow-tooltip的默认值为true
 + 新增style参数，参数值为String/Function, 其中Function设置row参数为当前行的数据
-+ 新增slot参数，参数值(string)对应standard-table中的template的slot值，slot-scope与el-table的Table-column Scoped Slot保持一致，分别有{ row, column, $index }
++ 新增slot参数，参数值(string|function)对应standard-table中的template的slot值，slot-scope与el-table的Table-column Scoped Slot保持一致，分别有{ row, column, $index }，最新版已可支持JSX写法
 + 新增hidden参数，参数值(Boolean，默认为false)，控制该列是否默认隐藏，可结合自定义列功能使用配置默认隐藏的列
 
 #### 1.2 Table Config - Pagination

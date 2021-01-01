@@ -10,6 +10,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+h4 {
+  margin: 1em 0;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

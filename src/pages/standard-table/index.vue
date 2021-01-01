@@ -24,7 +24,7 @@ export default {
     if (process.env.NODE_ENV === 'production') {
       Vue.use(ELEMENT, {
         size: 'small',
-        zIndex: 8888
+        zIndex: 88888
       })
       Vue.use(StandardTable, {
         responseItems: 'data.data.items',
@@ -35,7 +35,10 @@ export default {
     } else {
       const { default: Vue } = await import('vue')
       const { default: Element } = await import('element-ui')
-      Vue.use(Element)
+      Vue.use(Element, {
+        size: 'small',
+        zIndex: 88888
+      })
       Vue.use(StandardTable, {
         responseItems: 'data.data.items',
         responseTotal: 'data.data.total',

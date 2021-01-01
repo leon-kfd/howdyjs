@@ -39,6 +39,10 @@ const packageList = [
   {
     name: 'standard-tabs',
     exampleNum: 2
+  },
+  {
+    name: 'standard-form',
+    exampleNum: 3
   }
 ]
 

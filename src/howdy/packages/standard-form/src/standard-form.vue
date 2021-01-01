@@ -45,6 +45,7 @@
 <script>
 import JsxRender from './jsx-render.vue'
 export default {
+  name: 'StandardForm',
   components: {
     JsxRender
   },

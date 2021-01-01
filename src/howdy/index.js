@@ -7,6 +7,7 @@ import StandardTable from './packages/standard-table'
 import StandardTabs from './packages/standard-tabs'
 import ImgZoom from './packages/img-zoom-directive'
 import ToDrag from './packages/to-drag-directive'
+import StandardForm from './packages/standard-form'
 
 export {
   AnimationDialog,
@@ -17,7 +18,8 @@ export {
   StandardTable,
   ImgZoom,
   ToDrag,
-  StandardTabs
+  StandardTabs,
+  StandardForm
 }
 
 export default {
@@ -29,5 +31,6 @@ export default {
   StandardTable,
   ImgZoom,
   ToDrag,
-  StandardTabs
+  StandardTabs,
+  StandardForm
 }

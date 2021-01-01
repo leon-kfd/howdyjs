@@ -39,6 +39,8 @@
 9. **[Standard Tabs](https://kongfandong.cn/howdy/standard-tabs)**  
 移动端标签页
 
+10. **[Standard Form](https://kongfandong.cn/howdy/standard-form)**  
+基于ElementUI form的二次封装
 ---
 
 *部分指令已兼容支持Vue3，包括：`Resize Directive`、`Scroll Directive`、`Size Observer Directive`、`Img Zoom Directive`*

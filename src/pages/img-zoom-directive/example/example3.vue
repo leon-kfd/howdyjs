@@ -31,7 +31,7 @@ export default {
     }
   },
   created () {
-    axios.get('../../photos').then(data => {
+    axios.get(`${this.$baseURL}/photos?type=mirror`).then(data => {
       if (data.data.errCode === 200) {
         const list = data.data.data.list.slice(0, 9).map((item, index) => {
           return {

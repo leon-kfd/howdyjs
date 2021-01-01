@@ -37,6 +37,18 @@ export default {
         {
           name: 'Attrs & Events',
           introduce: '原生属性与事件'
+        },
+        {
+          name: 'Slot (Template)',
+          introduce: '自定义表单组件'
+        },
+        {
+          name: 'Slot (JSX)',
+          introduce: '自定义表单组件'
+        },
+        {
+          name: 'Rule',
+          introduce: '表单验证'
         }
       ]
     }

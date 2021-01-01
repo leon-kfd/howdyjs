@@ -1,5 +1,5 @@
 <template>
-   <el-form v-bind="$attrs" v-on="$listeners" :model="cloneFormData" :rules="formRules">
+   <el-form v-bind="$attrs" v-on="$listeners" :model="cloneFormData" :rules="formRules" ref="form">
     <el-form-item v-for="(item,key) in formConf"
                   :label="item.label"
                   :key="key"
@@ -44,6 +44,7 @@
 
 <script>
 import JsxRender from './jsx-render.vue'
+import { addPropertyFromObj } from '../utils/object-method'
 export default {
   name: 'StandardForm',
   components: {
@@ -95,6 +96,8 @@ export default {
   },
   mounted () {
     this.cloneFormData = JSON.parse(JSON.stringify(this.formData))
+    const { validate, validateField, resetFields, clearValidate } = this.$refs.form
+    addPropertyFromObj(this, { validate, validateField, resetFields, clearValidate })
   },
   watch: {
     cloneFormData: {

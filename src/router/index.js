@@ -42,7 +42,7 @@ const packageList = [
   },
   {
     name: 'standard-form',
-    exampleNum: 3
+    exampleNum: 6
   }
 ]
 

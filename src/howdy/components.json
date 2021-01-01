@@ -7,5 +7,6 @@
   "standard-table": "./src/howdy/packages/standard-table/index.js",
   "img-zoom": "./src/howdy/packages/img-zoom-directive/index.js",
   "to-drag": "./src/howdy/packages/to-drag-directive/index.js",
-  "standard-tabs": "./src/howdy/packages/standard-tabs/index.js"
+  "standard-tabs": "./src/howdy/packages/standard-tabs/index.js",
+  "standard-form": "./src/howdy/packages/standard-form/index.js"
 }

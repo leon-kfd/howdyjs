@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import { Resize, Scroll, MouseMenu, SizeObserver, ImgZoom, ToDrag, AnimationDialog, StandardTabs } from '@/howdy'
+import { Resize, Scroll, MouseMenu, SizeObserver, ImgZoom, ToDrag, AnimationDialog, StandardTabs } from '@/howdy/index.js'
 
 Vue.config.productionTip = false
 Vue.use(Resize)

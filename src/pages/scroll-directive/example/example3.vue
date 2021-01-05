@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  name: 'example2',
+  name: 'example3',
   data () {
     return {
       scrollSetting1: {

@@ -25,5 +25,6 @@ module.exports = {
     'quotes': [2, 'single'],
     'semi': [1, 'always'],
     'space-infix-ops': 2,
+    'indent': ['error', 2]
   }
 };

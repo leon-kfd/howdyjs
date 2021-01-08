@@ -25,6 +25,18 @@ module.exports = {
     'quotes': [2, 'single'],
     'semi': [1, 'always'],
     'space-infix-ops': 2,
-    'indent': ['error', 2]
+    'indent': ['error', 2],
+    'vue/no-v-html': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/max-attributes-per-line': ['error', {
+      'singleline': 3,
+      'multiline': {
+        'max': 1,
+        'allowFirstLine': false
+      }
+    }],
+    'vue/html-self-closing': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-var-requires': 'off'
   }
 };

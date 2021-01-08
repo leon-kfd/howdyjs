@@ -12,7 +12,7 @@
 ```js
 import CustomResize from '@howdyjs/resize'
 const resize = new CustomResize({
-  el: '#resize' // Selector or Dom,
+  el: '#resize', // Selector or Dom
   options: {
     // Your Options
     // 参考下方说明

@@ -1,11 +1,11 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
-interface IElement extends HTMLElement {
+export interface ResizeElement extends HTMLElement {
   $resize?: CustomResize
 }
 
-interface IOptions {
+export interface ResizeOptions {
   immediate: boolean,
-  direction: TDirection[],
+  direction: ResizeDirectionType[],
   scrollElSelector: string | null,
   lineColor: string,
   lineWidth: number,
@@ -18,13 +18,13 @@ interface IOptions {
   needParentNodeOffset: boolean
 }
 
-interface ILine extends HTMLDivElement {
+export interface ResizeLine extends HTMLDivElement {
   mouseoverEvent?: EventListenerOrEventListenerObject,
   mouseoutEvent?: EventListenerOrEventListenerObject,
   mousedownEvent?: EventListenerOrEventListenerObject
 }
 
-interface IResizeEvent extends Event {
+export interface ResizeEvent extends Event {
   direction:string,
   moveOffset: number,
   moveOffsetPercent: number,
@@ -34,13 +34,13 @@ interface IResizeEvent extends Event {
   resizeHeightPercent?: number
 }
 
-type TDirection = 'top' | 'bottom' | 'left' | 'right'
+export type ResizeDirectionType = 'top' | 'bottom' | 'left' | 'right'
 
 class CustomResize {
-  private el: IElement
-  private options:IOptions
-  private directionArr: TDirection[]
-  constructor({ el, options }: {el: string | HTMLElement, options?: IOptions }) {
+  private el: ResizeElement
+  private options:ResizeOptions
+  private directionArr: ResizeDirectionType[]
+  constructor({ el, options }: {el: string | HTMLElement, options?: ResizeOptions }) {
     if (el instanceof HTMLElement) {
       this.el = el;
     } else {
@@ -83,7 +83,7 @@ class CustomResize {
     });
   }
 
-  private createDashedLineEl (direction:TDirection) {
+  private createDashedLineEl (direction:ResizeDirectionType) {
     const { tipLineColor, tipLineWidth, tipLineStyle, zIndex } = this.options;
     const dashedLine = document.createElement('div');
     const cssText = `position:absolute;z-index: ${zIndex};visibility: hidden;`;
@@ -95,9 +95,9 @@ class CustomResize {
     return dashedLine;
   }
 
-  private createLineEl (direction: TDirection, dashedLineEl?: HTMLDivElement) {
+  private createLineEl (direction: ResizeDirectionType, dashedLineEl?: HTMLDivElement) {
     const { immediate, scrollElSelector, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex, needParentNodeOffset } = this.options;
-    const line = document.createElement('div') as ILine;
+    const line = document.createElement('div') as ResizeLine;
     const cssText = `position: absolute;background: ${lineColor};z-index: ${zIndex}`;
     const isX = direction === 'left' || direction === 'right';
     const isBefore = direction === 'right' || direction === 'bottom';
@@ -129,7 +129,7 @@ class CustomResize {
       document.body.style.userSelect = 'none';
       let moveValidFlag = true;
       const resizeFn = () => {
-        const resize = document.createEvent('HTMLEvents') as IResizeEvent;
+        const resize = document.createEvent('HTMLEvents') as ResizeEvent;
         resize.initEvent('resize', false, false);
         resize['direction'] = direction;
         resize['moveOffset'] = moveOffset;
@@ -194,7 +194,7 @@ class CustomResize {
   }
 
   destroy ():void {
-    ([...this.el.querySelectorAll('.resize__line')] as ILine[]).map((line) => {
+    ([...this.el.querySelectorAll('.resize__line')] as ResizeLine[]).map((line) => {
       line.mouseoverEvent && line.removeEventListener('mousemove', line.mouseoverEvent);
       line.mouseoutEvent && line.removeEventListener('mouseout', line.mouseoutEvent);
       line.mousedownEvent && line.removeEventListener('mousedown', line.mousedownEvent);
@@ -210,11 +210,11 @@ class CustomResize {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:IOptions):void => {
+const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:ResizeOptions):void => {
   const { arg, value } = binding;
   const customGlobalOptions = userOptions || {};
   let direction: string[] | undefined;
-  let options: IOptions;
+  let options: ResizeOptions;
   if (arg) {
     if (arg === 'all') {
       direction = ['top', 'left', 'bottom', 'right'];
@@ -244,8 +244,8 @@ const unmounted:DirectiveHook = (el) => {
   el.$resize && el.$resize.destroy();
 };
 
-const ResizeDirective = {
-  install: (Vue: App, userOptions: IOptions):void => {
+export const ResizeDirective = {
+  install: (Vue: App, userOptions: ResizeOptions):void => {
     Vue.directive('resize', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)) as DirectiveHook,
       unmounted
@@ -256,6 +256,3 @@ const ResizeDirective = {
 };
 
 export default CustomResize;
-export {
-  ResizeDirective
-};

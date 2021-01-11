@@ -18,7 +18,7 @@
 2. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
 使用动画打开模态框
 
-3. **[Resize Directive](https://kongfandong.cn/howdy/resize-directive)**  
+3. **[Resize Directive](https://kongfandong.cn/howdy/resize)**  
 为HTML盒子加入拖拽更改大小功能
 
 4. **[Scroll Directive](https://kongfandong.cn/howdy/scroll-directive)**  

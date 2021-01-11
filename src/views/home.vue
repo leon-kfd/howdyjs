@@ -1,21 +1,24 @@
 <template>
   <div id="Home">
-    <readme-frame :readme="readme"></readme-frame>
+    <readme-frame :readme="readme" />
   </div>
 </template>
 
-<script>
-import ReadmeFrame from '@/components/ReadmeFrame'
-import readme from '@/howdy/README.md'
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import ReadmeFrame from '../components/ReadmeFrame.vue';
+import readme from '../../README.md';
+export default defineComponent({
   name: 'Home',
   components: {
     ReadmeFrame
   },
-  data () {
+  setup() {
     return {
-      readme: process.env.NODE_ENV === 'production' ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy/g, '.')
-    }
+      readme: (import.meta as any).env.PROD ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy/g, '.')
+    };
   }
-}
+});
 </script>
+<style lang="scss" scoped>
+</style>

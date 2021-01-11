@@ -1,177 +1,262 @@
 <template>
   <div id="example">
-    <input type="checkbox"
-           id="navBtnActive"
-           v-model="navActive"
-           style="display:none">
-    <label class="nav-btn"
-           for="navBtnActive">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
+    <input
+      id="navBtnActive"
+      v-model="navActive"
+      type="checkbox"
+      style="display:none"
+    >
+    <label
+      class="nav-btn"
+      for="navBtnActive"
+    >
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
     </label>
     <div class="header-tips">
-      <p class="title">{{activeTitle}}</p>
+      <p class="title">
+        {{ activeTitle }}
+      </p>
     </div>
-    <div class="nav-mask"
-         :class="{active: navActive}"
-         @click.self="navActive = false"></div>
-    <div class="nav"
-         :class="{active: navActive}">
+    <div
+      class="nav-mask"
+      :class="{active: navActive}"
+      @click.self="navActive = false"
+    />
+    <div
+      class="nav"
+      :class="{active: navActive}"
+    >
       <div class="nav-content">
         <div class="logo">
-          <h1 id="howdy"
-              @click="$router.push('/')">Howdy</h1>
-          <p id="moduleName">{{moduleName}}</p>
+          <h1
+            id="howdy"
+            @click="$router.push('/')"
+          >
+            Howdy
+          </h1>
+          <p id="moduleName">
+            {{ moduleName }}
+          </p>
         </div>
-        <p class="nav-title">Document</p>
+        <p class="nav-title">
+          Document
+        </p>
         <ul class="nav-list">
-          <li class="nav-listitem"
-              v-for="(item,index) in readmeList"
-              :key="index"
-              :class="{active: page === `${mainName}-readme`}"
-              @click="$router.push({name: `${mainName}-readme`})">
-            <p class="title">#.{{item.name}}</p>
-            <p class="introduce">{{item.introduce}}</p>
+          <li
+            v-for="(item,index) in readmeList"
+            :key="index"
+            class="nav-listitem"
+            :class="{active: page === `${mainName}-readme`}"
+            @click="$router.push({name: `${mainName}-readme`})"
+          >
+            <p class="title">
+              #.{{ item.name }}
+            </p>
+            <p class="introduce">
+              {{ item.introduce }}
+            </p>
           </li>
         </ul>
-        <p class="nav-title">Example</p>
+        <p class="nav-title">
+          Example
+        </p>
         <ul class="nav-list">
-          <li class="nav-listitem"
-              v-for="(item,index) in exampleList"
-              :key="index"
-              :class="{active: page == `${mainName}-example${index+1}`}"
-              @click="handleNavClick(index)">
-            <p class="title">{{index + 1}}.{{item.name}}</p>
-            <p class="introduce">{{item.introduce}}</p>
+          <li
+            v-for="(item,index) in exampleList"
+            :key="index"
+            class="nav-listitem"
+            :class="{active: page == `${mainName}-example${index+1}`}"
+            @click="handleNavClick(index)"
+          >
+            <p class="title">
+              {{ index + 1 }}.{{ item.name }}
+            </p>
+            <p class="introduce">
+              {{ item.introduce }}
+            </p>
           </li>
         </ul>
       </div>
       <div class="copyright">
-        <img :src="homeImg"
-             @click="$router.push('/')"
-             class="home-img">Copyright &copy;
-        <a href="http://kongfandong.cn/blog/about"
-           target="_blank">Leon.KFD</a>
+        <img
+          src="/images/Home.svg"
+          class="home-img"
+          @click="$router.push('/')"
+        >Copyright &copy;
+        <a
+          href="http://kongfandong.cn/blog/about"
+          target="_blank"
+        >Leon.KFD</a>
       </div>
     </div>
-    <div class="content"
-         v-if="page!==`${mainName}-readme`">
+    <div
+      v-if="page!==`${mainName}-readme`"
+      class="content"
+    >
       <div class="content-nav">
         <div class="content-nav-box">
-          <div class="content-nav-item"
-               :class="{active: contentActive === 1}"
-               @click="contentActive = 1">Example</div>
-          <div class="content-nav-item"
-               :class="{active: contentActive === 2}"
-               @click="contentActive = 2">Code</div>
+          <div
+            class="content-nav-item"
+            :class="{active: contentActive === 1}"
+            @click="contentActive = 1"
+          >
+            Example
+          </div>
+          <div
+            class="content-nav-item"
+            :class="{active: contentActive === 2}"
+            @click="contentActive = 2"
+          >
+            Code
+          </div>
         </div>
       </div>
-      <div class="example"
-           :class="{active: contentActive === 1}"
-           ref="tableExample">
-        <p class="title">Example</p>
-        <div class="mobile-warning"
-             v-if="showMobileWarning">
-          <div class="mobile-warning-content">插件功能不支持移动端，请使用PC端浏览</div>
+      <div
+        ref="tableExample"
+        class="example"
+        :class="{active: contentActive === 1}"
+      >
+        <p class="title">
+          Example
+        </p>
+        <div
+          v-if="showMobileWarning"
+          class="mobile-warning"
+        >
+          <div class="mobile-warning-content">
+            插件功能不支持移动端，请使用PC端浏览
+          </div>
         </div>
         <div class="example-content">
-          <router-view></router-view>
+          <router-view />
         </div>
       </div>
-      <div class="code"
-           :class="{active: contentActive === 2}"
-           v-resize:left="resizeOptions"
-           @resize="handleResize">
-        <p class="title">Code</p>
-        <div v-html="code"
-             class="code-box"></div>
+      <div
+        v-resize:left="resizeOptions"
+        class="code"
+        :class="{active: contentActive === 2}"
+        @resize="handleResize"
+      >
+        <p class="title">
+          Code
+        </p>
+        <div
+          class="code-box"
+          v-html="code"
+        />
       </div>
     </div>
-    <div class="readme-content"
-         v-if="page===`${mainName}-readme`">
-      <router-view></router-view>
+    <div
+      v-if="page===`${mainName}-readme`"
+      class="readme-content"
+    >
+      <router-view />
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { computed, defineComponent, ref, reactive, PropType, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { ResizeEvent } from '../../packages/resize';
+interface Example {
+  name: string,
+  introduce: string
+}
+export default defineComponent({
   name: 'ExampleFrame',
   props: {
-    mainName: String,
-    readmeList: Array,
-    exampleList: Array,
+    mainName: {
+      type: String,
+      default: ''
+    },
+    readmeList: {
+      type: Array,
+      default: () => []
+    },
+    exampleList: {
+      type: Array as PropType<Example[]>,
+      default: () => []
+    },
     disabledMobile: {
       type: Boolean,
       default: false
     }
   },
-  data () {
-    return {
-      page: '',
-      code: '',
-      codeLoading: false,
-      resizeOptions: {
-        zIndex: 9999,
-        tipLineColor: '#889'
-      },
-      homeImg: require('@/assets/Home.svg'),
-      navActive: false,
-      contentActive: 1
-    }
-  },
-  computed: {
-    activeTitle () {
-      if (this.page === `${this.mainName}-readme`) {
-        return `#.README`
+  setup(props) {
+    const route = useRoute();
+    const router = useRouter();
+
+    const tableExample = ref();
+    const page = ref('');
+    const code = ref('');
+    const codeLoading = ref(false);
+    const resizeOptions = reactive({
+      zIndex: 9999,
+      tipLineColor: '#889'
+    });
+    const navActive = ref(false);
+    const contentActive = ref(1);
+    const activeTitle = computed(() => {
+      if (page.value === `${props.mainName}-readme`) {
+        return '#.README';
       } else {
-        let index = this.exampleList.findIndex((item, index) => this.page === `${this.mainName}-example${index + 1}`)
-        return index > -1 ? `${index + 1}.${this.exampleList[index].name}` : ``
+        let index = props.exampleList.findIndex((item, index) => page.value === `${props.mainName}-example${index + 1}`);
+        return index > -1 ? `${index + 1}.${props.exampleList[index].name}` : '';
       }
-    },
-    showMobileWarning () {
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-      return isMobile && this.disabledMobile
-    },
-    moduleName () {
-      return this.mainName.split('-').map(name => name.slice(0, 1).toUpperCase() + name.slice(1)).join(' ')
-    }
-  },
-  methods: {
-    handleNavClick (index) {
-      this.$router.push({ name: `${this.mainName}-example${index + 1}` })
-    },
-    async loadCode () {
-      try {
-        this.codeLoading = true
-        let code = await import(`@/code/${this.mainName}/${this.page.replace(this.mainName + '-', '')}.md`)
-        this.code = code.default
-        this.codeLoading = false
-      } catch (e) {
-        console.log(e)
+    });
+    const showMobileWarning = computed(() => {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+      return isMobile && props.disabledMobile;
+    });
+    const moduleName = computed(() => props.mainName.split('-').map(name => name.slice(0, 1).toUpperCase() + name.slice(1)).join(' '));
+    const handleNavClick = (index:number) => {
+      router.push({ name: `${props.mainName}-example${index + 1}` });
+    };
+    const loadCode = async () => {
+      codeLoading.value = true;
+      let codeText = await import(`../code/${props.mainName}/${page.value.replace(props.mainName + '-', '')}.md`);
+      code.value = codeText.default;
+      codeLoading.value = false;
+    }; 
+    const handleResize = (e:ResizeEvent) => {
+      let el = e.target as HTMLElement;
+      if (el && e.resizeWidthPercent) {
+        el.style.width = `${e.resizeWidthPercent}%`;
+        tableExample.value.style.width = `${100 - e.resizeWidthPercent}%`;
       }
-    },
-    handleResize (e) {
-      let el = e.target
-      el.style.width = `${e.resizeWidthPercent}%`
-      this.$refs.tableExample.style.width = `${100 - e.resizeWidthPercent}%`
-    }
-  },
-  watch: {
-    '$route.name': {
-      handler (val) {
-        this.page = val
-        this.navActive = false
-        this.contentActive = 1
+    };
+    watch(() => route.name, (val) => {
+      if (val && typeof val === 'string') {
+        page.value = val;
+        navActive.value = false;
+        contentActive.value = 1;
         if (val.includes('example')) {
-          this.loadCode()
+          loadCode();
         }
-      },
+      }
+    }, {
       immediate: true
-    }
+    });
+
+    return {
+      tableExample,
+      page,
+      code,
+      codeLoading,
+      resizeOptions,
+      navActive,
+      contentActive,
+      activeTitle,
+      showMobileWarning,
+      moduleName,
+      handleNavClick,
+      handleResize
+    };
   }
-}
+});
 </script>
 
 <style lang="scss" scoped>

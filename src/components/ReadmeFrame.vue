@@ -1,24 +1,31 @@
 <template>
   <div id="API">
     <div class="container">
-      <div class="readme"
-           v-html="transformReadme"></div>
+      <div
+        class="readme"
+        v-html="transformReadme"
+      />
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'readmeFrame',
+<script lang="ts">
+import { computed, defineComponent } from 'vue';
+export default defineComponent({
+  name: 'ReadmeFrame',
   props: {
-    readme: String
-  },
-  computed: {
-    transformReadme () {
-      return this.readme.replace(/<table>(.|\n)*?<\/table>/g, '<div class="table-wrapper">$&</div>')
+    readme: {
+      type: String,
+      default: ''
     }
+  },
+  setup(props) {
+    const transformReadme = computed(() => props.readme.replace(/<table>(.|\n)*?<\/table>/g, '<div class="table-wrapper">$&</div>'));
+    return {
+      transformReadme
+    };
   }
-}
+});
 </script>
 <style lang="scss" scoped>
 #API {

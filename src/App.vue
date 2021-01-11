@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <style lang="scss">
@@ -37,23 +35,17 @@ h4 {
   font-style: normal;
   font-weight: regular;
   src: url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.eot');
-  /* IE9 Compat Modes */
   src: local('Fredericka the Great'), local('Frederickathe Great-Normal'),
     url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.eot?#iefix')
       format('embedded-opentype'),
-    /* IE6-IE8 */
       url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.woff2')
       format('woff2'),
-    /* Super Modern Browsers */
       url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.woff')
       format('woff'),
-    /* Modern Browsers */
       url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.ttf')
       format('truetype'),
-    /* Safari, Android, iOS */
       url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.svg#Frederickathe Great')
       format('svg');
-  /* Legacy iOS */
 }
 #howdy {
   font-family: fredericka the great, cursive;

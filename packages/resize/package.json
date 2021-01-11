@@ -1,0 +1,18 @@
+{
+  "name": "resize",
+  "version": "1.0.0",
+  "description": "**改变div大小插件**",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "types": "tsc -p ./tsconfig.json --emitDeclarationOnly",
+    "build": "rollup -c && npm run types"
+  },
+  "author": "leon-kfd",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:leon-kfd/howdyjs.git"
+  },
+  "homepage": "https://kongfandong.cn/howdy"
+}

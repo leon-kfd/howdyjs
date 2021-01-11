@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "npm run vue-to-md && vite",
     "build": "npm run vue-to-md && vite build",
+    "build:pkg": "lerna run build",
     "vue-to-md": "node vue-to-md.js"
   },
   "dependencies": {
@@ -19,6 +20,11 @@
     "@vue/compiler-sfc": "^3.0.5",
     "eslint": "^7.17.0",
     "eslint-plugin-vue": "^7.4.1",
+    "lerna": "^3.22.1",
+    "node-sass": "^5.0.0",
+    "postcss": "^8.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.29.0",
     "sass": "^1.32.2",
     "typescript": "^4.1.3",
     "vite": "^2.0.0-beta.4"

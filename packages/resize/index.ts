@@ -194,7 +194,7 @@ class CustomResize {
   }
 
   destroy ():void {
-    ([...this.el.querySelectorAll('.resize__line')] as ResizeLine[]).map((line) => {
+    (Array.from(this.el.querySelectorAll('.resize__line')) as ResizeLine[]).map((line) => {
       line.mouseoverEvent && line.removeEventListener('mousemove', line.mouseoverEvent);
       line.mouseoutEvent && line.removeEventListener('mouseout', line.mouseoutEvent);
       line.mousedownEvent && line.removeEventListener('mousedown', line.mousedownEvent);
@@ -202,7 +202,7 @@ class CustomResize {
         line.parentNode.removeChild(line);
       }
     });
-    [...this.el.querySelectorAll('.resize__dashed-line')].map(line => {
+    Array.from(this.el.querySelectorAll('.resize__dashed-line')).map(line => {
       if (line.parentNode) {
         line.parentNode.removeChild(line);
       }
@@ -247,8 +247,11 @@ const unmounted:DirectiveHook = (el) => {
 export const ResizeDirective = {
   install: (Vue: App, userOptions: ResizeOptions):void => {
     Vue.directive('resize', {
-      mounted: ((el, binding) => mounted(el, binding, userOptions)) as DirectiveHook,
-      unmounted
+      mounted: ((el, binding) => mounted(el, binding, userOptions)),
+      unmounted,
+      // @ts-ignore
+      inserted: ((el, binding) => mounted(el, binding, userOptions)),
+      unbind: unmounted
     });
   },
   mounted,

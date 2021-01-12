@@ -4,6 +4,8 @@
 **一个集合个人封装的VUE组件与指令的混合包**  
 *A package of mix some vue components and vue directive* 
 
+> 当前该仓库正准备将组件全部迁移至vue3 + typescript，以下为旧版的README，旧版项目请前往howdy分支查看。
+
 ## Link
 + <a href="https://github.com/leon-kfd/howdyjs" target="_blank">⚡Github</a>
 + <a href="https://www.npmjs.com/package/howdyjs" target="_blank">💾NPM</a>

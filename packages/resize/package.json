@@ -1,5 +1,5 @@
 {
-  "name": "resize",
+  "name": "@howdyjs/resize",
   "version": "1.0.0",
   "description": "**改变div大小插件**",
   "main": "dist/index.js",
@@ -12,7 +12,16 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com:leon-kfd/howdyjs.git"
+    "url": "git+ssh://git@github.com/leon-kfd/howdyjs.git"
   },
-  "homepage": "https://kongfandong.cn/howdy"
+  "homepage": "https://kongfandong.cn/howdy",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }

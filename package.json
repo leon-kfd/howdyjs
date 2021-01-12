@@ -23,6 +23,7 @@
     "lerna": "^3.22.1",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.4",
+    "rollup": "^2.36.1",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-typescript2": "^0.29.0",
     "sass": "^1.32.2",

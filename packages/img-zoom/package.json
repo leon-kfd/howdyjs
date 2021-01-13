@@ -1,7 +1,7 @@
 {
   "name": "@howdyjs/img-zoom",
   "version": "1.0.0",
-  "description": "**图片放大插件**",
+  "description": "图片放大插件",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

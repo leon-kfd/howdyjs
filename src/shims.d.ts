@@ -1,9 +1,10 @@
 declare module '*.vue' {
   import { ComponentOptions } from 'vue';
-  export default ComponentOptions;
+  const componentOptions: ComponentOptions;
+  export default componentOptions;
 }
 
 declare module '*.md' {
-  const x: string;
-  export = x;
+  // type x = string;
+  export const x:string;
 }

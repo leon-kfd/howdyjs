@@ -32,7 +32,7 @@
 6. **[Size Observer Directive](https://kongfandong.cn/howdy/size-observer-directive)**  
 监听盒子大小变化
 
-7. **[Img Zoom Directive](https://kongfandong.cn/howdy/img-zoom-directive)**  
+7. **[Img Zoom Directive](https://kongfandong.cn/howdy/img-zoom)**  
 为Img标签加入图片放大功能，支持按组浏览下一张图片
 
 8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  

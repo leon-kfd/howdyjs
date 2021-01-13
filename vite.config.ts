@@ -64,5 +64,14 @@ export default {
         })
       ]
     }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://kongfandong.cn',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 };

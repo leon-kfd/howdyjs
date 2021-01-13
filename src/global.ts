@@ -1,0 +1,1 @@
+export const baseURL = (import.meta as any).env.PROD ? '../..' : '/api';

@@ -4,6 +4,10 @@ const packages = [
   {
     name: 'resize',
     exampleNum: 5
+  },
+  {
+    name: 'img-zoom',
+    exampleNum: 3
   }
 ];
 const routes: Array<RouteRecordRaw> = [
@@ -23,7 +27,8 @@ const routes: Array<RouteRecordRaw> = [
         {
           path: `/${name}/readme`,
           name: `${name}-readme`,
-          component: () => import(`../pages/${name}/example/readme.vue`)
+          // component: () => import(`../pages/${name}/example/readme.vue`)
+          component: () => import('../components/PageReadme.vue')
         },
         ...Array.from({length: exampleNum}, (_, exampleIndex:number) => {
           return {

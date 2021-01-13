@@ -218,7 +218,7 @@ export default defineComponent({
     const loadCode = async () => {
       codeLoading.value = true;
       let codeText = await import(`../code/${props.mainName}/${page.value.replace(props.mainName + '-', '')}.md`);
-      code.value = codeText.default.replace(/\.\.\/\.\.\/\.\.\/\.\.\/packages/g, "@howdyjs");
+      code.value = codeText.default.replace(/\.\.\/\.\.\/\.\.\/\.\.\/packages/g, '@howdyjs');
       codeLoading.value = false;
     }; 
     const handleResize = (e:ResizeEvent) => {

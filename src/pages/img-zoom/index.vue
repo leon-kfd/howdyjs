@@ -3,7 +3,6 @@
     :main-name="mainName"
     :readme-list="readmeList"
     :example-list="exampleList"
-    disabled-mobile
   />
 </template>
 
@@ -16,7 +15,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      mainName: 'resize',
+      mainName: 'img-zoom',
       readmeList: [
         {
           name: 'README',
@@ -25,24 +24,16 @@ export default defineComponent({
       ],
       exampleList: [
         {
-          name: 'Flex Basic',
-          introduce: 'Flex布局-默认'
+          name: 'Basic',
+          introduce: '默认'
         },
         {
-          name: 'Flex Multiple',
-          introduce: 'Flex布局-两列'
+          name: 'Group',
+          introduce: '分组切换图片'
         },
         {
-          name: 'Absolute Basic',
-          introduce: 'Absolute定位布局'
-        },
-        {
-          name: 'All Direction',
-          introduce: 'Abosulute-全方向'
-        },
-        {
-          name: 'Immediate',
-          introduce: '直接更改宽高'
+          name: 'All Options',
+          introduce: '全配置'
         }
       ]
     };

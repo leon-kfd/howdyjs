@@ -8,7 +8,6 @@
     "vue-to-md": "node vue-to-md.js"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "highlight.js": "^10.5.0",
     "marked": "^1.2.7",
     "vue": "^3.0.5",

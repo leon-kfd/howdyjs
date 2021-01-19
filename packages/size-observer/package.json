@@ -1,0 +1,28 @@
+{
+  "name": "@howdyjs/size-observer",
+  "version": "1.0.0",
+  "description": "监听盒子大小变化插件",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "types": "tsc -p ./tsconfig.json --emitDeclarationOnly",
+    "build": "rollup -c && npm run types"
+  },
+  "author": "leon-kfd",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/leon-kfd/howdyjs.git"
+  },
+  "homepage": "https://kongfandong.cn/howdy",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {
+    "resize-observer-polyfill": "^1.5.1"
+  }
+}

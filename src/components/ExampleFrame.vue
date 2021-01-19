@@ -378,7 +378,7 @@ export default defineComponent({
   .code {
     height: 100%;
     width: 40%;
-    color: #abb2bf;
+    color: #c6dbea;
     background: #282c34;
     .title {
       color: #c8c8c8;

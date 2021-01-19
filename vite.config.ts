@@ -20,12 +20,12 @@ export default {
     vue(), 
     markdownPlugin({
       highlight: (code) => {
-        if (code[0] === '<' || code.includes('template') || code.includes('script')) {
+        if (code.includes('template')) {
           return hljs.highlight('html', code).value;
-        } else if (code.includes('npm')) {
-          return hljs.highlight('bash', code).value;
+        } else if (code.includes('lang="ts"')) {
+          return hljs.highlight('typescript', code).value;
         } else {
-          return hljs.highlight('js', code).value;
+          return hljs.highlightAuto(code).value;
         }
       },
       // highlight: (code) => hljs.highlightAuto(code).value,

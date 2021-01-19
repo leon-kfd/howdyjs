@@ -14,33 +14,24 @@
 ---
 
 ## 组件
-1. **[Standard Table](https://kongfandong.cn/howdy/standard-table)**  
+1. **[Resize](https://kongfandong.cn/howdy/resize)**  
+拖拽更改元素尺寸插件
+2. **[Img Zoom](https://kongfandong.cn/howdy/img-zoom)**  
+图片放大插件，支持按组浏览下一张图片
+3. **[Size Observer](https://kongfandong.cn/howdy/size-observer)**  
+监听元素尺寸变化插件
+4. **[Standard Table](https://kongfandong.cn/howdy/standard-table)**  
 基于ElementUI table的二次封装
-
-2. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
+5. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
 使用动画打开模态框
-
-3. **[Resize Directive](https://kongfandong.cn/howdy/resize)**  
-为HTML盒子加入拖拽更改大小功能
-
-4. **[Scroll Directive](https://kongfandong.cn/howdy/scroll-directive)**  
+6. **[Scroll Directive](https://kongfandong.cn/howdy/scroll-directive)**  
 为HTML盒子加入自定义滚动条
-
-5. **[Mouse Menu Directive](https://kongfandong.cn/howdy/mouse-menu-directive)**  
+7. **[Mouse Menu Directive](https://kongfandong.cn/howdy/mouse-menu-directive)**  
 为HTML盒子加入自定义右键菜单
-
-6. **[Size Observer Directive](https://kongfandong.cn/howdy/size-observer-directive)**  
-监听盒子大小变化
-
-7. **[Img Zoom Directive](https://kongfandong.cn/howdy/img-zoom)**  
-为Img标签加入图片放大功能，支持按组浏览下一张图片
-
 8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  
 为Fixed定位的元素加入可拖拽功能
-
 9. **[Standard Tabs](https://kongfandong.cn/howdy/standard-tabs)**  
 移动端标签页
-
 10. **[Standard Form](https://kongfandong.cn/howdy/standard-form)**  
 基于ElementUI form的二次封装
 ---

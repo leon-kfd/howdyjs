@@ -167,7 +167,7 @@ const mounted:DirectiveHook = (el, binding) => {
   });
 };
 
-const unmounted:DirectiveHook = (el) => {
+const unmounted:DirectiveHook = (el: ImgZoomElement) => {
   el.$imgZoom && el.$imgZoom.destory();
 };
 
@@ -183,6 +183,8 @@ export const ImgZoomDirective = {
   },
   mounted,
   unmounted,
+  inserted: mounted,
+  unbind: unmounted
 };
 
 export default ImgZoom;

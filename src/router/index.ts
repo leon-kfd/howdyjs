@@ -8,6 +8,10 @@ const packages = [
   {
     name: 'img-zoom',
     exampleNum: 3
+  },
+  {
+    name: 'size-observer',
+    exampleNum: 2
   }
 ];
 const routes: Array<RouteRecordRaw> = [

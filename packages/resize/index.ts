@@ -65,7 +65,7 @@ class CustomResize {
     this.el.$resize = this;
   }
 
-  init ():void {
+  init () {
     const { position } = getComputedStyle(this.el);
     if (position === 'static') {
       this.el.style.position = 'relative';
@@ -240,7 +240,7 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:R
   });
   resize.init();
 };
-const unmounted:DirectiveHook = (el) => {
+const unmounted:DirectiveHook = (el: ResizeElement) => {
   el.$resize && el.$resize.destroy();
 };
 
@@ -256,6 +256,9 @@ export const ResizeDirective = {
   },
   mounted,
   unmounted,
+  // @ts-ignore
+  inserted: ((el, binding) => mounted(el, binding, userOptions)),
+  unbind: unmounted
 };
 
 export default CustomResize;

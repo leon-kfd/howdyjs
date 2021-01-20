@@ -40,7 +40,7 @@ class CustomResize {
   private el: ResizeElement
   private options:ResizeOptions
   private directionArr: ResizeDirectionType[]
-  constructor({ el, options }: {el: string | HTMLElement, options?: ResizeOptions }) {
+  constructor({ el, options }: { el: string | HTMLElement, options?: ResizeOptions }) {
     if (el instanceof HTMLElement) {
       this.el = el;
     } else {
@@ -193,7 +193,7 @@ class CustomResize {
     return line;
   }
 
-  destroy ():void {
+  destroy () {
     (Array.from(this.el.querySelectorAll('.resize__line')) as ResizeLine[]).map((line) => {
       line.mouseoverEvent && line.removeEventListener('mousemove', line.mouseoverEvent);
       line.mouseoutEvent && line.removeEventListener('mouseout', line.mouseoutEvent);

@@ -14,18 +14,18 @@
 ---
 
 ## 组件
-1. **[Resize](https://kongfandong.cn/howdy/resize)**  
+1. **[Resize](https://kongfandong.cn/howdy/resize-directive)**  
 拖拽更改元素尺寸插件
-2. **[Img Zoom](https://kongfandong.cn/howdy/img-zoom)**  
+2. **[Img Zoom](https://kongfandong.cn/howdy/img-zoom-directive)**  
 图片放大插件，支持按组浏览下一张图片
-3. **[Size Observer](https://kongfandong.cn/howdy/size-observer)**  
+3. **[Size Observer](https://kongfandong.cn/howdy/size-observer-directive)**  
 监听元素尺寸变化插件
-4. **[Standard Table](https://kongfandong.cn/howdy/standard-table)**  
+4. **[Scroll](https://kongfandong.cn/howdy/scroll-directive)**  
+自定义滚动条插件
+5. **[Standard Table](https://kongfandong.cn/howdy/standard-table)**  
 基于ElementUI table的二次封装
-5. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
+6. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
 使用动画打开模态框
-6. **[Scroll Directive](https://kongfandong.cn/howdy/scroll-directive)**  
-为HTML盒子加入自定义滚动条
 7. **[Mouse Menu Directive](https://kongfandong.cn/howdy/mouse-menu-directive)**  
 为HTML盒子加入自定义右键菜单
 8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  
@@ -106,3 +106,13 @@ import StandardTable from 'howdyjs/lib/standard-table'
 
 
 #### <a href="https://www.kongfandong.cn" target="_blank" style="color: rgb(75, 9, 150)">VIEW AUTHOR BLOG</a>
+
+### Next Version 入口
+1. **[Resize](https://kongfandong.cn/howdy/resize)**  
+拖拽更改元素尺寸插件
+2. **[Img Zoom](https://kongfandong.cn/howdy/img-zoom)**  
+图片放大插件，支持按组浏览下一张图片
+3. **[Size Observer](https://kongfandong.cn/howdy/size-observer)**  
+监听元素尺寸变化插件
+4. **[Scroll](https://kongfandong.cn/howdy/scroll)**  
+自定义滚动条插件

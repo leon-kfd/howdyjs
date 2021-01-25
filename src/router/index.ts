@@ -12,6 +12,10 @@ const packages = [
   {
     name: 'size-observer',
     exampleNum: 2
+  },
+  {
+    name: 'scroll',
+    exampleNum: 5
   }
 ];
 const routes: Array<RouteRecordRaw> = [

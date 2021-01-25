@@ -10,8 +10,11 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue';
-import { SizeObserverEvent } from '../../../../packages/size-observer';
+import { SizeObserverDirective, SizeObserverEvent } from '../../../../packages/size-observer';
 export default defineComponent({
+  directives: {
+    SizeObserver: SizeObserverDirective
+  },
   setup() {
     const width = ref(0);
     const height = ref(0);

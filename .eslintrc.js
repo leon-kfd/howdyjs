@@ -26,6 +26,7 @@ module.exports = {
     'semi': [1, 'always'],
     'space-infix-ops': 2,
     'indent': ['error', 2],
+    'prefer-const': 'off',
     'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',
     'vue/max-attributes-per-line': ['error', {

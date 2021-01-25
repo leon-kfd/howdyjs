@@ -12,9 +12,12 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref } from 'vue';
-import { SizeObserverEvent } from '../../../../packages/size-observer';
+import { ref, defineComponent, Ref, ObjectDirective } from 'vue';
+import { SizeObserverDirective, SizeObserverEvent } from '../../../../packages/size-observer';
 export default defineComponent({
+  directives: {
+    SizeObserver: SizeObserverDirective as ObjectDirective
+  },
   setup() {
     const width: Ref<string|number> = ref('?');
     const height: Ref<string|number> = ref('?');

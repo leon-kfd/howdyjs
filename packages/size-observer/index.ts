@@ -99,15 +99,18 @@ const unmounted: DirectiveHook = (el: SizeObserverElement) => {
 export const SizeObserverDirective = {
   install: (Vue: App, userOptions: SizeObserverOptions):void => {
     Vue.directive('SizeObserver', {
-      mounted: ((el, binding) => mounted(el, binding, userOptions)),
+      mounted: (el, binding) => mounted(el, binding, userOptions),
       unmounted,
       // @ts-ignore
-      inserted: ((el, binding) => mounted(el, binding, userOptions)),
+      inserted: (el, binding) => mounted(el, binding, userOptions),
       unbind: unmounted
     });
   },
-  mounted,
+  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
   unmounted,
+  // @ts-ignore
+  inserted: (el, binding) => mounted(el, binding),
+  unbind: unmounted
 };
 
 export default SizeObserver;

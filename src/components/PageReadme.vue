@@ -1,6 +1,6 @@
 <template>
   <div id="Readme">
-    <readme-frame :readme="readme"></readme-frame>>
+    <readme-frame :readme="readme"></readme-frame>
   </div>
 </template>
 

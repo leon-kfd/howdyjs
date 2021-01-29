@@ -1,4 +1,4 @@
-import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
+import { DirectiveHook, App, DirectiveBinding } from 'vue';
 
 export interface ScrollBarElement extends HTMLElement {
   $scroll?: CustomScrollBar

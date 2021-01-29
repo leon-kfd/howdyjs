@@ -22,8 +22,12 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
+import { ImgZoomDirective } from '../../../../packages/img-zoom';
 import { baseURL } from '../../../global';
 export default defineComponent({
+  directives: {
+    ImgZoom: ImgZoomDirective
+  },
   setup () {
     const imgList = ref([]);
     onMounted(async () => {

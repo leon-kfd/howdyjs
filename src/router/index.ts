@@ -16,6 +16,10 @@ const packages = [
   {
     name: 'scroll',
     exampleNum: 5
+  },
+  {
+    name: 'to-drag',
+    exampleNum: 5
   }
 ];
 const routes: Array<RouteRecordRaw> = [

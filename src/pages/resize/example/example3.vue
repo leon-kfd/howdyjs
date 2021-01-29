@@ -39,9 +39,11 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue';
-import { ResizeEvent } from '../../../../packages/resize';
+import { ResizeEvent, ResizeDirective } from '../../../../packages/resize';
 export default defineComponent({
-  name: 'Example3',
+  directives: {
+    resize: ResizeDirective
+  },
   setup() {
     const a = ref();
     const b = ref();

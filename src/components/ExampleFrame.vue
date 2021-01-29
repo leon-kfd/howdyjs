@@ -160,13 +160,16 @@
 <script lang="ts">
 import { computed, defineComponent, ref, reactive, PropType, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ResizeEvent } from '../../packages/resize';
+import { ResizeEvent, ResizeDirective } from '../../packages/resize';
 interface Example {
   name: string,
   introduce: string
 }
 export default defineComponent({
   name: 'ExampleFrame',
+  directives: {
+    resize: ResizeDirective
+  },
   props: {
     mainName: {
       type: String,

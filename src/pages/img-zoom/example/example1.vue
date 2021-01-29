@@ -9,7 +9,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { ImgZoomDirective } from '../../../../packages/img-zoom';
 export default defineComponent({
+  directives: {
+    ImgZoom: ImgZoomDirective
+  },
   setup () {
     return {
       imgList: Array.from({ length: 9 }, (item, index) => `/images/img/${index + 1}.jpg`)

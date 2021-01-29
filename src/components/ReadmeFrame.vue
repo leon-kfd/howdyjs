@@ -4,7 +4,8 @@
       <div
         class="readme"
         v-html="transformReadme"
-      />
+      >
+      </div>
     </div>
   </div>
 </template>

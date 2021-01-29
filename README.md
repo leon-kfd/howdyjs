@@ -116,3 +116,5 @@ import StandardTable from 'howdyjs/lib/standard-table'
 监听元素尺寸变化插件
 4. **[Scroll](https://kongfandong.cn/howdy/scroll)**  
 自定义滚动条插件
+5. **[To Drag](https://kongfandong.cn/howdy/to-drag)**  
+设置Dom可拖动插件

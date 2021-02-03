@@ -1,0 +1,24 @@
+{
+  "name": "@howdyjs/shared",
+  "version": "1.0.0",
+  "description": "公有包",
+  "author": "leon-kfd",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/leon-kfd/howdyjs.git"
+  },
+  "homepage": "https://kongfandong.cn/howdy",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

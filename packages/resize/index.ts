@@ -194,7 +194,8 @@ class CustomResize {
   }
 
   destroy () {
-    (Array.from(this.el.querySelectorAll('.resize__line')) as ResizeLine[]).map((line) => {
+    const resizeLines: ResizeLine[] = Array.prototype.slice.call(this.el.querySelectorAll('.resize__line'));
+    resizeLines.forEach((line) => {
       line.mouseoverEvent && line.removeEventListener('mousemove', line.mouseoverEvent);
       line.mouseoutEvent && line.removeEventListener('mouseout', line.mouseoutEvent);
       line.mousedownEvent && line.removeEventListener('mousedown', line.mousedownEvent);
@@ -202,7 +203,7 @@ class CustomResize {
         line.parentNode.removeChild(line);
       }
     });
-    Array.from(this.el.querySelectorAll('.resize__dashed-line')).map(line => {
+    this.el.querySelectorAll('.resize__dashed-line').forEach(line => {
       if (line.parentNode) {
         line.parentNode.removeChild(line);
       }

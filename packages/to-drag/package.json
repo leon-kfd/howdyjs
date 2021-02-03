@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "设置Dom可拖动插件",
   "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "types": "tsc -p ./tsconfig.json --emitDeclarationOnly",
-    "build": "rollup -c && npm run types"
-  },
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {
@@ -19,6 +16,9 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "files": [
+    "dist/*"
+  ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
   },

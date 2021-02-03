@@ -14,10 +14,13 @@
   ],
   "licence": "MIT",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build:cjs": "node ./scripts/build.cjs",
+    "build:es": "node ./scripts/build.es",
+    "build:dts": "node ./scripts/build.dts",
+    "vue-to-md": "node ./scripts/vue-to-md.js",
     "dev": "npm run vue-to-md && vite",
-    "build": "npm run vue-to-md && vite build",
-    "build:pkg": "lerna run build",
-    "vue-to-md": "node vue-to-md.js"
+    "build": "npm run vue-to-md && vite build"
   },
   "dependencies": {
     "highlight.js": "^10.5.0",

@@ -1,6 +1,6 @@
 {
   "name": "@howdyjs/shared",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "公有包",
   "author": "leon-kfd",
   "license": "ISC",
@@ -18,7 +18,5 @@
   ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }

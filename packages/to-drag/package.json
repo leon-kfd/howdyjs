@@ -1,6 +1,6 @@
 {
   "name": "@howdyjs/to-drag",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "设置Dom可拖动插件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -21,7 +21,5 @@
   ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }

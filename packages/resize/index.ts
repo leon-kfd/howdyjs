@@ -1,4 +1,5 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import { CompatibleDirective } from '../shared';
 export interface ResizeElement extends HTMLElement {
   $resize?: CustomResize
 }
@@ -245,7 +246,7 @@ const unmounted:DirectiveHook = (el: ResizeElement) => {
   el.$resize && el.$resize.destroy();
 };
 
-export const ResizeDirective = {
+export const ResizeDirective: CompatibleDirective = {
   install: (Vue: App, userOptions: ResizeOptions):void => {
     Vue.directive('resize', {
       mounted: (el, binding) => mounted(el, binding, userOptions),

@@ -1,4 +1,5 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import { CompatibleDirective } from '../shared';
 
 export interface ScrollBarElement extends HTMLElement {
   $scroll?: CustomScrollBar
@@ -28,7 +29,7 @@ class CustomScrollBar {
   private el: ScrollBarElement
   private options: ScrollBarOptions
   private directionArr: Direction[]
-  private timer: number | null
+  private timer: number | null | NodeJS.Timeout
   private scrollWrapper?: HTMLElement | null
   constructor({ el, options }: { el: string | HTMLElement, options?: ScrollBarOptions }) {
     if (el instanceof HTMLElement) {
@@ -254,7 +255,7 @@ class CustomScrollBar {
 
   update (wait = 200) {
     if (this.timer !== null) {
-      clearTimeout(this.timer);
+      clearTimeout(this.timer as number);
     }
     this.timer = setTimeout(() => {
       if (this.scrollWrapper) {
@@ -382,7 +383,7 @@ const unmounted: DirectiveHook = (el: ScrollBarElement) => {
   el.$scroll && el.$scroll.destroy();
 };
 
-export const ScrollDirective = {
+export const ScrollDirective: CompatibleDirective = {
   install: (Vue: App, userOptions: ScrollBarOptions):void => {
     Vue.directive('scroll', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),

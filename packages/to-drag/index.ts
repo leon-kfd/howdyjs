@@ -1,4 +1,5 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import { CompatibleDirective } from '../shared';
 export interface ToDragOptions {
   adsorbOffset: number,
   moveCursor?: boolean,
@@ -253,7 +254,7 @@ const unmounted: DirectiveHook = (el: any) => {
   el.$toDarg && el.$toDarg.destroy();
 };
 
-export const ToDragDirective = {
+export const ToDragDirective: CompatibleDirective = {
   install: (Vue: App, userOptions: ToDragOptions):void => {
     Vue.directive('to-drag', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),

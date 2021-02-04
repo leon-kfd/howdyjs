@@ -13,7 +13,7 @@ walkPackageDirs((dirName) => {
       exports:'named',
       format: 'cjs',
     },
-    external: id => ['resize-observer-polyfill', 'tslib'].includes(id),
+    external: id => ['resize-observer-polyfill', 'tslib', 'vue'].includes(id),
     // terser: terser({
     //   output: {
     //     comments: false

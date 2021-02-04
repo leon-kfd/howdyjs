@@ -14,3 +14,12 @@ export const createIdDom = function (tag: string, id: string, innerText?: string
   }
   return el;
 };
+
+export const insertAfter = function (newEl: any, targetEl: any) {
+  const parentEl = targetEl.parentNode;
+  if (parentEl.lastChild === targetEl) {
+    parentEl.appendChild(newEl);
+  } else {
+    parentEl.insertBefore(newEl, targetEl.nextSibling);
+  }
+};

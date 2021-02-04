@@ -3,6 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const rollup = require('rollup');
 const typescript = require('rollup-plugin-typescript2');
+const vuePlugin = require('rollup-plugin-vue');
 const postcss = require('rollup-plugin-postcss');
 const { gzipSync } = require('zlib');
 const { compress } = require('brotli');
@@ -18,6 +19,10 @@ module.exports = {
       input,
 
       plugins: [
+        vuePlugin({
+          include: /\.vue$/,
+          preprocessStyles: true
+        }),
         typescript({
           exclude: 'node_modules/**',
         }),

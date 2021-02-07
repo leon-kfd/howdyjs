@@ -1,0 +1,28 @@
+{
+  "name": "@howdyjs/animation-dialog",
+  "version": "1.1.0",
+  "description": "Vue动画弹窗组件",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "author": "leon-kfd",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/leon-kfd/howdyjs.git"
+  },
+  "homepage": "https://kongfandong.cn/howdy",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {
+    "vue": "^3.0.0"
+  }
+}

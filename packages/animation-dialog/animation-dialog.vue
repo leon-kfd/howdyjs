@@ -19,7 +19,6 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed, onUnmounted, nextTick } from 'vue';
 import { insertAfter } from '../shared';
-import 'animate.css';
 export default defineComponent({
   name: 'AnimationDialog',
   props: {
@@ -186,7 +185,11 @@ export default defineComponent({
     };
     return {
       open,
-      close
+      close,
+      staticFake,
+      centerFake,
+      main,
+      show
     };
   }
 });

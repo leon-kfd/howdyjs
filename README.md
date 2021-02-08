@@ -8,29 +8,29 @@
 
 ## Link
 + <a href="https://github.com/leon-kfd/howdyjs" target="_blank">⚡Github</a>
-+ <a href="https://kongfandong.cn/howdy" target="_blank">📖Document</a>
++ <a href="https://kongfandong.cn/howdy-next" target="_blank">📖Document</a>
 + <a href="https://www.npmjs.com/search?q=%40howdyjs" target="_blank">💾NPM</a>
 
 ---
 
 ## 组件
 
-1. **[Resize](https://kongfandong.cn/howdy/resize)**  
+1. **[Resize](https://kongfandong.cn/howdy-next/resize)**  
 拖拽更改元素尺寸插件
 
-2. **[Img Zoom](https://kongfandong.cn/howdy/img-zoom)**  
+2. **[Img Zoom](https://kongfandong.cn/howdy-next/img-zoom)**  
 图片放大插件，支持按组浏览下一张图片
 
-3. **[Size Observer](https://kongfandong.cn/howdy/size-observer)**  
+3. **[Size Observer](https://kongfandong.cn/howdy-next/size-observer)**  
 监听元素尺寸变化插件
 
-4. **[Scroll](https://kongfandong.cn/howdy/scroll)**  
+4. **[Scroll](https://kongfandong.cn/howdy-next/scroll)**  
 自定义滚动条插件
 
-5. **[To Drag](https://kongfandong.cn/howdy/to-drag)**  
+5. **[To Drag](https://kongfandong.cn/howdy-next/to-drag)**  
 设置Dom可拖动插件
 
-6. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
+6. **[Animation Dialog](https://kongfandong.cn/howdy-next/animation-dialog)**  
 动画模态框Vue3组件
 ---
 

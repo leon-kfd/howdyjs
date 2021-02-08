@@ -27,22 +27,6 @@ export default defineComponent({
 });
 </script>
 
-<script>
-export default {
-  name: 'example',
-  data () {
-    return {
-      options: {
-        adsorb: 2,
-        adsorbOffset: 10,
-        transitionDuration: 800,
-        transitionTimingFunction: `cubic-bezier(0.34, -0.37, 0.73, 1.38)`
-      }
-    }
-  }
-}
-</script>
-
 <style lang='scss' scoped>
 .move-box {
   position: fixed;

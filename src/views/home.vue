@@ -15,7 +15,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      readme: (import.meta as any).env.PROD ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy/g, '.')
+      readme: (import.meta as any).env.PROD ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy-next/g, '.')
     };
   }
 });

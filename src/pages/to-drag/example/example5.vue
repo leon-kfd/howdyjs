@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { ToDragDirective } from '../../../../packages/to-drag';
 export default defineComponent({
   directives: {
@@ -46,7 +46,7 @@ export default defineComponent({
         transitionDuration: 800,
         transitionTimingFunction: 'cubic-bezier(0.34, -0.37, 0.73, 1.38)'
       },
-      setCompassRotate (e) {
+      setCompassRotate (e: any) {
         const { top: compassTop, left: compassLeft, width: compassWidth, height: compassHeight } = compass.value.getBoundingClientRect();
         const compassPoint = [compassLeft - compassWidth / 2, compassTop - compassHeight / 2];
         const { top, left, width, height } = e;
@@ -63,22 +63,6 @@ export default defineComponent({
     };
   }
 });
-</script>
-
-<script>
-export default {
-  name: 'example',
-  data () {
-    return {
-      options: {
-        adsorb: 2,
-        adsorbOffset: 10,
-        transitionDuration: 800,
-        transitionTimingFunction: `cubic-bezier(0.34, -0.37, 0.73, 1.38)`
-      }
-    }
-  }
-}
 </script>
 
 <style lang='scss' scoped>

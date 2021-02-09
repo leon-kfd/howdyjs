@@ -269,7 +269,7 @@ export default defineComponent({
 .logo {
   padding: 0 10px;
   #howdy {
-    font-size: 24px;
+    font-size: 28px;
     line-height: 28px;
     padding-top: 10px;
     padding-bottom: 10px;

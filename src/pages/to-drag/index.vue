@@ -3,7 +3,6 @@
     :main-name="mainName"
     :readme-list="readmeList"
     :example-list="exampleList"
-    disabled-mobile
   />
 </template>
 

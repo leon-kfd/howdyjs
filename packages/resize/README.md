@@ -19,7 +19,7 @@ const resize = new CustomResize({
   }
 })
 resize.init()
-document.addEventListen('resize', (e) => {
+document.addEventListener('resize', (e) => {
   // 盒子更改后的处理逻辑,需自行处理,参数参考下方说明
   const { direction, moveOffset, moveOffsetPercent } = e
 })

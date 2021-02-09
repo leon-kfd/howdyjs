@@ -18,7 +18,7 @@ const resizeObserve = new SizeObserver({
     // 参考下方说明
   }
 });
-document.addEventListen('sizechange', (e) => {
+document.addEventListener('sizechange', (e) => {
   // 盒子触发回调，回调参数参考下方说明
   const { contentRect } = e
 })

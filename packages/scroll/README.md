@@ -22,6 +22,9 @@ const scroll = new CustomScrollBar({
 scroll.init();
 ```
 
++ UMD CDN: <a href="https://unpkg.com/@howdyjs/scroll/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/scroll/dist/index.umd.js</a>
++ UMD Name: `HowdyScroll`
+
 ### Options (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|

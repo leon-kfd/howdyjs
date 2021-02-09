@@ -20,6 +20,9 @@ new ToDrag({
 });
 ```
 
++ UMD CDN: <a href="https://unpkg.com/@howdyjs/to-drag/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/to-drag/dist/index.umd.js</a>
++ UMD Name: `HowdyToDrag`
+
 ### Options (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|

@@ -25,6 +25,9 @@ document.addEventListener('resize', (e) => {
 })
 ```
 
++ UMD CDN: <a href="https://unpkg.com/@howdyjs/resize/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/resize/dist/index.umd.js</a>
++ UMD Name: `HowdyResize`
+
 ### Options (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|

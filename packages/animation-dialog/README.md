@@ -37,3 +37,5 @@
 |事件名|说明|回调参数|
 |:---|:---|:---|
 |beforeClose|关闭动画前执行事件|-|
+
+> Package umd name: `HowdyAnimationDialog`

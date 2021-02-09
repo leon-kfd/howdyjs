@@ -165,6 +165,29 @@ const router = createRouter({
     ]
   },
   {
+    "path": "/standard-tabs",
+    "name": "standard-tabs",
+    "redirect": "/standard-tabs/readme",
+    "component": () => import("../pages/standard-tabs/index.vue"),
+    "children": [
+      {
+        "path": "/standard-tabs/readme",
+        "name": "standard-tabs-readme",
+        "component": () => import("../components/PageReadme.vue")
+      },
+      {
+        "path": "/standard-tabs/example1",
+        "name": "standard-tabs-example1",
+        "component": () => import("../pages/standard-tabs/example/example1.vue")
+      },
+      {
+        "path": "/standard-tabs/example2",
+        "name": "standard-tabs-example2",
+        "component": () => import("../pages/standard-tabs/example/example2.vue")
+      }
+    ]
+  },
+  {
     "path": "/to-drag",
     "name": "to-drag",
     "redirect": "/to-drag/readme",

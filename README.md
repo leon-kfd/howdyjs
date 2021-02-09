@@ -32,6 +32,10 @@
 
 6. **[Animation Dialog](https://kongfandong.cn/howdy-next/animation-dialog)**  
 动画模态框Vue3组件
+
+7. **[Standard Tabs](https://kongfandong.cn/howdy-next/standard-tabs)**  
+移动端标签页Vue3组件
+
 ---
 
 ## 开始使用

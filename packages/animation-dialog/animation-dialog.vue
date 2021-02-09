@@ -68,6 +68,7 @@ export default defineComponent({
       default: 200
     }
   },
+  emits: ['beforeClose'],
   setup(props, { emit }) {
     const staticFake = ref();
     const centerFake = ref();

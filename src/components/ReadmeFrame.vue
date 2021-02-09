@@ -156,7 +156,7 @@ export default defineComponent({
   blockquote {
     font-size: 1em;
     font-style: normal;
-    padding: 30px 38px;
+    padding: 20px 30px 10px;
     margin: 0 0 15px;
     position: relative;
     line-height: 1.8;
@@ -166,10 +166,10 @@ export default defineComponent({
   }
   blockquote:before {
     content: '“';
-    left: 12px;
+    left: 8px;
     top: 0;
     color: #e0e0e0;
-    font-size: 4em;
+    font-size: 3em;
     font-family: Arial, serif;
     line-height: 1em;
     font-weight: 700;
@@ -177,15 +177,14 @@ export default defineComponent({
   }
   blockquote:after {
     content: '”';
-    right: 12px;
-    bottom: -26px;
+    right: 8px;
     color: #e0e0e0;
-    font-size: 4em;
+    font-size: 3em;
     font-family: Arial, serif;
     line-height: 1em;
     font-weight: 700;
     position: absolute;
-    bottom: -31px;
+    bottom: -20px;
   }
   strong,
   dfn {
@@ -306,6 +305,14 @@ export default defineComponent({
   a:target {
     border: 0;
     outline: 0;
+  }
+  :not(pre) > code {
+    border-radius: 3px;
+    background: rgb(253, 239, 213);
+    color: #262626;
+    padding: 2px 4px 1px;
+    white-space: normal;
+    font-weight: 500;
   }
 }
 .language-js {

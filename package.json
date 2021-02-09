@@ -22,7 +22,8 @@
     "gen-router": "node ./scripts/gen-router.js",
     "vue-to-md": "node ./scripts/vue-to-md.js",
     "dev": "npm run vue-to-md && npm run gen-router && vite",
-    "build": "npm run vue-to-md && npm run gen-router && vite build"
+    "build": "npm run vue-to-md && npm run gen-router && vite build",
+    "publish": "lerna publish"
   },
   "dependencies": {
     "animate.css": "^4.1.1",

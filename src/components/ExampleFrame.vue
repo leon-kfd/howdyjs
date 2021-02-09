@@ -34,7 +34,10 @@
             id="howdy"
             @click="$router.push('/')"
           >
-            Howdy
+            <svg class="back" viewBox="0 0 1024 1024">
+              <path d="M899.818723 555.092447 382.719588 555.092447c-23.796986 0-43.091424-19.294438-43.091424-43.091424 0-23.799032 19.294438-43.091424 43.091424-43.091424l517.099135 0c23.799032 0 43.091424 19.292392 43.091424 43.091424C942.910147 535.798009 923.617755 555.092447 899.818723 555.092447zM185.058786 512.001023l335.979054 335.979054c16.827247 16.827247 16.827247 44.110637 0 60.939931-16.827247 16.829294-44.110637 16.829294-60.939931 0L93.700055 542.522154c-8.428973-8.426927-12.623505-19.47761-12.611226-30.524201-0.013303-11.044544 4.182252-22.095227 12.611226-30.522154L460.096886 115.079992c16.829294-16.829294 44.112684-16.829294 60.939931 0 16.827247 16.827247 16.827247 44.112684 0 60.939931L185.058786 512.001023z"></path>
+            </svg>
+            <span class="text">Howdy</span>
           </h1>
           <p id="moduleName">
             {{ moduleName }}
@@ -266,26 +269,49 @@ export default defineComponent({
 .logo {
   padding: 0 10px;
   #howdy {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 24px;
+    line-height: 28px;
     padding-top: 10px;
     padding-bottom: 10px;
     position: relative;
     cursor: pointer;
+    transition: all .4s ease-in-out;
     &:after {
       content: '';
       position: absolute;
-      bottom: 5px;
+      bottom: 0;
       width: 30px;
       left: 0;
       border-top: 2px solid #5b9df3;
     }
+    .back {
+      position: absolute;
+      opacity: 0;
+      width: 18px;
+      height: 18px;
+      left: 0;
+      top: calc(50% - 9px);
+      transition: all .4s ease-in-out;
+    }
+    &:hover {
+      padding-left: 20px;
+      .back {
+        opacity: 1;
+      }
+    }
   }
   #moduleName {
-    font-size: 16px;
-    line-height: 24px;
+    display: inline-flex;
+    background: transparent;
+    border: 4px solid #262626;
+    font-size: 24px;
     font-weight: 500;
-    color: rgb(95, 105, 128);
+    color: #262626;
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 0 8px 2px;
+    height: 44px;
+    align-items: center;
   }
 }
 .nav {

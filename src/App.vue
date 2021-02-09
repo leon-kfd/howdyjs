@@ -29,28 +29,10 @@ h4 {
   background: #bbb;
   background-clip: padding-box;
 }
-/* fredericka-the-great-regular */
-@font-face {
-  font-family: 'Fredericka the Great';
-  font-style: normal;
-  font-weight: regular;
-  src: url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.eot');
-  src: local('Fredericka the Great'), local('Frederickathe Great-Normal'),
-    url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.eot?#iefix')
-      format('embedded-opentype'),
-      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.woff2')
-      format('woff2'),
-      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.woff')
-      format('woff'),
-      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.ttf')
-      format('truetype'),
-      url('//lib.baomitu.com/fonts/fredericka-the-great/fredericka-the-great-regular.svg#Frederickathe Great')
-      format('svg');
-}
 #howdy {
-  font-family: fredericka the great, cursive;
-  font-weight: 500;
-  color: rgb(92, 157, 243);
-  letter-spacing: 1px;
+  text-shadow: 3px 3px #5b9df3;
+  color: transparent;
+  -webkit-text-stroke-color: #262626;
+  -webkit-text-stroke-width: 2px;
 }
 </style>

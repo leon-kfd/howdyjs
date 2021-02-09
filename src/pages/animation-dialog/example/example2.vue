@@ -27,6 +27,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import AnimationDialog from '../../../../packages/animation-dialog';
+import { baseURL } from '../../../global';
 export default defineComponent({
   components: {
     AnimationDialog
@@ -36,7 +37,7 @@ export default defineComponent({
     const active = ref(0);
     return {
       dialog,
-      imgList: Array.from({ length: 9 }, (item, index) => `/images/img/${index + 1}.jpg`),
+      imgList: Array.from({ length: 9 }, (item, index) => `${baseURL}images/img/${index + 1}.jpg`),
       active: 0,
       handleShowDialog ($event: any, index:number) {
         active.value = index + 1;

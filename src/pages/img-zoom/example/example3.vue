@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import { ImgZoomDirective } from '../../../../packages/img-zoom';
-import { baseURL } from '../../../global';
+import { apiURL } from '../../../global';
 export default defineComponent({
   directives: {
     ImgZoom: ImgZoomDirective
@@ -31,7 +31,7 @@ export default defineComponent({
   setup () {
     const imgList = ref([]);
     onMounted(async () => {
-      const res = await fetch(`${baseURL}/photos?type=mirror`);
+      const res = await fetch(`${apiURL}/photos?type=mirror`);
       const { data, errCode } = await res.json();
       if (errCode === 200) {
         imgList.value = data.list.slice(0, 9).map((item: Record<string,any>, index:number) => {

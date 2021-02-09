@@ -304,7 +304,7 @@ export default defineComponent({
     display: inline-flex;
     background: transparent;
     border: 4px solid #262626;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 500;
     color: #262626;
     margin-top: 15px;

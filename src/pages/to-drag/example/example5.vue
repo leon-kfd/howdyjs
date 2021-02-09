@@ -41,10 +41,8 @@ export default defineComponent({
       rotate,
       compass,
       options: {
-        adsorb: 2,
-        adsorbOffset: 10,
-        transitionDuration: 800,
-        transitionTimingFunction: 'cubic-bezier(0.34, -0.37, 0.73, 1.38)'
+        immediateEvent: true,
+        forbidBodyScroll: false // 自行处理滚动穿透
       },
       setCompassRotate (e: any) {
         const { top: compassTop, left: compassLeft, width: compassWidth, height: compassHeight } = compass.value.getBoundingClientRect();
@@ -90,5 +88,41 @@ export default defineComponent({
   font-weight: bold;
   font-size: 1.3rem;
   color: #262626;
+}
+.compass-box {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  .compass {
+    width: 64px;
+    height: 64px;
+    filter: drop-shadow(0 0 16px #ccc);
+    animation: bounce 2s ease-in-out 1s infinite;
+  }
+}
+@keyframes bounce {
+  from,
+  20%,
+  53%,
+  80%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  43% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
 }
 </style>

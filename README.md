@@ -63,8 +63,8 @@ npm i -S howdyjs
 + 使用`rollup`进行打包， 执行`npm run build:pkg`打包各Packages，包含cjs、es和其d.ts文件
 
 ### 展示站点
-+ 开发环境及展示站点使用`vite`搭建，安装依赖后，执行`npm run dev`启动
-+ 站点路由文件使用Node读取文件目录**自动生成**，执行`npm run gen-router`生成文件
++ 开发环境及展示站点使用`vite`搭建，lerna初始化、安装依赖、打包Packages，完成后执行`npm run dev`启动
++ 站点路由文件使用Node读取文件目录**自动生成**，执行`npm run gen-router`可重新生成路由文件
 
 
 #### <a href="https://www.kongfandong.cn" target="_blank" style="color: rgb(75, 9, 150)">VIEW AUTHOR BLOG</a>

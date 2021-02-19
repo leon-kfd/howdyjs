@@ -20,7 +20,7 @@ module.exports = {
   },
   rules: {
     'camelcase': 2,
-    'curly': 2,
+    'curly': 0,
     'brace-style': [2, '1tbs'],
     'quotes': [2, 'single'],
     'semi': [1, 'always'],

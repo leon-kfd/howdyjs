@@ -47,7 +47,7 @@ Vue.use(ImgZoomDirective)
 // 组件内引入
 export default {
   directive: {
-    resize: ResizeDirective
+    ImgZoom: ImgZoomDirective
   }
 }
 ```

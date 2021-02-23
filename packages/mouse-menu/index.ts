@@ -14,7 +14,7 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
     width: 200,
     menuList: [],
     hasIcon: false,
-    IconType: 'font-icon',
+    iconType: 'font-icon',
     ...value
   };
   const menuWrapperCss = {

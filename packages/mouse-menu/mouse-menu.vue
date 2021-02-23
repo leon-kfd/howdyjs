@@ -16,7 +16,7 @@
           @mouseenter="handleMenuMouseEnter($event,item)"
         >
           <span v-if="hasIcon" class="__menu__item-icon">
-            <i v-if="IconType==='font-icon'" v-show="item.icon" :class="item.icon"></i>
+            <i v-if="iconType==='font-icon'" v-show="item.icon" :class="item.icon"></i>
           </span>
           <span class="__menu__item-label">{{ item.label }}</span>
           <span class="__menu__item-tips">{{ item.tips || '' }}</span>

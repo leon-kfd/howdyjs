@@ -80,6 +80,26 @@ const router = createRouter({
         "path": "/mouse-menu/example1",
         "name": "mouse-menu-example1",
         "component": () => import("../pages/mouse-menu/example/example1.vue")
+      },
+      {
+        "path": "/mouse-menu/example2",
+        "name": "mouse-menu-example2",
+        "component": () => import("../pages/mouse-menu/example/example2.vue")
+      },
+      {
+        "path": "/mouse-menu/example3",
+        "name": "mouse-menu-example3",
+        "component": () => import("../pages/mouse-menu/example/example3.vue")
+      },
+      {
+        "path": "/mouse-menu/example4",
+        "name": "mouse-menu-example4",
+        "component": () => import("../pages/mouse-menu/example/example4.vue")
+      },
+      {
+        "path": "/mouse-menu/example5",
+        "name": "mouse-menu-example5",
+        "component": () => import("../pages/mouse-menu/example/example5.vue")
       }
     ]
   },

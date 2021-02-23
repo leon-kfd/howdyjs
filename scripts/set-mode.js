@@ -4,8 +4,6 @@ const args = require('minimist')(process.argv.slice(2));
 
 const mode = args['mode'];
 
-console.log(args);
-
 if (mode === 'dev') {
   glob('packages/**/package.json', (err, files) => {
     if (err) {

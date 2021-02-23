@@ -1,16 +1,65 @@
-# Mouse Menu Directive
+# Mouse Menu
 
-**Vue指令-mouse-menu**
+**自定义菜单-VUE3组件/指令**
 
 ## 特性
-1. 通过vue指令使用自定义菜单覆盖原生右键菜单
+1. 默认封装成Vue指令
 2. 支持自定义样式
 3. 支持子菜单
 4. 支持加入菜单图标
 
+## 使用
+1. 指令方式使用（推荐）
+
+```html
+<template>
+  <div v-mouse-menu="options">Dom</div>
+</template>
+<script>
+import { MouseMenuDirective } from '@howdyjs/mouse-menu';
+export default {
+  directive: {
+    MouseMenu: MouseMenuDirective
+  },
+  setup() {
+    return {
+      options: {} // Some Options
+    }
+  }
+}
+</script>
+```
+
+2. 组件方式使用
+
+```html
+<template>
+  <div ref="dom">Dom</div>
+  <mouse-menu v-bind="options"></mouse-menu>
+</template>
+<script>
+import { ref } from 'vue'
+import MouseMenu from '@howdyjs/mouse-menu';
+export default {
+  components: {
+    MouseMenu
+  },
+  setup () {
+    const dom = ref()
+    return {
+      options: {
+        activeEl: dom.value,
+        // Other Options...
+      } 
+    }
+  }
+}
+</script>
+```
+
 ## 配置
 
-### Value (Objcet)
+### Props/指令Value (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
 |width|菜单宽度|Number|-|200|
@@ -64,3 +113,15 @@
 |hoverArrowColor|hover时菜单项arrow的颜色|String|-|null|
 
 > 以上涉及的CSS部分配置使用css3的css变量实现，若需兼容IE请自己定义样式表
+
+### Methods
+
+|方法名|说明|参数|
+|:---|:---|:---|
+|show|显示菜单，一般不需要自行调用|x:number,y:number|
+|close|关闭菜单|-|
+|update|重设组件中的监听事件，一般更新activeEl后需要调用|-|
+
+> 若以组件方式使用，需要自行调用更新监听的逻辑，因为Vue的`Watch`不能监听Dom变化这种类型
+
+

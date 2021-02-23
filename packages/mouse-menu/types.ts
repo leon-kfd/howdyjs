@@ -1,4 +1,4 @@
-export type MenuCallback<T = any> = (arg0: HTMLElement | null, arg1: HTMLElement | null, arg2?: any) => T
+export type MenuCallback<T = any> = (arg0?: any, arg1?: HTMLElement | null, arg2?: HTMLElement | null) => T
 export type MenuSetting = {
   fn?: MenuCallback;
   label?: string | MenuCallback<string>;

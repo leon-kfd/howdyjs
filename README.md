@@ -36,6 +36,9 @@
 7. **[Standard Tabs](https://kongfandong.cn/howdy-next/standard-tabs)**  
 移动端标签页Vue3组件
 
+8. **[Mouse Menu](https://kongfandong.cn/howdy-next/mouse-menu)**  
+自定义右键菜单组件
+
 ---
 
 ## 开始使用
@@ -63,7 +66,7 @@ npm i -S howdyjs
 + 使用`rollup`进行打包， 执行`npm run build:pkg`打包各Packages，包含cjs、es和其d.ts文件
 
 ### 展示站点
-+ 开发环境及展示站点使用`vite`搭建，lerna初始化、安装依赖、打包Packages，完成后执行`npm run dev`启动
++ 开发环境及展示站点使用`vite`搭建，lerna初始化、安装依赖、打包Packages，完成后执行`npm run example`启动
 + 站点路由文件使用Node读取文件目录**自动生成**，执行`npm run gen-router`可重新生成路由文件
 
 

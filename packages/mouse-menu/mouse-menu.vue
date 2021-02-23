@@ -1,64 +1,70 @@
 <template>
-  <div
-    v-show="showMenu"
-    ref="MenuWrapper"
-    class="__menu__wrapper"
-    :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
-  >
-    <template v-for="(item,index) in calcMenuList">
-      <div
-        v-if="!item.hidden && !item.line"
-        :key="index"
-        class="__menu__item"
-        :class="{disabled: item.disabled}"
-        @mousedown.stop="handleMenuItemClick(item)"
-        @mouseenter="handleMenuMouseEnter($event,item)"
-      >
-        <span v-if="hasIcon" class="__menu__item-icon">
-          <i v-if="IconType==='font-icon'" v-show="item.icon" :class="item.icon"></i>
-        </span>
-        <span class="__menu__item-label">{{ item.label }}</span>
-        <span class="__menu__item-tips">{{ item.tips || '' }}</span>
-        <span
-          v-if="hasSubMenu"
-          class="__menu__item-arrow"
-          :class="{show: hasSubMenu && item.children}"
-          :style="{width: menuItemCss['arrowSize'],height: menuItemCss['arrowSize']}"
-        >
-          <span v-show="hasSubMenu && item.children" class="__menu__item-arrow-after"></span>
-        </span>
+  <teleport to="body" :disabled="!appendToBody">
+    <div
+      v-show="showMenu"
+      ref="MenuWrapper"
+      class="__menu__wrapper"
+      :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
+    >
+      <template v-for="(item,index) in calcMenuList">
         <div
-          v-show="hoverFlag"
-          v-if="item.children && item.children.length > 0"
-          class="__menu__sub__wrapper"
-          :style="{top: `${subTop}px`, left: `${subLeft}px`}"
+          v-if="!item.hidden && !item.line"
+          :key="index"
+          class="__menu__item"
+          :class="{disabled: item.disabled}"
+          @mousedown.stop="handleMenuItemClick(item)"
+          @mouseenter="handleMenuMouseEnter($event,item)"
         >
-          <template v-for="(subItem,subIndex) in item.children">
-            <div
-              v-if="!subItem.hidden && !subItem.line"
-              :key="subIndex"
-              class="__menu__sub__item"
-              :class="{disabled: subItem.disabled}"
-              @mousedown.stop="handleSubMenuItemClick(subItem)"
-            >
-              <span class="__menu__sub__item-label">{{ subItem.label }}</span>
-              <span class="__menu__sub__item-tips">{{ subItem.tips || '' }}</span>
-            </div>
-            <div v-if="subItem.line" :key="subIndex" class="__menu__line"></div>
-          </template>
+          <span v-if="hasIcon" class="__menu__item-icon">
+            <i v-if="IconType==='font-icon'" v-show="item.icon" :class="item.icon"></i>
+          </span>
+          <span class="__menu__item-label">{{ item.label }}</span>
+          <span class="__menu__item-tips">{{ item.tips || '' }}</span>
+          <span
+            v-if="hasSubMenu"
+            class="__menu__item-arrow"
+            :class="{show: hasSubMenu && item.children}"
+            :style="{width: menuItemCss['arrowSize'],height: menuItemCss['arrowSize']}"
+          >
+            <span v-show="hasSubMenu && item.children" class="__menu__item-arrow-after"></span>
+          </span>
+          <div
+            v-show="hoverFlag"
+            v-if="item.children && item.children.length > 0"
+            class="__menu__sub__wrapper"
+            :style="{top: `${subTop}px`, left: `${subLeft}px`}"
+          >
+            <template v-for="(subItem,subIndex) in item.children">
+              <div
+                v-if="!subItem.hidden && !subItem.line"
+                :key="subIndex"
+                class="__menu__sub__item"
+                :class="{disabled: subItem.disabled}"
+                @mousedown.stop="handleSubMenuItemClick(subItem)"
+              >
+                <span class="__menu__sub__item-label">{{ subItem.label }}</span>
+                <span class="__menu__sub__item-tips">{{ subItem.tips || '' }}</span>
+              </div>
+              <div v-if="subItem.line" :key="subIndex" class="__menu__line"></div>
+            </template>
+          </div>
         </div>
-      </div>
-      <div v-if="item.line" :key="index" class="__menu__line"></div>
-    </template>
-  </div>
+        <div v-if="item.line" :key="index" class="__menu__line"></div>
+      </template>
+    </div>
+  </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, nextTick, PropType, Ref, onMounted, onUnmounted } from 'vue';
+import { defineComponent, ref, computed, nextTick, PropType, Ref, onMounted, onUnmounted, watch } from 'vue';
 import { MenuSetting, MenuCallback } from './types';
 export default defineComponent({
   name: 'MouseMenu',
   props: {
+    appendToBody: {
+      type: Boolean,
+      default: true
+    },
     menuHiddenFn: Function as PropType<MenuCallback<boolean>>,
     menuWidth: Number,
     menuList: {
@@ -67,8 +73,8 @@ export default defineComponent({
     },
     hasIcon: Boolean,
     iconType: String,
-    menuWrapperCss: Object as PropType<Record<string,any>>,
-    menuItemCss: Object as PropType<Record<string,any>>,
+    menuWrapperCss: Object as PropType<Record<string, string>>,
+    menuItemCss: Object as PropType<Record<string, string>>,
     activeEl: {
       type: Object as PropType<HTMLElement>,
       required: true
@@ -95,43 +101,35 @@ export default defineComponent({
       let el = MenuWrapper.value;
       if (props.menuWrapperCss) {
         Object.keys(props.menuWrapperCss).map(item => {
-          el.style.setProperty(`--menu-${item}`, (props.menuWrapperCss as any)[item]);
+          el.style.setProperty(`--menu-${item}`, (props.menuItemCss as any)[item]);
         });
       }
       if (props.menuItemCss) {
         Object.keys(props.menuItemCss).map(item => {
           el.style.setProperty(`--menu-item-${item}`, (props.menuItemCss as any)[item]);
         });
-        let arrowSize = props.menuItemCss.arrowSize.match(/\d+/);
+        let arrowSize: any = props.menuItemCss.arrowSize.match(/\d+/);
         if (arrowSize) {
           arrowSize = ~~arrowSize[0] || 10;
         }
         el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
       }
     });
-    onUnmounted(() => {
-      showMenu.value = false;
-    });
+    onUnmounted(() => showMenu.value = false);
 
     const handleMenuItemClick = (item: MenuSetting) => {
       if (item.fn && typeof item.fn === 'function' && !item.disabled) {
-        item.fn(clickDomEl.value, props.activeEl, props.params);
-        const MenuWrapper = document.querySelector('.__menu__wrapper') as HTMLElement;
-        if (MenuWrapper) {
-          MenuWrapper.style.visibility = 'hidden';
-        }
+        item.fn(props.params, clickDomEl.value, props.activeEl);
       }
+      MenuWrapper.value.style.visibility = 'hidden';
     };
 
     const handleSubMenuItemClick = (subItem: MenuSetting) => {
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
-        subItem.fn(clickDomEl.value, props.activeEl, props.params);
+        subItem.fn(props.params, clickDomEl.value, props.activeEl);
         hoverFlag.value = false;
-        const MenuWrapper = document.querySelector('.__menu__wrapper') as HTMLElement;
-        if (MenuWrapper) {
-          MenuWrapper.style.visibility = 'hidden';
-        }
       }
+      MenuWrapper.value.style.visibility = 'hidden';
     };
 
     const handleMenuMouseEnter = ($event: MouseEvent, item: MenuSetting) => {
@@ -164,16 +162,16 @@ export default defineComponent({
           item.children = formatterFnOption(item.children, clickDomEl, activeEl, params);
         }
         if (item.label && typeof item.label === 'function') {
-          item.label = item.label(clickDomEl, activeEl, params);
+          item.label = item.label(params, clickDomEl, activeEl);
         }
         if (item.tips && typeof item.tips === 'function') {
-          item.tips = item.tips(clickDomEl, activeEl, params);
+          item.tips = item.tips(params, clickDomEl, activeEl);
         }
         if (item.hidden && typeof item.hidden === 'function') {
-          item.hidden = item.hidden(clickDomEl, activeEl, params);
+          item.hidden = item.hidden(params, clickDomEl, activeEl);
         }
         if (item.disabled && typeof item.disabled === 'function') {
-          item.disabled = item.disabled(clickDomEl, activeEl, params);
+          item.disabled = item.disabled(params, clickDomEl, activeEl);
         }
         return item;
       });
@@ -185,7 +183,7 @@ export default defineComponent({
         showMenu.value = !props.menuHiddenFn(clickDomEl.value, props.activeEl);
       }
       if (showMenu.value) {
-        calcMenuList.value = JSON.parse(JSON.stringify(props.menuList));
+        calcMenuList.value = props.menuList;
         calcMenuList.value = formatterFnOption(calcMenuList.value, clickDomEl.value, props.activeEl, props.params);
         await nextTick();
         const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
@@ -199,11 +197,37 @@ export default defineComponent({
     };
 
     const close = () => {
-      const MenuWrapper = document.querySelector('.__menu__wrapper') as HTMLElement;
-      if (MenuWrapper) {
-        MenuWrapper.style.visibility = 'hidden';
-      }
+      MenuWrapper.value.style.visibility = 'hidden';
     };
+
+    const update = () => {
+      (props.activeEl as GlobalEventHandlers).onmousedown = (e: MouseEvent) => {
+        e.stopPropagation();
+        if (e.button === 2) {
+          document.addEventListener('contextmenu', contextmenuEvent);
+        } else {
+          close();
+        }
+      };
+      document.onmousedown = () => {
+        document.removeEventListener('contextmenu', contextmenuEvent);
+        close();
+      };
+    };
+
+    // contextMenuEvent
+    const contextmenuEvent = (e: MouseEvent) => {
+      e.preventDefault();
+      const { x, y } = e;
+      show(x,y);
+    };
+    onMounted(() => {
+      update();
+    });
+    onUnmounted(() => {
+      (props.activeEl as GlobalEventHandlers).onmousedown = null;
+      document.onmousedown = null;
+    });
 
     return {
       subLeft,

@@ -66,6 +66,24 @@ const router = createRouter({
     ]
   },
   {
+    "path": "/mouse-menu",
+    "name": "mouse-menu",
+    "redirect": "/mouse-menu/readme",
+    "component": () => import("../pages/mouse-menu/index.vue"),
+    "children": [
+      {
+        "path": "/mouse-menu/readme",
+        "name": "mouse-menu-readme",
+        "component": () => import("../components/PageReadme.vue")
+      },
+      {
+        "path": "/mouse-menu/example1",
+        "name": "mouse-menu-example1",
+        "component": () => import("../pages/mouse-menu/example/example1.vue")
+      }
+    ]
+  },
+  {
     "path": "/resize",
     "name": "resize",
     "redirect": "/resize/readme",

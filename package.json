@@ -14,17 +14,18 @@
   ],
   "licence": "MIT",
   "scripts": {
+    "reset-backup": "node ./scripts/set-mode",
     "bootstrap": "lerna bootstrap",
     "build:cjs": "node ./scripts/build.cjs",
     "build:es": "node ./scripts/build.es",
     "build:umd": "node ./scripts/build.umd",
     "build:dts": "node ./scripts/build.dts",
-    "build:pkg": "npm run build:cjs && npm run build:es &&  npm run build:umd && npm run build:dts",
+    "build:pkg": "npm run reset-backup && npm run build:cjs && npm run build:es &&  npm run build:umd && npm run build:dts",
     "gen-router": "node ./scripts/gen-router.js",
     "vue-to-md": "node ./scripts/vue-to-md.js",
-    "dev": "npm run vue-to-md && npm run gen-router && vite",
-    "build": "npm run vue-to-md && npm run gen-router && vite build",
-    "publish": "lerna publish"
+    "example": "node ./scripts/set-mode --mode=dev && npm run vue-to-md && npm run gen-router && vite",
+    "build": "npm run reset-backup && npm run vue-to-md && npm run gen-router && vite build",
+    "publish": "npm run reset-backup && lerna publish"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
@@ -43,6 +44,7 @@
     "eslint": "^7.17.0",
     "eslint-plugin-vue": "^7.4.1",
     "lerna": "^3.22.1",
+    "minimist": "^1.2.5",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.4",
     "rollup": "^2.36.1",

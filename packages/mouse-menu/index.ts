@@ -7,6 +7,7 @@ MouseMenu.install = (app: App): void => {
 };
 
 let menuApp: App;
+let id = 1000;
 // 指令封装
 const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
   const { value } = binding;
@@ -25,10 +26,9 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
     ...value.menuItemCss
   };
   if (options.menuList.length > 0) {
-    if (!document.querySelector('.__mouse__menu__directive')) {
-      const menu = createClassDom('div', '__mouse__menu__directive');
-      document.body.append(menu);
-    }
+    const className = `__mouse__menu__directive__${id++}`;
+    const menu = createClassDom('div', className);
+    document.body.append(menu);
     menuApp = createApp(MouseMenu, {
       menuHiddenFn: options.hidden,
       menuWidth: options.width,
@@ -40,14 +40,14 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
       menuItemCss,
       activeEl: el
     });
-    menuApp.mount('.__mouse__menu__directive');
+    menuApp.mount(`.${className}`);
   } else {
     throw new Error('At least set one menu list!');
   }
 };
 
 const unmounted = () => {
-  menuApp && menuApp.unmount('.__mouse__menu__directive');
+  // menuApp && menuApp.unmount('.__mouse__menu__directive');
 };
 
 const MouseMenuDirective = {

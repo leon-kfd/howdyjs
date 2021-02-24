@@ -1,7 +1,7 @@
 <template>
   <teleport to="body" :disabled="!appendToBody">
     <div
-      v-show="showMenu"
+      v-if="showMenu"
       ref="MenuWrapper"
       class="__menu__wrapper"
       :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
@@ -58,6 +58,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed, nextTick, PropType, Ref, onMounted, onUnmounted, watch } from 'vue';
 import { MenuSetting, MenuCallback } from './types';
+import { clone } from '../shared';
 export default defineComponent({
   name: 'MouseMenu',
   props: {
@@ -89,39 +90,61 @@ export default defineComponent({
     const hoverFlag = ref(false);
     const menuTop = ref(0);
     const menuLeft = ref(0);
-    const showMenu = ref(true);
+    const showMenu = ref(false);
     const clickDomEl = ref(null) as Ref<null | HTMLElement>;
     const calcMenuList = ref([] as MenuSetting[]);
     const hasSubMenu = computed(() => props.menuList.some(item => item.children && item.children.length > 0));
 
     const MenuWrapper = ref();
 
-    onMounted(async() => {
-      await nextTick();
-      let el = MenuWrapper.value;
-      if (props.menuWrapperCss) {
-        Object.keys(props.menuWrapperCss).map(item => {
-          el.style.setProperty(`--menu-${item}`, (props.menuItemCss as any)[item]);
-        });
-      }
-      if (props.menuItemCss) {
-        Object.keys(props.menuItemCss).map(item => {
-          el.style.setProperty(`--menu-item-${item}`, (props.menuItemCss as any)[item]);
-        });
-        let arrowSize: any = props.menuItemCss.arrowSize.match(/\d+/);
-        if (arrowSize) {
-          arrowSize = ~~arrowSize[0] || 10;
+    // onMounted(async() => {
+    //   await nextTick();
+    //   let el = MenuWrapper.value;
+    //   if (props.menuWrapperCss) {
+    //     Object.keys(props.menuWrapperCss).map(item => {
+    //       el.style.setProperty(`--menu-${item}`, props.menuWrapperCss && props.menuWrapperCss[item]);
+    //     });
+    //   }
+    //   if (props.menuItemCss) {
+    //     Object.keys(props.menuItemCss).map(item => {
+    //       el.style.setProperty(`--menu-item-${item}`, props.menuItemCss && props.menuItemCss[item]);
+    //     });
+    //     let arrowSize: any = props.menuItemCss.arrowSize.match(/\d+/);
+    //     if (arrowSize) {
+    //       arrowSize = ~~arrowSize[0] || 10;
+    //     }
+    //     el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
+    //   }
+    // });
+    // onUnmounted(() => showMenu.value = false);
+
+    watch(showMenu, async (val) => {
+      if (val) {
+        await nextTick();
+        let el = MenuWrapper.value;
+        if (props.menuWrapperCss) {
+          Object.keys(props.menuWrapperCss).map(item => {
+            el.style.setProperty(`--menu-${item}`, props.menuWrapperCss && props.menuWrapperCss[item]);
+          });
         }
-        el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
+        if (props.menuItemCss) {
+          Object.keys(props.menuItemCss).map(item => {
+            el.style.setProperty(`--menu-item-${item}`, props.menuItemCss && props.menuItemCss[item]);
+          });
+          let arrowSize: any = props.menuItemCss.arrowSize.match(/\d+/);
+          if (arrowSize) {
+            arrowSize = ~~arrowSize[0] || 10;
+          }
+          el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
+        }
       }
     });
-    onUnmounted(() => showMenu.value = false);
 
     const handleMenuItemClick = (item: MenuSetting) => {
       if (item.fn && typeof item.fn === 'function' && !item.disabled) {
         item.fn(props.params, clickDomEl.value, props.activeEl);
       }
-      MenuWrapper.value.style.visibility = 'hidden';
+      showMenu.value = false;
     };
 
     const handleSubMenuItemClick = (subItem: MenuSetting) => {
@@ -129,7 +152,7 @@ export default defineComponent({
         subItem.fn(props.params, clickDomEl.value, props.activeEl);
         hoverFlag.value = false;
       }
-      MenuWrapper.value.style.visibility = 'hidden';
+      showMenu.value = false;
     };
 
     const handleMenuMouseEnter = ($event: MouseEvent, item: MenuSetting) => {
@@ -179,39 +202,34 @@ export default defineComponent({
 
     const show = async (x = 0, y = 0) => {
       clickDomEl.value = document.elementFromPoint(x - 1, y - 1) as HTMLElement;
-      if (props.menuHiddenFn && typeof props.menuHiddenFn === 'function') {
-        showMenu.value = !props.menuHiddenFn(clickDomEl.value, props.activeEl);
-      }
-      if (showMenu.value) {
-        calcMenuList.value = props.menuList;
-        calcMenuList.value = formatterFnOption(calcMenuList.value, clickDomEl.value, props.activeEl, props.params);
-        await nextTick();
-        const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
-        const menu = MenuWrapper.value;
-        const menuHeight = menu.offsetHeight;
-        const menuWidth = props.menuWidth || 200;
-        menuLeft.value = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1;
-        menuTop.value = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1;
-        menu.style.visibility = 'visible';
-      }
+      showMenu.value = true;
+      calcMenuList.value = clone(props.menuList);
+      calcMenuList.value = formatterFnOption(calcMenuList.value, clickDomEl.value, props.activeEl, props.params);
+      await nextTick();
+      const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
+      const menu = MenuWrapper.value;
+      const menuHeight = menu.offsetHeight;
+      const menuWidth = props.menuWidth || 200;
+      menuLeft.value = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1;
+      menuTop.value = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1;
     };
 
     const close = () => {
-      MenuWrapper.value.style.visibility = 'hidden';
+      showMenu.value = false;
     };
 
     const update = () => {
       (props.activeEl as GlobalEventHandlers).onmousedown = (e: MouseEvent) => {
-        e.stopPropagation();
         if (e.button === 2) {
+          e.stopPropagation();
           document.addEventListener('contextmenu', contextmenuEvent);
+          document.onmousedown = () => {
+            document.removeEventListener('contextmenu', contextmenuEvent);
+            close();
+          };
         } else {
           close();
         }
-      };
-      document.onmousedown = () => {
-        document.removeEventListener('contextmenu', contextmenuEvent);
-        close();
       };
     };
 
@@ -219,6 +237,7 @@ export default defineComponent({
     const contextmenuEvent = (e: MouseEvent) => {
       e.preventDefault();
       const { x, y } = e;
+      console.log(x,y);
       show(x,y);
     };
     onMounted(() => {
@@ -250,6 +269,14 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+.__menu__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}
 .__menu__wrapper {
   --menu-background: #c8f2f0;
   --menu-boxShadow: 0 1px 5px #888;
@@ -275,13 +302,12 @@ export default defineComponent({
   --menu-lineMargin: 5px 0;
 }
 .__menu__wrapper {
-  position: fixed;
+  position: absolute;
   width: 200px;
   background: var(--menu-background);
   box-shadow: var(--menu-boxShadow);
   padding: var(--menu-padding);
   border-radius: var(--menu-borderRadius);
-  visibility: hidden;
   z-index: 99999;
 }
 .__menu__line,

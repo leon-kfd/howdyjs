@@ -100,6 +100,11 @@ const router = createRouter({
         "path": "/mouse-menu/example5",
         "name": "mouse-menu-example5",
         "component": () => import("../pages/mouse-menu/example/example5.vue")
+      },
+      {
+        "path": "/mouse-menu/example6",
+        "name": "mouse-menu-example6",
+        "component": () => import("../pages/mouse-menu/example/example6.vue")
       }
     ]
   },

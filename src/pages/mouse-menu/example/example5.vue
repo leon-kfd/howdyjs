@@ -28,7 +28,9 @@ export default defineComponent({
         hidden: (_: any, el: HTMLElement) => !(el.getAttribute('class') && el.getAttribute('class')?.includes('box-listitem')),
         menuList: [
           {
-            label: (_: any, currentEl: HTMLElement) => `#${currentEl.getAttribute('data-id')}`,
+            label: (_: any, currentEl: HTMLElement) => {
+              return `#${currentEl.getAttribute('data-id')}`;
+            },
             disabled: true
           },
           {

@@ -17,7 +17,7 @@ export default defineComponent({
     return {
       options: {
         menuWrapperCss: {
-          background: 'linear-gradient(45deg, #3494E6, #EC6EAD)',
+          background: 'linear-gradient(45deg, #3439e6, #EC6EAD)',
           boxShadow: '0 0 10px #ccc'
         },
         menuItemCss: {

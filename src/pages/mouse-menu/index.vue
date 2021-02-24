@@ -37,16 +37,16 @@ export default defineComponent({
           introduce: '使用图标'
         },
         {
-          name: 'Style',
-          introduce: '样式'
+          name: 'Custom Style',
+          introduce: '自定义样式'
         },
         {
-          name: 'Function Mode',
-          introduce: '使用函数'
+          name: 'Parent Mount',
+          introduce: '父级挂载'
         },
         {
-          name: 'IE11 Style',
-          introduce: '兼容IE11'
+          name: 'Custom params',
+          introduce: '传递参数'
         }
       ]
     };

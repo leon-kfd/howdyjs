@@ -23,6 +23,7 @@ new ImgZoom({
 
 + UMD CDN: <a href="https://unpkg.com/@howdyjs/img-zoom/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/img-zoom/dist/index.umd.js</a>
 + UMD Name: `HowdyImgZoom`
++ UMD Example: <a href="https://codepen.io/leon-kfd/pen/XWNKyLe" target="_blank">Click here</a>
 
 ### Options (Objcet)
 |参数|说明|类型|可选值|默认值|

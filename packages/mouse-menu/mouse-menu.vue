@@ -56,8 +56,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, nextTick, PropType, Ref, onMounted, onUnmounted, watch } from 'vue';
-import { MenuSetting, MenuCallback } from './types';
+import { defineComponent, ref, computed, nextTick, PropType, Ref, watch } from 'vue';
+import { MenuCallback, MenuSetting } from './types';
 import { clone } from '../shared';
 export default defineComponent({
   name: 'MouseMenu',
@@ -66,17 +66,19 @@ export default defineComponent({
       type: Boolean,
       default: true
     },
-    menuHiddenFn: Function as PropType<MenuCallback<boolean>>,
     menuWidth: Number,
     menuList: {
       type: Array as PropType<MenuSetting[]>,
       required: true
     },
+    menuHiddenFn: {
+      type: Function as PropType<MenuCallback>
+    },
     hasIcon: Boolean,
     iconType: String,
     menuWrapperCss: Object as PropType<Record<string, string>>,
     menuItemCss: Object as PropType<Record<string, string>>,
-    activeEl: {
+    el: {
       type: Object as PropType<HTMLElement>,
       required: true
     },
@@ -97,27 +99,6 @@ export default defineComponent({
 
     const MenuWrapper = ref();
 
-    // onMounted(async() => {
-    //   await nextTick();
-    //   let el = MenuWrapper.value;
-    //   if (props.menuWrapperCss) {
-    //     Object.keys(props.menuWrapperCss).map(item => {
-    //       el.style.setProperty(`--menu-${item}`, props.menuWrapperCss && props.menuWrapperCss[item]);
-    //     });
-    //   }
-    //   if (props.menuItemCss) {
-    //     Object.keys(props.menuItemCss).map(item => {
-    //       el.style.setProperty(`--menu-item-${item}`, props.menuItemCss && props.menuItemCss[item]);
-    //     });
-    //     let arrowSize: any = props.menuItemCss.arrowSize.match(/\d+/);
-    //     if (arrowSize) {
-    //       arrowSize = ~~arrowSize[0] || 10;
-    //     }
-    //     el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
-    //   }
-    // });
-    // onUnmounted(() => showMenu.value = false);
-
     watch(showMenu, async (val) => {
       if (val) {
         await nextTick();
@@ -131,9 +112,11 @@ export default defineComponent({
           Object.keys(props.menuItemCss).map(item => {
             el.style.setProperty(`--menu-item-${item}`, props.menuItemCss && props.menuItemCss[item]);
           });
-          let arrowSize: any = props.menuItemCss.arrowSize.match(/\d+/);
+          let arrowSize: RegExpMatchArray | null | number = props.menuItemCss.arrowSize.match(/\d+/);
           if (arrowSize) {
             arrowSize = ~~arrowSize[0] || 10;
+          } else {
+            arrowSize = 10;
           }
           el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
         }
@@ -142,14 +125,14 @@ export default defineComponent({
 
     const handleMenuItemClick = (item: MenuSetting) => {
       if (item.fn && typeof item.fn === 'function' && !item.disabled) {
-        item.fn(props.params, clickDomEl.value, props.activeEl);
+        item.fn(props.params, clickDomEl.value, props.el);
       }
       showMenu.value = false;
     };
 
     const handleSubMenuItemClick = (subItem: MenuSetting) => {
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
-        subItem.fn(props.params, clickDomEl.value, props.activeEl);
+        subItem.fn(props.params, clickDomEl.value, props.el);
         hoverFlag.value = false;
       }
       showMenu.value = false;
@@ -179,22 +162,22 @@ export default defineComponent({
       }
     };
 
-    const formatterFnOption = (list: MenuSetting[], clickDomEl: HTMLElement, activeEl: HTMLElement, params: any): MenuSetting[] => {
+    const formatterFnOption = (list: MenuSetting[], clickDomEl: HTMLElement, el: HTMLElement, params: any): MenuSetting[] => {
       return list.map(item => {
         if (item.children) {
-          item.children = formatterFnOption(item.children, clickDomEl, activeEl, params);
+          item.children = formatterFnOption(item.children, clickDomEl, el, params);
         }
         if (item.label && typeof item.label === 'function') {
-          item.label = item.label(params, clickDomEl, activeEl);
+          item.label = item.label(params, clickDomEl, el);
         }
         if (item.tips && typeof item.tips === 'function') {
-          item.tips = item.tips(params, clickDomEl, activeEl);
+          item.tips = item.tips(params, clickDomEl, el);
         }
         if (item.hidden && typeof item.hidden === 'function') {
-          item.hidden = item.hidden(params, clickDomEl, activeEl);
+          item.hidden = item.hidden(params, clickDomEl, el);
         }
         if (item.disabled && typeof item.disabled === 'function') {
-          item.disabled = item.disabled(params, clickDomEl, activeEl);
+          item.disabled = item.disabled(params, clickDomEl, el);
         }
         return item;
       });
@@ -202,9 +185,14 @@ export default defineComponent({
 
     const show = async (x = 0, y = 0) => {
       clickDomEl.value = document.elementFromPoint(x - 1, y - 1) as HTMLElement;
-      showMenu.value = true;
+      if (props.menuHiddenFn) {
+        showMenu.value = !props.menuHiddenFn(props.params, clickDomEl.value, props.el);
+      } else {
+        showMenu.value = true;
+      }
+      if (!showMenu.value) return;
       calcMenuList.value = clone(props.menuList);
-      calcMenuList.value = formatterFnOption(calcMenuList.value, clickDomEl.value, props.activeEl, props.params);
+      calcMenuList.value = formatterFnOption(calcMenuList.value, clickDomEl.value, props.el, props.params);
       await nextTick();
       const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
       const menu = MenuWrapper.value;
@@ -217,36 +205,6 @@ export default defineComponent({
     const close = () => {
       showMenu.value = false;
     };
-
-    const update = () => {
-      (props.activeEl as GlobalEventHandlers).onmousedown = (e: MouseEvent) => {
-        if (e.button === 2) {
-          e.stopPropagation();
-          document.addEventListener('contextmenu', contextmenuEvent);
-          document.onmousedown = () => {
-            document.removeEventListener('contextmenu', contextmenuEvent);
-            close();
-          };
-        } else {
-          close();
-        }
-      };
-    };
-
-    // contextMenuEvent
-    const contextmenuEvent = (e: MouseEvent) => {
-      e.preventDefault();
-      const { x, y } = e;
-      console.log(x,y);
-      show(x,y);
-    };
-    onMounted(() => {
-      update();
-    });
-    onUnmounted(() => {
-      (props.activeEl as GlobalEventHandlers).onmousedown = null;
-      document.onmousedown = null;
-    });
 
     return {
       subLeft,

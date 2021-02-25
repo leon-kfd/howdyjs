@@ -8,67 +8,20 @@
 3. 支持子菜单
 4. 支持加入菜单图标
 
-## 使用
-1. 指令方式使用（推荐）
-
-```html
-<template>
-  <div v-mouse-menu="options">Dom</div>
-</template>
-<script>
-import { MouseMenuDirective } from '@howdyjs/mouse-menu';
-export default {
-  directive: {
-    MouseMenu: MouseMenuDirective
-  },
-  setup() {
-    return {
-      options: {} // Some Options
-    }
-  }
-}
-</script>
-```
-
-2. 组件方式使用
-
-```html
-<template>
-  <div ref="dom">Dom</div>
-  <mouse-menu v-bind="options"></mouse-menu>
-</template>
-<script>
-import { ref } from 'vue'
-import MouseMenu from '@howdyjs/mouse-menu';
-export default {
-  components: {
-    MouseMenu
-  },
-  setup () {
-    const dom = ref()
-    return {
-      options: {
-        activeEl: dom.value,
-        // Other Options...
-      } 
-    }
-  }
-}
-</script>
-```
-
 ## 配置
 
 ### Props/指令Value (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
-|width|菜单宽度|Number|-|200|
+|menuWidth|菜单宽度|Number|-|200|
 |menuList|生成菜单项的数组，具体配置参考下表|Array|-|-|
 |hasIcon|是否有菜单图标|Boolean|-|false|
 |iconType|菜单图标的类型(目前仅支持字体图标)|String|-|font-icon|
 |menuWrapperCss|菜单容器的CSS设置，具体配置参考下表|Object|-|-|
 |menuItemCss|菜单项的CSS设置，具体配置参考下表|Object|-|-|
 |params|传给处理函数的自定义参数，会注入到下方各回调函数的首个参数中|Any|-|-|
+|appendToBody|容器是否挂载到body上|Boolean|-|true|
+|el|触发的Dom元素（以Vue组件方式使用需要传入）|-|-|-|
 
 #### menuList-菜单项数组配置
 |参数|说明|类型|可选值|默认值|
@@ -120,8 +73,115 @@ export default {
 |:---|:---|:---|
 |show|显示菜单，一般不需要自行调用|x:number,y:number|
 |close|关闭菜单|-|
-|update|重设组件中的监听事件，一般更新activeEl后需要调用|-|
 
-> 若以组件方式使用，需要自行调用更新监听的逻辑，因为Vue的`Watch`不能监听Dom变化这种类型
+> 若以组件方式使用，需要使用上方的show/close方法自行处理鼠标右键菜单行为
 
+## 使用
+1. 指令方式使用（推荐）
+
+```html
+<template>
+  <div v-mouse-menu="options">Dom</div>
+</template>
+<script>
+import { MouseMenuDirective } from '@howdyjs/mouse-menu';
+export default {
+  directive: {
+    MouseMenu: MouseMenuDirective
+  },
+  setup() {
+    return {
+      options: {} // Some Options
+    }
+  }
+}
+</script>
+```
+
+2. 函数方式使用
+
+```html
+<template>
+  <div ref="dom" @mousedown="showMenu">Dom</div>
+</template>
+<script>
+import { ref } from 'vue'
+import { CustomMouseMenu } from '@howdyjs/mouse-menu';
+export default {
+  setup() {
+    const dom = ref()
+    const showMenu = (e) => {
+      const MouseMenuCtx = CustomMouseMenu({
+        el: dom.value,
+        // Other Options
+      })
+      const contextmenuEvent = (e) => {
+        e.preventDefault();
+        const { x, y } = e;
+        MouseMenuCtx.show(x,y);
+      };
+      if (e.button === 2) {
+        e.stopPropagation();
+        document.addEventListener('contextmenu', contextmenuEvent);
+        document.onmousedown = () => {
+          document.removeEventListener('contextmenu', contextmenuEvent);
+          MouseMenuCtx.close();
+        };
+      } else {
+        MouseMenuCtx.close();
+      }
+    }
+    return {
+      dom,
+      showMenu
+    }
+  }
+}
+```
+
+3. 组件方式使用
+
+```html
+<template>
+  <div ref="dom" @mousedown="showMenu">Dom</div>
+  <mouse-menu v-bind="options"></mouse-menu>
+</template>
+<script>
+import { ref } from 'vue'
+import MouseMenu from '@howdyjs/mouse-menu';
+export default {
+  components: {
+    MouseMenu
+  },
+  setup () {
+    const dom = ref()
+    const showMenu = (e) => {
+      const contextmenuEvent = (e) => {
+        e.preventDefault();
+        const { x, y } = e;
+        dom.value.show(x,y);
+      };
+      if (e.button === 2) {
+        e.stopPropagation();
+        document.addEventListener('contextmenu', contextmenuEvent);
+        document.onmousedown = () => {
+          document.removeEventListener('contextmenu', contextmenuEvent);
+          dom.value.close();
+        };
+      } else {
+        dom.value.close();
+      }
+    }
+    return {
+      dom,
+      showMenu,
+      options: {
+        el: dom.value, //Is Required
+        // Other Options...
+      } 
+    }
+  }
+}
+</script>
+```
 

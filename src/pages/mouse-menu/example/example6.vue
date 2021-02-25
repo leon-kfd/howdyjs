@@ -55,17 +55,17 @@ export default defineComponent({
           {
             label: '编辑',
             tips: 'Edit',
-            fn: (...args:[]) => console.log('edit', args),
+            fn: (row: any, ...args:[]) => console.log('edit', row, args),
           },
           {
             label: '停用',
             tips: 'Stop',
-            fn: (...args:[]) => console.log('stop', args),
+            fn: (row: any, ...args:[]) => console.log('stop', row, args),
           },
           {
             label: '删除',
             tips: 'Delete',
-            fn: (...args:[]) => console.log('delete', args)
+            fn: (row: any, ...args:[]) => console.log('delete', row, args)
           }
         ]
       }

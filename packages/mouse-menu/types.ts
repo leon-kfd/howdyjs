@@ -9,3 +9,15 @@ export type MenuSetting = {
   line?: boolean;
   children: MenuSetting[];
 }
+export type CustomMouseMenuOptions = {
+  menuList: MenuSetting[],
+  menuWidth?: number,
+  hasIcon?: boolean,
+  iconType?: string,
+  menuWrapperCss?: Record<string, string>,
+  menuItemCss?: Record<string,string>,
+  params?: any,
+  appendToBody?: boolean,
+  menuHiddenFn?: MenuCallback,
+  el?: HTMLElement
+}

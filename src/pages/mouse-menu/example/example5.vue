@@ -25,7 +25,7 @@ export default defineComponent({
   setup() {
     return {
       options: {
-        hidden: (_: any, el: HTMLElement) => !(el.getAttribute('class') && el.getAttribute('class')?.includes('box-listitem')),
+        menuHiddenFn: (_: any, el: HTMLElement) => !(el.getAttribute('class') && el.getAttribute('class')?.includes('box-listitem')),
         menuList: [
           {
             label: (_: any, currentEl: HTMLElement) => {

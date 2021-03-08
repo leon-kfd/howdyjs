@@ -1,28 +1,26 @@
 <template>
-  <div class="page">
-    <div class="text">
-      请拖拽屏幕上的紫色浮块
+  <div class="text">
+    请拖拽屏幕上的紫色浮块
+  </div>
+  <div class="compass-box">
+    <div class="img-wrapper" :style="{transform: `rotate(${rotate}deg)`}">
+      <img
+        ref="compass"
+        src="/images/compass.svg"
+        alt="compass"
+        class="compass"
+      >
     </div>
-    <div class="compass-box">
-      <div class="img-wrapper" :style="{transform: `rotate(${rotate}deg)`}">
-        <img
-          ref="compass"
-          src="/images/compass.svg"
-          alt="compass"
-          class="compass"
-        >
-      </div>
-    </div>
-    <div
-      v-to-drag="options"
-      class="move-box"
-      @todraginit="setCompassRotate"
-      @todragstart="handleToDragStart"
-      @todragmove="setCompassRotate"
-      @todragend="handleToDragEnd"
-    >
-      DRAG
-    </div>
+  </div>
+  <div
+    v-to-drag="options"
+    class="move-box"
+    @todraginit="setCompassRotate"
+    @todragstart="handleToDragStart"
+    @todragmove="setCompassRotate"
+    @todragend="handleToDragEnd"
+  >
+    DRAG
   </div>
 </template>
 

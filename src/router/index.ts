@@ -265,6 +265,11 @@ const router = createRouter({
         "path": "/to-drag/example5",
         "name": "to-drag-example5",
         "component": () => import("../pages/to-drag/example/example5.vue")
+      },
+      {
+        "path": "/to-drag/example6",
+        "name": "to-drag-example6",
+        "component": () => import("../pages/to-drag/example/example6.vue")
       }
     ]
   }

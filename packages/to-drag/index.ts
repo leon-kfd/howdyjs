@@ -1,12 +1,14 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
 import { CompatibleDirective } from '../shared';
 export interface ToDragOptions {
+  isAbsolute?: boolean,
   adsorbOffset: number,
   moveCursor?: boolean,
   adsorb?: number,
   transitionDuration?: number,
   transitionTimingFunction?: string,
-  forbidBodyScroll?: boolean
+  forbidBodyScroll?: boolean,
+  parentSelector?: string
 }
 
 export type toDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
@@ -22,6 +24,7 @@ export interface toDragEvent extends Event {
 
 class ToDrag {
   private el: HTMLElement
+  private parent: HTMLElement
   private options: ToDragOptions
   private scrollbarWidth: number
   private isTouch: boolean
@@ -42,6 +45,11 @@ class ToDrag {
     document.body.removeChild(el);
     return scrollbarWidth;
   }
+  private setBetween = (num: number, min: number, max:number) => {
+    if (num < min) return min;
+    if (num > max) return max;
+    return num;
+  }
   
 
   constructor({ el, options } : { el: string | HTMLElement, options?: ToDragOptions }) {
@@ -56,8 +64,10 @@ class ToDrag {
       transitionDuration: 400,
       transitionTimingFunction: 'ease-in-out',
       forbidBodyScroll: true,
+      isAbsolute: false,
       ...options
     };
+    this.parent = (this.options.parentSelector && document.querySelector(this.options.parentSelector)) || this.el.parentNode as HTMLElement;
     if (this.options.transitionDuration) {
       this.options.transitionDuration = this.options.transitionDuration / 1000;
     }
@@ -71,13 +81,6 @@ class ToDrag {
   }
 
   init () {
-    const { left, top, width, height } = this.el.getBoundingClientRect();
-    this.left = left;
-    this.top = top;
-    this.width = width;
-    this.height = height;
-    this.maxX = document.body.scrollWidth > window.innerWidth ? window.innerWidth - this.width - this.scrollbarWidth : window.innerWidth - this.width;
-    this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height;
     if (this.isTouch) {
       this.el.addEventListener('touchstart', this.handleTouchStart);
     } else {
@@ -86,7 +89,7 @@ class ToDrag {
     if (this.options.moveCursor) {
       this.el.style.cursor = 'move';
     }
-    if (this.options.adsorb) {
+    if (!this.options.isAbsolute && this.options.adsorb) {
       this.handleAdsorb();
     }
     setTimeout(() => {
@@ -110,15 +113,22 @@ class ToDrag {
   }
 
   setStartInfo (x: number, y: number) {
-    const { top, left, width, height } = this.el.getBoundingClientRect();
+    const { left, top, width, height } = this.el.getBoundingClientRect();
+    this.left = left;
+    this.top = top;
     this.width = width;
     this.height = height;
     this.startX = x - left;
     this.startY = y - top;
     this.isDrag = true;
     this.el.style.transition = '';
-    this.maxX = document.body.scrollWidth > window.innerWidth ? window.innerWidth - this.width - this.scrollbarWidth : window.innerWidth - this.width;
-    this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height;
+    if (!this.options.isAbsolute) {
+      this.maxX = document.body.scrollWidth > window.innerWidth ? window.innerWidth - this.width - this.scrollbarWidth : window.innerWidth - this.width;
+      this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height;
+    } else {
+      this.maxX = this.parent.offsetWidth - this.width;
+      this.maxY = this.parent.offsetHeight - this.height;
+    }
     document.body.style.userSelect = 'none';
     if (this.options.forbidBodyScroll) {
       document.body.style.overflow = 'hidden';
@@ -131,18 +141,19 @@ class ToDrag {
       return;
     }
     e.preventDefault();
+    let dragX, dragY;
     const x = this.isTouch ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).x;
     const y = this.isTouch ? (e as TouchEvent).changedTouches[0].clientY : (e as MouseEvent).y;
-    const moveX = x - this.startX;
-    const moveY = y - this.startY;
-    this.left = Math.min(this.maxX, moveX);
-    this.top = Math.min(this.maxY, moveY);
-    if (this.left < 0) {
-      this.left = 0;
+    if (!this.options.isAbsolute) {
+      dragX = x - this.startX;
+      dragY = y - this.startY;
+    } else {
+      const parentDomRect = this.parent.getClientRects()[0];
+      dragX = x - parentDomRect.x - this.startX;
+      dragY = y - parentDomRect.y - this.startY;
     }
-    if (this.top < 0) {
-      this.top = 0;
-    }
+    this.left = this.setBetween(dragX, 0, this.maxX);
+    this.top = this.setBetween(dragY, 0, this.maxY);
     this.el.style.left = this.left + 'px';
     this.el.style.top = this.top + 'px';
     this.emitEvent('todragmove');
@@ -164,6 +175,7 @@ class ToDrag {
 
 
   handleAdsorb () {
+    if (this.options.isAbsolute) return;
     const endPoint = [this.left + this.width / 2, this.top + this.height / 2];
     const maxPoint = [window.innerWidth, window.innerHeight];
     this.el.style.transition = `left ${this.options.transitionDuration}s ${this.options.transitionTimingFunction}, 

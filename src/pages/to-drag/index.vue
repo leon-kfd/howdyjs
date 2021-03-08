@@ -42,6 +42,10 @@ export default defineComponent({
         {
           name: 'Drag End Event',
           introduce: '事件回调'
+        },
+        {
+          name: 'Absoulte Mode',
+          introduce: 'Absolute模式'
         }
       ]
     };

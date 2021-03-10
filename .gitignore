@@ -5,3 +5,6 @@ dist-ssr
 *.local
 src/code/*
 lerna-debug.log
+
+package-lock.json
+yarn.lock

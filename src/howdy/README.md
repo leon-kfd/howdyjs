@@ -4,42 +4,44 @@
 **一个集合个人封装的VUE组件与指令的混合包**  
 *A package of mix some vue components and vue directive* 
 
+> 这个<a href="https://github.com/leon-kfd/howdyjs/tree/howdy">howdy分支</a>是基于Vue2的版本，目前已经不再维护，新版使用了`Vue3` + `Typescript`重构，并进行分包发布，具体参考最新<a href="https://github.com/leon-kfd/howdyjs" target="_blank">master分支</a>
+
 ## Link
 + <a href="https://github.com/leon-kfd/howdyjs" target="_blank">⚡Github</a>
 + <a href="https://www.npmjs.com/package/howdyjs" target="_blank">💾NPM</a>
-+ <a href="https://kongfandong.cn/howdy" target="_blank">📖Document</a>
++ <a href="https://kongfandong.cn/howdy-old" target="_blank">📖Document</a>
 
 ---
 
 ## 组件
-1. **[Standard Table](https://kongfandong.cn/howdy/standard-table)**  
+1. **[Standard Table](https://kongfandong.cn/howdy-old/standard-table)**  
 基于ElementUI table的二次封装
 
-2. **[Animation Dialog](https://kongfandong.cn/howdy/animation-dialog)**  
+2. **[Animation Dialog](https://kongfandong.cn/howdy-old/animation-dialog)**  
 使用动画打开模态框
 
-3. **[Resize Directive](https://kongfandong.cn/howdy/resize-directive)**  
+3. **[Resize Directive](https://kongfandong.cn/howdy-old/resize-directive)**  
 为HTML盒子加入拖拽更改大小功能
 
-4. **[Scroll Directive](https://kongfandong.cn/howdy/scroll-directive)**  
+4. **[Scroll Directive](https://kongfandong.cn/howdy-old/scroll-directive)**  
 为HTML盒子加入自定义滚动条
 
-5. **[Mouse Menu Directive](https://kongfandong.cn/howdy/mouse-menu-directive)**  
+5. **[Mouse Menu Directive](https://kongfandong.cn/howdy-old/mouse-menu-directive)**  
 为HTML盒子加入自定义右键菜单
 
-6. **[Size Observer Directive](https://kongfandong.cn/howdy/size-observer-directive)**  
+6. **[Size Observer Directive](https://kongfandong.cn/howdy-old/size-observer-directive)**  
 监听盒子大小变化
 
-7. **[Img Zoom Directive](https://kongfandong.cn/howdy/img-zoom-directive)**  
+7. **[Img Zoom Directive](https://kongfandong.cn/howdy-old/img-zoom-directive)**  
 为Img标签加入图片放大功能，支持按组浏览下一张图片
 
-8. **[To Drag Directive](https://kongfandong.cn/howdy/to-drag-directive)**  
+8. **[To Drag Directive](https://kongfandong.cn/howdy-old/to-drag-directive)**  
 为Fixed定位的元素加入可拖拽功能
 
-9. **[Standard Tabs](https://kongfandong.cn/howdy/standard-tabs)**  
+9. **[Standard Tabs](https://kongfandong.cn/howdy-old/standard-tabs)**  
 移动端标签页
 
-10. **[Standard Form](https://kongfandong.cn/howdy/standard-form)**  
+10. **[Standard Form](https://kongfandong.cn/howdy-old/standard-form)**  
 基于ElementUI form的二次封装
 ---
 

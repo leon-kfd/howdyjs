@@ -3,7 +3,7 @@ const hljs = require('highlight.js')
 const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   productionSourceMap: !isProduction,
-  publicPath: '/howdy',
+  publicPath: '/howdy-old',
   configureWebpack: config => {
     config.module.rules.push({
       test: /\.md$/,

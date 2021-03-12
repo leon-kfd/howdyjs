@@ -67,7 +67,7 @@ class SizeObserver {
       if (this.timer !== null) {
         clearTimeout(this.timer);
       }
-      this.timer = setTimeout(() => {
+      this.timer = window.setTimeout(() => {
         const { contentRect } = e && e[0];
         sizeChange.contentRect = contentRect;
         this.el.dispatchEvent(sizeChange);

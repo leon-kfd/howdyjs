@@ -1,6 +1,6 @@
 {
   "name": "@howdyjs/animation-dialog",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Vue动画弹窗组件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
   },
-  "dependencies": {
-    "vue": "^3.0.0"
+  "peerDependencies": {
+    "vue": ">=3.0.0"
   }
 }

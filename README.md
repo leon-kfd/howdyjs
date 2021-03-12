@@ -1,10 +1,10 @@
 <h1 style="text-shadow: 3px 3px #5b9df3;color: transparent;-webkit-text-stroke-color: #262626;-webkit-text-stroke-width: 2px;">Howdy</h1>
 <br>
 
-**一个包含Javascript插件、Vue3组件、Vue3指令的个人组件库**  
+**一个包含Javascript插件、Vue3组件、Vue3指令的轻量工具组件库**  
 *A personal component packages of javascript plugins or tools* 
 
-> 当前该仓库正准备将组件全部迁移至`vue3` + `typescript`，旧版项目请前往<a href="https://github.com/leon-kfd/howdyjs/tree/howdy" target="_blank">howdy分支</a>查看。
+> 当前该仓库已使用`Vue3` + `Typescript`，基于Vue2组件的旧版项目请前往<a href="https://github.com/leon-kfd/howdyjs/tree/howdy" target="_blank">howdy分支</a>查看。
 
 ## Link
 + <a href="https://github.com/leon-kfd/howdyjs" target="_blank">⚡Github</a>
@@ -15,29 +15,61 @@
 
 ## 组件
 
-1. **[Resize](https://kongfandong.cn/howdy-next/resize)**  
-拖拽更改元素尺寸插件
+1. **[@howdyjs/resize](https://kongfandong.cn/howdy-next/resize)**  
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/resize" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/resize?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
+通过拖拽更改元素尺寸插件
 
-2. **[Img Zoom](https://kongfandong.cn/howdy-next/img-zoom)**  
+2. **[@howdyjs/img-zoom](https://kongfandong.cn/howdy-next/img-zoom)**
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/img-zoom" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/img-zoom?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
 图片放大插件，支持按组浏览下一张图片
 
-3. **[Size Observer](https://kongfandong.cn/howdy-next/size-observer)**  
+3. **[@howdyjs/size-observer](https://kongfandong.cn/howdy-next/size-observer)**  
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/size-observer" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/size-observer?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
 监听元素尺寸变化插件
 
-4. **[Scroll](https://kongfandong.cn/howdy-next/scroll)**  
+4. **[@howdyjs/scroll](https://kongfandong.cn/howdy-next/scroll)**
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/scroll" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/scroll?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p> 
 自定义滚动条插件
 
-5. **[To Drag](https://kongfandong.cn/howdy-next/to-drag)**  
+5. **[@howdyjs/to-drag](https://kongfandong.cn/howdy-next/to-drag)**
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/to-drag" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/to-drag?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
 设置Dom可拖动插件
 
-6. **[Animation Dialog](https://kongfandong.cn/howdy-next/animation-dialog)**  
+6. **[@howdyjs/animation-dialog](https://kongfandong.cn/howdy-next/animation-dialog)**
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/animation-dialog" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/animation-dialog?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
 动画模态框Vue3组件
 
-7. **[Standard Tabs](https://kongfandong.cn/howdy-next/standard-tabs)**  
+7. **[@howdyjs/standard-tabs](https://kongfandong.cn/howdy-next/standard-tabs)**
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/standard-tabs" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/standard-tabs?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
 移动端标签页Vue3组件
 
-8. **[Mouse Menu](https://kongfandong.cn/howdy-next/mouse-menu)**  
-自定义右键菜单组件
+8. **[@howdyjs/mouse-menu](https://kongfandong.cn/howdy-next/mouse-menu)**
+<p style="line-height:1">
+  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/mouse-menu" style="display:inline;height:18px;width:auto;margin:2px;"/>
+  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/mouse-menu?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
+</p>
+自定义右键菜单Vue3组件
 
 ---
 

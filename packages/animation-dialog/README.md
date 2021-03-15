@@ -6,7 +6,7 @@
 1. 可实现从点击元素打开Dialog的动画交互
 2. 可使用animate.css动画进行dialog的打开与关闭
 3. [animate.css](https://daneden.github.io/animate.css/)  
-> 为了优化包大小，使用animate.css模式时请自行引入animate.css样式文件
+> 为了优化包大小，组件只内置了BounceIn与BounceOut动画，使用animate.css模式时请自行引入animate.css样式文件
 
 ## 配置
 

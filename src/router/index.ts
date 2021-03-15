@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router';
 const router = createRouter({
-  history: createWebHistory('/howdy-next/'),
+  history: createWebHistory('/howdy/'),
   routes: [
   {
     "path": "/",

@@ -1,3 +1,1 @@
-declare module '*.md' {
-  export const x:string;
-}
+declare module '*.md'

@@ -46,12 +46,13 @@ const routes = [
 
 const reg = /"i\((.*?)\)"/g;
 const routesStr = JSON.stringify(routes, null, 2).replace(reg, (...arg) => `() => import("${arg[1]}")`);
+const isHashRouterMode = process.env.ROUTER_MODE === 'hash';
 
 const output = `
 /* eslint-disable */
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, ${isHashRouterMode ? 'createWebHashHistory' : 'createWebHistory'} } from 'vue-router';
 const router = createRouter({
-  history: createWebHistory('/howdy-next/'),
+  history: ${isHashRouterMode ? 'createWebHashHistory()' : 'createWebHistory(\'/howdy/\')'},
   routes: ${routesStr}
 });
 

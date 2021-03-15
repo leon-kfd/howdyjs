@@ -2,6 +2,8 @@ import vue from '@vitejs/plugin-vue';
 import marked from 'marked';
 import hljs from 'highlight.js';
 
+const isHashRouterMode = process.env.ROUTER_MODE === 'hash';
+const basePath = isHashRouterMode ? './' : '/howdy/';
 const markdownPlugin = (options: any) => {
   return {
     name: 'markdown',
@@ -16,7 +18,7 @@ const markdownPlugin = (options: any) => {
 };
 
 export default {
-  base: '/howdy-next/',
+  base: basePath,
   plugins: [
     vue(), 
     markdownPlugin({

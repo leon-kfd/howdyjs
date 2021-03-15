@@ -26,7 +26,7 @@ jobs:
         run: yarn build:pkg
 
       - name: Build Example
-        run: yarn build
+        run: yarn build:hash
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1

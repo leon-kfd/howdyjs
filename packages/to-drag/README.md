@@ -7,7 +7,7 @@
 2. 提供不吸附、左右吸附、四方向吸附三种模式
 3. 同时支持PC端和移动端
 4. 封装了vue指令的形式
-5. 新增[Absolute模式](https://kongfandong.cn/howdy-next/to-drag/example6)，控制absolute元素在其父元素盒子下进行拖拽
+5. 新增[Absolute模式](https://kongfandong.cn/howdy/to-drag/example6)，控制absolute元素在其父元素盒子下进行拖拽
 
 ## 原生使用
 ```js

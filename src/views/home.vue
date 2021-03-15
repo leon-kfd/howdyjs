@@ -8,6 +8,8 @@
 import { defineComponent } from 'vue';
 import ReadmeFrame from '../components/ReadmeFrame.vue';
 import readme from '../../README.md';
+const isHashRouterMode = import.meta.env.BASE_URL === '/';
+const isProd = import.meta.env.PROD
 export default defineComponent({
   name: 'Home',
   components: {
@@ -15,7 +17,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      readme: (import.meta as any).env.PROD ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy-next/g, '.')
+      readme: isProd ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy/g, isHashRouterMode ? './#' : '.')
     };
   }
 });

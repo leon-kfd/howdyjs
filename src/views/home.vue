@@ -17,7 +17,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      readme: isProd ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy/g, isHashRouterMode ? './#' : '.')
+      readme: isProd && !isHashRouterMode ? readme : readme.replace(/https:\/\/kongfandong.cn\/howdy/g, isHashRouterMode ? './#' : '.')
     };
   }
 });

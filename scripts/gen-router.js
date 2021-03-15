@@ -46,7 +46,7 @@ const routes = [
 
 const reg = /"i\((.*?)\)"/g;
 const routesStr = JSON.stringify(routes, null, 2).replace(reg, (...arg) => `() => import("${arg[1]}")`);
-const isHashRouterMode = process.env.ROUTER_MODE === 'hash';
+const isHashRouterMode = process.env.VITE_ROUTER_MODE === 'hash';
 
 const output = `
 /* eslint-disable */

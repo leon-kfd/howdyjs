@@ -26,8 +26,8 @@
     "vue-to-md": "node ./scripts/vue-to-md.js",
     "example": "npm run vue-to-md && npm run gen-router && vite",
     "build": "npm run vue-to-md && npm run gen-router && vite build",
-    "example:hash": "npm run vue-to-md && cross-env ROUTER_MODE=hash npm run gen-router && cross-env ROUTER_MODE=hash vite",
-    "build:hash": "npm run vue-to-md && cross-env ROUTER_MODE=hash npm run gen-router && cross-env ROUTER_MODE=hash vite build",
+    "example:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash npm run gen-router && cross-env VITE_ROUTER_MODE=hash vite",
+    "build:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash npm run gen-router && cross-env VITE_ROUTER_MODE=hash vite build",
     "publish": "lerna publish"
   },
   "dependencies": {

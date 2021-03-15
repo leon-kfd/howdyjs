@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue';
 import ReadmeFrame from '../components/ReadmeFrame.vue';
 import readme from '../../README.md';
-const isHashRouterMode = import.meta.env.BASE_URL === '/';
+const isHashRouterMode = import.meta.env.VITE_ROUTER_MODE === 'hash';
 const isProd = import.meta.env.PROD
 export default defineComponent({
   name: 'Home',

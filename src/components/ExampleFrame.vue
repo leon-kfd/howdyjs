@@ -476,9 +476,7 @@ export default defineComponent({
 
 @media screen and (max-width: 768px) {
   .logo {
-    #howdy {
-      padding-top: 42px;
-    }
+    padding-top: 42px;
   }
   .readme {
     font-size: 13px;

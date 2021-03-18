@@ -1,7 +1,9 @@
 # Resize
 
-**拖拽更改元素尺寸插件**
+![Version](https://img.shields.io/npm/v/@howdyjs/resize)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/resize?color=%2344cc88)
 
+**拖拽更改元素尺寸插件**
 ## 特性
 1. 为box加入更改大小功能
 2. 目前仅支持position:absolute的布局或者简单Flex布局

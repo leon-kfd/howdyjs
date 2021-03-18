@@ -1,5 +1,8 @@
 # ToDrag
 
+![Version](https://img.shields.io/npm/v/@howdyjs/to-drag)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/to-drag?color=%2344cc88)
+
 **设置Dom可拖动插件**
 
 ## 特性

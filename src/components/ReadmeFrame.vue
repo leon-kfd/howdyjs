@@ -123,11 +123,11 @@ export default defineComponent({
     color: #aaa;
   }
   img {
-    width: 100%;
-    border-radius: 5px;
-    display: block;
-    margin-bottom: 15px;
-    height: auto;
+    max-width: 100%;
+    // border-radius: 5px;
+    // display: block;
+    // margin-bottom: 15px;
+    // height: auto;
   }
   dl,
   ol,
@@ -138,7 +138,7 @@ export default defineComponent({
     line-height: 1.8;
   }
   p {
-    margin: 0 0 20px;
+    // margin: 0 0 20px;
     padding: 0;
     line-height: 1.8;
   }

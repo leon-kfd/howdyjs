@@ -1,5 +1,8 @@
 # Animation Dialog
 
+![Version](https://img.shields.io/npm/v/@howdyjs/animation-dialog)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/animation-dialog?color=%2344cc88)
+
 **VUE3组件-AnimationDialog**
 
 ## 特性

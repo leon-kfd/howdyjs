@@ -1,5 +1,8 @@
 # Img Zoom
 
+![Version](https://img.shields.io/npm/v/@howdyjs/img-zoom)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/img-zoom?color=%2344cc88)
+
 **图片放大插件**
 
 ## 特性

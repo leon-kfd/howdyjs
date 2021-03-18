@@ -1,5 +1,8 @@
 # Size Observer
 
+![Version](https://img.shields.io/npm/v/@howdyjs/size-observer)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/size-observer?color=%2344cc88)
+
 **监听元素尺寸变化插件**
 
 ## 特性

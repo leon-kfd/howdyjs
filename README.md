@@ -16,60 +16,28 @@
 ## 组件
 
 1. **[@howdyjs/resize](https://kongfandong.cn/howdy/resize)**  
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/resize" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/resize?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-通过拖拽更改元素尺寸插件
+✨通过拖拽更改元素尺寸插件
 
-2. **[@howdyjs/img-zoom](https://kongfandong.cn/howdy/img-zoom)**
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/img-zoom" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/img-zoom?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-图片放大插件，支持按组浏览下一张图片
+2. **[@howdyjs/img-zoom](https://kongfandong.cn/howdy/img-zoom)**  
+✨图片放大插件，支持按组浏览下一张图片
 
 3. **[@howdyjs/size-observer](https://kongfandong.cn/howdy/size-observer)**  
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/size-observer" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/size-observer?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-监听元素尺寸变化插件
+✨监听元素尺寸变化插件
 
-4. **[@howdyjs/scroll](https://kongfandong.cn/howdy/scroll)**
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/scroll" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/scroll?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p> 
-自定义滚动条插件
+4. **[@howdyjs/scroll](https://kongfandong.cn/howdy/scroll)**  
+✨自定义滚动条插件
 
-5. **[@howdyjs/to-drag](https://kongfandong.cn/howdy/to-drag)**
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/to-drag" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/to-drag?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-设置Dom可拖动插件
+5. **[@howdyjs/to-drag](https://kongfandong.cn/howdy/to-drag)**  
+✨设置Dom可拖动插件
 
-6. **[@howdyjs/animation-dialog](https://kongfandong.cn/howdy/animation-dialog)**
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/animation-dialog" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/animation-dialog?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-动画模态框Vue3组件
+6. **[@howdyjs/animation-dialog](https://kongfandong.cn/howdy/animation-dialog)**  
+✨动画模态框Vue3组件
 
-7. **[@howdyjs/standard-tabs](https://kongfandong.cn/howdy/standard-tabs)**
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/standard-tabs" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/standard-tabs?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-移动端标签页Vue3组件
+7. **[@howdyjs/standard-tabs](https://kongfandong.cn/howdy/standard-tabs)**  
+✨移动端标签页Vue3组件
 
-8. **[@howdyjs/mouse-menu](https://kongfandong.cn/howdy/mouse-menu)**
-<p style="line-height:1">
-  <img alt="Version" src="https://img.shields.io/npm/v/@howdyjs/mouse-menu" style="display:inline;height:18px;width:auto;margin:2px;"/>
-  <img alt="Size" src="https://img.shields.io/bundlephobia/min/@howdyjs/mouse-menu?color=%2344cc88" style="display:inline;height:18px;width:auto;margin:2px;" />
-</p>
-自定义右键菜单Vue3组件
+8. **[@howdyjs/mouse-menu](https://kongfandong.cn/howdy/mouse-menu)**  
+✨自定义右键菜单Vue3组件
 
 ---
 

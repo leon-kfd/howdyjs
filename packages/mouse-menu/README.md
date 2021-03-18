@@ -1,5 +1,8 @@
 # Mouse Menu
 
+![Version](https://img.shields.io/npm/v/@howdyjs/mouse-menu)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/mouse-menu?color=%2344cc88)
+
 **自定义菜单-VUE3组件/指令**
 
 ## 特性

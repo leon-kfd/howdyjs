@@ -1,5 +1,8 @@
 # Scroll
 
+![Version](https://img.shields.io/npm/v/@howdyjs/scroll)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/scroll?color=%2344cc88)
+
 **自定义滚动条插件**
 
 ## 特性

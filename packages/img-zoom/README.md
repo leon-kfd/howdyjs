@@ -37,6 +37,8 @@ new ImgZoom({
 |zoomCursor|是否显示放大镜cursor|Boolean|-|false|
 |showCloseBtn|是否显示关闭按钮，开启后只能通过点击关闭按钮关闭模态框|Boolean|-|false|
 |preventDefault|是否阻止默认行为，例如父元素的A标签跳转|Boolean|-|false|
+|showLoading|加载图片时，是否显示loading动画|Boolean|-|true|
+|customLoading|自定义loading动画，函数类型，需要返回HtmlElement|Funtion|-|-|
 
 ## 以Vue指令方式使用
 

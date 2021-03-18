@@ -9,6 +9,8 @@
   display:flex;
   animation: fadeIn .4s;
   overflow: auto;
+  align-items: center;
+  justify-content: center;
   #__img {
     margin:auto;
     max-width: 85%

@@ -32,8 +32,8 @@ export default defineComponent({
           introduce: '分组切换图片'
         },
         {
-          name: 'All Options',
-          introduce: '全配置'
+          name: 'Custom Loading',
+          introduce: '自定义Loading'
         }
       ]
     };

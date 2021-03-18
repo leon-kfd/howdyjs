@@ -3,11 +3,12 @@
     <div v-for="(item,index) in imgList" :key="index" class="box">
       <img
         v-img-zoom="{
-          group: 'example3',
+          group: 'example4',
           zoomCursor: true,
           showCloseBtn: true,
           title: item.title,
-          imgSrc: item.regularImg
+          imgSrc: item.regularImg,
+          customLoading
         }"
         :src="item.thumbImg"
         alt="image"
@@ -44,7 +45,13 @@ export default defineComponent({
       }
     });
     return {
-      imgList
+      imgList,
+      customLoading: () => {
+        const text = document.createElement('div');
+        text.innerText = 'Loading...';
+        text.style.cssText = 'font-size: 20px;color: #c8c9d0;';
+        return text;
+      }
     };
   }
 });

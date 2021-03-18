@@ -19,7 +19,9 @@ export interface ImgZoomOptions {
   title?: string,
   zoomCursor?: string
   preventDefault?: boolean,
-  showCloseBtn?: boolean
+  showCloseBtn?: boolean,
+  showLoading?: boolean,
+  customLoading?: () => HTMLElement
 }
 
 class ImgZoom {
@@ -61,18 +63,29 @@ class ImgZoom {
       }
       const mask = createIdDom('div', '__imgZoomMask');
       document.body.append(mask);
-      const loader = createIdDom('div', '__imgZoomLoader');
-      mask.appendChild(loader);
-      const img = new Image();
-      img.src = this.imgSrc;
-      img.setAttribute('id', '__img');
-      img.onload = () => {
-        if (!mask.contains(img)) {
-          mask.appendChild(img);
-        }
+      let img: HTMLImageElement;
+      let loader: HTMLElement;
+      const showLoading = options?.showLoading !== false;
+      if (showLoading) {
+        loader = options?.customLoading ? options.customLoading() : createIdDom('div', '__imgZoomLoader');
+        mask.appendChild(loader);
+        img = new Image();
+        img.src = this.imgSrc;
+        img.setAttribute('id', '__img');
+        img.onload = () => {
+          if (!mask.contains(img)) {
+            mask.appendChild(img);
+          }
+          img.style.display = 'block';
+          loader.style.display = 'none';
+        };
+      } else {
+        img = new Image();
+        img.src = this.imgSrc;
+        img.setAttribute('id', '__img');
         img.style.display = 'block';
-        loader.style.display = 'none';
-      };
+        mask.appendChild(img);
+      }
       const closeEvent = () => {
         mask.style.opacity = '0';
         mask.style.transition = 'all 0.4s';
@@ -102,10 +115,16 @@ class ImgZoom {
         const leftBtn = createIdDom('div', '__leftBtn');
         leftBtn.addEventListener('click', e => {
           if (index > 0) {
+            img.style.display = 'none';
             img.src = groupMap[this.group as string][--index].imgSrc;
-            if (!img.complete) {
-              img.style.display = 'none';
-              loader.style.display = 'block';
+            if (showLoading) {
+              if (!img.complete) {
+                loader.style.display = 'block';
+              }
+            } else {
+              setTimeout(() => {
+                img.style.display = 'block';
+              });
             }
             footer.innerText = `${index + 1} / ${groupMap[this.group as string].length}`;
             if (title) {
@@ -119,10 +138,16 @@ class ImgZoom {
         const rightBtn = createIdDom('div', '__rightBtn');
         rightBtn.addEventListener('click', e => {
           if (index < groupMap[this.group as string].length - 1) {
+            img.style.display = 'none';
             img.src = groupMap[this.group as string][++index].imgSrc;
-            if (!img.complete) {
-              img.style.display = 'none';
-              loader.style.display = 'block';
+            if (showLoading) {
+              if (!img.complete) {
+                loader.style.display = 'block';
+              }
+            } else {
+              setTimeout(() => {
+                img.style.display = 'block';
+              });
             }
             footer.innerText = `${index + 1} / ${groupMap[this.group as string].length}`;
             if (title) {

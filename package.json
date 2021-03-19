@@ -1,7 +1,7 @@
 {
-  "name": "howdyjs-next",
-  "version": "1.0.0",
-  "description": "A personal component packages of javascript plugins or tools",
+  "name": "howdyjs",
+  "version": "2.0.0",
+  "description": "A universal component packages of javascript plugins or tools",
   "author": {
     "name": "leon-kfd",
     "email": "kfd_personal@163.com"
@@ -10,7 +10,10 @@
     "javascript",
     "vue",
     "vue directive",
-    "vite"
+    "vite",
+    "img zoom",
+    "mouse menu",
+    "drag"
   ],
   "licence": "MIT",
   "scripts": {

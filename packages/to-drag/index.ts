@@ -89,6 +89,7 @@ class ToDrag {
     if (this.options.moveCursor) {
       this.el.style.cursor = 'move';
     }
+    this.setPosition();
     if (!this.options.isAbsolute && this.options.adsorb) {
       this.handleAdsorb();
     }
@@ -112,16 +113,12 @@ class ToDrag {
     document.addEventListener('touchend', this.endEvent);
   }
 
-  setStartInfo (x: number, y: number) {
+  setPosition() {
     const { left, top, width, height } = this.el.getBoundingClientRect();
     this.left = left;
     this.top = top;
     this.width = width;
     this.height = height;
-    this.startX = x - left;
-    this.startY = y - top;
-    this.isDrag = true;
-    this.el.style.transition = '';
     if (!this.options.isAbsolute) {
       this.maxX = document.body.scrollWidth > window.innerWidth ? window.innerWidth - this.width - this.scrollbarWidth : window.innerWidth - this.width;
       this.maxY = document.body.scrollHeight > window.innerHeight ? window.innerHeight - this.height - this.scrollbarWidth : window.innerHeight - this.height;
@@ -129,6 +126,14 @@ class ToDrag {
       this.maxX = this.parent.offsetWidth - this.width;
       this.maxY = this.parent.offsetHeight - this.height;
     }
+  }
+
+  setStartInfo (x: number, y: number) {
+    this.setPosition();
+    this.startX = x - this.left;
+    this.startY = y - this.top;
+    this.isDrag = true;
+    this.el.style.transition = '';
     document.body.style.userSelect = 'none';
     if (this.options.forbidBodyScroll) {
       document.body.style.overflow = 'hidden';
@@ -223,6 +228,7 @@ class ToDrag {
         }
       }
     }
+    console.log('this.left', this.left);
     this.el.style.left = this.left + 'px';
     this.el.style.top = this.top + 'px';
   }

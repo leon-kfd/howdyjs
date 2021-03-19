@@ -62,7 +62,9 @@ class ImgZoom {
         e.preventDefault();
       }
       const mask = createIdDom('div', '__imgZoomMask');
+      const imgWrapper = createIdDom('div', '__imgZoomWrapper');
       document.body.append(mask);
+      mask.appendChild(imgWrapper);
       let img: HTMLImageElement;
       let loader: HTMLElement;
       const showLoading = options?.showLoading !== false;
@@ -73,8 +75,8 @@ class ImgZoom {
         img.src = this.imgSrc;
         img.setAttribute('id', '__img');
         img.onload = () => {
-          if (!mask.contains(img)) {
-            mask.appendChild(img);
+          if (!imgWrapper.contains(img)) {
+            imgWrapper.appendChild(img);
           }
           img.style.display = 'block';
           loader.style.display = 'none';
@@ -84,7 +86,7 @@ class ImgZoom {
         img.src = this.imgSrc;
         img.setAttribute('id', '__img');
         img.style.display = 'block';
-        mask.appendChild(img);
+        imgWrapper.appendChild(img);
       }
       const closeEvent = () => {
         mask.style.opacity = '0';

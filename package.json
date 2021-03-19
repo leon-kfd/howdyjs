@@ -31,7 +31,7 @@
     "build": "npm run vue-to-md && npm run gen-router && vite build",
     "example:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash npm run gen-router && cross-env VITE_ROUTER_MODE=hash vite",
     "build:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash npm run gen-router && cross-env VITE_ROUTER_MODE=hash vite build",
-    "publish": "npm run build:pkg && lerna publish"
+    "publish": "lerna publish"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",

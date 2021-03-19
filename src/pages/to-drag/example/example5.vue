@@ -98,6 +98,9 @@ export default defineComponent({
     animation: bounce 2s ease-in-out 1s infinite;
   }
 }
+</style>
+
+<style>
 @keyframes bounce {
   from,
   20%,

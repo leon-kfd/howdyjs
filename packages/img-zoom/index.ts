@@ -131,7 +131,6 @@ class ImgZoom {
               title.innerText = `${groupMap[this.group as string][index].title}`;
             }
           }
-          
           e.stopPropagation();
         });
         mask.appendChild(leftBtn);

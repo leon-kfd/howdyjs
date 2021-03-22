@@ -25,10 +25,12 @@ document.querySelector('#resize').addEventListener('sizechange', (e) => {
   // 盒子触发回调，回调参数参考下方说明
   const { contentRect } = e
 })
+resizeObserve.init();
 ```
 
 + UMD CDN: <a href="https://unpkg.com/@howdyjs/size-observer/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/size-observer/dist/index.umd.js</a>
 + UMD Name: `HowdySizeObserver`
++ UMD Example: <a href="https://codepen.io/leon-kfd/pen/zYNOKpX" target="_blank">Click Here</a>
 
 ### Options (Objcet)
 |参数|说明|类型|可选值|默认值|

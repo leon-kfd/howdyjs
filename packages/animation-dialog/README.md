@@ -28,6 +28,7 @@
 |customClass|自定义Dialog的类名|String|-|-|
 |listenWindowSizeChange|是否需要监听Window宽度变化而改变dialog宽度,默认不监听|Boolean|-|false|
 |debounceWait|监听Window宽度变化的延迟时间|Number|-|200|
+|title|Dialog标题,V1.6.2后新增,样式内置,要自定义请使用slot|String|-|-|
 
 ### 2 Methods 方法
 |方法名|说明|参数|
@@ -40,5 +41,11 @@
 |事件名|说明|回调参数|
 |:---|:---|:---|
 |beforeClose|关闭动画前执行事件|-|
+
+### 4 Slot
+|插槽名|说明|
+|:---|:---|
+|title|Dialog标题|
+|footer|Dialog页脚|
 
 > Package umd name: `HowdyAnimationDialog`

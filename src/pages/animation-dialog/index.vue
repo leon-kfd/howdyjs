@@ -34,6 +34,10 @@ export default defineComponent({
         {
           name: 'Animation Mode',
           introduce: 'Animate.css动画模式'
+        },
+        {
+          name: 'Slot',
+          introduce: '插槽'
         }
       ]
     };

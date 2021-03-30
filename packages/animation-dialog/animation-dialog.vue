@@ -8,8 +8,18 @@
           <span class="line"></span>
           <span class="line"></span>
         </div>
+        <div v-if="$slots.title || title" class="dialog-title">
+          <slot name="title">
+            <div class="dialog-static-title">
+              {{ title }}
+            </div>
+          </slot>
+        </div>
         <div class="dialog-body">
           <slot></slot>
+        </div>
+        <div v-if="$slots.footer" class="dialog-footer">
+          <slot name="footer"></slot>
         </div>
       </div>
     </div>
@@ -66,6 +76,9 @@ export default defineComponent({
     debounceWait: {
       type: Number,
       default: 200
+    },
+    title: {
+      type: String
     }
   },
   emits: ['beforeClose'],
@@ -225,12 +238,32 @@ export default defineComponent({
     box-shadow: 0 0 5px #888;
     width: 50%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
     .dialog-body {
       width: 100%;
       height: 100%;
       overflow-y: auto;
       padding: 20px;
-      text-align: left;
+      flex: 1;
+    }
+    .dialog-title {
+      .dialog-static-title {
+        height: 60px;
+        line-height: 60px;
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        padding-left: 20px;
+        &:after {
+          content: '';
+          position: absolute;
+          border-left: 4px solid #88aaff;
+          height: 20px;
+          top: 20px;
+          left: 10px;
+        }
+      }
     }
     &.animating {
       .dialog-body {

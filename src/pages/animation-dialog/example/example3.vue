@@ -1,57 +1,54 @@
 <template>
-  <div id="example">
-    <div class="wrapper">
-      <ul class="btn-list">
-        <li>
-          <button @click="handleShowBounceDialog">
-            BounceIn / Out (Default)
-          </button>
-        </li>
-        <li>
-          <button @click="handleShowFadeDialog">
-            FadeInLeft / FadeOutRight
-          </button>
-        </li>
-        <li>
-          <button @click="handleShowZoomDialog">
-            ZoomIn / ZoomOut
-          </button>
-        </li>
-        <li>
-          <button @click="handleShowFlipDialog">
-            FlipInX / FlipOutX
-          </button>
-        </li>
-      </ul>
-    </div>
-    <AnimationDialog ref="bounce" :animation-mode="true">
-      <div>bounceIn / bounceOut</div>
-    </AnimationDialog>
-    <AnimationDialog
-      ref="fade"
-      :animation-mode="true"
-      animation-in="fadeInLeft"
-      animation-out="fadeOutRight"
-    >
-      <div>fadeInLeft / fadeOutRight</div>
-    </AnimationDialog>
-    <AnimationDialog
-      ref="zoom"
-      :animation-mode="true"
-      animation-in="zoomIn"
-      animation-out="zoomOut"
-    >
-      <div>zoomIn / zoomOut</div>
-    </AnimationDialog>
-    <AnimationDialog
-      ref="flip"
-      :animation-mode="true"
-      animation-in="flipInX"
-      animation-out="flipOutX"
-    >
-      <div>flipInX / flipOutX</div>
-    </AnimationDialog>
+  <div class="wrapper">
+    <ul class="btn-list">
+      <li>
+        <button @click="handleShowBounceDialog">
+          BounceIn / Out (Default)
+        </button>
+      </li>
+      <li>
+        <button @click="handleShowFadeDialog">
+          FadeInLeft / FadeOutRight
+        </button>
+      </li>
+      <li>
+        <button @click="handleShowZoomDialog">
+          ZoomIn / ZoomOut
+        </button>
+      </li>
+      <li>
+        <button @click="handleShowFlipDialog">
+          FlipInX / FlipOutX
+        </button>
+      </li>
+    </ul>
   </div>
+  <AnimationDialog ref="bounce" :animation-mode="true" title="bounceIn / bounceOut">
+  </AnimationDialog>
+  <AnimationDialog
+    ref="fade"
+    :animation-mode="true"
+    animation-in="fadeInLeft"
+    animation-out="fadeOutRight"
+    title="fadeInLeft / fadeOutRight"
+  >
+  </AnimationDialog>
+  <AnimationDialog
+    ref="zoom"
+    :animation-mode="true"
+    animation-in="zoomIn"
+    animation-out="zoomOut"
+    title="zoomIn / zoomOut"
+  >
+  </AnimationDialog>
+  <AnimationDialog
+    ref="flip"
+    :animation-mode="true"
+    animation-in="flipInX"
+    animation-out="flipOutX"
+    title="flipInX / flipOutX"
+  >
+  </AnimationDialog>
 </template>
 
 <script lang="ts">

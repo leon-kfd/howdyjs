@@ -1,27 +1,25 @@
 <template>
-  <div id="example">
-    <div class="wrapper">
-      <div
-        v-for="(item,index) in imgList"
-        :key="index"
-        class="box"
-        @click="handleShowDialog($event, index)"
-      >
-        <img :src="item" alt="image">
-      </div>
-      <div v-for="num in 9" :key="'fake'+num" class="fake"></div>
-    </div>
-    <AnimationDialog
-      ref="dialog"
-      class="an-dialog"
-      :open-from-itself="true"
-      :listen-window-size-change="true"
+  <div class="wrapper">
+    <div
+      v-for="(item,index) in imgList"
+      :key="index"
+      class="box"
+      @click="handleShowDialog($event, index)"
     >
-      <div class="dialog-content">
-        #{{ active }}
-      </div>
-    </AnimationDialog>
+      <img :src="item" alt="image">
+    </div>
+    <div v-for="num in 9" :key="'fake'+num" class="fake"></div>
   </div>
+  <AnimationDialog
+    ref="dialog"
+    class="an-dialog"
+    :open-from-itself="true"
+    :listen-window-size-change="true"
+  >
+    <div class="dialog-content">
+      #{{ active }}
+    </div>
+  </AnimationDialog>
 </template>
 
 <script lang="ts">

@@ -34,6 +34,11 @@ const router = createRouter({
         "path": "/animation-dialog/example3",
         "name": "animation-dialog-example3",
         "component": () => import("../pages/animation-dialog/example/example3.vue")
+      },
+      {
+        "path": "/animation-dialog/example4",
+        "name": "animation-dialog-example4",
+        "component": () => import("../pages/animation-dialog/example/example4.vue")
       }
     ]
   },

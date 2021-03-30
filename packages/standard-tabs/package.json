@@ -21,5 +21,11 @@
   ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {
+    "tslib": "^1.9.3"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
   }
 }

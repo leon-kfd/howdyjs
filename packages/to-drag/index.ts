@@ -228,7 +228,6 @@ class ToDrag {
         }
       }
     }
-    console.log('this.left', this.left);
     this.el.style.left = this.left + 'px';
     this.el.style.top = this.top + 'px';
   }

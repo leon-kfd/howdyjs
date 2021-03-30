@@ -64,7 +64,6 @@ class ImgZoom {
       const mask = createIdDom('div', '__imgZoomMask');
       const imgWrapper = createIdDom('div', '__imgZoomWrapper');
       document.body.append(mask);
-      mask.appendChild(imgWrapper);
       let img: HTMLImageElement;
       let loader: HTMLElement;
       const showLoading = options?.showLoading !== false;
@@ -76,16 +75,18 @@ class ImgZoom {
         img.setAttribute('id', '__img');
         img.onload = () => {
           if (!imgWrapper.contains(img)) {
+            mask.appendChild(imgWrapper);
             imgWrapper.appendChild(img);
           }
-          img.style.display = 'block';
+          imgWrapper.style.display = 'flex';
           loader.style.display = 'none';
         };
       } else {
+        mask.appendChild(imgWrapper);
         img = new Image();
         img.src = this.imgSrc;
         img.setAttribute('id', '__img');
-        img.style.display = 'block';
+        imgWrapper.style.display = 'flex';
         imgWrapper.appendChild(img);
       }
       const closeEvent = () => {
@@ -117,7 +118,7 @@ class ImgZoom {
         const leftBtn = createIdDom('div', '__leftBtn');
         leftBtn.addEventListener('click', e => {
           if (index > 0) {
-            img.style.display = 'none';
+            imgWrapper.style.display = 'none';
             img.src = groupMap[this.group as string][--index].imgSrc;
             if (showLoading) {
               if (!img.complete) {
@@ -125,7 +126,7 @@ class ImgZoom {
               }
             } else {
               setTimeout(() => {
-                img.style.display = 'block';
+                imgWrapper.style.display = 'flex';
               });
             }
             footer.innerText = `${index + 1} / ${groupMap[this.group as string].length}`;
@@ -139,7 +140,7 @@ class ImgZoom {
         const rightBtn = createIdDom('div', '__rightBtn');
         rightBtn.addEventListener('click', e => {
           if (index < groupMap[this.group as string].length - 1) {
-            img.style.display = 'none';
+            imgWrapper.style.display = 'none';
             img.src = groupMap[this.group as string][++index].imgSrc;
             if (showLoading) {
               if (!img.complete) {
@@ -147,7 +148,7 @@ class ImgZoom {
               }
             } else {
               setTimeout(() => {
-                img.style.display = 'block';
+                imgWrapper.style.display = 'flex';
               });
             }
             footer.innerText = `${index + 1} / ${groupMap[this.group as string].length}`;

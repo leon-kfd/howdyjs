@@ -29,6 +29,7 @@
 |listenWindowSizeChange|是否需要监听Window宽度变化而改变dialog宽度,默认不监听|Boolean|-|false|
 |debounceWait|监听Window宽度变化的延迟时间|Number|-|200|
 |title|Dialog标题,V1.6.2后新增,样式内置,要自定义请使用slot|String|-|-|
+|closeOnClickOutside|是否点击Dialog外层后直接关闭Dialog|Boolean|-|true|
 
 ### 2 Methods 方法
 |方法名|说明|参数|

@@ -1,6 +1,6 @@
 <template>
   <teleport to="body" :disabled="!appendToBody">
-    <div v-show="show" class="animation-dialog-wrapper" @click.self="close">
+    <div v-show="show" class="animation-dialog-wrapper" @click.self="clickOutside">
       <div ref="staticFake" class="dialog-static-fake" :style="{ width, height }"></div>
       <div ref="centerFake" class="dialog-center-fake"></div>
       <div ref="main" class="dialog" :class="customClass">
@@ -79,6 +79,10 @@ export default defineComponent({
     },
     title: {
       type: String
+    },
+    closeOnClickOutside: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['beforeClose'],
@@ -165,6 +169,12 @@ export default defineComponent({
       }
     };
 
+    const clickOutside = () => {
+      if (props.closeOnClickOutside) {
+        close();
+      }
+    };
+
     const close = () => {
       if (props.animationMode) {
         main.value.style.animation = `${props.animationOut} ${animationTime.value}s`;
@@ -203,7 +213,8 @@ export default defineComponent({
       staticFake,
       centerFake,
       main,
-      show
+      show,
+      clickOutside
     };
   }
 });

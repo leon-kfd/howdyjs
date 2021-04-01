@@ -162,7 +162,7 @@ export default defineComponent({
                                     left: ${afterLeft}px;
                                     width: ${afterWidth}px;
                                     height: ${afterHeight}px;
-                                    transition: ${animationTime.value}s all ${props.timingFunction} forwards`;
+                                    transition: ${animationTime.value}s all ${props.timingFunction}`;
         setTimeout(() => {
           main.value.classList.remove('animating');
         }, props.time + 100);
@@ -177,7 +177,7 @@ export default defineComponent({
 
     const close = () => {
       if (props.animationMode) {
-        main.value.style.animation = `${props.animationOut} ${animationTime.value}s`;
+        main.value.style.animation = `${props.animationOut} ${animationTime.value}s forwards`;
         emit('beforeClose');
         setTimeout(() => {
           show.value = false;

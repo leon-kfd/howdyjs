@@ -137,7 +137,7 @@ export default defineComponent({
                                     left: ${afterLeft}px;
                                     width: ${afterWidth}px;
                                     height: ${afterHeight}px;
-                                    animation: ${props.animationIn} ${animationTime.value}s`;
+                                    animation: ${props.animationIn} ${animationTime.value}s forwards`;
       } else {
         show.value = true;
         openerEl = (!el ? centerFake.value : typeof el === 'string' ? document.querySelector(el) : el) as HTMLElement;
@@ -162,7 +162,7 @@ export default defineComponent({
                                     left: ${afterLeft}px;
                                     width: ${afterWidth}px;
                                     height: ${afterHeight}px;
-                                    transition: ${animationTime.value}s all ${props.timingFunction}`;
+                                    transition: ${animationTime.value}s all ${props.timingFunction} forwards`;
         setTimeout(() => {
           main.value.classList.remove('animating');
         }, props.time + 100);

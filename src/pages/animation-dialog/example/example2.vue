@@ -12,7 +12,6 @@
   </div>
   <AnimationDialog
     ref="dialog"
-    class="an-dialog"
     :open-from-itself="true"
     :listen-window-size-change="true"
   >

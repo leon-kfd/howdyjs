@@ -58,7 +58,7 @@ export default defineComponent({
     },
     timingFunction: {
       type: String,
-      default: 'cubic-bezier(0.55,-0.15, 0.71, 1.35)'
+      default: 'ease-in-out'
     },
     openFromItself: {
       type: Boolean,
@@ -165,7 +165,7 @@ export default defineComponent({
                                     transition: ${animationTime.value}s all ${props.timingFunction}`;
         setTimeout(() => {
           main.value.classList.remove('animating');
-        }, props.time + 100);
+        }, props.time + 10);
       }
     };
 
@@ -181,7 +181,7 @@ export default defineComponent({
         emit('beforeClose');
         setTimeout(() => {
           show.value = false;
-        }, props.time - 100);
+        }, props.time - 10);
       } else {
         if (!openerEl) {
           return;
@@ -192,19 +192,22 @@ export default defineComponent({
                                     left: ${left}px;
                                     width: ${width}px;
                                     height: ${height}px;
-                                    transition: ${animationTime.value}s all ${props.timingFunction}`;
+                                    transition: ${animationTime.value}s all ${props.timingFunction};`;
         emit('beforeClose');
-        setTimeout(() => {
-          if (openerEl) {
-            openerEl.classList.remove('is-open');
-            main.value.classList.remove('animating');
-            show.value = false;
-            if (props.openFromItself) {
-              openerEl.style.visibility = 'visible';
-              main.value.querySelector('.dialog-body').removeChild(cloneOpenerEl);
-            }
+        const transitionEndEvent = () => {
+          openerEl?.classList.remove('is-open');
+          main.value.classList.remove('animating');
+          show.value = false;
+          if (props.openFromItself) {
+            openerEl && (openerEl.style.visibility = 'visible');
+            main.value.querySelector('.dialog-body').removeChild(cloneOpenerEl);
           }
-        }, props.time + 100);
+          main.value.removeEventListener('transitionend', transitionEndEvent);
+        };
+        main.value.addEventListener('transitionend', transitionEndEvent);
+        setTimeout(() => {
+          transitionEndEvent();
+        }, props.time + 10);
       }
     };
     return {

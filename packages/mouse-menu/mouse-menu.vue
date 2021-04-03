@@ -260,7 +260,7 @@ export default defineComponent({
   --menu-lineMargin: 5px 0;
 }
 .__menu__wrapper {
-  position: absolute;
+  position: fixed;
   width: 200px;
   background: var(--menu-background);
   box-shadow: var(--menu-boxShadow);

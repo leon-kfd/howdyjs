@@ -1,6 +1,6 @@
 {
   "name": "@howdyjs/mouse-menu",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "右键菜单组件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",

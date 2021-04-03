@@ -53,6 +53,7 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
         menuItemCss,
       });
       const contextmenuEvent = (e: MouseEvent) => {
+        document.removeEventListener('contextmenu', contextmenuEvent);
         e.preventDefault();
         const { x, y } = e;
         MouseMenuCtx.show(x,y);

@@ -118,16 +118,15 @@ export default {
         el: dom.value,
         // Other Options
       })
-      const contextmenuEvent = (e) => {
-        e.preventDefault();
-        const { x, y } = e;
-        MouseMenuCtx.show(x,y);
-      };
       if (e.button === 2) {
         e.stopPropagation();
-        document.addEventListener('contextmenu', contextmenuEvent);
+        document.oncontextmenu = (e: MouseEvent) => {
+          e.preventDefault();
+          const { x, y } = e;
+          MouseMenuCtx.show(x,y);
+        };
         document.onmousedown = () => {
-          document.removeEventListener('contextmenu', contextmenuEvent);
+          document.oncontextmenu = null;
           MouseMenuCtx.close();
         };
       } else {
@@ -159,17 +158,16 @@ export default {
   setup () {
     const dom = ref()
     const showMenu = (e) => {
-      const contextmenuEvent = (e) => {
-        e.preventDefault();
-        const { x, y } = e;
-        dom.value.show(x,y);
-      };
       if (e.button === 2) {
         e.stopPropagation();
-        document.addEventListener('contextmenu', contextmenuEvent);
+        document.oncontextmenu = (e: MouseEvent) => {
+          e.preventDefault();
+          const { x, y } = e;
+          MouseMenuCtx.show(x,y);
+        };
         document.onmousedown = () => {
-          document.removeEventListener('contextmenu', contextmenuEvent);
-          dom.value.close();
+          document.oncontextmenu = null;
+          MouseMenuCtx.close();
         };
       } else {
         dom.value.close();
@@ -186,5 +184,21 @@ export default {
   }
 }
 </script>
+```
+
+## 其他说明
+
+为了性能，指令封装模式默认只对mounted钩子进行挂载。  
+当使用场景中有params参数传入菜单函数，有可能需要在组件更新时更新菜单，这时可以同时把update也挂载上。可参考以下写法:
+```js
+import { MouseMenuDirective } from '@howdyjs/mouse-menu';
+export default {
+  directive: {
+    MouseMenu: {
+      ...MouseMenuDirective,
+      updated: MouseMenuDirective.mounted
+    }
+  }
+}
 ```
 

@@ -52,22 +52,22 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
         menuWrapperCss,
         menuItemCss,
       });
-      const contextmenuEvent = (e: MouseEvent) => {
-        e.preventDefault();
-        const { x, y } = e;
-        MouseMenuCtx.show(x,y);
-      };
       if (e.button === 2) {
         e.stopPropagation();
-        document.addEventListener('contextmenu', contextmenuEvent);
+        document.oncontextmenu = (e: MouseEvent) => {
+          e.preventDefault();
+          const { x, y } = e;
+          MouseMenuCtx.show(x,y);
+        };
         document.onmousedown = () => {
-          document.removeEventListener('contextmenu', contextmenuEvent);
+          document.oncontextmenu = null;
           MouseMenuCtx.close();
         };
       } else {
         MouseMenuCtx.close();
       }
     };
+    el.removeEventListener('mousedown', mouseDownEvent);
     el.addEventListener('mousedown', mouseDownEvent);
   } else {
     throw new Error('At least set one menu list!');

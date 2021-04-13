@@ -85,7 +85,7 @@ export default defineComponent({
       default: true
     }
   },
-  emits: ['beforeClose'],
+  emits: ['beforeClose', 'close'],
   setup(props, { emit }) {
     const staticFake = ref();
     const centerFake = ref();
@@ -194,20 +194,18 @@ export default defineComponent({
                                     height: ${height}px;
                                     transition: ${animationTime.value}s all ${props.timingFunction};`;
         emit('beforeClose');
-        const transitionEndEvent = () => {
-          openerEl?.classList.remove('is-open');
-          main.value.classList.remove('animating');
-          show.value = false;
-          if (props.openFromItself) {
-            openerEl && (openerEl.style.visibility = 'visible');
-            main.value.querySelector('.dialog-body').removeChild(cloneOpenerEl);
-          }
-          main.value.removeEventListener('transitionend', transitionEndEvent);
-        };
-        main.value.addEventListener('transitionend', transitionEndEvent);
         setTimeout(() => {
-          transitionEndEvent();
-        }, props.time + 10);
+          if (openerEl) {
+            openerEl.classList.remove('is-open');
+            main.value.classList.remove('animating');
+            show.value = false;
+            if (props.openFromItself) {
+              openerEl.style.visibility = 'visible';
+              main.value.querySelector('.dialog-body').removeChild(cloneOpenerEl);
+            }
+          }
+          emit('close');
+        }, props.time + 100);
       }
     };
     return {

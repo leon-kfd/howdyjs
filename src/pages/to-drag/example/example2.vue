@@ -2,7 +2,7 @@
   <div class="text">
     请拖拽屏幕上的紫色浮块
   </div>
-  <div v-to-drag="{ adsorb: 1 }" class="move-box">
+  <div v-to-drag="{ adsorb: 1, positionMode: 3 }" class="move-box">
     DRAG
   </div>
 </template>

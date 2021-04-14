@@ -8,7 +8,8 @@ export interface ToDragOptions {
   transitionDuration?: number,
   transitionTimingFunction?: string,
   forbidBodyScroll?: boolean,
-  parentSelector?: string
+  parentSelector?: string,
+  positionMode?: 1 | 2 | 3 | 4
 }
 
 export type toDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
@@ -18,7 +19,9 @@ export interface toDragEvent extends Event {
   width?: number,
   height?: number,
   maxX?: number,
-  maxY?: number
+  maxY?: number,
+  right?: number,
+  bottom?: number
 }
 
 
@@ -31,6 +34,8 @@ class ToDrag {
   private isDrag: boolean
   private left = 0
   private top = 0
+  private right = 0
+  private bottom = 0
   private startX = 0
   private startY = 0
   private width = 0
@@ -65,6 +70,7 @@ class ToDrag {
       transitionTimingFunction: 'ease-in-out',
       forbidBodyScroll: true,
       isAbsolute: false,
+      positionMode: 1,
       ...options
     };
     this.parent = (this.options.parentSelector && document.querySelector(this.options.parentSelector)) || this.el.parentNode as HTMLElement;
@@ -90,9 +96,8 @@ class ToDrag {
       this.el.style.cursor = 'move';
     }
     this.setPosition();
-    if (!this.options.isAbsolute && this.options.adsorb) {
-      this.handleAdsorb();
-    }
+    this.handleAdsorb();
+    this.handlePositionMode();
     setTimeout(() => {
       this.emitEvent('todraginit');
     });
@@ -175,6 +180,7 @@ class ToDrag {
       document.body.style.overflow = 'visible';
     }
     this.handleAdsorb();
+    this.handlePositionMode();
     this.emitEvent('todragend');
   }
 
@@ -232,16 +238,36 @@ class ToDrag {
     this.el.style.top = this.top + 'px';
   }
 
+  handlePositionMode() {
+    if (this.options.adsorb) return;
+    this.right = this.maxX - this.left;
+    this.bottom = this.maxY - this.top;
+    if (this.options.positionMode === 2) {
+      this.el.style.left = 'auto';
+      this.el.style.right = this.right + 'px';
+    } else if (this.options.positionMode === 3) {
+      this.el.style.top = 'auto';
+      this.el.style.bottom = this.bottom + 'px';
+    } else if (this.options.positionMode === 4) {
+      this.el.style.left = 'auto';
+      this.el.style.top = 'auto';
+      this.el.style.right = this.right + 'px';
+      this.el.style.bottom = this.bottom + 'px';
+    }
+  }
+
   emitEvent (type: toDragEventString) {
     const event = document.createEvent('HTMLEvents') as toDragEvent;
     event.initEvent(type, false, false);
-    const { left, top, width, height, maxX, maxY } = this;
+    const { left, top, right, bottom, width, height, maxX, maxY } = this;
     event['left'] = left;
     event['top'] = top;
     event['width'] = width;
     event['height'] = height;
     event['maxX'] = maxX;
     event['maxY'] = maxY;
+    event['right'] = right;
+    event['bottom'] = bottom;
     this.el.dispatchEvent(event);
   }
 

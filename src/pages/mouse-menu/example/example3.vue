@@ -7,14 +7,25 @@
 </template>
 
 <script lang="ts">
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, onUnmounted } from 'vue';
 import { MouseMenuDirective } from '../../../../packages/mouse-menu';
 export default defineComponent({
   directives: {
     MouseMenu: MouseMenuDirective
   },
   setup() {
+    onMounted(() => {
+      const cssLink = document.createElement('link');
+      cssLink.id = 'fontawesomeCDN';
+      cssLink.rel  = 'stylesheet';
+      cssLink.type = 'text/css';
+      cssLink.href = 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css';
+      document.querySelector('head')?.appendChild(cssLink);
+    });
+    onUnmounted(() => {
+      const cssLink = document.querySelector('#fontawesomeCDN');
+      cssLink?.parentNode?.removeChild(cssLink);
+    });
     return {
       options: {
         hasIcon: true,

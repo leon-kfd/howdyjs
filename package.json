@@ -34,7 +34,6 @@
     "publish": "lerna publish"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
     "animate.css": "^4.1.1",
     "highlight.js": "^10.5.0",
     "marked": "^2.0.0",

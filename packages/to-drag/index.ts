@@ -9,7 +9,8 @@ export interface ToDragOptions {
   transitionTimingFunction?: string,
   forbidBodyScroll?: boolean,
   parentSelector?: string,
-  positionMode?: 1 | 2 | 3 | 4
+  positionMode?: 1 | 2 | 3 | 4,
+  disabled?: () => boolean
 }
 
 export type toDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
@@ -104,6 +105,9 @@ class ToDrag {
   }
 
   handleMousedown (e: MouseEvent) {
+    if (typeof this.options.disabled === 'function' && this.options.disabled()) {
+      return;
+    }
     const { x, y } = e;
     this.setStartInfo(x, y);
     document.addEventListener('mousemove', this.moveEvent);
@@ -111,6 +115,9 @@ class ToDrag {
   }
 
   handleTouchStart (e: TouchEvent | MouseEvent) {
+    if (typeof this.options.disabled === 'function' && this.options.disabled()) {
+      return;
+    }
     const x = this.isTouch ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).x;
     const y = this.isTouch ? (e as TouchEvent).changedTouches[0].clientY : (e as MouseEvent).y;
     this.setStartInfo(x, y);

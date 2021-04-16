@@ -40,6 +40,7 @@ new ToDrag({
 |**isAbsolute**|是否为Absolute模式,v1.5.0后新增，可控制absolute的元素在其父元素下进行拖拽，开启该模式暂不支持吸附功能|Boolean|-|false|
 |parentSelector|Absolute模式下元素的父级容器，目前只支持传入字符串选择器|String|-|-|
 |**positionMode**|定位模式,默认会记录top与left值,更改此值可以定位方向(1: top/left, 2: top/right, 3: bottom/left, 4: bottom/right)|Number|1,2,3,4|1|
+|disabled|是否禁用，需传入函数返回Boolean|Function: () => boolean|-|-|
 
 ### Event
 

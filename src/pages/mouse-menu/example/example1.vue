@@ -1,7 +1,7 @@
 <template>
   <div v-mouse-menu="options" class="box">
     <p class="text">
-      Right Click This box.
+      {{ !isMobile ? 'Right click this box' : 'Long press this box' }}.
     </p>
   </div>
 </template>
@@ -15,8 +15,10 @@ export default defineComponent({
   },
   setup() {
     return {
+      isMobile: 'ontouchstart' in window,
       options: {
         params: { a: 1 },
+        useLongPressInMobile: true,
         menuList: [
           {
             label: '打开',
@@ -48,6 +50,7 @@ export default defineComponent({
 <style scoped>
 .box {
   width: 500px;
+  width: min(90vw, 500px);
   height: 500px;
   background: #ffe0e0;
   margin: 0 auto;

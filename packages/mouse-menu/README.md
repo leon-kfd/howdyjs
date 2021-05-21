@@ -10,12 +10,14 @@
 2. 支持自定义样式
 3. 支持子菜单
 4. 支持加入菜单图标
+5. *支持移动端长按唤出菜单*(v1.7.0后支持)
 
 ## 配置
 
 ### Props/指令Value (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
+|el|触发的Dom元素（以Vue组件方式或CustomMenu函数方式使用时必须传入）|-|-|-|
 |menuWidth|菜单宽度|Number|-|200|
 |menuList|生成菜单项的数组，具体配置参考下表|Array|-|-|
 |hasIcon|是否有菜单图标|Boolean|-|false|
@@ -24,7 +26,9 @@
 |menuItemCss|菜单项的CSS设置，具体配置参考下表|Object|-|-|
 |params|传给处理函数的自定义参数，会注入到下方各回调函数的首个参数中|Any|-|-|
 |appendToBody|容器是否挂载到body上|Boolean|-|true|
-|el|触发的Dom元素（以Vue组件方式或CustomMenu函数方式使用时必须传入）|-|-|-|
+|disabled|是否禁用整个菜单，接收一个函数|(params: any) => boolean|-|-|
+|useLongPressInMobile|移动端下兼容使用长按事件唤出菜单, 但长按模式不支持多级菜单|Boolean|-|false|
+|longPressDuration|长按事件需持续时间,单位ms|Number|-|500|
 
 #### menuList-菜单项数组配置
 |参数|说明|类型|可选值|默认值|

@@ -47,6 +47,7 @@ export default defineComponent({
     return {
       list,
       options: {
+        useLongPressInMobile: true,
         menuList: [
           {
             label: (params: any) => `#${params.userName}`,

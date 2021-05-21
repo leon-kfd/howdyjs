@@ -25,6 +25,7 @@ export default defineComponent({
   setup() {
     return {
       options: {
+        useLongPressInMobile: true,
         menuHiddenFn: (_: any, el: HTMLElement) => !(el.getAttribute('class') && el.getAttribute('class')?.includes('box-listitem')),
         menuList: [
           {
@@ -65,6 +66,7 @@ export default defineComponent({
 <style scoped>
 .box {
   width: 500px;
+  width: min(90vw, 500px);
   height: 500px;
   background: #ffe0e0;
   margin: 0 auto;

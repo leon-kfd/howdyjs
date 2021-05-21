@@ -93,7 +93,9 @@ export default defineComponent({
     },
     params: {
       type: [String, Number, Array, Object] as PropType<any>
-    }
+    },
+    useLongPressInMobile: Boolean,
+    longPressDuration: Number
   },
   setup(props) {
     const subLeft = ref(0);

@@ -1,7 +1,7 @@
 <template>
   <div v-mouse-menu="options" class="box">
     <p class="text">
-      Right Click This box.
+      {{ !isMobile ? 'Right click this box' : 'Long press this box, but it don not support children menu' }}.
     </p>
   </div>
 </template>
@@ -15,7 +15,9 @@ export default defineComponent({
   },
   setup() {
     return {
+      isMobile: 'ontouchstart' in window,
       options: {
+        useLongPressInMobile: true,
         menuWrapperCss: {
           background: 'linear-gradient(45deg, #3439e6, #EC6EAD)',
           boxShadow: '0 0 10px #ccc'
@@ -83,6 +85,7 @@ export default defineComponent({
 <style scoped>
 .box {
   width: 500px;
+  width: min(90vw, 500px);
   height: 500px;
   background: #ffe0e0;
   margin: 0 auto;

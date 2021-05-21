@@ -24,7 +24,7 @@
 |menuItemCss|菜单项的CSS设置，具体配置参考下表|Object|-|-|
 |params|传给处理函数的自定义参数，会注入到下方各回调函数的首个参数中|Any|-|-|
 |appendToBody|容器是否挂载到body上|Boolean|-|true|
-|el|触发的Dom元素（以Vue组件方式使用需要传入）|-|-|-|
+|el|触发的Dom元素（以Vue组件方式或CustomMenu函数方式使用时必须传入）|-|-|-|
 
 #### menuList-菜单项数组配置
 |参数|说明|类型|可选值|默认值|

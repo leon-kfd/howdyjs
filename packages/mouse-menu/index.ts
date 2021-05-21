@@ -22,35 +22,14 @@ function CustomMouseMenu (options: CustomMouseMenuOptions) {
 }
 
 // 指令封装
-let mouseDownEvent: any;
+let mouseDownEvent: (e: MouseEvent) => void;
 const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
   const { value } = binding;
-  const options = {
-    menuWidth: 200,
-    menuList: [],
-    hasIcon: false,
-    iconType: 'font-icon',
-    ...value
-  };
-  const menuWrapperCss = {
-    ...value.menuWrapperCss
-  };
-  const menuItemCss = {
-    arrowSize: '10px',
-    ...value.menuItemCss
-  };
-  if (options.menuList.length > 0) {
+  if (value.menuList.length > 0) {
     mouseDownEvent = (e: MouseEvent) => {
       const MouseMenuCtx = CustomMouseMenu({
         el,
-        menuList: options.menuList,
-        params: options.params,
-        menuWidth: options.width,
-        hasIcon: options.hasIcon,
-        iconType: options.iconType,
-        menuHiddenFn: options.menuHiddenFn,
-        menuWrapperCss,
-        menuItemCss,
+        ...value
       });
       if (e.button === 2) {
         e.stopPropagation();

@@ -24,7 +24,7 @@
             v-if="hasSubMenu"
             class="__menu__item-arrow"
             :class="{show: hasSubMenu && item.children}"
-            :style="{width: menuItemCss['arrowSize'],height: menuItemCss['arrowSize']}"
+            :style="{width: arrowSize + 'px',height: arrowSize + 'px'}"
           >
             <span v-show="hasSubMenu && item.children" class="__menu__item-arrow-after"></span>
           </span>
@@ -66,7 +66,10 @@ export default defineComponent({
       type: Boolean,
       default: true
     },
-    menuWidth: Number,
+    menuWidth: {
+      type: Number,
+      default: 200
+    },
     menuList: {
       type: Array as PropType<MenuSetting[]>,
       required: true
@@ -74,8 +77,14 @@ export default defineComponent({
     menuHiddenFn: {
       type: Function as PropType<MenuCallback>
     },
-    hasIcon: Boolean,
-    iconType: String,
+    hasIcon: {
+      type: Boolean,
+      default: false
+    },
+    iconType: {
+      type: String,
+      default: 'font-icon'
+    },
     menuWrapperCss: Object as PropType<Record<string, string>>,
     menuItemCss: Object as PropType<Record<string, string>>,
     el: {
@@ -96,6 +105,7 @@ export default defineComponent({
     const clickDomEl = ref(null) as Ref<null | HTMLElement>;
     const calcMenuList = ref([] as MenuSetting[]);
     const hasSubMenu = computed(() => props.menuList.some(item => item.children && item.children.length > 0));
+    const arrowSize = ref(10);
 
     const MenuWrapper = ref();
 
@@ -112,14 +122,14 @@ export default defineComponent({
           Object.keys(props.menuItemCss).map(item => {
             el.style.setProperty(`--menu-item-${item}`, props.menuItemCss && props.menuItemCss[item]);
           });
-          let arrowSize: RegExpMatchArray | null | number = props.menuItemCss.arrowSize.match(/\d+/);
-          if (arrowSize) {
-            arrowSize = ~~arrowSize[0] || 10;
-          } else {
-            arrowSize = 10;
-          }
-          el.style.setProperty('--menu-item-arrowRealSize', arrowSize / 2 + 'px');
         }
+        let _arrowSize: RegExpMatchArray | null | undefined | number = props.menuItemCss?.arrowSize?.match(/\d+/);
+        if (_arrowSize) {
+          arrowSize.value = ~~_arrowSize[0] || 10;
+        } else {
+          arrowSize.value = 10;
+        }
+        el.style.setProperty('--menu-item-arrowRealSize', arrowSize.value / 2 + 'px');
       }
     });
 
@@ -215,6 +225,7 @@ export default defineComponent({
       showMenu,
       clickDomEl,
       calcMenuList,
+      arrowSize,
       hasSubMenu,
       MenuWrapper,
       handleMenuItemClick,

@@ -16,6 +16,9 @@ export default defineComponent({
   setup() {
     return {
       options: {
+        menuItemCss: {
+          arrowSize: '8px'
+        },
         menuList: [
           {
             label: '刷新',

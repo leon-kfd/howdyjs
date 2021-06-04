@@ -206,3 +206,5 @@ export default {
 }
 ```
 
++ UMD Name: `HowdyMouseMenu`
+

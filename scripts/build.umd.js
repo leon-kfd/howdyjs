@@ -14,7 +14,7 @@ walkPackageDirs((dirName) => {
       name: `Howdy${toCamelCase(dirName)}`,
       globals: {
         'resize-observer-polyfill': 'ResizeObserver',
-        'vue': 'vue'
+        'vue': 'Vue'
       }
     },
     external: id => ['resize-observer-polyfill', 'vue'].includes(id)

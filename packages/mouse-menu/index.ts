@@ -71,10 +71,6 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
           const { x, y } = e;
           MouseMenuCtx.show(x,y);
         };
-        document.onmousedown = () => {
-          document.oncontextmenu = null;
-          MouseMenuCtx.close();
-        };
       } else {
         MouseMenuCtx.close();
       }

@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, nextTick, PropType, Ref, watch } from 'vue';
+import { defineComponent, ref, computed, nextTick, PropType, Ref, watch, onUnmounted, onMounted } from 'vue';
 import { MenuCallback, MenuSetting } from './types';
 import { clone } from '../shared';
 export default defineComponent({
@@ -95,7 +95,11 @@ export default defineComponent({
       type: [String, Number, Array, Object] as PropType<any>
     },
     useLongPressInMobile: Boolean,
-    longPressDuration: Number
+    longPressDuration: Number,
+    injectCloseListener: {
+      type: Boolean,
+      default: true
+    }
   },
   setup(props) {
     const subLeft = ref(0);
@@ -108,7 +112,6 @@ export default defineComponent({
     const calcMenuList = ref([] as MenuSetting[]);
     const hasSubMenu = computed(() => props.menuList.some(item => item.children && item.children.length > 0));
     const arrowSize = ref(10);
-
     const MenuWrapper = ref();
 
     watch(showMenu, async (val) => {
@@ -136,20 +139,20 @@ export default defineComponent({
     });
 
     const handleMenuItemClick = (item: MenuSetting) => {
-      if (item.fn && typeof item.fn === 'function' && !item.disabled) {
+      if (item.disabled) return;
+      if (item.fn && typeof item.fn === 'function') {
         item.fn(props.params, clickDomEl.value, props.el);
       }
       showMenu.value = false;
     };
-
     const handleSubMenuItemClick = (subItem: MenuSetting) => {
+      if (subItem.disabled) return;
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
         subItem.fn(props.params, clickDomEl.value, props.el);
         hoverFlag.value = false;
       }
       showMenu.value = false;
     };
-
     const handleMenuMouseEnter = ($event: MouseEvent, item: MenuSetting) => {
       if (item.children && !item.disabled) {
         hoverFlag.value = true;
@@ -195,6 +198,8 @@ export default defineComponent({
       });
     };
 
+
+    // public methods
     const show = async (x = 0, y = 0) => {
       clickDomEl.value = document.elementFromPoint(x - 1, y - 1) as HTMLElement;
       if (props.menuHiddenFn) {
@@ -213,10 +218,29 @@ export default defineComponent({
       menuLeft.value = x + menuWidth + 1 > windowWidth ? windowWidth - menuWidth - 5 : x + 1;
       menuTop.value = y + menuHeight + 1 > windowHeight ? windowHeight - menuHeight - 5 : y + 1;
     };
-
     const close = () => {
       showMenu.value = false;
     };
+
+    // injectCloseListener
+    const listenerFn = (e: MouseEvent) => {
+      if (MenuWrapper.value && !MenuWrapper.value.contains(e.currentTarget)) {
+        showMenu.value = false;
+        document.oncontextmenu = null;
+      }
+    };
+    watch(() => props.injectCloseListener, (val) => {
+      if (val) {
+        document.addEventListener('mousedown', listenerFn);
+      } else {
+        document.removeEventListener('mousedown', listenerFn);
+      }
+    }, {
+      immediate: true
+    });
+    onUnmounted(() => {
+      document.removeEventListener('mousedown', listenerFn);
+    });
 
     return {
       subLeft,

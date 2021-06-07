@@ -130,10 +130,6 @@ export default {
           const { x, y } = e;
           MouseMenuCtx.show(x,y);
         };
-        document.onmousedown = () => {
-          document.oncontextmenu = null;
-          MouseMenuCtx.close();
-        };
       } else {
         MouseMenuCtx.close();
       }
@@ -151,7 +147,7 @@ export default {
 ```html
 <template>
   <div ref="dom" @mousedown="showMenu">Dom</div>
-  <mouse-menu v-bind="options"></mouse-menu>
+  <mouse-menu ref="mouseMenuEl" v-bind="options"></mouse-menu>
 </template>
 <script>
 import { ref } from 'vue'
@@ -162,24 +158,21 @@ export default {
   },
   setup () {
     const dom = ref()
+    const mouseMenuEl = ref()
     const showMenu = (e) => {
       if (e.button === 2) {
         e.stopPropagation();
         document.oncontextmenu = (e: MouseEvent) => {
           e.preventDefault();
           const { x, y } = e;
-          MouseMenuCtx.show(x,y);
-        };
-        document.onmousedown = () => {
-          document.oncontextmenu = null;
-          MouseMenuCtx.close();
+          mouseMenuEl.show(x,y);
         };
       } else {
-        dom.value.close();
+        mouseMenuEl.close();
       }
     }
     return {
-      dom,
+      mouseMenuEl,
       showMenu,
       options: {
         el: dom.value, //Is Required
@@ -208,4 +201,5 @@ export default {
 ```
 
 + UMD Name: `HowdyMouseMenu`
++ Example in `ElementPlusTable`: <a href="https://codepen.io/leon-kfd/pen/yLMKPOP" target="_blank">Demo</a>
 

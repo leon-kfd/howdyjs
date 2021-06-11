@@ -110,7 +110,7 @@ export default {
 
 ```html
 <template>
-  <div ref="dom" @mousedown="showMenu">Dom</div>
+  <div ref="dom" @contextmenu="showMenu">Dom</div>
 </template>
 <script>
 import { ref } from 'vue'
@@ -119,20 +119,13 @@ export default {
   setup() {
     const dom = ref()
     const showMenu = (e) => {
+      e.preventDefault()
       const MouseMenuCtx = CustomMouseMenu({
         el: dom.value,
         // Other Options
       })
-      if (e.button === 2) {
-        e.stopPropagation();
-        document.oncontextmenu = (e: MouseEvent) => {
-          e.preventDefault();
-          const { x, y } = e;
-          MouseMenuCtx.show(x,y);
-        };
-      } else {
-        MouseMenuCtx.close();
-      }
+      const { x, y } = e;
+      MouseMenuCtx.show(x,y);
     }
     return {
       dom,
@@ -146,7 +139,7 @@ export default {
 
 ```html
 <template>
-  <div ref="dom" @mousedown="showMenu">Dom</div>
+  <div ref="dom" @contextmenu="showMenu">Dom</div>
   <mouse-menu ref="mouseMenuEl" v-bind="options"></mouse-menu>
 </template>
 <script>
@@ -160,16 +153,9 @@ export default {
     const dom = ref()
     const mouseMenuEl = ref()
     const showMenu = (e) => {
-      if (e.button === 2) {
-        e.stopPropagation();
-        document.oncontextmenu = (e: MouseEvent) => {
-          e.preventDefault();
-          const { x, y } = e;
-          mouseMenuEl.show(x,y);
-        };
-      } else {
-        mouseMenuEl.close();
-      }
+      e.preventDefault()
+      const { x, y } = e;
+      mouseMenuEl.show(x,y);
     }
     return {
       mouseMenuEl,

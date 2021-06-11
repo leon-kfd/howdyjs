@@ -21,7 +21,7 @@ function CustomMouseMenu (options: CustomMouseMenuOptions) {
   return vm.component?.proxy as ComponentPublicInstance<typeof MouseMenu>;
 }
 
-type MouseListenFn = (e: MouseEvent) => void
+type ContextMenuListenFn = (e: MouseEvent) => void
 type TouchListenFn = (e: TouchEvent) => void
 
 let MouseMenuCtx: any;
@@ -47,36 +47,28 @@ function addLongPressListener (el: HTMLElement, fn: TouchListenFn, longPressDura
 }
 function removeLongPressListener (el: HTMLElement) {
   el.removeEventListener('touchstart', longPressTouchStart);
-  el.addEventListener('touchmove', longPressTouchEnd);
+  el.removeEventListener('touchmove', longPressTouchEnd);
   el.removeEventListener('touchend', longPressTouchEnd);
   el.removeEventListener('touchcancel', longPressTouchEnd);
 }
 
 // 指令封装
-let mouseDownEvent: MouseListenFn;
+let contextMenuEvent: ContextMenuListenFn;
 let longPressEvent: TouchListenFn;
 const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
   const { value } = binding;
   if (value.menuList.length > 0) {
-    mouseDownEvent = (e: MouseEvent) => {
+    contextMenuEvent = (e: MouseEvent) => {
+      e.preventDefault();
       const MouseMenuCtx = CustomMouseMenu({
         el,
         ...value
       });
-      if (e.button === 2) {
-        if (typeof value.disabled === 'function' && value.disabled(value.params)) return;
-        e.stopPropagation();
-        document.oncontextmenu = (e: MouseEvent) => {
-          e.preventDefault();
-          const { x, y } = e;
-          MouseMenuCtx.show(x,y);
-        };
-      } else {
-        MouseMenuCtx.close();
-      }
+      const { x, y } = e;
+      MouseMenuCtx.show(x,y);
     };
-    el.removeEventListener('mousedown', mouseDownEvent);
-    el.addEventListener('mousedown', mouseDownEvent);
+    el.removeEventListener('contextmenu', contextMenuEvent);
+    el.addEventListener('contextmenu', contextMenuEvent);
     if (value.useLongPressInMobile && 'ontouchstart' in window) {
       longPressEvent = (e: TouchEvent) => {
         if (typeof value.disabled === 'function' && value.disabled(value.params)) return;
@@ -104,7 +96,7 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
 };
 
 const unmounted = (el: HTMLElement) => {
-  el.removeEventListener('mousedown', mouseDownEvent);
+  el.removeEventListener('contextmenu', contextMenuEvent);
   if ('touchstart' in window) {
     removeLongPressListener(el);
   }

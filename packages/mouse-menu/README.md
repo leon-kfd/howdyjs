@@ -27,7 +27,7 @@
 |params|传给处理函数的自定义参数，会注入到下方各回调函数的首个参数中|Any|-|-|
 |appendToBody|容器是否挂载到body上|Boolean|-|true|
 |disabled|是否禁用整个菜单，接收一个函数|(params: any) => boolean|-|-|
-|useLongPressInMobile|移动端下兼容使用长按事件唤出菜单, 但长按模式不支持多级菜单|Boolean|-|false|
+|useLongPressInMobile|移动端下兼容使用长按事件唤出菜单, 但长按模式不支持多级菜单（仅支持指令方式）|Boolean|-|false|
 |longPressDuration|长按事件需持续时间,单位ms|Number|-|500|
 |injectCloseListener|自动注入关闭菜单的Listener，设为false时需自行处理|Boolean|-|true|
 

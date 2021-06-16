@@ -68,8 +68,13 @@ class CustomResize {
 
   init () {
     const { position } = getComputedStyle(this.el);
+    const { position: ParentPosition } = getComputedStyle(this.el.parentNode as HTMLElement);
     if (position === 'static') {
       this.el.style.position = 'relative';
+    }
+    if (ParentPosition === 'static') {
+      console.warn('[@howdyjs/resize] Element parentNode position can not be static!');
+      // throw new Error('Element parentNode position can not be static!');
     }
     this.directionArr.map(direction => {
       if (this.options.immediate) {
@@ -97,12 +102,12 @@ class CustomResize {
   }
 
   private createLineEl (direction: ResizeDirectionType, dashedLineEl?: HTMLDivElement) {
-    const { immediate, scrollElSelector, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex, needParentNodeOffset } = this.options;
+    const { immediate, lineColor, lineWidth, lineHoverColor, lineHoverWidth, zIndex } = this.options;
     const line = document.createElement('div') as ResizeLine;
     const cssText = `position: absolute;background: ${lineColor};z-index: ${zIndex}`;
     const isX = direction === 'left' || direction === 'right';
     const isBefore = direction === 'right' || direction === 'bottom';
-    const isFlex = getComputedStyle(this.el.parentNode as HTMLElement).display === 'flex';
+    // const isFlex = getComputedStyle(this.el.parentNode as HTMLElement).display === 'flex';
     line.style.cssText = isX
       ? `${cssText};width: ${lineWidth}px;top:0;bottom: 0;${direction}: -${lineWidth / 2}px;cursor: col-resize;`
       : `${cssText};height: ${lineWidth}px;left:0;right: 0;${direction}: -${lineWidth / 2}px;cursor: row-resize;`;
@@ -120,51 +125,42 @@ class CustomResize {
     line.mousedownEvent = function (e) {
       const el: HTMLElement = element || (e.target as HTMLElement).parentNode as HTMLElement;
       const elParent = el.parentNode as HTMLElement;
-      let moveOffset:number;
-      const elSize = isX ? el.offsetWidth : el.offsetHeight;
+      let move:number;
       const elParentSize = isX ? elParent.offsetWidth : elParent.offsetHeight;
-      const elOffset = isX ? el.offsetLeft : el.offsetTop;
-      const elParentOffset = needParentNodeOffset ? (isX ? elParent.offsetLeft : elParent.offsetTop) : 0;
-      const scrollEl:HTMLElement = scrollElSelector ? document.querySelector(scrollElSelector) as HTMLElement : document.documentElement;
-      const scrollSize = isX ? scrollEl.scrollLeft : scrollEl.scrollTop;
       document.body.style.userSelect = 'none';
       let moveValidFlag = true;
       const resizeFn = () => {
+        const elSize = isX ? element.offsetWidth : element.offsetHeight;
+        const elOffset = isX ? element.offsetLeft : element.offsetTop;
+        const moveOffset = isBefore ? elOffset + elSize + move : elOffset + move;
+        const sizeOffset = isBefore ? elSize + move : elSize - move;
         const resize = document.createEvent('HTMLEvents') as ResizeEvent;
         resize.initEvent('resize', false, false);
         resize['direction'] = direction;
         resize['moveOffset'] = moveOffset;
         resize['moveOffsetPercent'] = moveOffset / elParentSize * 100;
-        if (isFlex) {
-          resize[isX ? 'resizeWidth' : 'resizeHeight'] = isBefore ? moveOffset - elOffset + elParentOffset : elSize + elOffset - moveOffset - elParentOffset;
-          resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = (isBefore ? (moveOffset - elOffset + elParentOffset) / elParentSize : (elSize + elOffset - moveOffset - elParentOffset) / elParentSize) * 100;
-        } else {
-          resize[isX ? 'resizeWidth' : 'resizeHeight'] = isBefore ? moveOffset - elOffset : elSize + elOffset - moveOffset;
-          resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = (isBefore ? (moveOffset - elOffset) / elParentSize : (elSize + elOffset - moveOffset) / elParentSize) * 100;
-        }
+        resize[isX ? 'resizeWidth' : 'resizeHeight'] = sizeOffset;
+        resize[isX ? 'resizeWidthPercent' : 'resizeHeightPercent'] = sizeOffset / elParentSize * 100;
         element.dispatchEvent(resize);
       };
       document.onmousemove = function (e) {
         e.preventDefault();
-        moveOffset = isX ? e.clientX - elParent.offsetLeft + scrollSize : e.clientY - elParent.offsetTop + scrollSize;
+        const { x, y } = element.getBoundingClientRect();
+        const elSize = isX ? element.offsetWidth : element.offsetHeight;
+        const elOffset = isX ? element.offsetLeft : element.offsetTop;
+        move = isBefore 
+          ? isX ? e.clientX - x - elSize : e.clientY - y - elSize
+          : isX ? e.clientX - x : e.clientY - y;
         moveValidFlag = isBefore
-          ? isFlex
-            ? moveOffset >= (elOffset - elParentOffset) && moveOffset <= elParentSize
-            : moveValidFlag = moveOffset >= elOffset && moveOffset <= elParentSize
-          : isFlex
-            ? moveValidFlag = moveOffset >= 0 && moveOffset <= elOffset - elParentOffset + elSize
-            : moveValidFlag = moveOffset >= 0 && moveOffset <= (elOffset + elSize);
+          ? -move <= elSize && elOffset + elSize + move <= elParentSize
+          : move <= elSize && elOffset + move >= 0;
         if (moveValidFlag) {
           if (immediate) {
             resizeFn();
           } else {
             if (dashedLineEl) {
               dashedLineEl.style.visibility = 'visible';
-              if (isFlex) {
-                dashedLineEl.style[direction] = isBefore ? `${elSize - moveOffset + elOffset - elParentOffset}px` : `${moveOffset + elParentOffset - elOffset}px`;
-              } else {
-                dashedLineEl.style[direction] = isBefore ? `${elOffset + elSize - moveOffset}px` : `${moveOffset - elOffset}px`;
-              }
+              dashedLineEl.style[direction] = `${isBefore ? -move : move}px`;
             }
           }
         }

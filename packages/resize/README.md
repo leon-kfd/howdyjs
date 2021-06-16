@@ -35,7 +35,6 @@ document.addEventListener('resize', (e) => {
 |:---|:---|:---|:---|:---|
 |direction|resize方向数组|Array|left/right/top/bottom|right|
 |immediate|resize是否立即执行，默认为false，false时会在点击时生成一条虚线，改完大小后松开鼠标，盒子大小才会变化；若为true则盒子大小会立即改变|Boolean|-|false|
-|scrollElSelector|若需改变大小的元素的父元素（及以上）中含有滚动条，需要传入该出现滚动的HtmlElement|HtmlElement|-|null|
 |lineColor|生成边框线的颜色，边框线会生成在元素盒子需要resize方向的边框上|String|-|#aab|
 |lineWidth|生成边框线的宽度|Number|-|2|
 |lineHoverColor|生成边框线hover时的颜色|String|-|#88f|
@@ -44,7 +43,6 @@ document.addEventListener('resize', (e) => {
 |tipLineWidth|生成提示线的宽度,immediate为true时无效|Number|-|1|
 |tipLineStyle|生成提示线的线条样式,immediate为true时无效|String|-|dashed|
 |zIndex|生成的线条的zIndex|Number|-|999|
-|needParentNodeOffset|是否需要计算父元素offset,某些情况下若出现线定位不准可更改该属性试试|Boolean|-|true|
 
 > *Width属性的单位为px*
 

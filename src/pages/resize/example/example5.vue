@@ -1,5 +1,5 @@
 <template>
-  <div id="example5" class="page">
+  <div class="page">
     <div class="flex-wrapper">
       <div v-resize="options" class="box1" @resize="handleResizeX">
         <p class="text">
@@ -30,8 +30,7 @@ export default defineComponent({
     return {
       resize,
       options: {
-        immediate: true,
-        scrollElSelector: '#example5' // Demo中可能会出现滚动条
+        immediate: true
       },
       handleResizeX (e:ResizeEvent) {
         let el = e.target as HTMLElement;

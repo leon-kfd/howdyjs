@@ -20,7 +20,7 @@ export default defineComponent({
   setup() {
     return {
       options: {
-        scrollElSelector: '#example4' // Demo中可能会出现滚动条
+        // use default
       },
       handleResizeAll (e: ResizeEvent) {
         let el = e.target as HTMLElement;

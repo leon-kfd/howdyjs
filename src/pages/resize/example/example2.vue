@@ -1,5 +1,5 @@
 <template>
-  <div id="example2" class="page">
+  <div class="page">
     <div class="wrapper">
       <div ref="box1" class="box1"></div>
       <div v-resize="options" class="box2" @resize="handleResize">
@@ -26,8 +26,7 @@ export default defineComponent({
       box1,
       box3,
       options: {
-        direction: ['left', 'right'],
-        scrollElSelector: '#example2' // Demo中可能会出现滚动条
+        direction: ['left', 'right']
       },
       handleResize (e: ResizeEvent) {
         console.log('resizeEvent', e);
@@ -54,6 +53,7 @@ export default defineComponent({
   margin: 20px auto;
   display: flex;
   box-shadow: 0 1px 5px #ccc;
+  position: relative;
 }
 .box1 {
   width: 33.33%;

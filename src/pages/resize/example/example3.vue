@@ -1,5 +1,5 @@
 <template>
-  <div id="example3" class="page">
+  <div class="page">
     <div class="container">
       <div class="wrapper x">
         <div v-resize:right="options" class="box1" @resize="handleResizeX">
@@ -52,7 +52,7 @@ export default defineComponent({
     return {
       a,b,c,d,
       options: {
-        scrollElSelector: '#example3' // Demo中可能会出现滚动条
+        // use default
       },
       handleResizeX (e: ResizeEvent) {
         console.log(e);

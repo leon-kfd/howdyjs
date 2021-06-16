@@ -378,6 +378,7 @@ export default defineComponent({
   // height: 100vh;
   height: 100%;
   overflow-y: hidden;
+  position: relative;
   .example {
     height: 100%;
     width: 60%;

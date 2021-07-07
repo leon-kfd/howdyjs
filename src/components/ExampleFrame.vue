@@ -86,12 +86,24 @@
         <img
           src="/images/Home.svg"
           class="home-img"
+          alt="Home"
+          title="Home"
           @click="$router.push('/')"
-        >Copyright &copy;
+        >
+        <img
+          src="/images/github.svg"
+          class="github-img"
+          alt="Github"
+          title="Github"
+          @click="turnToGithub"
+        >
         <a
           href="http://kongfandong.cn/blog/about"
           target="_blank"
-        >Leon.KFD</a>
+          title="About Author"
+          class="link"
+        >LEON.KFD</a>
+        <span class="text">&copy; 2021 </span>
       </div>
     </div>
     <div
@@ -259,7 +271,10 @@ export default defineComponent({
       showMobileWarning,
       moduleName,
       handleNavClick,
-      handleResize
+      handleResize,
+      turnToGithub () {
+        window.open('https://github.com/leon-kfd/howdyjs');
+      }
     };
   }
 });
@@ -302,16 +317,18 @@ export default defineComponent({
   }
   #moduleName {
     display: inline-flex;
-    background: transparent;
-    border: 4px solid #262626;
-    font-size: 22px;
-    font-weight: 500;
-    color: #262626;
-    margin-top: 15px;
-    font-weight: bold;
-    padding: 0 8px 2px;
-    height: 44px;
     align-items: center;
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #262626;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #262626;
+    border-left: 4px solid rgb(131, 23, 113);
+    padding-left: 6px;
+    letter-spacing: 1px;
+    font-family: fantasy, ui-monospace, Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   }
 }
 .nav {
@@ -446,25 +463,35 @@ export default defineComponent({
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 210px;
-  padding-left: 50px;
-  font-size: 13px;
+  padding-left: 20px;
   color: #889;
   line-height: 36px;
   z-index: 10000;
   background: #fff;
-  a {
-    color: #f2c299;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  a.link {
+    color: #df904c;
     text-decoration: none;
+    margin: 0 4px;
+    font-weight: bold;
+    font-size: 14px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
-  .home-img {
-    width: 16px;
-    height: 16px;
+  .home-img,
+  .github-img {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
     cursor: pointer;
-    position: absolute;
-    left: 25px;
-    top: 10px;
-    color: rgb(91, 157, 243);
+    margin: 0 2px;
+    border-radius: 2px;
+    &:hover {
+      background: #e0e0ff;
+    }
   }
 }
 

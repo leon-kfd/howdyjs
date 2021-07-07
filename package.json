@@ -25,12 +25,11 @@
     "build:umd": "node ./scripts/build.umd",
     "build:dts": "node ./scripts/build.dts",
     "build:pkg": "npm run build:cjs && npm run build:es &&  npm run build:umd && npm run build:dts",
-    "gen-router": "node ./scripts/gen-router.js",
     "vue-to-md": "node ./scripts/vue-to-md.js",
-    "example": "npm run vue-to-md && npm run gen-router && vite",
-    "build": "npm run vue-to-md && npm run gen-router && vite build",
-    "example:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash npm run gen-router && cross-env VITE_ROUTER_MODE=hash vite",
-    "build:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash npm run gen-router && cross-env VITE_ROUTER_MODE=hash vite build",
+    "example": "npm run vue-to-md && vite",
+    "build": "npm run vue-to-md && vite build",
+    "example:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash vite",
+    "build:hash": "npm run vue-to-md && cross-env VITE_ROUTER_MODE=hash vite build",
     "publish": "lerna publish"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
-const isHashRouterMode = process.env.VITE_ROUTER_MODE === 'hash';
+const isHashRouterMode = import.meta.env.VITE_ROUTER_MODE === 'hash';
 const packageMain = import.meta.glob('../pages/*/index.vue');
 const exampleMain = import.meta.glob('../pages/*/example/*.vue');
 const packageMainMap: Record<string, any> = {};

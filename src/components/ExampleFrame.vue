@@ -176,15 +176,6 @@
 import { computed, defineComponent, ref, reactive, PropType, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ResizeEvent, ResizeDirective } from '../../packages/resize';
-import marked from 'marked';
-// import hljs from 'highlight.js'
-import hljs from 'highlight.js/lib/core';
-import html from 'highlight.js/lib/languages/xml';
-import javascript from 'highlight.js/lib/languages/javascript';
-import css from 'highlight.js/lib/languages/css';
-hljs.registerLanguage('html', html);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('css', css);
 interface Example {
   name: string,
   introduce: string
@@ -244,11 +235,8 @@ export default defineComponent({
     };
     const loadCode = async () => {
       codeLoading.value = true;
-      const rawCode = await import(`../pages/${props.mainName}/example/${page.value.replace(props.mainName + '-', '')}.vue?raw`);
-      const codeText = `\`\`\`vue\n${rawCode.default}\`\`\``;
-      code.value = marked(codeText, {
-        highlight: (code: string) => hljs.highlightAuto(code).value
-      });
+      let codeText = await import(`../code/${props.mainName}/${page.value.replace(props.mainName + '-', '')}.md`);
+      code.value = codeText.default.replace(/\.\.\/\.\.\/\.\.\/\.\.\/packages/g, '@howdyjs');
       codeLoading.value = false;
     }; 
     const handleResize = (e:ResizeEvent) => {

@@ -1,12 +1,6 @@
 import vue from '@vitejs/plugin-vue';
 import marked from 'marked';
-import hljs from 'highlight.js/lib/core';
-import html from 'highlight.js/lib/languages/xml';
-import javascript from 'highlight.js/lib/languages/javascript';
-import css from 'highlight.js/lib/languages/css';
-hljs.registerLanguage('html', html);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('css', css);
+import hljs from 'highlight.js';
 
 const isHashRouterMode = process.env.VITE_ROUTER_MODE === 'hash';
 const basePath = isHashRouterMode ? './' : '/howdy/';
@@ -28,7 +22,24 @@ export default {
   plugins: [
     vue(), 
     markdownPlugin({
-      highlight: (code: string) => hljs.highlightAuto(code).value
+      highlight: (code: string) => {
+        if (code.includes('template')) {
+          return hljs.highlight('html', code).value;
+        } else if (code.includes('lang="ts"')) {
+          return hljs.highlight('typescript', code).value;
+        } else {
+          return hljs.highlightAuto(code).value;
+        }
+      },
+      // highlight: (code) => hljs.highlightAuto(code).value,
+      pedantic: false,
+      gfm: true,
+      tables: true,
+      breaks: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false,
+      xhtml: false
     })
   ],
   server: {

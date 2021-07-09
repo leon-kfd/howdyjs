@@ -1,4 +1,3 @@
-// !!△△ this file is abandoned. △△
 const fs = require('fs');
 const glob = require('glob');
 

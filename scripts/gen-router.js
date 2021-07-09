@@ -1,3 +1,4 @@
+// !!△△ this file is abandoned. △△
 // 自动生成路由文件
 const fs = require('fs');
 const packagesDirs = fs.readdirSync('./src/pages');

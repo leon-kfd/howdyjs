@@ -39,6 +39,9 @@
 8. **[@howdyjs/mouse-menu](https://kongfandong.cn/howdy/mouse-menu)**  
 ✨自定义右键菜单Vue3组件
 
+9. **[@howdyjs/control](https://kongfandong.cn/howdy/control)**  
+✨拖拽更改元素大小与位置插件
+
 ---
 
 ## 开始使用

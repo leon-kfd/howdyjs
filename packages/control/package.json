@@ -1,0 +1,28 @@
+{
+  "name": "@howdyjs/control",
+  "version": "1.8.4",
+  "description": "Resize or drag to move a html dom.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "author": "leon-kfd",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/leon-kfd/howdyjs.git"
+  },
+  "homepage": "https://kongfandong.cn/howdy",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {
+    "@howdyjs/to-drag": "^1.6.10"
+  }
+}

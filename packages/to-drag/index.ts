@@ -27,12 +27,12 @@ export interface toDragEvent extends Event {
 
 
 class ToDrag {
-  private el: HTMLElement
+  public el: HTMLElement
+  public isTouch: boolean
+  public isDrag: boolean
   private parent: HTMLElement
   private options: ToDragOptions
   private scrollbarWidth: number
-  private isTouch: boolean
-  private isDrag: boolean
   private left = 0
   private top = 0
   private right = 0
@@ -154,6 +154,7 @@ class ToDrag {
   }
 
   moveEvent (e: TouchEvent | MouseEvent) {
+    console.log('this.isDrag', this.isDrag);
     if (!this.isDrag) {
       return;
     }

@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 400px;height: 400px;position: relative;border: 2px solid #262626">
-    <div ref="control" style="position: absolute;width: 100px;height: 100px;border: 1px solid #363636;"></div>
+  <div style="width: 400px;height: 400px;position: relative;border: 6px solid #262626;padding: 20px;">
+    <div ref="control" style="position: absolute;width: 100px;height: 100px;border: 4px solid #dd9944;"></div>
   </div>
 </template>
 
@@ -12,7 +12,10 @@ export default defineComponent({
     const control = ref();
     onMounted(() => {
       new Control({
-        el: control.value
+        el: control.value,
+        options: {
+          absoluteLimitMode: 1
+        }
       });
     });
     return {

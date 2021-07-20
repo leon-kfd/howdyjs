@@ -16,10 +16,13 @@ compile(tsFiles);
 
 // 遇到文件执行回调
 function walkDir(distDir, callback) {
+  const whiteList = ['shared'];
   const fileOrDirs = fs.readdirSync(distDir);
   for (const fileOrDir of fileOrDirs) {
     const path = `${distDir}/${fileOrDir}`;
-    callback(path);
+    if (!whiteList.includes(fileOrDir)) {
+      callback(path);
+    }
   }
 }
 
@@ -34,6 +37,7 @@ function compile(fileNames) {
     const typeFileName = path.basename(fileName);
     const typeDir = path.dirname(fileName);
     const filePath = path.join(`${typeDir}/dist`, typeFileName);
+    console.log('filePath', filePath);
     if (!fs.existsSync(typeDir)) {
       fs.mkdirSync(typeDir, {
         recursive: true

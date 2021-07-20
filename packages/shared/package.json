@@ -13,9 +13,6 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "files": [
-    "dist/*"
-  ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
   }

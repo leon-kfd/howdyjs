@@ -52,11 +52,12 @@ module.exports = {
   },
   walkPackageDirs: function(callback) {
     const dirNames = fs.readdirSync('packages');
+    const whiteList = ['shared'];
     dirNames.forEach(dirName => {
       const dirPath = path.resolve('packages', __dirname);
       const state = fs.statSync(dirPath);
       // 寻找包文件夹
-      if (state.isDirectory()) {
+      if (state.isDirectory() && !whiteList.includes(dirName)) {
         callback(dirName);
       }
     });

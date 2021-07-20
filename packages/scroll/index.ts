@@ -1,6 +1,4 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
-import { CompatibleDirective } from '../shared';
-
 export interface ScrollBarElement extends HTMLElement {
   $scroll?: CustomScrollBar
   onmousewheel?: EventListener,
@@ -383,7 +381,7 @@ const unmounted: DirectiveHook = (el: ScrollBarElement) => {
   el.$scroll && el.$scroll.destroy();
 };
 
-export const ScrollDirective: CompatibleDirective = {
+export const ScrollDirective = {
   install: (Vue: App, userOptions: ScrollBarOptions):void => {
     Vue.directive('scroll', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),

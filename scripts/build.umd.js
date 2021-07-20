@@ -14,10 +14,11 @@ walkPackageDirs((dirName) => {
       name: `Howdy${toCamelCase(dirName)}`,
       globals: {
         'resize-observer-polyfill': 'ResizeObserver',
-        'vue': 'Vue'
+        'vue': 'Vue',
+        '@howdyjs/to-drag': 'HowdyToDrag'
       }
     },
-    external: id => ['resize-observer-polyfill', 'vue'].includes(id)
+    external: id => ['resize-observer-polyfill', 'vue'].includes(id) || id.includes('@howdyjs')
   });
 });
 

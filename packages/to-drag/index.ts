@@ -1,5 +1,5 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
-import { CompatibleDirective } from '../shared';
+import { getComputedStyleList } from '../shared';
 export interface ToDragOptions {
   isAbsolute?: boolean,
   adsorbOffset: number,
@@ -10,7 +10,8 @@ export interface ToDragOptions {
   forbidBodyScroll?: boolean,
   parentSelector?: string,
   positionMode?: 1 | 2 | 3 | 4,
-  disabled?: () => boolean
+  disabled?: () => boolean,
+  absoluteLimitMode?: 0 | 1 | 2
 }
 
 export type toDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
@@ -27,10 +28,10 @@ export interface toDragEvent extends Event {
 
 
 class ToDrag {
-  public el: HTMLElement
-  public isTouch: boolean
-  public isDrag: boolean
-  private parent: HTMLElement
+  el: HTMLElement
+  isTouch: boolean
+  isDrag: boolean
+  parent: HTMLElement
   private options: ToDragOptions
   private scrollbarWidth: number
   private left = 0
@@ -72,6 +73,7 @@ class ToDrag {
       forbidBodyScroll: true,
       isAbsolute: false,
       positionMode: 1,
+      absoluteLimitMode: 1,
       ...options
     };
     this.parent = (this.options.parentSelector && document.querySelector(this.options.parentSelector)) || this.el.parentNode as HTMLElement;
@@ -142,6 +144,7 @@ class ToDrag {
 
   setStartInfo (x: number, y: number) {
     this.setPosition();
+    this.setLimit();
     this.startX = x - this.left;
     this.startY = y - this.top;
     this.isDrag = true;
@@ -154,7 +157,6 @@ class ToDrag {
   }
 
   moveEvent (e: TouchEvent | MouseEvent) {
-    console.log('this.isDrag', this.isDrag);
     if (!this.isDrag) {
       return;
     }
@@ -170,8 +172,8 @@ class ToDrag {
       dragX = x - parentDomRect.x - this.startX;
       dragY = y - parentDomRect.y - this.startY;
     }
-    this.left = this.setBetween(dragX, 0, this.maxX);
-    this.top = this.setBetween(dragY, 0, this.maxY);
+    this.left = this.setBetween(dragX, 0 + this.limit[3], this.maxX - this.limit[1]);
+    this.top = this.setBetween(dragY, 0 + this.limit[0], this.maxY - this.limit[2]);
     this.el.style.left = this.left + 'px';
     this.el.style.top = this.top + 'px';
     this.emitEvent('todragmove');
@@ -248,8 +250,8 @@ class ToDrag {
 
   handlePositionMode() {
     if (this.options.adsorb) return;
-    this.right = this.maxX - this.left;
-    this.bottom = this.maxY - this.top;
+    this.right = this.maxX - this.left - this.limit[1] + this.limit[3];
+    this.bottom = this.maxY - this.top - this.limit[2] + this.limit[0]; 
     if (this.options.positionMode === 2) {
       this.el.style.left = 'auto';
       this.el.style.right = this.right + 'px';
@@ -286,6 +288,28 @@ class ToDrag {
       this.el.removeEventListener('mousedown', this.handleMousedown);
     }
   }
+
+  // absolute limit add border, padding size control
+  private limit = [0, 0, 0, 0] // [top, right, bottom, left]
+  private setLimit() {
+    if (!this.options.isAbsolute || !this.options.absoluteLimitMode) return;
+    const position = ['top', 'right', 'bottom', 'left'];
+    const borderInfo = getComputedStyleList(this.parent, [
+      ...position.map(p => `border-${p}-width`),
+      ...position.map(p => `padding-${p}`)
+    ], true);
+    if (this.options.absoluteLimitMode === 1) {
+      this.limit[0] = 0;
+      this.limit[1] = ~~borderInfo['border-left-width'] + ~~borderInfo['border-right-width'];
+      this.limit[2] = ~~borderInfo['border-top-width'] + ~~borderInfo['border-bottom-width'];
+      this.limit[3] = 0;
+    } else if (this.options.absoluteLimitMode === 2) {
+      this.limit[0] = ~~borderInfo['padding-top'];
+      this.limit[1] = ~~borderInfo['padding-right'] + ~~borderInfo['border-left-width'] + ~~borderInfo['border-right-width'];
+      this.limit[2] = ~~borderInfo['padding-bottom'] + ~~borderInfo['border-top-width'] + ~~borderInfo['border-bottom-width'];
+      this.limit[3] = ~~borderInfo['padding-left'];
+    }
+  }
 }
 
 const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?: ToDragOptions):void => { 
@@ -305,7 +329,7 @@ const unmounted: DirectiveHook = (el: any) => {
   el.$toDarg && el.$toDarg.destroy();
 };
 
-export const ToDragDirective: CompatibleDirective = {
+export const ToDragDirective = {
   install: (Vue: App, userOptions: ToDragOptions):void => {
     Vue.directive('to-drag', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),

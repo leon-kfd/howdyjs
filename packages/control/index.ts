@@ -1,0 +1,174 @@
+import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import ToDrag from '@howdyjs/to-drag';
+// import ToDrag  from '../to-drag';
+export type ControlOptions = {
+  moveCursor?: boolean,
+  forbidBodyScroll?: boolean,
+  parentSelector?: string,
+  disabled?: () => boolean,
+  arrowOptions?: ArrowOptions,
+  isAbsolute?: boolean
+}
+
+export type ArrowOptions = {
+  size?: number,
+  lineWidth?: number,
+  lineColor?: string,
+  padding?: number;
+}
+
+class Control extends ToDrag {
+  arrowCtx: HTMLElement | null = null
+  private controlOptions: ControlOptions
+  constructor ({ el, options } : {el: string | HTMLElement, options?: ControlOptions}) {
+    super({
+      el,
+      options: {
+        adsorb: 0,
+        adsorbOffset: 0,
+        isAbsolute: false,
+        positionMode: 1,
+        ...options
+      }
+    });
+    this.controlOptions = options || {};
+    this.initControl();
+  }
+
+  initControl() {
+    const { position } = getComputedStyle(this.el);
+    if (!['fixed', 'absolute'].includes(position)) {
+      throw new Error('Control just work in the element which position is fixed or absolute.');
+    }
+    this.arrowCtx = this.createResizeArrow(this.controlOptions?.arrowOptions);
+    this.el.appendChild(this.arrowCtx);
+  }
+
+  arrowStartX = 0
+  arrowStartY = 0
+  elWidth = 0
+  elHeight = 0
+  resizeFlag = false
+  arrowMouseDownEvent = (e: MouseEvent | TouchEvent) => {
+    const x = this.isTouch ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).x;
+    const y = this.isTouch ? (e as TouchEvent).changedTouches[0].clientY : (e as MouseEvent).y;
+    const { width, height, left, top } = this.el.getBoundingClientRect();
+    const { width: parentWidth, height: parentHeight } = this.parent.getBoundingClientRect();
+    this.arrowStartX = x;
+    this.arrowStartY = y;
+    this.elWidth = width;
+    this.elHeight = height;
+    this.resizeFlag = true;
+    let maxWidth:number, maxHeight:number;
+    if (this.controlOptions.isAbsolute) {
+      maxWidth = parentWidth - this.el.offsetLeft - this.borderInfo[1] - this.borderInfo[3];
+      maxHeight = parentHeight - this.el.offsetTop - this.borderInfo[0] - this.borderInfo[2];
+    } else {
+      maxWidth = window.innerWidth - left;
+      maxHeight = window.innerHeight - top;
+    }
+    setTimeout(() => {
+      this.isDrag = false;
+    });
+    if (this.isTouch) {
+      // 移动端
+      document.ontouchmove = (e:TouchEvent) => {
+        if (!this.resizeFlag || !e.changedTouches) return;
+        const { clientX: x, clientY: y } = e.changedTouches[0];
+        this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxWidth)}px`;
+        this.el.style.height = `${Math.min(this.elHeight + y - this.arrowStartY, maxHeight)}px`;
+      };
+      document.ontouchend = () => {
+        this.resizeFlag = false;
+        document.ontouchmove = null;
+        document.ontouchend = null;
+      };
+    } else {
+      // PC端
+      document.onmousemove = (e: MouseEvent) => {
+        if (!this.resizeFlag) return;
+        const { x, y } = e;
+        this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxWidth)}px`;
+        this.el.style.height = `${Math.min(this.elHeight + y - this.arrowStartY, maxHeight)}px`;
+      };
+      document.onmouseup = () => {
+        this.resizeFlag = false;
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    }
+  }
+
+  private createResizeArrow (arrowOptions?: ArrowOptions) {
+    const options = {
+      size: 8,
+      lineWidth: 2,
+      lineColor: '#9a9a9a',
+      padding: 2,
+      ...arrowOptions
+    };
+    const arrow = document.createElement('div') as HTMLElement;
+    const cssText = `
+      position: absolute;
+      right: ${options.padding}px; 
+      bottom: ${options.padding}px;
+      width: ${options.size}px;
+      height: ${options.size}px;
+      border-bottom: ${options.lineWidth}px solid ${options.lineColor};
+      border-right: ${options.lineWidth}px solid ${options.lineColor};
+      cursor: se-resize;
+    `;
+    arrow.style.cssText = cssText;
+    if (this.isTouch) {
+      arrow.addEventListener('touchstart', this.arrowMouseDownEvent);
+    } else {
+      arrow.addEventListener('mousedown', this.arrowMouseDownEvent);
+    }
+    return arrow;
+  }
+
+  destroyControl () {
+    this.destroy();
+    if (this.isTouch) {
+      this.arrowCtx?.removeEventListener('touchstart', this.arrowMouseDownEvent);
+    } else {
+      this.arrowCtx?.removeEventListener('mousedown', this.arrowMouseDownEvent);
+    }
+  }
+}
+
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: ControlOptions):void => { 
+  const { value }:{ value: ControlOptions } = binding;
+  const customGlobalOptions = userOptions || {};
+  const options = {
+    ...customGlobalOptions,
+    ...value
+  };
+  (el as any).$control = new Control({
+    el,
+    options
+  });
+};
+
+const unmounted: DirectiveHook = (el: any) => {
+  el.$control && el.$control.destroy();
+};
+
+export const ControlDirective = {
+  install: (Vue: App, userOptions: ControlOptions):void => {
+    Vue.directive('control', {
+      mounted: ((el, binding) => mounted(el, binding, userOptions)),
+      unmounted,
+      // @ts-ignore
+      inserted: ((el, binding) => mounted(el, binding, userOptions)),
+      unbind: unmounted
+    });
+  },
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
+  unmounted,
+  // @ts-ignore
+  inserted: (el, binding) => mounted(el, binding),
+  unbind: unmounted
+};
+
+export default Control;

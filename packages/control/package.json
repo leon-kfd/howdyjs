@@ -1,7 +1,10 @@
 {
-  "name": "@howdyjs/shared",
-  "version": "1.4.0",
-  "description": "公有包",
+  "name": "@howdyjs/control",
+  "version": "1.8.4",
+  "description": "Resize or drag to move a html dom.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {
@@ -13,7 +16,13 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "files": [
+    "dist/*"
+  ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
+  },
+  "dependencies": {
+    "@howdyjs/to-drag": "^1.6.10"
   }
 }

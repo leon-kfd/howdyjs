@@ -1,6 +1,7 @@
 import vue from '@vitejs/plugin-vue';
 import marked from 'marked';
 import hljs from 'highlight.js';
+import path from 'path';
 
 const isHashRouterMode = process.env.VITE_ROUTER_MODE === 'hash';
 const basePath = isHashRouterMode ? './' : '/howdy/';
@@ -19,6 +20,11 @@ const markdownPlugin = (options: any) => {
 
 export default {
   base: basePath,
+  resolve: {
+    alias: {
+      '@howdyjs': path.resolve(__dirname, 'packages')
+    }
+  },
   plugins: [
     vue(), 
     markdownPlugin({

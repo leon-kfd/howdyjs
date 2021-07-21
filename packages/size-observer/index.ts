@@ -1,6 +1,5 @@
 import ResizeObserver from 'resize-observer-polyfill';
 import { App, DirectiveHook, DirectiveBinding } from 'vue';
-import { CompatibleDirective } from '../shared';
 interface DOMRectReadOnly {
   readonly x: number;
   readonly y: number;
@@ -82,7 +81,7 @@ class SizeObserver {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:SizeObserverOptions):void => {
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?:SizeObserverOptions):void => {
   const { value } = binding;
   const customGlobalOptions = userOptions || {};
   const options: SizeObserverOptions = {
@@ -96,7 +95,7 @@ const unmounted: DirectiveHook = (el: SizeObserverElement) => {
   el.$sizeObserver && el.$sizeObserver.destroy();
 };
 
-export const SizeObserverDirective: CompatibleDirective = {
+export const SizeObserverDirective = {
   install: (Vue: App, userOptions: SizeObserverOptions):void => {
     Vue.directive('SizeObserver', {
       mounted: (el, binding) => mounted(el, binding, userOptions),
@@ -106,7 +105,7 @@ export const SizeObserverDirective: CompatibleDirective = {
       unbind: unmounted
     });
   },
-  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),

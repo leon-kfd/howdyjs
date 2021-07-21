@@ -1,5 +1,4 @@
 import { DirectiveHook, App, DirectiveBinding } from 'vue';
-import { CompatibleDirective } from '../shared';
 export interface ResizeElement extends HTMLElement {
   $resize?: CustomResize
 }
@@ -208,7 +207,7 @@ class CustomResize {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:ResizeOptions):void => {
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?:ResizeOptions):void => {
   const { arg, value } = binding;
   const customGlobalOptions = userOptions || {};
   let direction: string[] | undefined;
@@ -242,7 +241,7 @@ const unmounted:DirectiveHook = (el: ResizeElement) => {
   el.$resize && el.$resize.destroy();
 };
 
-export const ResizeDirective: CompatibleDirective = {
+export const ResizeDirective = {
   install: (Vue: App, userOptions: ResizeOptions):void => {
     Vue.directive('resize', {
       mounted: (el, binding) => mounted(el, binding, userOptions),
@@ -252,7 +251,7 @@ export const ResizeDirective: CompatibleDirective = {
       unbind: unmounted
     });
   },
-  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),

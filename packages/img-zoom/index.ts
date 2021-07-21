@@ -1,5 +1,5 @@
 import { DirectiveHook, App } from 'vue';
-import { CompatibleDirective, createIdDom } from '../shared';
+import { createIdDom } from '../shared';
 import './img-zoom.scss';
 
 const groupMap = {} as Record<string, GroupItem[]>;
@@ -198,7 +198,7 @@ const unmounted:DirectiveHook = (el: ImgZoomElement) => {
   el.$imgZoom && el.$imgZoom.destory();
 };
 
-export const ImgZoomDirective: CompatibleDirective = {
+export const ImgZoomDirective = {
   install (Vue:App) {
     Vue.directive('img-zoom', {
       mounted,

@@ -37,7 +37,6 @@ function compile(fileNames) {
     const typeFileName = path.basename(fileName);
     const typeDir = path.dirname(fileName);
     const filePath = path.join(`${typeDir}/dist`, typeFileName);
-    console.log('filePath', filePath);
     if (!fs.existsSync(typeDir)) {
       fs.mkdirSync(typeDir, {
         recursive: true

@@ -105,7 +105,6 @@ class ToDrag {
     setTimeout(() => {
       this.emitEvent('todraginit');
     });
-    console.log(this.el.getBoundingClientRect());
   }
 
   handleMousedown (e: MouseEvent) {
@@ -305,7 +304,7 @@ class ToDrag {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?: ToDragOptions):void => { 
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: ToDragOptions):void => { 
   const { value }:{ value: ToDragOptions } = binding;
   const customGlobalOptions = userOptions || {};
   const options = {
@@ -332,7 +331,7 @@ export const ToDragDirective = {
       unbind: unmounted
     });
   },
-  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),

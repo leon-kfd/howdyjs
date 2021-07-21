@@ -55,7 +55,7 @@ function removeLongPressListener (el: HTMLElement) {
 // 指令封装
 let contextMenuEvent: ContextMenuListenFn;
 let longPressEvent: TouchListenFn;
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>) => {
+const mounted = (el: HTMLElement, binding: DirectiveBinding) => {
   const { value } = binding;
   if (value.menuList.length > 0) {
     contextMenuEvent = (e: MouseEvent) => {

@@ -359,7 +359,7 @@ class CustomScrollBar {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?: ScrollBarOptions):void => { 
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: ScrollBarOptions):void => { 
   const { arg, value } = binding;
   const isMobile = /(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent);
   const customGlobalOptions = userOptions || {};
@@ -391,7 +391,7 @@ export const ScrollDirective = {
       unbind: unmounted
     });
   },
-  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),

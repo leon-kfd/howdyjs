@@ -207,7 +207,7 @@ class CustomResize {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:ResizeOptions):void => {
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?:ResizeOptions):void => {
   const { arg, value } = binding;
   const customGlobalOptions = userOptions || {};
   let direction: string[] | undefined;
@@ -251,7 +251,7 @@ export const ResizeDirective = {
       unbind: unmounted
     });
   },
-  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),

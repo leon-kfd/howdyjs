@@ -24,8 +24,12 @@ export default defineComponent({
       ],
       exampleList: [
         {
-          name: 'Basic',
-          introduce: '默认'
+          name: 'Absolute',
+          introduce: 'Absolute定位'
+        },
+        {
+          name: 'Fixed',
+          introduce: 'Fixed定位'
         }
       ]
     };

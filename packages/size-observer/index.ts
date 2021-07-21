@@ -81,7 +81,7 @@ class SizeObserver {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding<any>, userOptions?:SizeObserverOptions):void => {
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?:SizeObserverOptions):void => {
   const { value } = binding;
   const customGlobalOptions = userOptions || {};
   const options: SizeObserverOptions = {
@@ -105,7 +105,7 @@ export const SizeObserverDirective = {
       unbind: unmounted
     });
   },
-  mounted: (el: HTMLElement, binding: DirectiveBinding<any>) => mounted(el, binding),
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),

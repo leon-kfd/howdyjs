@@ -11,7 +11,7 @@ export interface ToDragOptions {
   parentSelector?: string,
   positionMode?: 1 | 2 | 3 | 4,
   disabled?: () => boolean,
-  absoluteLimitMode?: 0 | 1 | 2
+  needComputeBorder?: boolean
 }
 
 export type toDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
@@ -73,7 +73,7 @@ class ToDrag {
       forbidBodyScroll: true,
       isAbsolute: false,
       positionMode: 1,
-      absoluteLimitMode: 1,
+      needComputeBorder: true,
       ...options
     };
     this.parent = (this.options.parentSelector && document.querySelector(this.options.parentSelector)) || this.el.parentNode as HTMLElement;
@@ -99,11 +99,13 @@ class ToDrag {
       this.el.style.cursor = 'move';
     }
     this.setPosition();
+    this.setLimit();
     this.handleAdsorb();
     this.handlePositionMode();
     setTimeout(() => {
       this.emitEvent('todraginit');
     });
+    console.log(this.el.getBoundingClientRect());
   }
 
   handleMousedown (e: MouseEvent) {
@@ -169,11 +171,11 @@ class ToDrag {
       dragY = y - this.startY;
     } else {
       const parentDomRect = this.parent.getClientRects()[0];
-      dragX = x - parentDomRect.x - this.startX;
-      dragY = y - parentDomRect.y - this.startY;
+      dragX = x - parentDomRect.x - this.startX - this.borderInfo[1];
+      dragY = y - parentDomRect.y - this.startY - this.borderInfo[2];
     }
-    this.left = this.setBetween(dragX, 0 + this.limit[3], this.maxX - this.limit[1]);
-    this.top = this.setBetween(dragY, 0 + this.limit[0], this.maxY - this.limit[2]);
+    this.left = this.setBetween(dragX, 0, this.maxX - this.borderInfo[1] - this.borderInfo[3]);
+    this.top = this.setBetween(dragY, 0, this.maxY - this.borderInfo[2] - this.borderInfo[0]);
     this.el.style.left = this.left + 'px';
     this.el.style.top = this.top + 'px';
     this.emitEvent('todragmove');
@@ -250,8 +252,10 @@ class ToDrag {
 
   handlePositionMode() {
     if (this.options.adsorb) return;
-    this.right = this.maxX - this.left - this.limit[1] + this.limit[3];
-    this.bottom = this.maxY - this.top - this.limit[2] + this.limit[0]; 
+    const left = this.options.isAbsolute ? this.el.offsetLeft : this.left;
+    const top = this.options.isAbsolute ? this.el.offsetTop : this.top;
+    this.right = this.maxX - left - this.borderInfo[1] - this.borderInfo[3];
+    this.bottom = this.maxY - top - this.borderInfo[2] - this.borderInfo[0]; 
     if (this.options.positionMode === 2) {
       this.el.style.left = 'auto';
       this.el.style.right = this.right + 'px';
@@ -290,25 +294,14 @@ class ToDrag {
   }
 
   // absolute limit add border, padding size control
-  private limit = [0, 0, 0, 0] // [top, right, bottom, left]
+  borderInfo = [0, 0, 0, 0] // [top, right, bottom, left]
   private setLimit() {
-    if (!this.options.isAbsolute || !this.options.absoluteLimitMode) return;
+    if (!this.options.isAbsolute || !this.options.needComputeBorder) return;
     const position = ['top', 'right', 'bottom', 'left'];
     const borderInfo = getComputedStyleList(this.parent, [
       ...position.map(p => `border-${p}-width`),
-      ...position.map(p => `padding-${p}`)
-    ], true);
-    if (this.options.absoluteLimitMode === 1) {
-      this.limit[0] = 0;
-      this.limit[1] = ~~borderInfo['border-left-width'] + ~~borderInfo['border-right-width'];
-      this.limit[2] = ~~borderInfo['border-top-width'] + ~~borderInfo['border-bottom-width'];
-      this.limit[3] = 0;
-    } else if (this.options.absoluteLimitMode === 2) {
-      this.limit[0] = ~~borderInfo['padding-top'];
-      this.limit[1] = ~~borderInfo['padding-right'] + ~~borderInfo['border-left-width'] + ~~borderInfo['border-right-width'];
-      this.limit[2] = ~~borderInfo['padding-bottom'] + ~~borderInfo['border-top-width'] + ~~borderInfo['border-bottom-width'];
-      this.limit[3] = ~~borderInfo['padding-left'];
-    }
+    ], true) as Record<string, number>;
+    this.borderInfo = position.map(p => borderInfo[`border-${p}-width`]);
   }
 }
 

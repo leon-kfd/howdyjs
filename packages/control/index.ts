@@ -5,8 +5,7 @@ export type ControlOptions = {
   forbidBodyScroll?: boolean,
   parentSelector?: string,
   disabled?: () => boolean,
-  arrowOptions?: ArrowOptions,
-  absoluteLimitMode?: 0 | 1 | 2
+  arrowOptions?: ArrowOptions
 }
 
 export type ArrowOptions = {
@@ -50,15 +49,15 @@ class Control extends ToDrag {
   resizeFlag = false
   arrowMouseDownEvent = (e: MouseEvent) => {
     const { x, y } = e;
-    const { width, height, left, top } = this.el.getBoundingClientRect();
+    const { width, height } = this.el.getBoundingClientRect();
     const { width: parentWidth, height: parentHeight } = this.parent.getBoundingClientRect();
     this.arrowStartX = x;
     this.arrowStartY = y;
     this.elWidth = width;
     this.elHeight = height;
     this.resizeFlag = true;
-    const maxX = parentWidth - left;
-    const maxY = parentHeight - top;
+    const maxWidth = parentWidth - this.el.offsetLeft - this.borderInfo[1] - this.borderInfo[3];
+    const maxHeight = parentHeight - this.el.offsetTop - this.borderInfo[0] - this.borderInfo[2];
     setTimeout(() => {
       this.isDrag = false;
     });
@@ -66,8 +65,8 @@ class Control extends ToDrag {
       if (!this.resizeFlag) return;
       const { x, y } = e;
       // todo: valid the max and min size.
-      this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxX)}px`;
-      this.el.style.height = `${Math.min(this.elHeight + y - this.arrowStartY, maxY)}px`;
+      this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxWidth)}px`;
+      this.el.style.height = `${Math.min(this.elHeight + y - this.arrowStartY, maxHeight)}px`;
     };
     document.onmouseup = () => {
       this.resizeFlag = false;

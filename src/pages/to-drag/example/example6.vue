@@ -17,7 +17,8 @@ export default defineComponent({
   setup() {
     return {
       options: {
-        isAbsolute: true
+        isAbsolute: true,
+        needComputeBorder: true // default is true, will compute parent border width
       }
     };
   }
@@ -27,7 +28,7 @@ export default defineComponent({
 .wrapper {
   width: 100%;
   height: 600px;
-  border: 1px solid #262626;
+  border: 4px solid #262626;
   position: relative;
   padding: 10px;
   color: #889;

@@ -78,7 +78,8 @@ export default defineComponent({
     font-weight: 700;
     line-height: 1.1;
     padding-top: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+    font-family: 'Kaushan Script', cursive;
   }
   h2,
   h3,

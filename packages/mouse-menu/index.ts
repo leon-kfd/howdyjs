@@ -1,4 +1,4 @@
-import { App, DirectiveBinding, h, render, ComponentPublicInstance } from 'vue';
+import { App, DirectiveBinding, h, render, ComponentPublicInstance, ObjectDirective } from 'vue';
 import { CustomMouseMenuOptions } from './types';
 import MouseMenu from './mouse-menu.vue';
 import { createClassDom } from '../shared';
@@ -102,7 +102,7 @@ const unmounted = (el: HTMLElement) => {
   }
 };
 
-const MouseMenuDirective = {
+const MouseMenuDirective: ObjectDirective = {
   mounted,
   unmounted
 };

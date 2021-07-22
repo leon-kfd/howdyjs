@@ -1,4 +1,4 @@
-import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
 import { getComputedStyleList } from '../shared';
 export interface ToDragOptions {
   isAbsolute?: boolean,
@@ -321,7 +321,12 @@ const unmounted: DirectiveHook = (el: any) => {
   el.$toDarg && el.$toDarg.destroy();
 };
 
-export const ToDragDirective = {
+export const ToDragDirective: ObjectDirective = {
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
+  unmounted,
+  // @ts-ignore
+  inserted: (el, binding) => mounted(el, binding),
+  unbind: unmounted,
   install: (Vue: App, userOptions: ToDragOptions):void => {
     Vue.directive('to-drag', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),
@@ -330,12 +335,7 @@ export const ToDragDirective = {
       inserted: ((el, binding) => mounted(el, binding, userOptions)),
       unbind: unmounted
     });
-  },
-  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
-  unmounted,
-  // @ts-ignore
-  inserted: (el, binding) => mounted(el, binding),
-  unbind: unmounted
+  }
 };
 
 export default ToDrag;

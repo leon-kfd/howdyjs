@@ -1,4 +1,4 @@
-import { DirectiveHook, App } from 'vue';
+import { DirectiveHook, App, ObjectDirective } from 'vue';
 import { createIdDom } from '../shared';
 import './img-zoom.scss';
 
@@ -198,7 +198,12 @@ const unmounted:DirectiveHook = (el: ImgZoomElement) => {
   el.$imgZoom && el.$imgZoom.destory();
 };
 
-export const ImgZoomDirective = {
+export const ImgZoomDirective: ObjectDirective = {
+  mounted,
+  unmounted,
+  // @ts-ignore
+  inserted: mounted,
+  unbind: unmounted,
   install (Vue:App) {
     Vue.directive('img-zoom', {
       mounted,
@@ -207,11 +212,7 @@ export const ImgZoomDirective = {
       inserted: mounted,
       unbind: unmounted
     });
-  },
-  mounted,
-  unmounted,
-  inserted: mounted,
-  unbind: unmounted
+  }
 };
 
 export default ImgZoom;

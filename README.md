@@ -1,4 +1,4 @@
-<h1 style="text-shadow: 3px 3px #5b9df3;color: transparent;-webkit-text-stroke-color: #262626;-webkit-text-stroke-width: 2px;">Howdy</h1>
+<h1 style="text-shadow: 3px 3px #5b9df3;color: transparent;-webkit-text-stroke-color: #262626;-webkit-text-stroke-width: 2px;font-family: unset">Howdy</h1>
 <br>
 
 **一个包含Javascript插件、Vue3组件、Vue3指令的轻量工具组件库**  

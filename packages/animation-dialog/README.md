@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/npm/v/@howdyjs/animation-dialog)
 ![Size](https://img.shields.io/bundlephobia/min/@howdyjs/animation-dialog?color=%2344cc88)
 
-**VUE3组件-AnimationDialog**
+**Vue3动画模态框组件-AnimationDialog**
 
 ## 特性
 1. 可实现从点击元素打开Dialog的动画交互

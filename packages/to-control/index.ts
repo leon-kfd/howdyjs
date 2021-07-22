@@ -1,4 +1,4 @@
-import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
 import ToDrag from '@howdyjs/to-drag';
 // import ToDrag  from '../to-drag';
 export type ControlOptions = {
@@ -17,7 +17,7 @@ export type ArrowOptions = {
   padding?: number;
 }
 
-class Control extends ToDrag {
+class ToControl extends ToDrag {
   arrowCtx: HTMLElement | null = null
   private controlOptions: ControlOptions
   constructor ({ el, options } : {el: string | HTMLElement, options?: ControlOptions}) {
@@ -144,31 +144,31 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: Contr
     ...customGlobalOptions,
     ...value
   };
-  (el as any).$control = new Control({
+  (el as any).$toControl = new ToControl({
     el,
     options
   });
 };
 
 const unmounted: DirectiveHook = (el: any) => {
-  el.$control && el.$control.destroy();
+  el.$toControl && el.$toControl.destroy();
 };
 
-export const ControlDirective = {
+export const ToControlDirective: ObjectDirective = {
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
+  unmounted,
+  // @ts-ignore
+  inserted: (el, binding) => mounted(el, binding),
+  unbind: unmounted,
   install: (Vue: App, userOptions: ControlOptions):void => {
-    Vue.directive('control', {
+    Vue.directive('to-control', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),
       unmounted,
       // @ts-ignore
       inserted: ((el, binding) => mounted(el, binding, userOptions)),
       unbind: unmounted
     });
-  },
-  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
-  unmounted,
-  // @ts-ignore
-  inserted: (el, binding) => mounted(el, binding),
-  unbind: unmounted
+  }
 };
 
-export default Control;
+export default ToControl;

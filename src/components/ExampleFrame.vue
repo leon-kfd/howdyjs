@@ -319,16 +319,12 @@ export default defineComponent({
     display: inline-flex;
     align-items: center;
     margin-top: 20px;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: bold;
     color: #262626;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #262626;
     border-left: 4px solid rgb(131, 23, 113);
     padding-left: 6px;
-    letter-spacing: 1px;
-    font-family: fantasy, ui-monospace, Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-family: 'Kaushan Script', cursive;
   }
 }
 .nav {

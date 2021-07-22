@@ -1,4 +1,10 @@
-import { DirectiveHook, App, DirectiveBinding } from 'vue';
+import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
+
+interface CompatibleDirective extends ObjectDirective {
+  install?: any
+  inserted?: any,
+  unbind?: any
+}
 export interface ResizeElement extends HTMLElement {
   $resize?: CustomResize
 }
@@ -241,7 +247,12 @@ const unmounted:DirectiveHook = (el: ResizeElement) => {
   el.$resize && el.$resize.destroy();
 };
 
-export const ResizeDirective = {
+export const ResizeDirective: ObjectDirective = {
+  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
+  unmounted,
+  // @ts-ignore
+  inserted: (el, binding) => mounted(el, binding),
+  unbind: unmounted,
   install: (Vue: App, userOptions: ResizeOptions):void => {
     Vue.directive('resize', {
       mounted: (el, binding) => mounted(el, binding, userOptions),
@@ -250,12 +261,7 @@ export const ResizeDirective = {
       inserted: (el, binding) => mounted(el, binding, userOptions),
       unbind: unmounted
     });
-  },
-  mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
-  unmounted,
-  // @ts-ignore
-  inserted: (el, binding) => mounted(el, binding),
-  unbind: unmounted
+  }
 };
 
 export default CustomResize;

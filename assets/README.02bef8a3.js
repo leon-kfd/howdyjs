@@ -1,1 +1,0 @@
-export default'<h1 id="control">Control</h1>\n<p><img src="https://img.shields.io/npm/v/@howdyjs/control" alt="Version">\n<img src="https://img.shields.io/bundlephobia/min/@howdyjs/control?color=%2344cc88" alt="Size"></p>\n<p><strong>Resize or drag to move a html dom.</strong></p>\n<h2 id="特性">特性</h2>\n<ol>\n<li>将一个定位为absolute的Dom设置成可拖拽移动与更改大小</li>\n</ol>\n';

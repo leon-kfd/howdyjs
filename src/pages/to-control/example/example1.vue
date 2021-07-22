@@ -6,12 +6,12 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import Control from '../../../../packages/control';
+import ToControl from '../../../../packages/to-control';
 export default defineComponent({
   setup() {
     const control = ref();
     onMounted(() => {
-      new Control({
+      new ToControl({
         el: control.value,
         options: {
           isAbsolute: true,

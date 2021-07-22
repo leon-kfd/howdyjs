@@ -15,7 +15,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      mainName: 'control',
+      mainName: 'to-control',
       readmeList: [
         {
           name: 'README',

@@ -1,7 +1,7 @@
 # ToControl
 
-![Version](https://img.shields.io/npm/v/@howdyjs/control)
-![Size](https://img.shields.io/bundlephobia/min/@howdyjs/control?color=%2344cc88)
+![Version](https://img.shields.io/npm/v/@howdyjs/to-control)
+![Size](https://img.shields.io/bundlephobia/min/@howdyjs/to-control?color=%2344cc88)
 
 **Resize or drag to move a html dom.**
 

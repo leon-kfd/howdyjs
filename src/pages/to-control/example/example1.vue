@@ -1,6 +1,7 @@
 <template>
-  <div class="wrapper">
-    <div ref="control" class="control"></div>
+  <div ref="control" class="control"></div>
+  <div class="text">
+    请拖拽屏幕上的浮块更改位置，拖拽浮块右下角可更改大小
   </div>
 </template>
 
@@ -12,14 +13,7 @@ export default defineComponent({
     const control = ref();
     onMounted(() => {
       new ToControl({
-        el: control.value,
-        options: {
-          isAbsolute: true,
-          arrowOptions: {
-            size: 10,
-            padding: 4
-          }
-        }
+        el: control.value
       });
     });
     return {
@@ -29,20 +23,21 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.wrapper {
-  width: 100%;
-  height: 600px;
-  border: 4px solid #262626;
-  position: relative;
-  padding: 10px;
-  color: #889;
-  background: #eaffe0;
-}
 .control {
-  position: absolute;
+  position: fixed;
   width: 100px;
   height: 100px;
   border: 4px solid #dd9944;
-  background: rgb(184, 202, 235);
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  z-index: 99999;
+  background: rgb(204, 226, 252);
+}
+.text {
+  text-align: center;
+  margin-top: 8rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #262626;
 }
 </style>

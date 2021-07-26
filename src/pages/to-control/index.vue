@@ -24,12 +24,20 @@ export default defineComponent({
       ],
       exampleList: [
         {
+          name: 'Fixed',
+          introduce: 'Fixed定位'
+        },
+        {
           name: 'Absolute',
           introduce: 'Absolute定位'
         },
         {
-          name: 'Fixed',
-          introduce: 'Fixed定位'
+          name: 'Vue Directive',
+          introduce: 'Vue指令方式'
+        },
+        {
+          name: 'Custom Icon',
+          introduce: '自定义图标'
         }
       ]
     };

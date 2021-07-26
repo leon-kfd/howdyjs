@@ -15,6 +15,7 @@ export type ArrowOptions = {
   lineWidth?: number,
   lineColor?: string,
   padding?: number;
+  background?: string;
 }
 
 class ToControl extends ToDrag {
@@ -117,7 +118,9 @@ class ToControl extends ToDrag {
       border-bottom: ${options.lineWidth}px solid ${options.lineColor};
       border-right: ${options.lineWidth}px solid ${options.lineColor};
       cursor: se-resize;
+      background: ${options.background || 'none'}
     `;
+    arrow.className = 'to-control-arrow';
     arrow.style.cssText = cssText;
     if (this.isTouch) {
       arrow.addEventListener('touchstart', this.arrowMouseDownEvent);

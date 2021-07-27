@@ -21,6 +21,10 @@ new ToDrag({
 });
 ```
 
++ UMD CDN: <a href="https://unpkg.com/@howdyjs/to-control/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/to-control/dist/index.umd.js</a>（需同时引入ToDrag）
++ UMD Name: `HowdyToControl`
++ UMD Example: <a href="https://codepen.io/leon-kfd/pen/NWjyPBp" target="_blank">Click Here</a>
+
 ### Options (Objcet)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
@@ -30,6 +34,7 @@ new ToDrag({
 |parentSelector|Absolute模式下元素的父级容器，目前只支持传入字符串选择器|String|-|-|
 |disabled|是否禁用，需传入函数返回Boolean|Function: () => boolean|-|-|
 |arrowOptions|右下角更改大小用的箭头配置，配置参考下表|Object|-|-|
+|**positionMode**|定位模式,默认会记录top与left值,更改此值可以定位方向(1: top/left, 2: top/right, 3: bottom/left, 4: bottom/right)|Number|1,2,3,4|1|
 
 #### arrowOptions (Objcet)
 |参数|说明|类型|可选值|默认值|
@@ -44,7 +49,11 @@ new ToDrag({
 
 ### Event
 
-该插件继承自[@howdyjs/to-drag](https://kongfandong.cn/howdy/to-drag/)，提供事件与其一致。
+该插件继承自[@howdyjs/to-drag](https://kongfandong.cn/howdy/to-drag/)，在拖拽更改位置时可以使用其事件回调。
+
+同时提供了`tocontrolstart`, `tocontrolmove`, `tocontrolend`作为更改大小后的事件，参数与to-drag事件参数一致。
+
+> 需要注意tocontrolend会同时触发todragend.
 
 ## 以Vue指令方式使用
 ```js

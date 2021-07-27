@@ -14,8 +14,8 @@ export interface ToDragOptions {
   needComputeBorder?: boolean
 }
 
-export type toDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
-export interface toDragEvent extends Event {
+export type ToDragEventString = 'todraginit' | 'todragstart' | 'todragmove' | 'todragend'
+export interface ToDragEvent extends Event {
   left?: number,
   top?: number,
   width?: number,
@@ -32,18 +32,18 @@ class ToDrag {
   isTouch: boolean
   isDrag: boolean
   parent: HTMLElement
+  left = 0
+  top = 0
+  right = 0
+  bottom = 0
+  width = 0
+  height = 0
+  maxX = 0
+  maxY = 0
   private options: ToDragOptions
   private scrollbarWidth: number
-  private left = 0
-  private top = 0
-  private right = 0
-  private bottom = 0
   private startX = 0
   private startY = 0
-  private width = 0
-  private height = 0
-  private maxX = 0
-  private maxY = 0
   private getScrollbarWidth = () => {
     const el = document.createElement('div');
     el.style.cssText = 'width:100px;height:100px;overflow-y:scroll';
@@ -195,7 +195,6 @@ class ToDrag {
     this.emitEvent('todragend');
   }
 
-
   handleAdsorb () {
     if (this.options.isAbsolute) return;
     const endPoint = [this.left + this.width / 2, this.top + this.height / 2];
@@ -269,8 +268,8 @@ class ToDrag {
     }
   }
 
-  emitEvent (type: toDragEventString) {
-    const event = document.createEvent('HTMLEvents') as toDragEvent;
+  emitEvent (type: ToDragEventString) {
+    const event = document.createEvent('HTMLEvents') as ToDragEvent;
     event.initEvent(type, false, false);
     const { left, top, right, bottom, width, height, maxX, maxY } = this;
     event['left'] = left;

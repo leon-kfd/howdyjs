@@ -1,6 +1,5 @@
 import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
-import ToDrag from '@howdyjs/to-drag';
-// import ToDrag  from '../to-drag';
+import ToDrag, { ToDragEvent as ToControlEvent } from '@howdyjs/to-drag';
 export type ControlOptions = {
   moveCursor?: boolean,
   forbidBodyScroll?: boolean,
@@ -18,6 +17,8 @@ export type ArrowOptions = {
   background?: string;
 }
 
+export type ToControlEventString = 'tocontrolstart' | 'tocontrolmove' | 'tocontrolend'
+export { ToControlEvent };
 class ToControl extends ToDrag {
   arrowCtx: HTMLElement | null = null
   private controlOptions: ControlOptions
@@ -71,6 +72,11 @@ class ToControl extends ToDrag {
     setTimeout(() => {
       this.isDrag = false;
     });
+    this.el.style.left = `${this.controlOptions.isAbsolute ? this.el.offsetLeft : left}px`;
+    this.el.style.top = `${this.controlOptions.isAbsolute ? this.el.offsetTop : top}px`;
+    this.el.style.right = 'auto';
+    this.el.style.bottom = 'auto';
+    this.emitControlEvent('tocontrolstart');
     if (this.isTouch) {
       // 移动端
       document.ontouchmove = (e:TouchEvent) => {
@@ -78,11 +84,14 @@ class ToControl extends ToDrag {
         const { clientX: x, clientY: y } = e.changedTouches[0];
         this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxWidth)}px`;
         this.el.style.height = `${Math.min(this.elHeight + y - this.arrowStartY, maxHeight)}px`;
+        this.emitControlEvent('tocontrolmove');
       };
       document.ontouchend = () => {
+        this.setPosition();
         this.resizeFlag = false;
         document.ontouchmove = null;
         document.ontouchend = null;
+        this.emitControlEvent('tocontrolend');
       };
     } else {
       // PC端
@@ -91,11 +100,14 @@ class ToControl extends ToDrag {
         const { x, y } = e;
         this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxWidth)}px`;
         this.el.style.height = `${Math.min(this.elHeight + y - this.arrowStartY, maxHeight)}px`;
+        this.emitControlEvent('tocontrolmove');
       };
       document.onmouseup = () => {
+        this.setPosition();
         this.resizeFlag = false;
         document.onmousemove = null;
         document.onmouseup = null;
+        this.emitControlEvent('tocontrolend');
       };
     }
   }
@@ -137,6 +149,21 @@ class ToControl extends ToDrag {
     } else {
       this.arrowCtx?.removeEventListener('mousedown', this.arrowMouseDownEvent);
     }
+  }
+
+  emitControlEvent (type: ToControlEventString) {
+    const event = document.createEvent('HTMLEvents') as ToControlEvent;
+    event.initEvent(type, false, false);
+    const { left, top, right, bottom, width, height, maxX, maxY } = this;
+    event['left'] = left;
+    event['top'] = top;
+    event['width'] = width;
+    event['height'] = height;
+    event['maxX'] = maxX;
+    event['maxY'] = maxY;
+    event['right'] = right;
+    event['bottom'] = bottom;
+    this.el.dispatchEvent(event);
   }
 }
 

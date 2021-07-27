@@ -1,12 +1,16 @@
 <template>
   <div class="wrapper">
-    <div v-to-control="options" class="control"></div>
+    <div
+      v-to-control="options"
+      class="control"
+      @todragend="handleToDragEnd"
+    ></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ToControlDirective } from '../../../../packages/to-control';
+import { ToControlDirective, ToControlEvent } from '../../../../packages/to-control';
 export default defineComponent({
   directives: {
     'to-control': ToControlDirective
@@ -16,12 +20,16 @@ export default defineComponent({
     return {
       options: {
         isAbsolute: true,
+        positionMode: 4,
         arrowOptions: {
           padding: 0,
           size: 20,
           lineWidth: 0,
           background: `${arrowBase64} 0 0/20px 20px`
         }
+      },
+      handleToDragEnd(e: ToControlEvent) {
+        console.log('todragend', e);
       }
     };
   }

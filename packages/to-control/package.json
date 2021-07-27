@@ -1,6 +1,6 @@
 {
   "name": "@howdyjs/to-control",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Resize or drag to move a html dom.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -23,6 +23,6 @@
     "url": "https://github.com/leon-kfd/howdyjs/issues"
   },
   "dependencies": {
-    "@howdyjs/to-drag": "^2.0.0"
+    "@howdyjs/to-drag": "^2.0.2"
   }
 }

@@ -4,32 +4,46 @@
       v-to-control="options"
       class="control"
       @todragend="handleToDragEnd"
-    ></div>
+      @tocontrolend="handleToControlEnd"
+    >
+      isLock: {{ isLock }}
+    </div>
+    <button @click="isLock = !isLock">
+      Toggle Lock
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { ToControlDirective, ToControlEvent } from '../../../../packages/to-control';
+import { defineComponent, ref } from 'vue';
+import { ToControlDirective } from '../../../../packages/to-control';
 export default defineComponent({
   directives: {
     'to-control': ToControlDirective
   },
   setup() {
     const arrowBase64 = 'url(\'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNjI3Mjc4NzU0NTQ1IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjUzNjIiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj5AZm9udC1mYWNlIHsgZm9udC1mYW1pbHk6IGZlZWRiYWNrLWljb25mb250OyBzcmM6IHVybCgiLy9hdC5hbGljZG4uY29tL3QvZm9udF8xMDMxMTU4XzF1aHI4cmkwcGs1LmVvdD8jaWVmaXgiKSBmb3JtYXQoImVtYmVkZGVkLW9wZW50eXBlIiksIHVybCgiLy9hdC5hbGljZG4uY29tL3QvZm9udF8xMDMxMTU4XzF1aHI4cmkwcGs1LndvZmYyIikgZm9ybWF0KCJ3b2ZmMiIpLCB1cmwoIi8vYXQuYWxpY2RuLmNvbS90L2ZvbnRfMTAzMTE1OF8xdWhyOHJpMHBrNS53b2ZmIikgZm9ybWF0KCJ3b2ZmIiksIHVybCgiLy9hdC5hbGljZG4uY29tL3QvZm9udF8xMDMxMTU4XzF1aHI4cmkwcGs1LnR0ZiIpIGZvcm1hdCgidHJ1ZXR5cGUiKSwgdXJsKCIvL2F0LmFsaWNkbi5jb20vdC9mb250XzEwMzExNThfMXVocjhyaTBwazUuc3ZnI2ljb25mb250IikgZm9ybWF0KCJzdmciKTsgfQo8L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTU0Ljc1MiAyMDIuNDEwNjY3YTM1Ljg0IDM1Ljg0IDAgMCAwIDAuMTI4IDUwLjEzMzMzM2wxNTUuMzA2NjY3IDE1Ni45NzA2NjcgMy41ODQgMy4xNTczMzNhMzQuNDMyIDM0LjQzMiAwIDAgMCA0NS43Mzg2NjYtMy4yODUzMzMgMzUuNjI2NjY3IDM1LjYyNjY2NyAwIDAgMC0wLjA4NTMzMy01MC4wOTA2NjdsLTE1NS4zMDY2NjctMTU3LjAxMzMzMy0zLjU0MTMzMy0zLjExNDY2N2EzNC41NiAzNC41NiAwIDAgMC00NS44MjQgMy4yNDI2Njd6IG0tMzk2LjIwMjY2NyAyNzQuNDMyQTM1LjI4NTMzMyAzNS4yODUzMzMgMCAwIDAgMTI4IDUxMmMwIDE5LjU0MTMzMyAxNS42NTg2NjcgMzUuNDEzMzMzIDM0LjkwMTMzMyAzNS40MTMzMzNoNjEzLjY3NDY2N2wtMjIxLjY5NiAyMjQuMDQyNjY3LTMuMTU3MzMzIDMuNjI2NjY3YTM1Ljg0IDM1Ljg0IDAgMCAwIDMuMDcyIDQ2LjUwNjY2NiAzNC41NiAzNC41NiAwIDAgMCA0OS4zMjI2NjYgMC4wODUzMzRsMjgxLjYtMjg0LjU4NjY2NyAzLjExNDY2Ny0zLjU4NGEzNS42NjkzMzMgMzUuNjY5MzMzIDAgMCAwIDQuNTIyNjY3LTM0Ljk4NjY2NyAzNC44NTg2NjcgMzQuODU4NjY3IDAgMCAwLTMyLjI1Ni0yMS45MzA2NjZIMTYyLjkwMTMzM2wtNC4zNTIgMC4yNTZ6IiBmaWxsPSIjMjAwRTMyIiBwLWlkPSI1MzYzIj48L3BhdGg+PC9zdmc+\')';
+    const isLock = ref(false);
+    const disabled = () => isLock.value;
     return {
+      isLock,
       options: {
         isAbsolute: true,
         positionMode: 4,
+        moveCursor: false,
         arrowOptions: {
           padding: 0,
           size: 20,
           lineWidth: 0,
           background: `${arrowBase64} 0 0/20px 20px`
-        }
+        },
+        disabled
       },
-      handleToDragEnd(e: ToControlEvent) {
+      handleToDragEnd(e: any) {
         console.log('todragend', e);
+      },
+      handleToControlEnd(e: any) {
+        console.log('tocontrolend', e);
       }
     };
   }
@@ -51,6 +65,8 @@ export default defineComponent({
   height: 200px;
   border: 4px solid #dd9944;
   background: rgb(184, 202, 235);
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
   :deep {
     .to-control-arrow {
       transform: rotate(45deg);

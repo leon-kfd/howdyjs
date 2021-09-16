@@ -22,7 +22,7 @@ export { ToControlEvent };
 class ToControl extends ToDrag {
   arrowCtx: HTMLElement | null = null
   private controlOptions: ControlOptions
-  constructor ({ el, options } : {el: string | HTMLElement, options?: ControlOptions}) {
+  constructor({ el, options }: { el: string | HTMLElement, options?: ControlOptions }) {
     super({
       el,
       options: {
@@ -46,12 +46,23 @@ class ToControl extends ToDrag {
     this.el.appendChild(this.arrowCtx);
   }
 
+  updateArrow() {
+    if (this.arrowCtx) {
+      this.el.removeChild(this.arrowCtx);
+    }
+    this.arrowCtx = this.createResizeArrow(this.controlOptions?.arrowOptions);
+    this.el.appendChild(this.arrowCtx);
+  }
+
   arrowStartX = 0
   arrowStartY = 0
   elWidth = 0
   elHeight = 0
   resizeFlag = false
   arrowMouseDownEvent = (e: MouseEvent | TouchEvent) => {
+    if (typeof this.controlOptions.disabled === 'function' && this.controlOptions.disabled()) {
+      return;
+    }
     const x = this.isTouch ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).x;
     const y = this.isTouch ? (e as TouchEvent).changedTouches[0].clientY : (e as MouseEvent).y;
     const { width, height, left, top } = this.el.getBoundingClientRect();
@@ -61,7 +72,7 @@ class ToControl extends ToDrag {
     this.elWidth = width;
     this.elHeight = height;
     this.resizeFlag = true;
-    let maxWidth:number, maxHeight:number;
+    let maxWidth: number, maxHeight: number;
     if (this.controlOptions.isAbsolute) {
       maxWidth = parentWidth - this.el.offsetLeft - this.borderInfo[1] - this.borderInfo[3];
       maxHeight = parentHeight - this.el.offsetTop - this.borderInfo[0] - this.borderInfo[2];
@@ -79,7 +90,7 @@ class ToControl extends ToDrag {
     this.emitControlEvent('tocontrolstart');
     if (this.isTouch) {
       // 移动端
-      document.ontouchmove = (e:TouchEvent) => {
+      document.ontouchmove = (e: TouchEvent) => {
         if (!this.resizeFlag || !e.changedTouches) return;
         const { clientX: x, clientY: y } = e.changedTouches[0];
         this.el.style.width = `${Math.min(this.elWidth + x - this.arrowStartX, maxWidth)}px`;
@@ -112,7 +123,8 @@ class ToControl extends ToDrag {
     }
   }
 
-  private createResizeArrow (arrowOptions?: ArrowOptions) {
+  private createResizeArrow(arrowOptions?: ArrowOptions) {
+    const isDisabled = typeof this.controlOptions.disabled === 'function' && this.controlOptions.disabled();
     const options = {
       size: 8,
       lineWidth: 2,
@@ -130,7 +142,8 @@ class ToControl extends ToDrag {
       border-bottom: ${options.lineWidth}px solid ${options.lineColor};
       border-right: ${options.lineWidth}px solid ${options.lineColor};
       cursor: se-resize;
-      background: ${options.background || 'none'}
+      background: ${options.background || 'none'};
+      display: ${isDisabled ? 'none' : 'block'}
     `;
     arrow.className = 'to-control-arrow';
     arrow.style.cssText = cssText;
@@ -142,7 +155,7 @@ class ToControl extends ToDrag {
     return arrow;
   }
 
-  destroyControl () {
+  destroyControl() {
     this.destroy();
     if (this.isTouch) {
       this.arrowCtx?.removeEventListener('touchstart', this.arrowMouseDownEvent);
@@ -151,7 +164,7 @@ class ToControl extends ToDrag {
     }
   }
 
-  emitControlEvent (type: ToControlEventString) {
+  emitControlEvent(type: ToControlEventString) {
     const event = document.createEvent('HTMLEvents') as ToControlEvent;
     event.initEvent(type, false, false);
     const { left, top, right, bottom, width, height, maxX, maxY } = this;
@@ -167,8 +180,8 @@ class ToControl extends ToDrag {
   }
 }
 
-const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: ControlOptions):void => { 
-  const { value }:{ value: ControlOptions } = binding;
+const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: ControlOptions): void => {
+  const { value }: { value: ControlOptions } = binding;
   const customGlobalOptions = userOptions || {};
   const options = {
     ...customGlobalOptions,
@@ -180,6 +193,10 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: Contr
   });
 };
 
+const beforeUpdate: DirectiveHook = (el: any) => {
+  el.$toControl && el.$toControl.updateArrow();
+};
+
 const unmounted: DirectiveHook = (el: any) => {
   el.$toControl && el.$toControl.destroy();
 };
@@ -187,16 +204,20 @@ const unmounted: DirectiveHook = (el: any) => {
 export const ToControlDirective: ObjectDirective = {
   mounted: (el: HTMLElement, binding: DirectiveBinding) => mounted(el, binding),
   unmounted,
+  beforeUpdate,
   // @ts-ignore
   inserted: (el, binding) => mounted(el, binding),
   unbind: unmounted,
-  install: (Vue: App, userOptions: ControlOptions):void => {
+  update: beforeUpdate,
+  install: (Vue: App, userOptions: ControlOptions): void => {
     Vue.directive('to-control', {
       mounted: ((el, binding) => mounted(el, binding, userOptions)),
       unmounted,
+      beforeUpdate,
       // @ts-ignore
       inserted: ((el, binding) => mounted(el, binding, userOptions)),
-      unbind: unmounted
+      unbind: unmounted,
+      update: beforeUpdate,
     });
   }
 };

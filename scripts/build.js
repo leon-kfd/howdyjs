@@ -54,7 +54,7 @@ module.exports = {
     const dirNames = fs.readdirSync('packages');
     const whiteList = ['shared'];
     dirNames.forEach(dirName => {
-      const dirPath = path.resolve('packages', __dirname);
+      const dirPath = path.resolve('packages', dirName);
       const state = fs.statSync(dirPath);
       // 寻找包文件夹
       if (state.isDirectory() && !whiteList.includes(dirName)) {

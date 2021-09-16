@@ -25,12 +25,12 @@
 |timingFunction|当animationMode为false时有效，过渡动画曲线|String|-|cubic-bezier(0.55,-0.15, 0.71, 1.35)|
 |openFromItself|是否使用自身作为Dialog，即Dialog为点击的元素(但打开的其实为Clone的Dom)|Boolean|-|false|
 |appendToBody|是否将Dom插入到body中，防止父元素样式造成的异常|Boolean|-|false|
-|customClass|自定义Dialog的类名|String|-|-|
+|customClass|自定义Dialog的类名, 追加到`.dialog`上|String|-|-|
+|customWrapperClass|自定义Wrapper的类名，追加到`.animation-dialog-wrapper`上|String|-|-|
 |listenWindowSizeChange|是否需要监听Window宽度变化而改变dialog宽度,默认不监听|Boolean|-|false|
 |debounceWait|监听Window宽度变化的延迟时间|Number|-|200|
 |title|Dialog标题,V1.6.2后新增,样式内置,要自定义请使用slot|String|-|-|
 |closeOnClickOutside|是否点击Dialog外层后直接关闭Dialog|Boolean|-|true|
-|customClassName|自定义类名，追加到animation-dialog-wrapper上|String|-|-|
 
 ### 2 Methods 方法
 |方法名|说明|参数|

@@ -3,7 +3,7 @@
     <div
       v-show="show"
       class="animation-dialog-wrapper"
-      :class="customClassName"
+      :class="customWrapperClass"
       @click.self="clickOutside"
     >
       <div ref="staticFake" class="dialog-static-fake" :style="{ width, height }"></div>
@@ -74,6 +74,7 @@ export default defineComponent({
       default: false
     },
     customClass: String,
+    customWrapperClass: String,
     listenWindowSizeChange: {
       type: Boolean,
       default: false
@@ -89,9 +90,6 @@ export default defineComponent({
       type: Boolean,
       default: true
     },
-    customClassName: {
-      type: String
-    }
   },
   emits: ['beforeClose', 'close'],
   setup(props, { emit }) {

@@ -1,6 +1,11 @@
 <template>
   <teleport to="body" :disabled="!appendToBody">
-    <div v-show="show" class="animation-dialog-wrapper" @click.self="clickOutside">
+    <div
+      v-show="show"
+      class="animation-dialog-wrapper"
+      :class="customClassName"
+      @click.self="clickOutside"
+    >
       <div ref="staticFake" class="dialog-static-fake" :style="{ width, height }"></div>
       <div ref="centerFake" class="dialog-center-fake"></div>
       <div ref="main" class="dialog" :class="customClass">
@@ -83,6 +88,9 @@ export default defineComponent({
     closeOnClickOutside: {
       type: Boolean,
       default: true
+    },
+    customClassName: {
+      type: String
     }
   },
   emits: ['beforeClose', 'close'],

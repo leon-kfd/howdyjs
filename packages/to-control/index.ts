@@ -38,12 +38,12 @@ class ToControl extends ToDrag {
   }
 
   initControl() {
-    const { position } = getComputedStyle(this.el);
-    if (!['fixed', 'absolute'].includes(position)) {
-      throw new Error('Control just work in the element which position is fixed or absolute.');
-    }
     this.arrowCtx = this.createResizeArrow(this.controlOptions?.arrowOptions);
     this.el.appendChild(this.arrowCtx);
+    // const { position } = getComputedStyle(this.el);
+    // if (!['fixed', 'absolute'].includes(position)) {
+    //   throw new Error('Control just work in the element which position is fixed or absolute.');
+    // }
   }
 
   updateArrow() {

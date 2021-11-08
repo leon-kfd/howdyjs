@@ -187,6 +187,7 @@ export default defineComponent({
         emit('beforeClose');
         setTimeout(() => {
           show.value = false;
+          emit('close');
         }, props.time - 10);
       } else {
         if (!openerEl) {

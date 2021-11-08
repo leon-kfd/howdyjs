@@ -1,1 +1,125 @@
-function t(t,e,n){const o=document.createElement(t);return o.setAttribute("id",e),n&&(o.innerText=n),o}!function(t,e){void 0===e&&(e={});var n=e.insertAt;if(t&&"undefined"!=typeof document){var o=document.head||document.getElementsByTagName("head")[0],i=document.createElement("style");i.type="text/css","top"===n&&o.firstChild?o.insertBefore(i,o.firstChild):o.appendChild(i),i.styleSheet?i.styleSheet.cssText=t:i.appendChild(document.createTextNode(t))}}("#__imgZoomMask {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.9);\n  z-index: 99999;\n  display: flex;\n  animation: fadeIn .4s;\n  overflow: hidden;\n  align-items: center;\n  justify-content: center; }\n  #__imgZoomMask #__imgZoomWrapper {\n    width: 100%;\n    height: 100%;\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center; }\n    #__imgZoomMask #__imgZoomWrapper #__img {\n      margin: auto;\n      max-width: 85%; }\n  #__imgZoomMask #__imgZoomTitle {\n    position: absolute;\n    top: 10px;\n    width: 100%;\n    text-align: center;\n    line-height: 30px;\n    color: #c8c8cc;\n    font-weight: bold;\n    font-size: 22px;\n    padding: 0 50px;\n    box-sizing: border-box; }\n  #__imgZoomMask #__imgZoomFooter {\n    position: absolute;\n    bottom: 10px;\n    width: 100%;\n    text-align: center;\n    line-height: 30px;\n    color: #c8c8cc;\n    font-weight: bold; }\n  #__imgZoomMask #__leftBtn,\n  #__imgZoomMask #__rightBtn {\n    position: absolute;\n    width: 50px;\n    height: 50px;\n    border-radius: 50%;\n    background: rgba(0, 0, 0, 0.65);\n    top: 50%;\n    transform: translateY(-50%);\n    cursor: pointer; }\n    #__imgZoomMask #__leftBtn:after,\n    #__imgZoomMask #__rightBtn:after {\n      content: '';\n      position: absolute;\n      width: 20px;\n      height: 20px;\n      top: 15px;\n      box-sizing: border-box; }\n    #__imgZoomMask #__leftBtn:hover,\n    #__imgZoomMask #__rightBtn:hover {\n      background: rgba(0, 0, 0, 0.85); }\n  #__imgZoomMask #__leftBtn {\n    left: 20px; }\n    #__imgZoomMask #__leftBtn:after {\n      border-top: 2px solid #99a;\n      border-left: 2px solid #99a;\n      transform: rotate(-45deg);\n      left: 20px; }\n    #__imgZoomMask #__leftBtn:hover:after {\n      border-top: 2px solid #eee;\n      border-left: 2px solid #eee; }\n  #__imgZoomMask #__rightBtn {\n    right: 20px; }\n    #__imgZoomMask #__rightBtn:after {\n      border-top: 2px solid #889;\n      border-right: 2px solid #889;\n      transform: rotate(45deg);\n      right: 20px; }\n    #__imgZoomMask #__rightBtn:hover:after {\n      border-top: 2px solid #eee;\n      border-right: 2px solid #eee; }\n  #__imgZoomMask #__closeBtn {\n    position: absolute;\n    width: 40px;\n    height: 40px;\n    top: 10px;\n    right: 10px;\n    cursor: pointer;\n    z-index: 100000; }\n    #__imgZoomMask #__closeBtn::before {\n      content: '';\n      position: absolute;\n      width: 30px;\n      border-top: 2px solid #eee;\n      left: 5px;\n      top: 19px;\n      transform: rotate(45deg); }\n    #__imgZoomMask #__closeBtn::after {\n      content: '';\n      position: absolute;\n      width: 30px;\n      border-top: 2px solid #eee;\n      left: 5px;\n      top: 19px;\n      transform: rotate(-45deg); }\n  #__imgZoomMask #__imgZoomLoader {\n    position: absolute;\n    width: 40px;\n    height: 40px;\n    top: calc(50% - 20px);\n    left: calc(50% - 20px);\n    background: #b9b9eb;\n    z-index: 100000;\n    animation: squareLoader 1.2s infinite ease-in-out; }\n\n@keyframes squareLoader {\n  0% {\n    transform: perspective(120px) rotateX(0deg) rotateY(0deg); }\n  50% {\n    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }\n  100% {\n    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }\n");const e={};class n{constructor({el:n,options:o}){if(n instanceof HTMLElement?this.el=n:this.el=document.querySelector(n),this.imgSrc=(null==o?void 0:o.imgSrc)||this.el.getAttribute("src"),this.el.$imgZoom=this,null==o?void 0:o.group)if(this.group=o.group,e[this.group]){const t=e[this.group].push({title:o.title,imgSrc:this.imgSrc});this.groupIndex=t-1}else e[this.group]=[{title:o.title,imgSrc:this.imgSrc}],this.groupIndex=0;(null==o?void 0:o.zoomCursor)&&(this.el.style.cursor="zoom-in"),this.clickHandler=n=>{(null==o?void 0:o.preventDefault)&&n.preventDefault();const i=t("div","__imgZoomMask"),r=t("div","__imgZoomWrapper");let s,l;document.body.append(i);const d=!1!==(null==o?void 0:o.showLoading);d?(l=(null==o?void 0:o.customLoading)?o.customLoading():t("div","__imgZoomLoader"),i.appendChild(l),s=new Image,s.src=this.imgSrc,s.setAttribute("id","__img"),s.onload=()=>{r.contains(s)||(i.appendChild(r),r.appendChild(s)),r.style.display="flex",l.style.display="none"}):(i.appendChild(r),s=new Image,s.src=this.imgSrc,s.setAttribute("id","__img"),r.style.display="flex",r.appendChild(s));const p=()=>{i.style.opacity="0",i.style.transition="all 0.4s",setTimeout((()=>{var t;null===(t=null==i?void 0:i.parentNode)||void 0===t||t.removeChild(i)}),400)};if(null==o?void 0:o.showCloseBtn){const e=t("div","__closeBtn");e.addEventListener("click",p),i.appendChild(e)}else i.addEventListener("click",p),(null==o?void 0:o.zoomCursor)&&(i.style.cursor="zoom-out");let a;if((null==o?void 0:o.title)&&(a=t("div","__imgZoomTitle",o.title),i.appendChild(a)),this.group&&e[this.group]){let n=this.groupIndex;const o=t("div","__imgZoomFooter",`${n+1} / ${e[this.group].length}`);i.appendChild(o);const p=t("div","__leftBtn");p.addEventListener("click",(t=>{n>0&&(r.style.display="none",s.src=e[this.group][--n].imgSrc,d?s.complete||(l.style.display="block"):setTimeout((()=>{r.style.display="flex"})),o.innerText=`${n+1} / ${e[this.group].length}`,a&&(a.innerText=`${e[this.group][n].title}`)),t.stopPropagation()})),i.appendChild(p);const g=t("div","__rightBtn");g.addEventListener("click",(t=>{n<e[this.group].length-1&&(r.style.display="none",s.src=e[this.group][++n].imgSrc,d?s.complete||(l.style.display="block"):setTimeout((()=>{r.style.display="flex"})),o.innerText=`${n+1} / ${e[this.group].length}`,a&&(a.innerText=`${e[this.group][n].title}`)),t.stopPropagation()})),i.appendChild(g)}},this.el.addEventListener("click",this.clickHandler)}destory(){if(this.el.removeEventListener("click",this.clickHandler),this.group&&this.groupIndex&&this.groupIndex>=0){const t=e[this.group].findIndex((t=>t.imgSrc=this.imgSrc));~t&&e[this.group].splice(t,1)}}}const o=(t,e)=>{const{arg:o,value:i}=e;let r={};i?"string"==typeof i?r.imgSrc=i:r=i:r.imgSrc=t.getAttribute("src"),o&&(r.group=o),new n({el:t,options:r})},i=t=>{t.$imgZoom&&t.$imgZoom.destory()},r={mounted:o,unmounted:i,inserted:o,unbind:i,install(t){t.directive("img-zoom",{mounted:o,unmounted:i,inserted:o,unbind:i})}};export{r as I};
+function a(o,r,e){const i=document.createElement(o);return i.setAttribute("id",r),e&&(i.innerText=e),i}function b(o,r){r===void 0&&(r={});var e=r.insertAt;if(!(!o||typeof document=="undefined")){var i=document.head||document.getElementsByTagName("head")[0],t=document.createElement("style");t.type="text/css",e==="top"&&i.firstChild?i.insertBefore(t,i.firstChild):i.appendChild(t),t.styleSheet?t.styleSheet.cssText=o:t.appendChild(document.createTextNode(o))}}var y=`#__imgZoomMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 99999;
+  display: flex;
+  animation: fadeIn .4s;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center; }
+  #__imgZoomMask #__imgZoomWrapper {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    #__imgZoomMask #__imgZoomWrapper #__img {
+      margin: auto;
+      max-width: 85%; }
+  #__imgZoomMask #__imgZoomTitle {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    color: #c8c8cc;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 0 50px;
+    box-sizing: border-box; }
+  #__imgZoomMask #__imgZoomFooter {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    color: #c8c8cc;
+    font-weight: bold; }
+  #__imgZoomMask #__leftBtn,
+  #__imgZoomMask #__rightBtn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer; }
+    #__imgZoomMask #__leftBtn:after,
+    #__imgZoomMask #__rightBtn:after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 15px;
+      box-sizing: border-box; }
+    #__imgZoomMask #__leftBtn:hover,
+    #__imgZoomMask #__rightBtn:hover {
+      background: rgba(0, 0, 0, 0.85); }
+  #__imgZoomMask #__leftBtn {
+    left: 20px; }
+    #__imgZoomMask #__leftBtn:after {
+      border-top: 2px solid #99a;
+      border-left: 2px solid #99a;
+      transform: rotate(-45deg);
+      left: 20px; }
+    #__imgZoomMask #__leftBtn:hover:after {
+      border-top: 2px solid #eee;
+      border-left: 2px solid #eee; }
+  #__imgZoomMask #__rightBtn {
+    right: 20px; }
+    #__imgZoomMask #__rightBtn:after {
+      border-top: 2px solid #889;
+      border-right: 2px solid #889;
+      transform: rotate(45deg);
+      right: 20px; }
+    #__imgZoomMask #__rightBtn:hover:after {
+      border-top: 2px solid #eee;
+      border-right: 2px solid #eee; }
+  #__imgZoomMask #__closeBtn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 100000; }
+    #__imgZoomMask #__closeBtn::before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      border-top: 2px solid #eee;
+      left: 5px;
+      top: 19px;
+      transform: rotate(45deg); }
+    #__imgZoomMask #__closeBtn::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      border-top: 2px solid #eee;
+      left: 5px;
+      top: 19px;
+      transform: rotate(-45deg); }
+  #__imgZoomMask #__imgZoomLoader {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    background: #b9b9eb;
+    z-index: 100000;
+    animation: squareLoader 1.2s infinite ease-in-out; }
+
+@keyframes squareLoader {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
+`;b(y);const l={};class k{constructor({el:r,options:e}){if(r instanceof HTMLElement?this.el=r:this.el=document.querySelector(r),this.imgSrc=(e==null?void 0:e.imgSrc)||this.el.getAttribute("src"),this.el.$imgZoom=this,e==null?void 0:e.group)if(this.group=e.group,l[this.group]){const i=l[this.group].push({title:e.title,imgSrc:this.imgSrc});this.groupIndex=i-1}else l[this.group]=[{title:e.title,imgSrc:this.imgSrc}],this.groupIndex=0;(e==null?void 0:e.zoomCursor)&&(this.el.style.cursor="zoom-in"),this.clickHandler=i=>{(e==null?void 0:e.preventDefault)&&i.preventDefault();const t=a("div","__imgZoomMask"),d=a("div","__imgZoomWrapper");document.body.append(t);let s,m;const h=(e==null?void 0:e.showLoading)!==!1;h?(m=(e==null?void 0:e.customLoading)?e.customLoading():a("div","__imgZoomLoader"),t.appendChild(m),s=new Image,s.src=this.imgSrc,s.setAttribute("id","__img"),s.onload=()=>{d.contains(s)||(t.appendChild(d),d.appendChild(s)),d.style.display="flex",m.style.display="none"}):(t.appendChild(d),s=new Image,s.src=this.imgSrc,s.setAttribute("id","__img"),d.style.display="flex",d.appendChild(s));const f=()=>{t.style.opacity="0",t.style.transition="all 0.4s",setTimeout(()=>{var n;(n=t==null?void 0:t.parentNode)===null||n===void 0||n.removeChild(t)},400)};if(e==null?void 0:e.showCloseBtn){const n=a("div","__closeBtn");n.addEventListener("click",f),t.appendChild(n)}else t.addEventListener("click",f),(e==null?void 0:e.zoomCursor)&&(t.style.cursor="zoom-out");let g;if((e==null?void 0:e.title)&&(g=a("div","__imgZoomTitle",e.title),t.appendChild(g)),this.group&&l[this.group]){let n=this.groupIndex;const _=a("div","__imgZoomFooter",`${n+1} / ${l[this.group].length}`);t.appendChild(_);const x=a("div","__leftBtn");x.addEventListener("click",u=>{n>0&&(d.style.display="none",s.src=l[this.group][--n].imgSrc,h?s.complete||(m.style.display="block"):setTimeout(()=>{d.style.display="flex"}),_.innerText=`${n+1} / ${l[this.group].length}`,g&&(g.innerText=`${l[this.group][n].title}`)),u.stopPropagation()}),t.appendChild(x);const v=a("div","__rightBtn");v.addEventListener("click",u=>{n<l[this.group].length-1&&(d.style.display="none",s.src=l[this.group][++n].imgSrc,h?s.complete||(m.style.display="block"):setTimeout(()=>{d.style.display="flex"}),_.innerText=`${n+1} / ${l[this.group].length}`,g&&(g.innerText=`${l[this.group][n].title}`)),u.stopPropagation()}),t.appendChild(v)}},this.el.addEventListener("click",this.clickHandler)}destory(){if(this.el.removeEventListener("click",this.clickHandler),this.group&&this.groupIndex&&this.groupIndex>=0){const r=l[this.group].findIndex(e=>e.imgSrc=this.imgSrc);~r&&l[this.group].splice(r,1)}}}const p=(o,r)=>{const{arg:e,value:i}=r;let t={};i?typeof i=="string"?t.imgSrc=i:t=i:t.imgSrc=o.getAttribute("src"),e&&(t.group=e),new k({el:o,options:t})},c=o=>{o.$imgZoom&&o.$imgZoom.destory()},Z={mounted:p,unmounted:c,inserted:p,unbind:c,install(o){o.directive("img-zoom",{mounted:p,unmounted:c,inserted:p,unbind:c})}};export{Z as I};

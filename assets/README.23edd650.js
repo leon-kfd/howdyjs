@@ -1,1 +1,146 @@
-var t='<h1 id="todrag">ToDrag</h1>\n<p><img src="https://img.shields.io/npm/v/@howdyjs/to-drag" alt="Version">\n<img src="https://img.shields.io/bundlephobia/min/@howdyjs/to-drag?color=%2344cc88" alt="Size"></p>\n<p><strong>设置Dom可拖动插件</strong></p>\n<h2 id="特性">特性</h2>\n<ol>\n<li>将fixed元素设为可拖动</li>\n<li>提供不吸附、左右吸附、四方向吸附三种模式</li>\n<li>同时支持PC端和移动端</li>\n<li>封装了vue指令的形式</li>\n<li>新增<a href="https://kongfandong.cn/howdy/to-drag/example6">Absolute模式</a>，控制absolute元素在其父元素盒子下进行拖拽</li>\n</ol>\n<h2 id="原生使用">原生使用</h2>\n<pre><code class="language-js"><span class="hljs-keyword">import</span> ToDrag <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@howdyjs/to-drag&#x27;</span>\n<span class="hljs-keyword">new</span> ToDrag({\n  el: <span class="hljs-string">&#x27;#to-drag&#x27;</span>, <span class="hljs-comment">// Selector or Dom</span>\n  <span class="hljs-keyword">options</span>: {\n    <span class="hljs-comment">// Your Options</span>\n    <span class="hljs-comment">// 参考下方说明</span>\n  }\n});\n</code></pre>\n<ul>\n<li>UMD CDN: <a href="https://unpkg.com/@howdyjs/to-drag/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/to-drag/dist/index.umd.js</a></li>\n<li>UMD Name: <code>HowdyToDrag</code></li>\n<li>UMD Example: <a href="https://codepen.io/leon-kfd/pen/wvWyXNY" target="_blank">Click Here</a></li>\n</ul>\n<h3 id="options-objcet">Options (Objcet)</h3>\n<table>\n<thead>\n<tr>\n<th align="left">参数</th>\n<th align="left">说明</th>\n<th align="left">类型</th>\n<th align="left">可选值</th>\n<th align="left">默认值</th>\n</tr>\n</thead>\n<tbody><tr>\n<td align="left">moveCursor</td>\n<td align="left">是否显示移动光标(cursor: move)</td>\n<td align="left">Boolean</td>\n<td align="left">-</td>\n<td align="left">true</td>\n</tr>\n<tr>\n<td align="left"><strong>adsorb</strong></td>\n<td align="left">是否开启边缘吸附，默认为不开启，设为1则为左右吸附，设为2为四方向吸附</td>\n<td align="left">Number</td>\n<td align="left">0/1/2</td>\n<td align="left">0</td>\n</tr>\n<tr>\n<td align="left">adsorbOffset</td>\n<td align="left">开启吸附后，吸附边缘的偏移量，单位为px</td>\n<td align="left">Number</td>\n<td align="left">-</td>\n<td align="left">0</td>\n</tr>\n<tr>\n<td align="left">transitionDuration</td>\n<td align="left">吸附动画的过渡效果的持续时间,单位为ms</td>\n<td align="left">Number</td>\n<td align="left">-</td>\n<td align="left">400</td>\n</tr>\n<tr>\n<td align="left">transitionTimingFunction</td>\n<td align="left">吸附动画的过渡效果的动画曲线</td>\n<td align="left">String</td>\n<td align="left">-</td>\n<td align="left">ease-in-out</td>\n</tr>\n<tr>\n<td align="left"><strong>forbidBodyScroll</strong></td>\n<td align="left">默认开启，处理移动端滚动穿透问题，当前使用设置body的overflow实现，设为false时需自行处理滚动穿透问题</td>\n<td align="left">Boolean</td>\n<td align="left">-</td>\n<td align="left">true</td>\n</tr>\n<tr>\n<td align="left"><strong>isAbsolute</strong></td>\n<td align="left">是否为Absolute模式,v1.5.0后新增，可控制absolute的元素在其父元素下进行拖拽，开启该模式暂不支持吸附功能</td>\n<td align="left">Boolean</td>\n<td align="left">-</td>\n<td align="left">false</td>\n</tr>\n<tr>\n<td align="left">parentSelector</td>\n<td align="left">Absolute模式下元素的父级容器，目前只支持传入字符串选择器</td>\n<td align="left">String</td>\n<td align="left">-</td>\n<td align="left">-</td>\n</tr>\n<tr>\n<td align="left"><strong>positionMode</strong></td>\n<td align="left">定位模式,默认会记录top与left值,更改此值可以定位方向(1: top/left, 2: top/right, 3: bottom/left, 4: bottom/right)</td>\n<td align="left">Number</td>\n<td align="left">1,2,3,4</td>\n<td align="left">1</td>\n</tr>\n<tr>\n<td align="left">disabled</td>\n<td align="left">是否禁用，需传入函数返回Boolean</td>\n<td align="left">Function: () =&gt; boolean</td>\n<td align="left">-</td>\n<td align="left">-</td>\n</tr>\n</tbody></table>\n<h3 id="event">Event</h3>\n<ul>\n<li><strong>todraginit</strong>：初始化完成事件</li>\n<li><strong>todragstart</strong>: 拖拽开始事件</li>\n<li><strong>todragmove</strong>：拖拽移动事件</li>\n<li><strong>todragend</strong>：拖拽结束时间</li>\n</ul>\n<p>它们都提供以下的回调参数：</p>\n<ul>\n<li>width：当前拖拽元素的宽</li>\n<li>height：当前拖拽元素的宽</li>\n<li>top：当前拖拽元素的上偏移</li>\n<li>left：当前拖拽元素的左偏移</li>\n<li>bottom: 当前拖拽元素的下偏移</li>\n<li>right：当前拖拽元素的右偏移</li>\n<li>maxX：当前屏幕的宽度（不包含滚动条）</li>\n<li>maxY：当前屏幕的高度（不包含滚动条）</li>\n</ul>\n<p><em>一般在回调中将位置信息记录到 localstorage，在下一次初始化时填入用户上一次最后移动的信息。</em></p>\n<h2 id="以vue指令方式使用">以Vue指令方式使用</h2>\n<pre><code class="language-js"><span class="hljs-keyword">import</span> { ToDragDirective } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@howdyjs/to-drag&#x27;</span>\n<span class="hljs-comment">// Vue3全局引入</span>\napp.use(ToDragDirective, someGlobalOptions)\n\n<span class="hljs-comment">// Vue2全局引入(对vue2做了兼容)</span>\nVue.use(ToDragDirective, someGlobalOptions)\n\n<span class="hljs-comment">// 组件内引入</span>\n<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {\n  <span class="hljs-attr">directive</span>: {\n    <span class="hljs-string">&#x27;to-drag&#x27;</span>: ToDragDirective\n  }\n}\n</code></pre>\n<h3 id="指令value-objcet">指令Value (Objcet)</h3>\n<p>参数同上方的配置<code>Options</code></p>\n';export{t as default};
+var t=`<h1 id="todrag">ToDrag</h1>
+<p><img src="https://img.shields.io/npm/v/@howdyjs/to-drag" alt="Version">
+<img src="https://img.shields.io/bundlephobia/min/@howdyjs/to-drag?color=%2344cc88" alt="Size"></p>
+<p><strong>\u8BBE\u7F6EDom\u53EF\u62D6\u52A8\u63D2\u4EF6</strong></p>
+<h2 id="\u7279\u6027">\u7279\u6027</h2>
+<ol>
+<li>\u5C06fixed\u5143\u7D20\u8BBE\u4E3A\u53EF\u62D6\u52A8</li>
+<li>\u63D0\u4F9B\u4E0D\u5438\u9644\u3001\u5DE6\u53F3\u5438\u9644\u3001\u56DB\u65B9\u5411\u5438\u9644\u4E09\u79CD\u6A21\u5F0F</li>
+<li>\u540C\u65F6\u652F\u6301PC\u7AEF\u548C\u79FB\u52A8\u7AEF</li>
+<li>\u5C01\u88C5\u4E86vue\u6307\u4EE4\u7684\u5F62\u5F0F</li>
+<li>\u65B0\u589E<a href="https://kongfandong.cn/howdy/to-drag/example6">Absolute\u6A21\u5F0F</a>\uFF0C\u63A7\u5236absolute\u5143\u7D20\u5728\u5176\u7236\u5143\u7D20\u76D2\u5B50\u4E0B\u8FDB\u884C\u62D6\u62FD</li>
+</ol>
+<h2 id="\u539F\u751F\u4F7F\u7528">\u539F\u751F\u4F7F\u7528</h2>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> ToDrag <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@howdyjs/to-drag&#x27;</span>
+<span class="hljs-keyword">new</span> ToDrag({
+  el: <span class="hljs-string">&#x27;#to-drag&#x27;</span>, <span class="hljs-comment">// Selector or Dom</span>
+  <span class="hljs-keyword">options</span>: {
+    <span class="hljs-comment">// Your Options</span>
+    <span class="hljs-comment">// \u53C2\u8003\u4E0B\u65B9\u8BF4\u660E</span>
+  }
+});
+</code></pre>
+<ul>
+<li>UMD CDN: <a href="https://unpkg.com/@howdyjs/to-drag/dist/index.umd.js" target="_blank">https://unpkg.com/@howdyjs/to-drag/dist/index.umd.js</a></li>
+<li>UMD Name: <code>HowdyToDrag</code></li>
+<li>UMD Example: <a href="https://codepen.io/leon-kfd/pen/wvWyXNY" target="_blank">Click Here</a></li>
+</ul>
+<h3 id="options-objcet">Options (Objcet)</h3>
+<table>
+<thead>
+<tr>
+<th align="left">\u53C2\u6570</th>
+<th align="left">\u8BF4\u660E</th>
+<th align="left">\u7C7B\u578B</th>
+<th align="left">\u53EF\u9009\u503C</th>
+<th align="left">\u9ED8\u8BA4\u503C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">moveCursor</td>
+<td align="left">\u662F\u5426\u663E\u793A\u79FB\u52A8\u5149\u6807(cursor: move)</td>
+<td align="left">Boolean</td>
+<td align="left">-</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left"><strong>adsorb</strong></td>
+<td align="left">\u662F\u5426\u5F00\u542F\u8FB9\u7F18\u5438\u9644\uFF0C\u9ED8\u8BA4\u4E3A\u4E0D\u5F00\u542F\uFF0C\u8BBE\u4E3A1\u5219\u4E3A\u5DE6\u53F3\u5438\u9644\uFF0C\u8BBE\u4E3A2\u4E3A\u56DB\u65B9\u5411\u5438\u9644</td>
+<td align="left">Number</td>
+<td align="left">0/1/2</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">adsorbOffset</td>
+<td align="left">\u5F00\u542F\u5438\u9644\u540E\uFF0C\u5438\u9644\u8FB9\u7F18\u7684\u504F\u79FB\u91CF\uFF0C\u5355\u4F4D\u4E3Apx</td>
+<td align="left">Number</td>
+<td align="left">-</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">transitionDuration</td>
+<td align="left">\u5438\u9644\u52A8\u753B\u7684\u8FC7\u6E21\u6548\u679C\u7684\u6301\u7EED\u65F6\u95F4,\u5355\u4F4D\u4E3Ams</td>
+<td align="left">Number</td>
+<td align="left">-</td>
+<td align="left">400</td>
+</tr>
+<tr>
+<td align="left">transitionTimingFunction</td>
+<td align="left">\u5438\u9644\u52A8\u753B\u7684\u8FC7\u6E21\u6548\u679C\u7684\u52A8\u753B\u66F2\u7EBF</td>
+<td align="left">String</td>
+<td align="left">-</td>
+<td align="left">ease-in-out</td>
+</tr>
+<tr>
+<td align="left"><strong>forbidBodyScroll</strong></td>
+<td align="left">\u9ED8\u8BA4\u5F00\u542F\uFF0C\u5904\u7406\u79FB\u52A8\u7AEF\u6EDA\u52A8\u7A7F\u900F\u95EE\u9898\uFF0C\u5F53\u524D\u4F7F\u7528\u8BBE\u7F6Ebody\u7684overflow\u5B9E\u73B0\uFF0C\u8BBE\u4E3Afalse\u65F6\u9700\u81EA\u884C\u5904\u7406\u6EDA\u52A8\u7A7F\u900F\u95EE\u9898</td>
+<td align="left">Boolean</td>
+<td align="left">-</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left"><strong>isAbsolute</strong></td>
+<td align="left">\u662F\u5426\u4E3AAbsolute\u6A21\u5F0F,v1.5.0\u540E\u65B0\u589E\uFF0C\u53EF\u63A7\u5236absolute\u7684\u5143\u7D20\u5728\u5176\u7236\u5143\u7D20\u4E0B\u8FDB\u884C\u62D6\u62FD\uFF0C\u5F00\u542F\u8BE5\u6A21\u5F0F\u6682\u4E0D\u652F\u6301\u5438\u9644\u529F\u80FD</td>
+<td align="left">Boolean</td>
+<td align="left">-</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">parentSelector</td>
+<td align="left">Absolute\u6A21\u5F0F\u4E0B\u5143\u7D20\u7684\u7236\u7EA7\u5BB9\u5668\uFF0C\u76EE\u524D\u53EA\u652F\u6301\u4F20\u5165\u5B57\u7B26\u4E32\u9009\u62E9\u5668</td>
+<td align="left">String</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left"><strong>positionMode</strong></td>
+<td align="left">\u5B9A\u4F4D\u6A21\u5F0F,\u9ED8\u8BA4\u4F1A\u8BB0\u5F55top\u4E0Eleft\u503C,\u66F4\u6539\u6B64\u503C\u53EF\u4EE5\u5B9A\u4F4D\u65B9\u5411(1: top/left, 2: top/right, 3: bottom/left, 4: bottom/right)</td>
+<td align="left">Number</td>
+<td align="left">1,2,3,4</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td align="left">\u662F\u5426\u7981\u7528\uFF0C\u9700\u4F20\u5165\u51FD\u6570\u8FD4\u56DEBoolean</td>
+<td align="left">Function: () =&gt; boolean</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+</tbody></table>
+<h3 id="event">Event</h3>
+<ul>
+<li><strong>todraginit</strong>\uFF1A\u521D\u59CB\u5316\u5B8C\u6210\u4E8B\u4EF6</li>
+<li><strong>todragstart</strong>: \u62D6\u62FD\u5F00\u59CB\u4E8B\u4EF6</li>
+<li><strong>todragmove</strong>\uFF1A\u62D6\u62FD\u79FB\u52A8\u4E8B\u4EF6</li>
+<li><strong>todragend</strong>\uFF1A\u62D6\u62FD\u7ED3\u675F\u65F6\u95F4</li>
+</ul>
+<p>\u5B83\u4EEC\u90FD\u63D0\u4F9B\u4EE5\u4E0B\u7684\u56DE\u8C03\u53C2\u6570\uFF1A</p>
+<ul>
+<li>width\uFF1A\u5F53\u524D\u62D6\u62FD\u5143\u7D20\u7684\u5BBD</li>
+<li>height\uFF1A\u5F53\u524D\u62D6\u62FD\u5143\u7D20\u7684\u5BBD</li>
+<li>top\uFF1A\u5F53\u524D\u62D6\u62FD\u5143\u7D20\u7684\u4E0A\u504F\u79FB</li>
+<li>left\uFF1A\u5F53\u524D\u62D6\u62FD\u5143\u7D20\u7684\u5DE6\u504F\u79FB</li>
+<li>bottom: \u5F53\u524D\u62D6\u62FD\u5143\u7D20\u7684\u4E0B\u504F\u79FB</li>
+<li>right\uFF1A\u5F53\u524D\u62D6\u62FD\u5143\u7D20\u7684\u53F3\u504F\u79FB</li>
+<li>maxX\uFF1A\u5F53\u524D\u5C4F\u5E55\u7684\u5BBD\u5EA6\uFF08\u4E0D\u5305\u542B\u6EDA\u52A8\u6761\uFF09</li>
+<li>maxY\uFF1A\u5F53\u524D\u5C4F\u5E55\u7684\u9AD8\u5EA6\uFF08\u4E0D\u5305\u542B\u6EDA\u52A8\u6761\uFF09</li>
+</ul>
+<p><em>\u4E00\u822C\u5728\u56DE\u8C03\u4E2D\u5C06\u4F4D\u7F6E\u4FE1\u606F\u8BB0\u5F55\u5230 localstorage\uFF0C\u5728\u4E0B\u4E00\u6B21\u521D\u59CB\u5316\u65F6\u586B\u5165\u7528\u6237\u4E0A\u4E00\u6B21\u6700\u540E\u79FB\u52A8\u7684\u4FE1\u606F\u3002</em></p>
+<h2 id="\u4EE5vue\u6307\u4EE4\u65B9\u5F0F\u4F7F\u7528">\u4EE5Vue\u6307\u4EE4\u65B9\u5F0F\u4F7F\u7528</h2>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> { ToDragDirective } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@howdyjs/to-drag&#x27;</span>
+<span class="hljs-comment">// Vue3\u5168\u5C40\u5F15\u5165</span>
+app.use(ToDragDirective, someGlobalOptions)
+
+<span class="hljs-comment">// Vue2\u5168\u5C40\u5F15\u5165(\u5BF9vue2\u505A\u4E86\u517C\u5BB9)</span>
+Vue.use(ToDragDirective, someGlobalOptions)
+
+<span class="hljs-comment">// \u7EC4\u4EF6\u5185\u5F15\u5165</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">directive</span>: {
+    <span class="hljs-string">&#x27;to-drag&#x27;</span>: ToDragDirective
+  }
+}
+</code></pre>
+<h3 id="\u6307\u4EE4value-objcet">\u6307\u4EE4Value (Objcet)</h3>
+<p>\u53C2\u6570\u540C\u4E0A\u65B9\u7684\u914D\u7F6E<code>Options</code></p>
+`;export{t as default};

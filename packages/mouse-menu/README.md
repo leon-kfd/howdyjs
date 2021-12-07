@@ -155,13 +155,14 @@ export default {
     const showMenu = (e) => {
       e.preventDefault()
       const { x, y } = e;
-      mouseMenuEl.show(x,y);
+      mouseMenuEl.value.show(x,y);
     }
     return {
+      dom,
       mouseMenuEl,
       showMenu,
       options: {
-        el: dom.value, //Is Required
+        el: dom.value,
         // Other Options...
       } 
     }

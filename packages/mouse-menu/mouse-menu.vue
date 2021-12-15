@@ -3,15 +3,14 @@
     <div
       v-if="showMenu"
       ref="MenuWrapper"
-      class="__menu__wrapper"
-      :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
+      :class="['__menu__wrapper', customClass]"
+      :style="{width: `${menuList}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
     >
       <template v-for="(item,index) in calcMenuList">
         <div
           v-if="!item.hidden && !item.line"
           :key="index"
-          class="__menu__item"
-          :class="{disabled: item.disabled}"
+          :class="['__menu__item', item.disabled && 'disabled', item.customClass]"
           @mousedown.stop="handleMenuItemClick(item)"
           @mouseenter="handleMenuMouseEnter($event,item)"
         >
@@ -38,8 +37,7 @@
               <div
                 v-if="!subItem.hidden && !subItem.line"
                 :key="subIndex"
-                class="__menu__sub__item"
-                :class="{disabled: subItem.disabled}"
+                :class="['__menu__sub__item', subItem.disabled && 'disabled', subItem.customClass]"
                 @mousedown.stop="handleSubMenuItemClick(subItem)"
               >
                 <span class="__menu__sub__item-label">{{ subItem.label }}</span>
@@ -56,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, nextTick, PropType, Ref, watch, onUnmounted, onMounted } from 'vue';
+import { defineComponent, ref, computed, nextTick, PropType, Ref, watch, onUnmounted } from 'vue';
 import { MenuCallback, MenuSetting } from './types';
 import { clone } from '../shared';
 export default defineComponent({
@@ -99,7 +97,8 @@ export default defineComponent({
     injectCloseListener: {
       type: Boolean,
       default: true
-    }
+    },
+    customClass: String
   },
   setup(props) {
     const subLeft = ref(0);
@@ -187,6 +186,9 @@ export default defineComponent({
         }
         if (item.tips && typeof item.tips === 'function') {
           item.tips = item.tips(params, clickDomEl, el);
+        }
+        if (item.icon && typeof item.icon === 'function') {
+          item.icon = item.icon(params, clickDomEl, el);
         }
         if (item.hidden && typeof item.hidden === 'function') {
           item.hidden = item.hidden(params, clickDomEl, el);
@@ -317,7 +319,7 @@ export default defineComponent({
   line-height: var(--menu-item-height);
   align-items: center;
   cursor: pointer;
-  padding: 0 10px;
+  padding: var(--menu-item-padding);
   .__menu__item-icon {
     color: var(--menu-item-iconColor);
     width: var(--menu-item-iconSize);

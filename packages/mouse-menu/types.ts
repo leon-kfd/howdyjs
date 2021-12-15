@@ -5,19 +5,21 @@ export type MenuSetting = {
   tips?: string | MenuCallback<string>;
   hidden?: boolean | MenuCallback<boolean>;
   disabled?: boolean | MenuCallback<boolean>;
-  icon?: string;
+  icon?: string | MenuCallback<string>;
   line?: boolean;
   children: MenuSetting[];
+  customClass?: string;
 }
 export type CustomMouseMenuOptions = {
-  menuList: MenuSetting[],
-  menuWidth?: number,
-  hasIcon?: boolean,
-  iconType?: string,
-  menuWrapperCss?: Record<string, string>,
-  menuItemCss?: Record<string,string>,
-  params?: any,
-  appendToBody?: boolean,
-  menuHiddenFn?: MenuCallback,
-  el?: HTMLElement
+  menuList: MenuSetting[];
+  menuWidth?: number;
+  hasIcon?: boolean;
+  iconType?: string;
+  menuWrapperCss?: Record<string, string>;
+  menuItemCss?: Record<string,string>;
+  params?: any;
+  appendToBody?: boolean;
+  menuHiddenFn?: MenuCallback;
+  el?: HTMLElement;
+  customClass?: string;
 }

@@ -30,6 +30,7 @@
 |useLongPressInMobile|移动端下兼容使用长按事件唤出菜单, 但长按模式不支持多级菜单（仅支持指令方式）|Boolean|-|false|
 |longPressDuration|长按事件需持续时间,单位ms|Number|-|500|
 |injectCloseListener|自动注入关闭菜单的Listener，设为false时需自行处理|Boolean|-|true|
+|customClass|注入自定义类名到MenuWrapper上|String|-|-|
 
 #### menuList-菜单项数组配置
 |参数|说明|类型|可选值|默认值|
@@ -42,6 +43,7 @@
 |disabled|菜单项是否不可点击，可使用函数，回调参数同fn选项|Boolean, Function|-|-|
 |children|子菜单的菜单项数组（配置与此表一致，但目前仅支持二级菜单）|Array|-|-|
 |line|是否为分割线,该值为True时,以上设置均失效|Boolean|-|-|
+|customClass|注入自定义类名到MenuItem上|String|-|-|
 
 #### menuWrapperCss-菜单容器CSS设置
 |参数|说明|类型|可选值|默认值|

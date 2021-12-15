@@ -4,7 +4,7 @@
       v-if="showMenu"
       ref="MenuWrapper"
       :class="['__menu__wrapper', customClass]"
-      :style="{width: `${menuList}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
+      :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
     >
       <template v-for="(item,index) in calcMenuList">
         <div

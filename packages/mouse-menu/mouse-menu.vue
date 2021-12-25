@@ -11,7 +11,7 @@
           v-if="!item.hidden && !item.line"
           :key="index"
           :class="['__menu__item', item.disabled && 'disabled', item.customClass]"
-          @mousedown.stop="handleMenuItemClick(item)"
+          @mousedown.stop="handleMenuItemClick(item, $event)"
           @mouseenter="handleMenuMouseEnter($event,item)"
         >
           <span v-if="hasIcon" class="__menu__item-icon">
@@ -38,7 +38,7 @@
                 v-if="!subItem.hidden && !subItem.line"
                 :key="subIndex"
                 :class="['__menu__sub__item', subItem.disabled && 'disabled', subItem.customClass]"
-                @mousedown.stop="handleSubMenuItemClick(subItem)"
+                @mousedown.stop="handleSubMenuItemClick(subItem, $event)"
               >
                 <span class="__menu__sub__item-label">{{ subItem.label }}</span>
                 <span class="__menu__sub__item-tips">{{ subItem.tips || '' }}</span>
@@ -47,7 +47,7 @@
             </template>
           </div>
         </div>
-        <div v-if="item.line" :key="index" class="__menu__line"></div>
+        <div v-if="!item.hidden && item.line" :key="index" class="__menu__line"></div>
       </template>
     </div>
   </teleport>
@@ -98,7 +98,10 @@ export default defineComponent({
       type: Boolean,
       default: true
     },
-    customClass: String
+    customClass: String,
+    disabled: {
+      type: Function as PropType<MenuCallback<boolean>>
+    }
   },
   setup(props) {
     const subLeft = ref(0);
@@ -137,17 +140,17 @@ export default defineComponent({
       }
     });
 
-    const handleMenuItemClick = (item: MenuSetting) => {
+    const handleMenuItemClick = (item: MenuSetting, $event: any) => {
       if (item.disabled) return;
       if (item.fn && typeof item.fn === 'function') {
-        item.fn(props.params, clickDomEl.value, props.el);
+        item.fn(props.params, clickDomEl.value, props.el, $event);
       }
       showMenu.value = false;
     };
-    const handleSubMenuItemClick = (subItem: MenuSetting) => {
+    const handleSubMenuItemClick = (subItem: MenuSetting, $event: any) => {
       if (subItem.disabled) return;
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
-        subItem.fn(props.params, clickDomEl.value, props.el);
+        subItem.fn(props.params, clickDomEl.value, props.el, $event);
         hoverFlag.value = false;
       }
       showMenu.value = false;

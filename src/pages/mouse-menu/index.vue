@@ -46,6 +46,10 @@ export default defineComponent({
         {
           name: 'Custom params',
           introduce: '传递参数'
+        },
+        {
+          name: 'Dynamic',
+          introduce: '动态参数'
         }
       ]
     };

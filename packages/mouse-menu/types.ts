@@ -1,4 +1,4 @@
-export type MenuCallback<T = any> = (arg0?: any, arg1?: HTMLElement | null, arg2?: HTMLElement | null) => T
+export type MenuCallback<T = any> = (arg0?: any, arg1?: HTMLElement | null, arg2?: HTMLElement | null, arg3?: MouseEvent) => T
 export type MenuSetting = {
   fn?: MenuCallback;
   label?: string | MenuCallback<string>;
@@ -22,4 +22,5 @@ export type CustomMouseMenuOptions = {
   menuHiddenFn?: MenuCallback;
   el?: HTMLElement;
   customClass?: string;
+  disabled?: MenuCallback<string>;
 }

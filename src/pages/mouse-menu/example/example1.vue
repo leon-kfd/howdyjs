@@ -23,22 +23,22 @@ export default defineComponent({
           {
             label: '打开',
             tips: 'Open',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement) => console.log('open', params, currentEl, bindingEl)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('open', params, currentEl, bindingEl, e)
           },
           {
             label: '编辑',
             tips: 'Edit',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement) => console.log('edit', params, currentEl, bindingEl)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('edit', params, currentEl, bindingEl, e)
           },
           {
             label: '删除',
             tips: 'Delete',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement) => console.log('delete', params, currentEl, bindingEl)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('delete', params, currentEl, bindingEl, e)
           },
           {
             label: '重命名',
             tips: 'Rename',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement) => console.log('rename', params, currentEl, bindingEl)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('rename', params, currentEl, bindingEl, e)
           }
         ]
       }

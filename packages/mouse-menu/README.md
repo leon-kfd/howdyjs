@@ -14,7 +14,7 @@
 
 ## 配置
 
-### Props/指令Value (Objcet)
+### Props/指令Value (Object)
 |参数|说明|类型|可选值|默认值|
 |:---|:---|:---|:---|:---|
 |el|触发的Dom元素（以Vue组件方式或CustomMenu函数方式使用时必须传入）|-|-|-|

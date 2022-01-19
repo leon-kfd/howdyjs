@@ -5,7 +5,7 @@ const args = require('minimist')(process.argv.slice(2));
 const mode = args['mode'];
 
 if (mode === 'dev') {
-  glob('packages/**/package.json', (err, files) => {
+  glob('packages/*/package.json', (err, files) => {
     if (err) {
       throw err;
     }
@@ -15,7 +15,7 @@ if (mode === 'dev') {
     });
   });
 } else {
-  glob('packages/**/package-backup.json', (err, files) => {
+  glob('packages/*/package-backup.json', (err, files) => {
     if (err) {
       throw err;
     }

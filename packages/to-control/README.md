@@ -32,9 +32,9 @@ new ToDrag({
 |forbidBodyScroll|默认开启，处理移动端滚动穿透问题，当前使用设置body的overflow实现，设为false时需自行处理滚动穿透问题|Boolean|-|true|
 |**isAbsolute**|是否为Absolute模式, 可控制absolute的元素在其父元素下进行拖拽|Boolean|-|false|
 |parentSelector|Absolute模式下元素的父级容器，目前只支持传入字符串选择器|String|-|-|
-|disabled|是否禁用，需传入函数返回Boolean|Function: () => boolean|-|-|
 |arrowOptions|右下角更改大小用的箭头配置，配置参考下表|Object|-|-|
 |**positionMode**|定位模式,默认会记录top与left值,更改此值可以定位方向(1: top/left, 2: top/right, 3: bottom/left, 4: bottom/right)|Number|1,2,3,4|1|
+|disabled|是否禁用，需传入函数返回Boolean，若需同时隐藏箭头ICON在原生使用自行调用`updateArrow`方法，在Vue指令方式需触发DOM更新|Function: () => boolean|-|-|
 
 #### arrowOptions (Objcet)
 |参数|说明|类型|可选值|默认值|
@@ -54,6 +54,10 @@ new ToDrag({
 同时提供了`tocontrolstart`, `tocontrolmove`, `tocontrolend`作为更改大小后的事件，参数与to-drag事件参数一致。
 
 > 需要注意tocontrolend会同时触发todragend.
+
+### Method
+
++ `updateArrow`: 可手动更新箭头DOM
 
 ## 以Vue指令方式使用
 ```js

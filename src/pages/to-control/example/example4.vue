@@ -6,7 +6,7 @@
       @todragend="handleToDragEnd"
       @tocontrolend="handleToControlEnd"
     >
-      isLock: {{ isLock }}
+      <div>isLock: {{ isLock }}</div>
     </div>
     <button @click="isLock = !isLock">
       Toggle Lock

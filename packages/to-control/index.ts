@@ -1,5 +1,6 @@
 import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
-import ToDrag, { ToDragEvent as ToControlEvent } from '@howdyjs/to-drag';
+import ToDrag from '@howdyjs/to-drag';
+import type { ToDragEvent as ToControlEvent } from '@howdyjs/to-drag';
 export type ControlOptions = {
   moveCursor?: boolean,
   forbidBodyScroll?: boolean,
@@ -18,7 +19,9 @@ export type ArrowOptions = {
 }
 
 export type ToControlEventString = 'tocontrolstart' | 'tocontrolmove' | 'tocontrolend'
+
 export { ToControlEvent };
+
 class ToControl extends ToDrag {
   arrowCtx: HTMLElement | null = null
   private controlOptions: ControlOptions
@@ -40,14 +43,10 @@ class ToControl extends ToDrag {
   initControl() {
     this.arrowCtx = this.createResizeArrow(this.controlOptions?.arrowOptions);
     this.el.appendChild(this.arrowCtx);
-    // const { position } = getComputedStyle(this.el);
-    // if (!['fixed', 'absolute'].includes(position)) {
-    //   throw new Error('Control just work in the element which position is fixed or absolute.');
-    // }
   }
 
   updateArrow() {
-    if (this.arrowCtx) {
+    if (this.arrowCtx && this.el.contains(this.arrowCtx)) {
       this.el.removeChild(this.arrowCtx);
     }
     this.arrowCtx = this.createResizeArrow(this.controlOptions?.arrowOptions);
@@ -133,20 +132,27 @@ class ToControl extends ToDrag {
       ...arrowOptions
     };
     const arrow = document.createElement('div') as HTMLElement;
-    const cssText = `
+    arrow.style.cssText = `
       position: absolute;
-      right: ${options.padding}px; 
-      bottom: ${options.padding}px;
-      width: ${options.size}px;
-      height: ${options.size}px;
-      border-bottom: ${options.lineWidth}px solid ${options.lineColor};
-      border-right: ${options.lineWidth}px solid ${options.lineColor};
+      right: 0; 
+      bottom: 0;
+      padding: ${ options.padding }px;
       cursor: se-resize;
       background: ${options.background || 'none'};
       display: ${isDisabled ? 'none' : 'block'}
     `;
     arrow.className = 'to-control-arrow';
-    arrow.style.cssText = cssText;
+
+    const arrowInner = document.createElement('div') as HTMLElement;
+    arrowInner.style.cssText = `
+      width: ${ options.size }px;
+      height: ${ options.size }px;
+      border-bottom: ${options.lineWidth}px solid ${options.lineColor};
+      border-right: ${options.lineWidth}px solid ${options.lineColor};
+    `;
+    arrowInner.className = 'to-control-arrow-inner';
+    arrow.appendChild(arrowInner);
+
     if (this.isTouch) {
       arrow.addEventListener('touchstart', this.arrowMouseDownEvent);
     } else {

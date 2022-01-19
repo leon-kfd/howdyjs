@@ -1,5 +1,19 @@
-<h1 style="text-shadow: 3px 3px #5b9df3;color: transparent;-webkit-text-stroke-color: #262626;-webkit-text-stroke-width: 2px;font-family: unset">Howdy</h1>
-<br>
+<h1 style="text-shadow: 3px 3px #5b9df3;color: transparent;-webkit-text-stroke-color: #262626;-webkit-text-stroke-width: 2px;font-family: unset">Howdyjs</h1>
+
+<p>
+  <a href="https://github.com/leon-kfd/howdyjs" target="_blank">
+    <img src="https://img.shields.io/github/stars/leon-kfd/howdyjs" alt="Star">
+  </a>
+  <a href="https://github.com/leon-kfd/howdyjs" target="_blank">
+    <img src="https://img.shields.io/github/forks/leon-kfd/howdyjs?color=%23cc8844" alt="Fork">
+  </a>
+  <a href="https://github.com/leon-kfd/howdyjs/blob/main/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/leon-kfd/howdyjs" alt="Licensee">
+  </a>
+  <img style="display: none" src="https://visitor-badge.glitch.me/badge?page_id=howdyjs.readme&amp;right_color=red" alt="Visit">
+</p>
+
+---
 
 **一个包含Javascript插件、Vue3组件、Vue3指令的轻量工具组件库**  
 *A universal component packages of javascript plugins or tools* 
@@ -72,5 +86,14 @@ npm i -S howdyjs
 + 开发环境及展示站点使用`vite`搭建，lerna初始化、安装依赖、打包Packages，完成后执行`npm run example`启动
 + 站点路由文件使用`import.meta.glob`读取文件目录**自动生成**，原则上不需更改路由文件
 
+### 贡献与本地开发
+
+在项目初始化后，执行`npm run backup-package-json && npm run example`可使展示站点直接引用项目中Packages的代码并实现热更新，但注意开发完后要执行`npm run reset-package-json`恢复各包的**package.json**。
+
+原理是更改`package.json`的main字段指向开发的源文件，而发包的时候再将main字段入口文件指向打包后的`index.js`，后续有可能把这种方式更改为软连接的方式。
+
+---
+
+欢迎各种建议反馈与PR，感谢使用。
 
 #### <a href="https://www.kongfandong.cn" target="_blank" style="color: rgb(75, 9, 150)">VIEW AUTHOR BLOG</a>

@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue';
-import marked from 'marked';
+import { parse } from 'marked';
 import hljs from 'highlight.js';
 import path from 'path';
 
@@ -12,7 +12,7 @@ const markdownPlugin = (options: any) => {
       if (!/\.md/.test(id)) {
         return;
       }
-      const result = marked(code, options);
+      const result = parse(code, options);
       return `export default ${JSON.stringify(result)}`;
     }
   };

@@ -78,7 +78,7 @@ export default defineComponent({
     font-weight: 700;
     line-height: 1.1;
     padding-top: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
     font-family: 'Kaushan Script', cursive;
   }
   h2,
@@ -102,7 +102,7 @@ export default defineComponent({
     font-weight: 700;
     font-size: 1.2em;
     line-height: 1.4;
-    margin: 10px 0 5px;
+    margin: 10px 0;
     padding-top: 10px;
   }
   h4 {
@@ -139,7 +139,7 @@ export default defineComponent({
     line-height: 1.8;
   }
   p {
-    // margin: 0 0 20px;
+    margin: 0 0 10px;
     padding: 0;
     line-height: 1.8;
   }

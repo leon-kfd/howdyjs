@@ -21,7 +21,7 @@
 |menuWidth|菜单宽度|Number|-|200|
 |menuList|生成菜单项的数组，具体配置参考下表|Array|-|-|
 |hasIcon|是否有菜单图标|Boolean|-|false|
-|iconType|菜单图标的类型(目前仅支持字体图标)|String|-|font-icon|
+|iconType|菜单图标的类型，支持字体图标、SVG图标、VNode组件|'font-icon', 'svg-icon', 'vnode-icon'|-|font-icon|
 |menuWrapperCss|菜单容器的CSS设置，具体配置参考下表|Object|-|-|
 |menuItemCss|菜单项的CSS设置，具体配置参考下表|Object|-|-|
 |params|传给处理函数的自定义参数，会注入到下方各回调函数的首个参数中|Any|-|-|

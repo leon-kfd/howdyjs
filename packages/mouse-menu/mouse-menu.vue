@@ -14,9 +14,16 @@
           @mousedown.stop="handleMenuItemClick(item, $event)"
           @mouseenter="handleMenuMouseEnter($event,item)"
         >
-          <span v-if="hasIcon" class="__menu__item-icon">
-            <i v-if="iconType==='font-icon'" v-show="item.icon" :class="item.icon"></i>
-          </span>
+          <div v-if="hasIcon" class="__menu__item-icon">
+            <i v-if="iconType==='font-icon'" v-show="item.icon" :class="item.icon" />
+            <div 
+              v-else-if="iconType==='svg-icon'" 
+              v-show="item.icon" 
+              class="__menu__item-icon-svg" 
+              v-html="item.icon"
+            ></div>
+            <component :is="item.icon" v-else-if="iconType==='vnode-icon'" />
+          </div>
           <span class="__menu__item-label">{{ item.label }}</span>
           <span class="__menu__item-tips">{{ item.tips || '' }}</span>
           <span
@@ -319,17 +326,26 @@ export default defineComponent({
 .__menu__sub__item {
   display: flex;
   height: var(--menu-item-height);
-  line-height: var(--menu-item-height);
+  // line-height: var(--menu-item-height);
   align-items: center;
   cursor: pointer;
   padding: var(--menu-item-padding);
   .__menu__item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--menu-item-iconColor);
     width: var(--menu-item-iconSize);
     height: var(--menu-item-iconSize);
-    line-height: var(--menu-item-iconSize);
     i {
       font-size: var(--menu-item-iconFontSize);
+    }
+    .__menu__item-icon-svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
     }
   }
   .__menu__item-label,

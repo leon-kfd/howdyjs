@@ -97,3 +97,9 @@ npm i -S howdyjs
 欢迎各种建议反馈与PR，感谢使用。
 
 #### <a href="https://www.kongfandong.cn" target="_blank" style="color: rgb(75, 9, 150)">VIEW AUTHOR BLOG</a>
+
+## License
+
+All for [MIT](https://github.com/leon-kfd/howdyjs/blob/master/LICENSE)
+
+Copyright (c) 2021 Leon.D

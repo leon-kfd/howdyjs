@@ -16,7 +16,7 @@
 ---
 
 **一个包含Javascript插件、Vue3组件、Vue3指令的轻量工具组件库**  
-*A universal component packages of javascript plugins or tools* 
+*An universal component packages of javascript plugins or tools* 
 
 > 当前该仓库已使用`Vue3` + `Typescript`，基于Vue2组件的旧版项目请前往<a href="https://github.com/leon-kfd/howdyjs/tree/howdy" target="_blank">howdy分支</a>查看。
 
@@ -102,4 +102,4 @@ npm i -S howdyjs
 
 All for [MIT](https://github.com/leon-kfd/howdyjs/blob/master/LICENSE)
 
-Copyright (c) 2021 Leon.D
+Copyright (c) 2022 Leon.D

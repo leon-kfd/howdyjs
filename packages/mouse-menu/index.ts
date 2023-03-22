@@ -61,7 +61,7 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding) => {
     contextMenuEvent = (e: MouseEvent) => {
       if (typeof value.disabled === 'function' && value.disabled(value.params)) return;
       e.preventDefault();
-      const MouseMenuCtx = CustomMouseMenu({
+      MouseMenuCtx = CustomMouseMenu({
         el,
         ...value
       });

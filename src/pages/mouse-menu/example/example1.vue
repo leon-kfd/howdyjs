@@ -1,6 +1,6 @@
 <template>
-  <div v-mouse-menu="options" class="box">
-    <p class="text">
+  <div v-mouse-menu="options" class="box" @scroll="onScroll">
+    <p class="text" style="height: 900px">
       {{ !isMobile ? 'Right click this box' : 'Long press this box' }}.
     </p>
   </div>
@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { MouseMenuDirective } from '../../../../packages/mouse-menu';
+import { MouseMenuDirective, MouseMenuCtx } from '../../../../packages/mouse-menu';
 export default defineComponent({
   directives: {
     MouseMenu: MouseMenuDirective
@@ -16,6 +16,9 @@ export default defineComponent({
   setup() {
     return {
       isMobile: 'ontouchstart' in window,
+      onScroll: () => {
+        if(MouseMenuCtx) MouseMenuCtx.close()
+      },
       options: {
         params: { a: 1 },
         useLongPressInMobile: true,
@@ -54,6 +57,7 @@ export default defineComponent({
   height: 500px;
   background: #ffe0e0;
   margin: 0 auto;
+  overflow-y: auto;
 }
 .text {
   font-size: 12px;

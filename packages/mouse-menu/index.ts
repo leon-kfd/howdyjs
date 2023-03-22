@@ -108,5 +108,5 @@ const MouseMenuDirective: ObjectDirective = {
   unmounted
 };
 
-export { MouseMenuDirective, CustomMouseMenu };
+export { MouseMenuDirective, CustomMouseMenu, MouseMenuCtx };
 export default MouseMenu;

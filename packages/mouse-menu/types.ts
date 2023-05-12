@@ -1,3 +1,5 @@
+import { VNode } from 'vue';
+
 export type MenuCallback<T = any> = (arg0?: any, arg1?: HTMLElement | null, arg2?: HTMLElement | null, arg3?: MouseEvent) => T
 export type MenuSetting = {
   fn?: MenuCallback;
@@ -5,7 +7,7 @@ export type MenuSetting = {
   tips?: string | MenuCallback<string>;
   hidden?: boolean | MenuCallback<boolean>;
   disabled?: boolean | MenuCallback<boolean>;
-  icon?: string | MenuCallback<string>;
+  icon?: string | MenuCallback | VNode;
   line?: boolean;
   children?: MenuSetting[];
   customClass?: string;

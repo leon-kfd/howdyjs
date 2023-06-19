@@ -18,15 +18,20 @@ export default defineComponent({
       isMobile: 'ontouchstart' in window,
       options: {
         useLongPressInMobile: true,
+        customClass: 'custom-howdy-menu', // 通过注入类名实现更多样式效果
         menuWrapperCss: {
-          background: 'linear-gradient(45deg, #3439e6, #EC6EAD)',
-          boxShadow: '0 0 10px #ccc'
+          background: '#ffffff',
+          borderRadius: '6px',
+          padding: '8px 6px',
+          boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
+          lineColor: '#eee',
+          lineMargin: '5px 10px',
         },
         menuItemCss: {
-          labelColor: '#fff',
-          tipsColor: '#ccc',
-          arrowColor: '#aaa',
-          disabledColor: '#aaa'
+          arrowSize: '10px',
+          iconFontSize: '18px',
+          labelColor: '#5E6370',
+          iconColor: '#5E6370',
         },
         menuList: [
           {
@@ -61,6 +66,7 @@ export default defineComponent({
               {
                 label: '删除',
                 tips: 'Delete',
+                customClass: 'delete', // 自定义样式
                 fn: (...args:[]) => console.log('open', args)
               },
               {
@@ -94,5 +100,25 @@ export default defineComponent({
   font-size: 12px;
   color: #889;
   padding: 5px;
+}
+</style>
+
+<style lang="scss">
+// 覆盖菜单CSS
+.__menu__wrapper.custom-howdy-menu {
+  .__menu__item,
+  .__menu__sub__item{
+    border-radius: 6px;
+    &:not(.disabled):hover {
+      color: rgb(31, 54, 128) !important;
+      background: rgba(31, 54, 128, 0.1) !important;
+    }
+    &.delete {
+      &:hover {
+        color: rgb(216, 94, 94) !important;
+        background: rgba(216, 94, 94, 0.2) !important;
+      }
+    }
+  }
 }
 </style>

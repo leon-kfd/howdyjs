@@ -31,8 +31,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 #API {
   width: 100%;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 .container {
   max-width: 800px;
@@ -46,6 +44,8 @@ export default defineComponent({
   overflow: auto;
 }
 .readme {
+  font-family: 'HarmonyOS_Regular', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   table {
     width: 100%;
     max-width: 65em;
@@ -79,7 +79,8 @@ export default defineComponent({
     line-height: 1.1;
     padding-top: 16px;
     margin-bottom: 20px;
-    font-family: 'Kaushan Script', cursive;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
   }
   h2,
   h3,
@@ -199,9 +200,6 @@ export default defineComponent({
   del {
     text-decoration: line-through;
   }
-  /*code {font-size:90%;}*/
-
-  /*pre {text-align:left; overflow-x: scroll; color: #257fa0; background: #f6f6f6; padding: 10pt 15pt; border-radius: 3px; border: solid 1px #e2e2e2;}*/
 
   pre {
     margin: 0 0 10px;
@@ -308,12 +306,16 @@ export default defineComponent({
     outline: 0;
   }
   :not(pre) > code {
-    border-radius: 3px;
+    border-radius: 2px;
     background: rgb(253, 239, 213);
-    color: #262626;
+    color: #464646;
     padding: 2px 4px 1px;
+    margin: 0 2px;
     white-space: normal;
     font-weight: 500;
+    font-size: 13px;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif !important;
   }
 }
 .language-js {

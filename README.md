@@ -10,7 +10,6 @@
   <a href="https://github.com/leon-kfd/howdyjs/blob/main/LICENSE" target="_blank">
     <img src="https://img.shields.io/github/license/leon-kfd/howdyjs" alt="Licensee">
   </a>
-  <img style="display: none" src="https://visitor-badge.glitch.me/badge?page_id=howdyjs.readme&amp;right_color=red" alt="Visit">
 </p>
 
 ---

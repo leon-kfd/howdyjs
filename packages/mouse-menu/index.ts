@@ -24,7 +24,7 @@ function CustomMouseMenu (options: CustomMouseMenuOptions) {
 type ContextMenuListenFn = (e: MouseEvent) => void
 type TouchListenFn = (e: TouchEvent) => void
 
-let MouseMenuCtx: any;
+let MouseMenuCtx: ComponentPublicInstance<typeof MouseMenu>;
 let longPressTimer: number;
 let longPressTouchStart: TouchListenFn;
 let longPressTouchEnd: TouchListenFn;

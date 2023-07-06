@@ -110,7 +110,8 @@ export default defineComponent({
       type: Function as PropType<MenuCallback<boolean>>
     }
   },
-  setup(props) {
+  emits: ['open', 'close'],
+  setup(props, { emit }) {
     const subLeft = ref(0);
     const subTop = ref(0);
     const hoverFlag = ref(false);
@@ -144,17 +145,20 @@ export default defineComponent({
           arrowSize.value = 10;
         }
         el.style.setProperty('--menu-item-arrowRealSize', arrowSize.value / 2 + 'px');
+        emit('open');
+      } else {
+        emit('close');
       }
     });
 
-    const handleMenuItemClick = (item: MenuSetting, $event: any) => {
+    const handleMenuItemClick = (item: MenuSetting, $event: MouseEvent) => {
       if (item.disabled) return;
       if (item.fn && typeof item.fn === 'function') {
         item.fn(props.params, clickDomEl.value, props.el, $event);
       }
       showMenu.value = false;
     };
-    const handleSubMenuItemClick = (subItem: MenuSetting, $event: any) => {
+    const handleSubMenuItemClick = (subItem: MenuSetting, $event: MouseEvent) => {
       if (subItem.disabled) return;
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
         subItem.fn(props.params, clickDomEl.value, props.el, $event);

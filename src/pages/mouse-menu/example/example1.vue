@@ -26,24 +26,40 @@ export default defineComponent({
           {
             label: '打开',
             tips: 'Open',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('open', params, currentEl, bindingEl, e)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
+              console.log('open', params, currentEl, bindingEl, e)
+            }
           },
           {
             label: '编辑',
             tips: 'Edit',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('edit', params, currentEl, bindingEl, e)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
+              console.log('edit', params, currentEl, bindingEl, e)
+            }
           },
           {
             label: '删除',
             tips: 'Delete',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('delete', params, currentEl, bindingEl, e)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
+              console.log('delete', params, currentEl, bindingEl, e)
+            }
           },
           {
             label: '重命名',
             tips: 'Rename',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('rename', params, currentEl, bindingEl, e)
+            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
+              console.log('rename', params, currentEl, bindingEl, e)
+            }
           }
-        ]
+        ],
+        // 菜单Open回调
+        onOpen: () => {
+          console.log('onOpen')
+        },
+        // 菜单Close回调
+        onClose: () => {
+          console.log('onClose')
+        }
       }
     };
   }

@@ -31,6 +31,8 @@
 |longPressDuration|长按事件需持续时间,单位ms|Number|-|500|
 |injectCloseListener|自动注入关闭菜单的Listener，设为false时需自行处理|Boolean|-|true|
 |customClass|注入自定义类名到MenuWrapper上|String|-|-|
+|onOpen|菜单打开后的回调（^2.0.8）|Function|-|-|
+|onClose|菜单打开后的回调（^2.0.8）|Function|-|-|
 
 #### menuList-菜单项数组配置
 |参数|说明|类型|可选值|默认值|

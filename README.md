@@ -34,11 +34,11 @@
 2. **[@howdyjs/resize](https://kongfandong.cn/howdy/resize)**  
 ✨通过拖拽更改元素尺寸插件
 
-3. **[@howdyjs/to-control](https://kongfandong.cn/howdy/to-control)**  
-✨拖拽更改元素大小与位置插件
-
-4. **[@howdyjs/to-drag](https://kongfandong.cn/howdy/to-drag)**  
+3. **[@howdyjs/to-drag](https://kongfandong.cn/howdy/to-drag)**  
 ✨设置Dom可拖动插件
+
+4. **[@howdyjs/to-control](https://kongfandong.cn/howdy/to-control)**  
+✨拖拽更改元素大小与位置插件
 
 5. **[@howdyjs/img-zoom](https://kongfandong.cn/howdy/img-zoom)**  
 ✨图片放大插件，支持按组浏览下一张图片

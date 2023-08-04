@@ -21,7 +21,6 @@ export default defineComponent({
       },
       options: {
         params: { a: 1 },
-        useLongPressInMobile: true,
         menuList: [
           {
             label: '打开',
@@ -59,6 +58,13 @@ export default defineComponent({
         // 菜单Close回调
         onClose: () => {
           console.log('onClose')
+        },
+        // 移动端长按配置
+        useLongPressInMobile: true,
+        longPressDuration: 300,
+        longPressPreventDefault: (e: Event, el: HTMLElement) => {
+          console.log({ e, el })
+          return false
         }
       }
     };

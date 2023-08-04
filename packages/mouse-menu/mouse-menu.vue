@@ -11,7 +11,7 @@
           v-if="!item.hidden && !item.line"
           :key="index"
           :class="['__menu__item', item.disabled && 'disabled', item.customClass]"
-          @mousedown.stop="handleMenuItemClick(item, $event)"
+          @[clickEventKey].stop="handleMenuItemClick(item, $event)"
           @mouseenter="handleMenuMouseEnter($event,item)"
         >
           <div v-if="hasIcon" class="__menu__item-icon">
@@ -45,7 +45,7 @@
                 v-if="!subItem.hidden && !subItem.line"
                 :key="subIndex"
                 :class="['__menu__sub__item', subItem.disabled && 'disabled', subItem.customClass]"
-                @mousedown.stop="handleSubMenuItemClick(subItem, $event)"
+                @[clickEventKey].stop="handleSubMenuItemClick(subItem, $event)"
               >
                 <span class="__menu__sub__item-label">{{ subItem.label }}</span>
                 <span class="__menu__sub__item-tips">{{ subItem.tips || '' }}</span>
@@ -101,6 +101,7 @@ export default defineComponent({
     },
     useLongPressInMobile: Boolean,
     longPressDuration: Number,
+    longPressPreventDefault: [Function, Boolean],
     injectCloseListener: {
       type: Boolean,
       default: true
@@ -119,7 +120,7 @@ export default defineComponent({
     const menuLeft = ref(0);
     const showMenu = ref(false);
     const clickDomEl = ref(null) as Ref<null | HTMLElement>;
-    const calcMenuList = ref([] as MenuSetting[]);
+    const calcMenuList = ref([] as Array<MenuSetting & { icon?: any }>);
     const hasSubMenu = computed(() => props.menuList.some(item => item.children && item.children.length > 0));
     const arrowSize = ref(10);
     const MenuWrapper = ref();
@@ -238,8 +239,10 @@ export default defineComponent({
       showMenu.value = false;
     };
 
+    const clickEventKey = computed(() => props.useLongPressInMobile && 'ontouchstart' in window ? 'touchstart' : 'mousedown')
+
     // injectCloseListener
-    const listenerFn = (e: MouseEvent) => {
+    const listenerFn = (e: Event) => {
       if (MenuWrapper.value && !MenuWrapper.value.contains(e.currentTarget)) {
         showMenu.value = false;
         document.oncontextmenu = null;
@@ -247,15 +250,15 @@ export default defineComponent({
     };
     watch(() => props.injectCloseListener, (val) => {
       if (val) {
-        document.addEventListener('mousedown', listenerFn);
+        document.addEventListener(clickEventKey.value, listenerFn);
       } else {
-        document.removeEventListener('mousedown', listenerFn);
+        document.removeEventListener(clickEventKey.value, listenerFn);
       }
     }, {
       immediate: true
     });
     onUnmounted(() => {
-      document.removeEventListener('mousedown', listenerFn);
+      document.removeEventListener(clickEventKey.value, listenerFn);
     });
 
     return {
@@ -274,7 +277,8 @@ export default defineComponent({
       handleSubMenuItemClick,
       handleMenuMouseEnter,
       show,
-      close
+      close,
+      clickEventKey
     };
   }
 });

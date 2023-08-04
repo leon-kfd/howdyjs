@@ -1,4 +1,4 @@
-import { App, DirectiveBinding, h, render, ComponentPublicInstance, ObjectDirective } from 'vue';
+import { App, DirectiveBinding, createVNode, render, ComponentPublicInstance, ObjectDirective } from 'vue';
 import { CustomMouseMenuOptions } from './types';
 import MouseMenu from './mouse-menu.vue';
 import { createClassDom } from '../shared';
@@ -15,7 +15,7 @@ function CustomMouseMenu (options: CustomMouseMenuOptions) {
   } else {
     container = createClassDom('div', className);
   }
-  const vm = h(MouseMenu, options);
+  const vm = createVNode(MouseMenu, options);
   render(vm, container);
   document.body.appendChild(container);
   return vm.component?.proxy as ComponentPublicInstance<typeof MouseMenu>;
@@ -23,15 +23,24 @@ function CustomMouseMenu (options: CustomMouseMenuOptions) {
 
 type ContextMenuListenFn = (e: MouseEvent) => void
 type TouchListenFn = (e: TouchEvent) => void
+type PreventCheckFn = (e?: TouchEvent, el?: HTMLElement) => boolean
 
 let MouseMenuCtx: ComponentPublicInstance<typeof MouseMenu>;
 let longPressTimer: number;
 let longPressTouchStart: TouchListenFn;
 let longPressTouchEnd: TouchListenFn;
-function addLongPressListener (el: HTMLElement, fn: TouchListenFn, longPressDuration = 500) {
+function addLongPressListener (el: HTMLElement, fn: TouchListenFn, longPressDuration = 500, longPressPreventDefault?: PreventCheckFn | boolean) {
   longPressTouchStart = (e: TouchEvent) => {
     MouseMenuCtx && MouseMenuCtx.close();
-    e.preventDefault();
+    if (typeof longPressPreventDefault === 'function') {
+      if (longPressPreventDefault(e, el)) {
+        e.preventDefault();
+      }
+    } else if (typeof longPressPreventDefault === 'boolean') {
+      if (longPressPreventDefault) {
+        e.preventDefault();
+      }
+    }
     if (longPressTimer) clearTimeout(longPressTimer);
     longPressTimer = window.setTimeout(() => {
       fn(e);
@@ -73,7 +82,6 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding) => {
     if (value.useLongPressInMobile && 'ontouchstart' in window) {
       longPressEvent = (e: TouchEvent) => {
         if (typeof value.disabled === 'function' && value.disabled(value.params)) return;
-        e.preventDefault();
         MouseMenuCtx = CustomMouseMenu({
           el,
           ...value
@@ -89,7 +97,12 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding) => {
         }, 500);
       };
       removeLongPressListener(el);
-      addLongPressListener(el, longPressEvent, value.longPressDuration || 500);
+      addLongPressListener(
+        el, 
+        longPressEvent, 
+        value.longPressDuration || 500,
+        value.longPressPreventDefault
+      );
     } 
   } else {
     throw new Error('At least set one menu list!');

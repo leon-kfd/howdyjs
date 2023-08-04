@@ -29,6 +29,7 @@
 |disabled|是否禁用整个菜单，接收一个函数|(params: any) => boolean|-|-|
 |useLongPressInMobile|移动端下兼容使用长按事件唤出菜单, 但长按模式不支持多级菜单（仅支持指令方式）|Boolean|-|false|
 |longPressDuration|长按事件需持续时间,单位ms|Number|-|500|
+|longPressPreventDefault|长按事件下touchstart是否PreventDefault, 可接收函数|Boolean/Function|-|
 |injectCloseListener|自动注入关闭菜单的Listener，设为false时需自行处理|Boolean|-|true|
 |customClass|注入自定义类名到MenuWrapper上|String|-|-|
 |onOpen|菜单打开后的回调（^2.0.8）|Function|-|-|

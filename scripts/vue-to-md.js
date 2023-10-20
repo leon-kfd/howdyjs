@@ -1,5 +1,5 @@
 const fs = require('fs');
-const glob = require('glob');
+const { glob } = require('glob');
 
 const classifys = fs.readdirSync('src/pages');
 classifys.map(classify => {

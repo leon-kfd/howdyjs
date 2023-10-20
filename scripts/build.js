@@ -17,7 +17,6 @@ module.exports = {
   } = {}) {
     const bundle = await rollup.rollup({
       input,
-
       plugins: [
         vuePlugin({
           include: /\.vue$/,
@@ -40,10 +39,8 @@ module.exports = {
     const minSize = (code.length / 1024).toFixed(2);
     const gzipped = gzipSync(code);
     const gzippedSize = (gzipped.length / 1024).toFixed(2);
-
     const compressed = compress(code);
     const compressedSize = (compressed.length / 1024).toFixed(2);
-
     console.log(
       `${chalk.green(
         chalk.bold(file)

@@ -4,7 +4,7 @@
   "description": "监听盒子大小变化插件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "index.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {
@@ -21,8 +21,5 @@
   ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
-  },
-  "dependencies": {
-    "resize-observer-polyfill": "^1.5.1"
   }
 }

@@ -30,9 +30,9 @@ export default {
     markdownPlugin({
       highlight: (code: string) => {
         if (code.includes('template')) {
-          return hljs.highlight('html', code).value;
+          return hljs.highlight(code, { language: 'html' }).value;
         } else if (code.includes('lang="ts"')) {
-          return hljs.highlight('typescript', code).value;
+          return hljs.highlight(code, { language: 'typescript' }).value;
         } else {
           return hljs.highlightAuto(code).value;
         }

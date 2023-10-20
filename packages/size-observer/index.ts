@@ -1,4 +1,3 @@
-import ResizeObserver from 'resize-observer-polyfill';
 import { App, DirectiveHook, DirectiveBinding, ObjectDirective } from 'vue';
 interface DOMRectReadOnly {
   readonly x: number;

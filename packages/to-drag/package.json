@@ -4,7 +4,7 @@
   "description": "设置Dom可拖动插件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "index.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {

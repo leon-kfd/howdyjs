@@ -4,7 +4,7 @@
   "description": "拖拽更改元素尺寸插件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "index.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {

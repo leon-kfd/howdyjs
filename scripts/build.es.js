@@ -11,6 +11,6 @@ walkPackageDirs((dirName) => {
       file: `./packages/${dirName}/dist/index.es.js`,
       format: 'esm',
     },
-    external: id => ['resize-observer-polyfill', 'tslib', 'vue'].includes(id) || id.includes('@howdyjs')
+    external: id => ['tslib', 'vue'].includes(id) || id.includes('@howdyjs')
   });
 });

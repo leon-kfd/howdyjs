@@ -8,7 +8,7 @@
 ## 特性
 1. 当盒子大小改变时会触发回调函数
 2. 基于JS试验API：[ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API)
-3. 基于[resize-observer-polyfill](https://github.com/que-etc/resize-observer-polyfill)
+3. ~~基于[resize-observer-polyfill](https://github.com/que-etc/resize-observer-polyfill)~~
 4. 封装了vue指令的形式
 
 ## 原生使用

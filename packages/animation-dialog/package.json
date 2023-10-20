@@ -4,7 +4,7 @@
   "description": "Vue动画弹窗组件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "index.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {
@@ -21,9 +21,6 @@
   ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"
-  },
-  "dependencies": {
-    "tslib": "^1.9.3"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"

@@ -138,6 +138,7 @@ export default {
     }
   }
 }
+</script>
 ```
 
 3. 组件方式使用

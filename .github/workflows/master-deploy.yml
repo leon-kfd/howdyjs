@@ -23,7 +23,7 @@ jobs:
         run: yarn bootstrap
 
       - name: Build Pkgs
-        run: yarn build:pkg
+        run: yarn build:lib
 
       - name: Build Example
         run: yarn build:hash

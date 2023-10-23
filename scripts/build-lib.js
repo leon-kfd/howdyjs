@@ -10,7 +10,8 @@ const { gzipSync } = require('zlib');
 
 const buildPackage = async () => {
   const dirNames = fs.readdirSync('packages');
-  const whiteList = ['shared'];
+  // const whiteList = ['shared'];
+  const whiteList = []
   const packages = []
   dirNames.forEach(dirName => {
     const dirPath = path.resolve('packages', dirName);
@@ -27,20 +28,25 @@ const buildPackage = async () => {
 const build = async (dirName) => {
   fs.mkdirSync(`./packages/${dirName}/dist`,{ recursive:true });
   const input = `./packages/${dirName}/index.ts`
-  const plugins = [
-    vue({
-      include: /\.vue$/,
-      preprocessStyles: true
-    }),
-    esbuild.default(),
-    postcss()
-  ]
   const external = id => ['vue'].includes(id) || id.includes('@howdyjs')
-  const bundle = await rollup.rollup({ 
-    input, 
-    plugins, 
-    external 
-  });
+  const getBundle = async ({ minify } = {
+    minify: false
+  }) => {
+    return await rollup.rollup({ 
+      input, 
+      plugins: [
+        vue({
+          include: /\.vue$/,
+          preprocessStyles: true
+        }),
+        esbuild.default({
+          minify
+        }),
+        postcss()
+      ], 
+      external 
+    });
+  }
 
   // CommonJS
   const cjsOutput = {
@@ -48,14 +54,14 @@ const build = async (dirName) => {
     exports:'named',
     format: 'cjs',
   }
-  await bundle.write(cjsOutput)
+  await (await getBundle()).write(cjsOutput)
 
   // ESM
   const esmOutput = {
     file: `./packages/${dirName}/dist/index.es.js`,
     format: 'esm',
   }
-  await bundle.write(esmOutput)
+  await (await getBundle()).write(esmOutput)
 
   // UMD
   const umdOutput = {
@@ -68,9 +74,9 @@ const build = async (dirName) => {
       '@howdyjs/to-drag': 'HowdyToDrag'
     }
   }
-  await bundle.write(umdOutput)
+  await (await getBundle({ minify: true })).write(umdOutput)
 
-  console.log(`${chalk.yellow(chalk.bold(dirName))} build success!`);
+  console.log(`${chalk.yellow(chalk.bold(`[${dirName}]`))} build success!`);
   const arr = [cjsOutput.file, esmOutput.file, umdOutput.file];
   arr.map(file => {
     const { minSize, gzippedSize } = calcFileSize(file)

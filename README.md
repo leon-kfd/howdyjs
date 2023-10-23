@@ -79,7 +79,8 @@ npm i -S howdyjs
 
 ### Packages
 + 使用**Lerna**进行分包管理，执行`npm run bootstrap`项目初始化
-+ 使用**Rollup**进行打包， 执行`npm run build:pkg`打包各Packages，包含cjs、es和其d.ts文件
++ 使用**Rollup**进行打包，执行`npm run build:lib`打包各个Packages
++ 已更新使用`rollup-plugin-esbuild`加速打包
 
 ### 展示站点
 + 开发环境及展示站点使用**Vite**搭建，lerna初始化、安装依赖、打包Packages，完成后执行`npm run example`启动

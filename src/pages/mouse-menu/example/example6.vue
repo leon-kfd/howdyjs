@@ -24,55 +24,47 @@
   </table>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
-import { MouseMenuDirective } from '../../../../packages/mouse-menu';
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+import { MouseMenuDirective, CustomMouseMenuOptions } from '../../../../packages/mouse-menu';
 import { apiURL } from '../../../global';
-export default defineComponent({
-  directives: {
-    MouseMenu: MouseMenuDirective
-  },
-  setup() {
-    const list = ref([]);
-    onMounted(async () => {
-      const res = await fetch(`${apiURL}/page?page=1&pageSize=30`);
-      const { data, errCode } = await res.json();
-      if (errCode === 200) {
-        list.value = data.items.map((item: Record<string, any>) => {
-          item.sex = item.sex === 1 ? '男' : '女';
-          return item;
-        });
-      }
+const list = ref<Record<string, any>[]>([])
+onMounted(async () => {
+  const res = await fetch(`${apiURL}/page?page=1&pageSize=30`);
+  const { data, errCode } = await res.json();
+  if (errCode === 200) {
+    list.value = data.items.map((item: Record<string, any>) => {
+      item.sex = item.sex === 1 ? '男' : '女';
+      return item;
     });
-    return {
-      list,
-      options: {
-        useLongPressInMobile: true,
-        menuList: [
-          {
-            label: (params: any) => `#${params.userName}`,
-            disabled: true
-          },
-          {
-            label: '编辑',
-            tips: 'Edit',
-            fn: (row: any, ...args:[]) => console.log('edit', row, args),
-          },
-          {
-            label: '停用',
-            tips: 'Stop',
-            fn: (row: any, ...args:[]) => console.log('stop', row, args),
-          },
-          {
-            label: '删除',
-            tips: 'Delete',
-            fn: (row: any, ...args:[]) => console.log('delete', row, args)
-          }
-        ]
-      }
-    };
   }
 });
+
+const vMouseMenu = MouseMenuDirective
+const options: CustomMouseMenuOptions = {
+  useLongPressInMobile: true,
+  menuList: [
+    {
+      label: (params) => `#${params.userName}`,
+      disabled: true
+    },
+    {
+      label: '编辑',
+      tips: 'Edit',
+      fn: (row: any, ...args:[]) => console.log('edit', row, args),
+    },
+    {
+      label: '停用',
+      tips: 'Stop',
+      fn: (row: any, ...args:[]) => console.log('stop', row, args),
+    },
+    {
+      label: '删除',
+      tips: 'Delete',
+      fn: (row: any, ...args:[]) => console.log('delete', row, args)
+    }
+  ]
+}
 </script>
 <style lang="scss" scoped>
 .easy {

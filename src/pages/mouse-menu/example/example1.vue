@@ -6,70 +6,64 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { MouseMenuDirective, MouseMenuCtx } from '../../../../packages/mouse-menu';
-export default defineComponent({
-  directives: {
-    MouseMenu: MouseMenuDirective
-  },
-  setup() {
-    return {
-      isMobile: 'ontouchstart' in window,
-      onScroll: () => {
-        if(MouseMenuCtx) MouseMenuCtx.close()
-      },
-      options: {
-        params: { a: 1 },
-        menuList: [
-          {
-            label: '打开',
-            tips: 'Open',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
-              console.log('open', params, currentEl, bindingEl, e)
-            }
-          },
-          {
-            label: '编辑',
-            tips: 'Edit',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
-              console.log('edit', params, currentEl, bindingEl, e)
-            }
-          },
-          {
-            label: '删除',
-            tips: 'Delete',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
-              console.log('delete', params, currentEl, bindingEl, e)
-            }
-          },
-          {
-            label: '重命名',
-            tips: 'Rename',
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => {
-              console.log('rename', params, currentEl, bindingEl, e)
-            }
-          }
-        ],
-        // 菜单Open回调
-        onOpen: () => {
-          console.log('onOpen')
-        },
-        // 菜单Close回调
-        onClose: () => {
-          console.log('onClose')
-        },
-        // 移动端长按配置
-        useLongPressInMobile: true,
-        longPressDuration: 300,
-        longPressPreventDefault: (e: Event, el: HTMLElement) => {
-          console.log({ e, el })
-          return false
-        }
+import type { CustomMouseMenuOptions} from '../../../../packages/mouse-menu';
+// Setup语法下的指令写法, 以小写v开头
+const vMouseMenu = MouseMenuDirective
+// 右键菜单配置, TS下导入CustomMouseMenuOptions定义类型
+const options: CustomMouseMenuOptions = {
+  params: { a: 1 },
+  menuList: [
+    {
+      label: '打开',
+      tips: 'Open',
+      fn: (params, currentEl, bindingEl, e) => {
+        console.log('open', params, currentEl, bindingEl, e)
       }
-    };
+    },
+    {
+      label: '编辑',
+      tips: 'Edit',
+      fn: (params, currentEl, bindingEl, e) => {
+        console.log('edit', params, currentEl, bindingEl, e)
+      }
+    },
+    {
+      label: '删除',
+      tips: 'Delete',
+      fn: (params, currentEl, bindingEl, e) => {
+        console.log('delete', params, currentEl, bindingEl, e)
+      }
+    },
+    {
+      label: '重命名',
+      tips: 'Rename',
+      fn: (params, currentEl, bindingEl, e) => {
+        console.log('rename', params, currentEl, bindingEl, e)
+      }
+    }
+  ],
+  // 菜单Open回调
+  onOpen: () => {
+    console.log('onOpen')
+  },
+  // 菜单Close回调
+  onClose: () => {
+    console.log('onClose')
+  },
+  // 移动端长按配置
+  useLongPressInMobile: true,
+  longPressDuration: 300,
+  longPressPreventDefault: (e, el) => {
+    console.log({ e, el })
+    return false
   }
-});
+}
+const isMobile = 'ontouchstart' in window
+const onScroll = () => {
+  MouseMenuCtx?.close()
+}
 </script>
 
 <style scoped>

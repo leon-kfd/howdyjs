@@ -18,62 +18,53 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
-import { MouseMenuDirective } from '../../../../packages/mouse-menu';
-export default defineComponent({
-  directives: {
-    MouseMenu: MouseMenuDirective
+<script lang="ts" setup>
+import { computed, ref } from 'vue';
+import { MouseMenuDirective, CustomMouseMenuOptions } from '../../../../packages/mouse-menu';
+const vMouseMenu = MouseMenuDirective
+
+const isDisabled = ref(false)
+const isEnglish = ref(false)
+const isHiddenLine = ref(false)
+const lang = {
+  en: {
+    'open': 'Open',
+    'edit': 'Edit',
+    'delete': 'Delete'
   },
-  setup() {
-    const isDisabled = ref(false)
-    const isEnglish = ref(false)
-    const isHiddenLine = ref(false)
-    const lang = {
-      en: {
-        'open': 'Open',
-        'edit': 'Edit',
-        'delete': 'Delete'
-      },
-      cn: {
-        'open': '打开',
-        'edit': '编辑',
-        'delete': '删除'
-      }
-    }
-    const currentLang = computed(() => isEnglish.value ? 'en' : 'cn')
-    return {
-      isDisabled,
-      isEnglish,
-      isHiddenLine,
-      isMobile: 'ontouchstart' in window,
-      options: {
-        disabled: () => isDisabled.value,
-        params: { a: 1 },
-        useLongPressInMobile: true,
-        menuWidth: 120,
-        menuList: [
-          {
-            label: () => lang[currentLang.value]['open'],
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('open', params, currentEl, bindingEl, e)
-          },
-          {
-            label: () => lang[currentLang.value]['edit'],
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('edit', params, currentEl, bindingEl, e)
-          },
-          {
-            line: true,
-            hidden: () => isHiddenLine.value
-          },
-          {
-            label: () => lang[currentLang.value]['delete'],
-            fn: (params: any, currentEl: HTMLElement, bindingEl: HTMLElement, e: MouseEvent) => console.log('delete', params, currentEl, bindingEl, e)
-          }
-        ]
-      }
-    };
+  cn: {
+    'open': '打开',
+    'edit': '编辑',
+    'delete': '删除'
   }
-});
+}
+const currentLang = computed(() => isEnglish.value ? 'en' : 'cn')
+
+const options: CustomMouseMenuOptions = {
+  disabled: () => isDisabled.value,
+  params: { a: 1 },
+  useLongPressInMobile: true,
+  menuWidth: 120,
+  menuList: [
+    {
+      label: () => lang[currentLang.value]['open'],
+      fn: (params, currentEl, bindingEl, e) => console.log('open', params, currentEl, bindingEl, e)
+    },
+    {
+      label: () => lang[currentLang.value]['edit'],
+      fn: (params, currentEl, bindingEl, e) => console.log('edit', params, currentEl, bindingEl, e)
+    },
+    {
+      line: true,
+      hidden: () => isHiddenLine.value
+    },
+    {
+      label: () => lang[currentLang.value]['delete'],
+      fn: (params, currentEl, bindingEl, e) => console.log('delete', params, currentEl, bindingEl, e)
+    }
+  ]
+}
+const isMobile = 'ontouchstart' in window
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 import { App, DirectiveBinding, createVNode, render, ComponentPublicInstance, ObjectDirective } from 'vue';
-import { CustomMouseMenuOptions } from './types';
+import type { CustomMouseMenuOptions, TouchListenFn, PreventCheckFn, ContextMenuListenFn } from './types';
 import MouseMenu from './mouse-menu.vue';
 import { createClassDom } from '../shared';
 
@@ -20,10 +20,6 @@ function CustomMouseMenu (options: CustomMouseMenuOptions) {
   document.body.appendChild(container);
   return vm.component?.proxy as ComponentPublicInstance<typeof MouseMenu>;
 }
-
-type ContextMenuListenFn = (e: MouseEvent) => void
-type TouchListenFn = (e: TouchEvent) => void
-type PreventCheckFn = (e?: TouchEvent, el?: HTMLElement) => boolean
 
 let MouseMenuCtx: ComponentPublicInstance<typeof MouseMenu>;
 let longPressTimer: number;
@@ -121,5 +117,6 @@ const MouseMenuDirective: ObjectDirective = {
   unmounted
 };
 
+export * from './types';
 export { MouseMenuDirective, CustomMouseMenu, MouseMenuCtx };
 export default MouseMenu;

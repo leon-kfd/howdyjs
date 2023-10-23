@@ -27,7 +27,7 @@ class CustomScrollBar {
   private el: ScrollBarElement
   private options: ScrollBarOptions
   private directionArr: Direction[]
-  private timer: number | null | NodeJS.Timeout
+  private timer: number | null | ReturnType<typeof setTimeout>
   private scrollWrapper?: HTMLElement | null
   constructor({ el, options }: { el: string | HTMLElement, options?: ScrollBarOptions }) {
     if (el instanceof HTMLElement) {

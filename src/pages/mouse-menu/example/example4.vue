@@ -6,86 +6,77 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { MouseMenuDirective } from '../../../../packages/mouse-menu';
-export default defineComponent({
-  directives: {
-    MouseMenu: MouseMenuDirective
+<script lang="ts" setup>
+import { MouseMenuDirective, CustomMouseMenuOptions } from '../../../../packages/mouse-menu';
+const vMouseMenu = MouseMenuDirective
+const options: CustomMouseMenuOptions = {
+  useLongPressInMobile: true,
+  customClass: 'custom-howdy-menu', // 通过注入类名实现更多样式效果
+  menuWrapperCss: {
+    background: '#ffffff',
+    borderRadius: '6px',
+    padding: '8px 6px',
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
+    lineColor: '#eee',
+    lineMargin: '5px 10px',
   },
-  setup() {
-    return {
-      isMobile: 'ontouchstart' in window,
-      options: {
-        useLongPressInMobile: true,
-        customClass: 'custom-howdy-menu', // 通过注入类名实现更多样式效果
-        menuWrapperCss: {
-          background: '#ffffff',
-          borderRadius: '6px',
-          padding: '8px 6px',
-          boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
-          lineColor: '#eee',
-          lineMargin: '5px 10px',
+  menuItemCss: {
+    arrowSize: '10px',
+    iconFontSize: '18px',
+    labelColor: '#5E6370',
+    iconColor: '#5E6370',
+  },
+  menuList: [
+    {
+      label: '刷新',
+      tips: 'Refresh',
+      fn: (...args:[]) => console.log('open', args)
+    },
+    {
+      label: '查看',
+      tips: 'Check',
+      fn: (...args:[]) => console.log('open', args),
+      disabled: () => true
+    },
+    {
+      line: true
+    },
+    {
+      label: '操作',
+      tips: 'Operation',
+      children: [
+        {
+          label: '打开',
+          tips: 'Open',
+          fn: (...args:[]) => console.log('open', args)
         },
-        menuItemCss: {
-          arrowSize: '10px',
-          iconFontSize: '18px',
-          labelColor: '#5E6370',
-          iconColor: '#5E6370',
+        {
+          label: '编辑',
+          tips: 'Edit',
+          disabled: () => true,
+          fn: (...args:[]) => console.log('open', args)
         },
-        menuList: [
-          {
-            label: '刷新',
-            tips: 'Refresh',
-            fn: (...args:[]) => console.log('open', args)
-          },
-          {
-            label: '查看',
-            tips: 'Check',
-            fn: (...args:[]) => console.log('open', args),
-            disabled: () => true
-          },
-          {
-            line: true
-          },
-          {
-            label: '操作',
-            tips: 'Operation',
-            children: [
-              {
-                label: '打开',
-                tips: 'Open',
-                fn: (...args:[]) => console.log('open', args)
-              },
-              {
-                label: '编辑',
-                tips: 'Edit',
-                disabled: () => true,
-                fn: (...args:[]) => console.log('open', args)
-              },
-              {
-                label: '删除',
-                tips: 'Delete',
-                customClass: 'delete', // 自定义样式
-                fn: (...args:[]) => console.log('open', args)
-              },
-              {
-                label: '重命名',
-                tips: 'Rename',
-                fn: (...args:[]) => console.log('open', args),
-                hidden: () => true
-              }
-            ]
-          },
-          {
-            label: '设置',
-            tips: 'Setting'
-          }
-        ]
-      }
-    };
-  }
-});
+        {
+          label: '删除',
+          tips: 'Delete',
+          customClass: 'delete', // 自定义样式
+          fn: (...args:[]) => console.log('open', args)
+        },
+        {
+          label: '重命名',
+          tips: 'Rename',
+          fn: (...args:[]) => console.log('open', args),
+          hidden: () => true
+        }
+      ]
+    },
+    {
+      label: '设置',
+      tips: 'Setting'
+    }
+  ]
+}
+const isMobile = 'ontouchstart' in window
 </script>
 
 <style scoped>

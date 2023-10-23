@@ -24,5 +24,15 @@ export type CustomMouseMenuOptions = {
   menuHiddenFn?: MenuCallback;
   el?: HTMLElement;
   customClass?: string;
-  disabled?: MenuCallback<string>;
+  disabled?: MenuCallback<boolean>;
+  useLongPressInMobile?: boolean;
+  longPressDuration?: number;
+  longPressPreventDefault?: boolean | PreventCheckFn;
+  injectCloseListener?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
 }
+
+export type ContextMenuListenFn = (e: MouseEvent) => void
+export type TouchListenFn = (e: TouchEvent) => void
+export type PreventCheckFn = (e?: TouchEvent, el?: HTMLElement) => boolean

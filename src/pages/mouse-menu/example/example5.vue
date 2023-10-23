@@ -15,52 +15,43 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { MouseMenuDirective } from '../../../../packages/mouse-menu';
-export default defineComponent({
-  directives: {
-    MouseMenu: MouseMenuDirective
-  },
-  setup() {
-    return {
-      options: {
-        useLongPressInMobile: true,
-        menuHiddenFn: (_: any, el: HTMLElement) => !(el.getAttribute('class') && el.getAttribute('class')?.includes('box-listitem')),
-        menuList: [
-          {
-            label: (_: any, currentEl: HTMLElement) => {
-              return `#${currentEl.getAttribute('data-id')}`;
-            },
-            disabled: true
-          },
-          {
-            label: '打开',
-            tips: 'Open',
-            fn: (...args:[]) => console.log('open', args),
-            hidden: (_: any, currentEl: HTMLElement) => ['1', '5', '9'].includes(currentEl.getAttribute('data-id') as string)
-          },
-          {
-            label: '编辑',
-            tips: 'Edit',
-            fn: (...args:[]) => console.log('edit', args),
-            disabled: (_: any, currentEl: HTMLElement) => ['2', '4', '6'].includes(currentEl.getAttribute('data-id') as string)
-          },
-          {
-            label: '删除',
-            tips: 'Delete',
-            fn: (...args:[]) => console.log('delete', args)
-          },
-          {
-            label: '重命名',
-            tips: 'Rename',
-            fn: (...args:[]) => console.log('rename', args)
-          }
-        ]
-      }
-    };
-  }
-});
+<script lang="ts" setup>
+import { MouseMenuDirective, CustomMouseMenuOptions } from '../../../../packages/mouse-menu';
+const vMouseMenu = MouseMenuDirective
+const options: CustomMouseMenuOptions = {
+  useLongPressInMobile: true,
+  menuHiddenFn: (params, el) => !el?.getAttribute('class')?.includes('box-listitem'),
+  menuList: [
+    {
+      label: (params, currentEl) => {
+        return `#${currentEl?.getAttribute('data-id')}`;
+      },
+      disabled: true
+    },
+    {
+      label: '打开',
+      tips: 'Open',
+      fn: (...args:[]) => console.log('open', args),
+      hidden: (params, currentEl) => ['1', '5', '9'].includes(currentEl?.getAttribute('data-id') as string)
+    },
+    {
+      label: '编辑',
+      tips: 'Edit',
+      fn: (...args:[]) => console.log('edit', args),
+      disabled: (params, currentEl) => ['2', '4', '6'].includes(currentEl?.getAttribute('data-id') as string)
+    },
+    {
+      label: '删除',
+      tips: 'Delete',
+      fn: (...args:[]) => console.log('delete', args)
+    },
+    {
+      label: '重命名',
+      tips: 'Rename',
+      fn: (...args:[]) => console.log('rename', args)
+    }
+  ]
+}
 </script>
 
 <style scoped>

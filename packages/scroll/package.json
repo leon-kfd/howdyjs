@@ -17,7 +17,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "index.ts"
   ],
   "bugs": {
     "url": "https://github.com/leon-kfd/howdyjs/issues"

@@ -45,12 +45,12 @@ const options: CustomMouseMenuOptions = {
     }
   ],
   // 菜单Open回调
-  onOpen: () => {
-    console.log('onOpen')
+  onOpen: (params, currentEl, bindingEl) => {
+    console.log('onOpen', params, currentEl, bindingEl)
   },
   // 菜单Close回调
-  onClose: () => {
-    console.log('onClose')
+  onClose: (params, currentEl, bindingEl) => {
+    console.log('onClose', params, currentEl, bindingEl)
   },
   // 移动端长按配置
   useLongPressInMobile: true,

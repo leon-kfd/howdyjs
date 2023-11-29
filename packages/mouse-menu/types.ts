@@ -29,8 +29,8 @@ export type CustomMouseMenuOptions = {
   longPressDuration?: number;
   longPressPreventDefault?: boolean | PreventCheckFn;
   injectCloseListener?: boolean;
-  onOpen?: () => void;
-  onClose?: () => void;
+  onOpen?: MenuCallback;
+  onClose?: MenuCallback;
 }
 
 export type ContextMenuListenFn = (e: MouseEvent) => void

@@ -146,9 +146,9 @@ export default defineComponent({
           arrowSize.value = 10;
         }
         el.style.setProperty('--menu-item-arrowRealSize', arrowSize.value / 2 + 'px');
-        emit('open');
+        emit('open', props.params, clickDomEl.value, props.el);
       } else {
-        emit('close');
+        emit('close', props.params, clickDomEl.value, props.el);
       }
     });
 

@@ -2,10 +2,10 @@
 
 <p>
   <a href="https://github.com/leon-kfd/howdyjs" target="_blank">
-    <img src="https://img.shields.io/github/stars/leon-kfd/howdyjs" alt="Star">
+    <img src="https://img.shields.io/github/stars/leon-kfd/howdyjs?style=flat" alt="Star">
   </a>
   <a href="https://github.com/leon-kfd/howdyjs" target="_blank">
-    <img src="https://img.shields.io/github/forks/leon-kfd/howdyjs?color=%23cc8844" alt="Fork">
+    <img src="https://img.shields.io/github/forks/leon-kfd/howdyjs?style=flat&color=%23cc8844" alt="Fork">
   </a>
   <a href="https://github.com/leon-kfd/howdyjs/blob/main/LICENSE" target="_blank">
     <img src="https://img.shields.io/github/license/leon-kfd/howdyjs" alt="Licensee">

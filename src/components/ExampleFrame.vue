@@ -103,7 +103,7 @@
           title="About Author"
           class="link"
         >LEON.KFD</a>
-        <span class="text">&copy; 2023 </span>
+        <span class="text">&copy; 2024 </span>
       </div>
     </div>
     <div

@@ -27,7 +27,7 @@ export interface ToDragEvent extends Event {
 }
 
 
-class ToDrag {
+export class ToDrag {
   el: HTMLElement
   isTouch: boolean
   isDrag: boolean

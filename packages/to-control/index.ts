@@ -1,5 +1,5 @@
 import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
-import ToDrag from '@howdyjs/to-drag';
+import { ToDrag } from '@howdyjs/to-drag';
 import type { ToDragEvent as ToControlEvent } from '@howdyjs/to-drag';
 export type ControlOptions = {
   moveCursor?: boolean,

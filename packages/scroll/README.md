@@ -11,6 +11,7 @@
 3. 基本不需要更改DOM布局，只需在overflow:scroll的元素上增加该指令即可
 4. 移动端中无效，会自动改回默认的滚动
 5. 封装了vue指令的形式
+6. 使用`ResizeObserver`监听盒子大小变化，已无需手动调用`update`方法(^2.1.2)
 
 ## 原生使用
 ```js
@@ -43,6 +44,7 @@ scroll.init();
 |scrollSpeed|点击轨道时的滚动速度（滚动效果使用requestAnimationFrame实现，该值表示每帧的位移量，单位PX）|Number|-|20|
 |dragScroll|是否开启拖拽滚动|Boolean|-|false|
 |thumbShow|滚动条滑块显示方式，可选一直显示与Hover显示|String|always/hover|always|
+|observeAutoUpdate|自动更新滚动条，默认开启，若关闭则需要自行在盒子大小改变时手动调用更新方法|Boolean|-|true|
 
 > *长度属性的单位为px*
 

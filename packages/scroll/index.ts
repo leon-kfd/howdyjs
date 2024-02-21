@@ -17,6 +17,7 @@ export interface ScrollBarOptions {
   enableTrackClickScroll: boolean,
   scrollSpeed: number,
   dragScroll: boolean,
+  observeAutoUpdate: boolean, 
   thumbShow: 'always' | 'hover',
   scrollBarThumbHoverColor?: string
 }
@@ -29,6 +30,8 @@ class CustomScrollBar {
   private directionArr: Direction[]
   private timer: number | null | ReturnType<typeof setTimeout>
   private scrollWrapper?: HTMLElement | null
+  private resizeObserverCtx?: ResizeObserver | null
+
   constructor({ el, options }: { el: string | HTMLElement, options?: ScrollBarOptions }) {
     if (el instanceof HTMLElement) {
       this.el = el;
@@ -47,6 +50,7 @@ class CustomScrollBar {
       scrollSpeed: 20,
       dragScroll: false,
       thumbShow: 'always',
+      observeAutoUpdate: true,
       ...options
     };
     this.directionArr = this.options.direction === 'all' ? ['x', 'y'] : ['x', 'y'].includes(this.options.direction) ? [this.options.direction] : ['y'];
@@ -69,6 +73,9 @@ class CustomScrollBar {
     }
     if (this.options.thumbShow === 'hover') {
       this.setDisplayForHover(this.el);
+    }
+    if (this.options.observeAutoUpdate) {
+      this.addObserveForAutoUpdate(this.el)
     }
   }
 
@@ -257,6 +264,7 @@ class CustomScrollBar {
     }
     this.timer = setTimeout(() => {
       if (this.scrollWrapper) {
+        console.log("update scroll")
         const { transform } = window.getComputedStyle(this.scrollWrapper);
         const [, , , , x, y] = transform.match(/-?\d+\.?\d{0,}/g) as RegExpMatchArray;
         const _x = ~~x;
@@ -277,6 +285,9 @@ class CustomScrollBar {
     }
     if (this.el.mouseleaveEvent) {
       this.el.addEventListener('mouseleave', this.el.mouseleaveEvent);
+    }
+    if (this.resizeObserverCtx) {
+      this.resizeObserverCtx.unobserve(this.el)
     }
   }
 
@@ -356,6 +367,19 @@ class CustomScrollBar {
         document.body.style.cursor = 'default';
       };
     };
+  }
+
+  private addObserveForAutoUpdate(el: HTMLElement) {
+    let firstFlag = false
+    const callback: ResizeObserverCallback = (e)  => {
+      if (!firstFlag) {
+        firstFlag = true;
+        return;
+      }
+      this.update()
+    };
+    this.resizeObserverCtx = new ResizeObserver(callback);
+    this.resizeObserverCtx.observe(el);
   }
 }
 

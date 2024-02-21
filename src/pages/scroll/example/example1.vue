@@ -48,6 +48,7 @@ export default defineComponent({
   background: #c2c2e0;
   overflow: auto;
   padding-right: 10px;
+  resize: both;
 }
 .scroll-box2 {
   padding: 10px;

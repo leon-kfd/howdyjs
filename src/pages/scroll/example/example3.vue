@@ -45,6 +45,7 @@ export default defineComponent({
   background: #c2c2e0;
   overflow-y: auto;
   padding-right: 10px;
+  resize: both;
 }
 .text {
   font-size: 0.8rem;

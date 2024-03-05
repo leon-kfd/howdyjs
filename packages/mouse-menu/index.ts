@@ -1,7 +1,13 @@
 import { App, DirectiveBinding, createVNode, render, ComponentPublicInstance, ObjectDirective } from 'vue';
 import type { CustomMouseMenuOptions, TouchListenFn, PreventCheckFn, ContextMenuListenFn } from './types';
 import MouseMenu from './mouse-menu.vue';
-import { createClassDom } from '../shared';
+
+function createClassDom (tag: string, className: string, innerText?: string) {
+  let el = document.createElement(tag);
+  el.setAttribute('class', className);
+  if (innerText) el.innerText = innerText;
+  return el;
+}
 
 MouseMenu.install = (app: App): void => {
   app.component(MouseMenu.name, MouseMenu);

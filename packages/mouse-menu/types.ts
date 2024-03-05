@@ -36,3 +36,5 @@ export type CustomMouseMenuOptions = {
 export type ContextMenuListenFn = (e: MouseEvent) => void
 export type TouchListenFn = (e: TouchEvent) => void
 export type PreventCheckFn = (e?: TouchEvent, el?: HTMLElement) => boolean
+
+export type CustomMouseMenu = (options: CustomMouseMenuOptions) => any

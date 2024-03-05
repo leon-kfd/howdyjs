@@ -1,8 +1,16 @@
 import { DirectiveHook, App, ObjectDirective } from 'vue';
-import { createIdDom } from '../shared';
 import './img-zoom.scss';
 
 const groupMap = {} as Record<string, GroupItem[]>;
+
+function createIdDom (tag: string, id: string, innerText?: string) {
+  const el = document.createElement(tag);
+  el.setAttribute('id', id);
+  if (innerText) {
+    el.innerText = innerText;
+  }
+  return el;
+}
 
 export interface GroupItem {
   title?: string,

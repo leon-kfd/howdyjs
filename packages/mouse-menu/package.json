@@ -4,7 +4,7 @@
   "description": "右键菜单组件",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "index.ts",
+  "types": "types.ts",
   "author": "leon-kfd",
   "license": "ISC",
   "repository": {

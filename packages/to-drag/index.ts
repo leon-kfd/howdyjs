@@ -1,5 +1,19 @@
 import { DirectiveHook, App, DirectiveBinding, ObjectDirective } from 'vue';
-import { getComputedStyleList } from '../shared';
+
+function getComputedStyleList (el: HTMLElement, names: string[], formatToNumber = false) {
+  const results: Record<string, string | number> = {};
+  const styles = window.getComputedStyle(el);
+  names.map(name => {
+    let result: string | number = styles[name as any];
+    if (formatToNumber) {
+      const match = result.match(/\d+/);
+      if (match) result = ~~match[0];
+    }
+    results[name] = result;
+  });
+  return results;
+}
+
 export interface ToDragOptions {
   isAbsolute?: boolean,
   adsorbOffset: number,

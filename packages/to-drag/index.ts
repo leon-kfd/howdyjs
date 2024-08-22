@@ -54,6 +54,7 @@ export class ToDrag {
   height = 0
   maxX = 0
   maxY = 0
+  needComputeAdsorb = true // 是否需要计算吸附, 只有产生了Move才需要计算
   private options: ToDragOptions
   private scrollbarWidth: number
   private startX = 0
@@ -158,6 +159,7 @@ export class ToDrag {
   }
 
   setStartInfo (x: number, y: number, e?: TouchEvent | MouseEvent) {
+    this.needComputeAdsorb = false
     this.setPosition();
     this.setLimit();
     this.startX = x - this.left;
@@ -176,6 +178,7 @@ export class ToDrag {
       return;
     }
     e.preventDefault();
+    this.needComputeAdsorb = true
     let dragX, dragY;
     const x = this.isTouch ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).x;
     const y = this.isTouch ? (e as TouchEvent).changedTouches[0].clientY : (e as MouseEvent).y;
@@ -211,6 +214,7 @@ export class ToDrag {
 
   handleAdsorb () {
     // if (this.options.isAbsolute) return;
+    if (!this.needComputeAdsorb) return
     const endPoint = [this.left + this.width / 2, this.top + this.height / 2];
     let maxX = 0
     let maxY = 0
@@ -337,14 +341,14 @@ const mounted = (el: HTMLElement, binding: DirectiveBinding, userOptions?: ToDra
     ...customGlobalOptions,
     ...value
   };
-  (el as any).$toDarg = new ToDrag({
+  (el as any).$toDrag = new ToDrag({
     el,
     options
   });
 };
 
 const unmounted: DirectiveHook = (el: any) => {
-  el.$toDarg && el.$toDarg.destroy();
+  el.$toDrag && el.$toDrag.destroy();
 };
 
 export const ToDragDirective: ObjectDirective = {

@@ -18,6 +18,8 @@ export default defineComponent({
     return {
       options: {
         isAbsolute: true,
+        // adsorb: 2,
+        // adsorbOffset: 10,
         needComputeBorder: true // default is true, will compute parent border width
       }
     };

@@ -126,7 +126,7 @@ export class ToDrag {
       return;
     }
     const { x, y } = e;
-    this.setStartInfo(x, y);
+    this.setStartInfo(x, y, e);
     document.addEventListener('mousemove', this.moveEvent);
     document.addEventListener('mouseup', this.endEvent);
   }
@@ -137,7 +137,7 @@ export class ToDrag {
     }
     const x = this.isTouch ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).x;
     const y = this.isTouch ? (e as TouchEvent).changedTouches[0].clientY : (e as MouseEvent).y;
-    this.setStartInfo(x, y);
+    this.setStartInfo(x, y, e);
     document.addEventListener('touchmove', this.moveEvent, { passive: false });
     document.addEventListener('touchend', this.endEvent);
   }
@@ -157,7 +157,7 @@ export class ToDrag {
     }
   }
 
-  setStartInfo (x: number, y: number) {
+  setStartInfo (x: number, y: number, e?: TouchEvent | MouseEvent) {
     this.setPosition();
     this.setLimit();
     this.startX = x - this.left;
@@ -168,7 +168,7 @@ export class ToDrag {
     if (this.options.forbidBodyScroll) {
       document.body.style.overflow = 'hidden';
     }
-    this.emitEvent('todragstart');
+    this.emitEvent('todragstart', e);
   }
 
   moveEvent (e: TouchEvent | MouseEvent) {
@@ -191,10 +191,10 @@ export class ToDrag {
     this.top = this.setBetween(dragY, 0, this.maxY - this.borderInfo[2] - this.borderInfo[0]);
     this.el.style.left = this.left + 'px';
     this.el.style.top = this.top + 'px';
-    this.emitEvent('todragmove');
+    this.emitEvent('todragmove', e);
   }
 
-  endEvent () {
+  endEvent (e: TouchEvent | MouseEvent) {
     this.isDrag = false;
     document.removeEventListener('mousemove', this.moveEvent);
     document.removeEventListener('mouseup', this.endEvent);
@@ -206,23 +206,33 @@ export class ToDrag {
     }
     this.handleAdsorb();
     this.handlePositionMode();
-    this.emitEvent('todragend');
+    this.emitEvent('todragend', e);
   }
 
   handleAdsorb () {
-    if (this.options.isAbsolute) return;
+    // if (this.options.isAbsolute) return;
     const endPoint = [this.left + this.width / 2, this.top + this.height / 2];
-    const maxPoint = [window.innerWidth, window.innerHeight];
+    let maxX = 0
+    let maxY = 0
+    if (this.options.isAbsolute) {
+      const parentDomRect = this.parent.getClientRects()[0];
+      maxX = parentDomRect.width
+      maxY = parentDomRect.height
+    } else {
+      maxX = window.innerWidth
+      maxY = window.innerHeight
+    }
+    const maxPoint = [maxX, maxY]
     this.el.style.transition = `left ${this.options.transitionDuration}s ${this.options.transitionTimingFunction}, 
                                 top ${this.options.transitionDuration}s ${this.options.transitionTimingFunction}`;
     if (this.options.adsorb === 1) {
       // 左右吸附
-      if (endPoint[0] <= window.innerWidth / 2) {
+      if (endPoint[0] <= maxX / 2) {
         // left
         this.left = this.options.adsorbOffset;
       } else {
         // right
-        this.left = this.maxX - this.options.adsorbOffset;
+        this.left = this.maxX - this.options.adsorbOffset - this.borderInfo[1] - this.borderInfo[3];
       }
     } else if (this.options.adsorb === 2) {
       // 四方向吸附
@@ -235,10 +245,10 @@ export class ToDrag {
         this.top = this.options.adsorbOffset;
       } else if (k1 >= k3 && k2 >= k4) {
         // right
-        this.left = this.maxX - this.options.adsorbOffset;
+        this.left = this.maxX - this.options.adsorbOffset - this.borderInfo[1] - this.borderInfo[3];
       } else if (k1 < k3 && k2 >= k4) {
         // bottom
-        this.top = this.maxY - this.options.adsorbOffset;
+        this.top = this.maxY - this.options.adsorbOffset - this.borderInfo[2] - this.borderInfo[0];
       } else {
         // left
         this.left = this.options.adsorbOffset;
@@ -282,7 +292,7 @@ export class ToDrag {
     }
   }
 
-  emitEvent (type: ToDragEventString) {
+  emitEvent (type: ToDragEventString, e?: TouchEvent | MouseEvent) {
     const event = document.createEvent('HTMLEvents') as ToDragEvent;
     event.initEvent(type, false, false);
     const { left, top, right, bottom, width, height, maxX, maxY } = this;
@@ -294,6 +304,9 @@ export class ToDrag {
     event['maxY'] = maxY;
     event['right'] = right;
     event['bottom'] = bottom;
+    if (e) {
+      event['sourceEvent'] = e;
+    }
     this.el.dispatchEvent(event);
   }
 

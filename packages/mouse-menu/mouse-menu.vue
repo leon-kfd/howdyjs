@@ -167,9 +167,10 @@ export default defineComponent({
       }
       showMenu.value = false;
     };
-    const handleMenuMouseEnter = ($event: MouseEvent, item: MenuSetting) => {
+    const handleMenuMouseEnter = async ($event: MouseEvent, item: MenuSetting) => {
       if (item.children && !item.disabled) {
         hoverFlag.value = true;
+        await nextTick()
         const el = $event.currentTarget as HTMLElement;
         if (!el) return;
         const { offsetWidth } = el;

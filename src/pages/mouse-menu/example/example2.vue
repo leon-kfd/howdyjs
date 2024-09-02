@@ -14,6 +14,7 @@ const vMouseMenu = MouseMenuDirective
 // 右键菜单配置, TS下导入CustomMouseMenuOptions定义类型
 const options: CustomMouseMenuOptions = {
   useLongPressInMobile: true,
+  menuWidth: 180,
   menuItemCss: {
     arrowSize: '8px'
   },

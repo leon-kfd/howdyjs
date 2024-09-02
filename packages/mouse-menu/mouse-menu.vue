@@ -4,7 +4,7 @@
       v-if="showMenu"
       ref="MenuWrapper"
       :class="['__menu__wrapper', customClass]"
-      :style="{width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px`}"
+      :style="{ width: `${menuWidth}px`, top: `${menuTop}px`, left: `${menuLeft}px` }"
     >
       <template v-for="(item,index) in calcMenuList">
         <div
@@ -38,7 +38,7 @@
             v-show="hoverFlag"
             v-if="item.children && item.children.length > 0"
             class="__menu__sub__wrapper"
-            :style="{top: `${subTop}px`, left: `${subLeft}px`}"
+            :style="{ width: `${menuWidth}px`, top: `${subTop}px`, left: `${subLeft}px` }"
           >
             <template v-for="(subItem,subIndex) in item.children">
               <div
@@ -47,6 +47,16 @@
                 :class="['__menu__sub__item', subItem.disabled && 'disabled', subItem.customClass]"
                 @[clickEventKey].stop="handleSubMenuItemClick(subItem, $event)"
               >
+                <div v-if="hasIcon" class="__menu__item-icon">
+                  <i v-if="iconType==='font-icon'" v-show="subItem.icon" :class="subItem.icon" />
+                  <div 
+                    v-else-if="iconType==='svg-icon'" 
+                    v-show="subItem.icon" 
+                    class="__menu__item-icon-svg" 
+                    v-html="subItem.icon"
+                  ></div>
+                  <component :is="subItem.icon" v-else-if="iconType==='vnode-icon'" />
+                </div>
                 <span class="__menu__sub__item-label">{{ subItem.label }}</span>
                 <span class="__menu__sub__item-tips">{{ subItem.tips || '' }}</span>
               </div>

@@ -122,6 +122,7 @@ export default defineComponent({
     }
   },
   emits: ['open', 'close'],
+  expose: ['show', 'close', 'showMenu'],
   setup(props, { emit }) {
     const subLeft = ref(0);
     const subTop = ref(0);
@@ -165,14 +166,16 @@ export default defineComponent({
     const handleMenuItemClick = (item: MenuSetting, $event: MouseEvent) => {
       if (item.disabled) return;
       if (item.fn && typeof item.fn === 'function') {
-        item.fn(props.params, clickDomEl.value, props.el, $event);
+        const flag = item.fn(props.params, clickDomEl.value, props.el, $event);
+        if (flag === false) return
       }
       showMenu.value = false;
     };
     const handleSubMenuItemClick = (subItem: MenuSetting, $event: MouseEvent) => {
       if (subItem.disabled) return;
       if (subItem.fn && typeof subItem.fn === 'function' && !subItem.disabled) {
-        subItem.fn(props.params, clickDomEl.value, props.el, $event);
+        const flag = subItem.fn(props.params, clickDomEl.value, props.el, $event);
+        if (flag === false) return
         hoverFlag.value = false;
       }
       showMenu.value = false;

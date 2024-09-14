@@ -46,7 +46,11 @@ const options: CustomMouseMenuOptions = {
           label: '编辑',
           tips: 'Edit',
           disabled: () => true,
-          fn: (...args:[]) => console.log('edit', args)
+          fn: (...args:[]) => {
+            console.log('edit', args)
+            // 当返回false时，点击会后可阻止菜单关闭
+            return false
+          }
         },
         {
           label: '删除',
@@ -64,7 +68,7 @@ const options: CustomMouseMenuOptions = {
     {
       label: '设置',
       tips: 'Setting',
-      fn: (...args:[]) => console.log('setting', args),
+      fn: (...args:[]) => console.log('setting', args)
     }
   ]
 }

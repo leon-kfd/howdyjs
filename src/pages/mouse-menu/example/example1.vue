@@ -27,6 +27,8 @@ const options: CustomMouseMenuOptions = {
       tips: 'Edit',
       fn: (params, currentEl, bindingEl, e) => {
         console.log('edit', params, currentEl, bindingEl, e)
+        // 当返回false时，点击会后可阻止菜单关闭
+        return false
       }
     },
     {

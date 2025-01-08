@@ -102,4 +102,4 @@ npm i -S howdyjs
 
 All for [MIT](https://github.com/leon-kfd/howdyjs/blob/master/LICENSE)
 
-Copyright (c) 2024 Leon.D
+Copyright (c) 2025 Leon.D

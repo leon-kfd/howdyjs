@@ -66,6 +66,15 @@ const options: CustomMouseMenuOptions = {
       ]
     },
     {
+      label: '禁用菜单',
+      disabled: () => true,
+      children: [
+        {
+          label: '测试'
+        }
+      ]
+    },
+    {
       label: '设置',
       tips: 'Setting',
       fn: (...args:[]) => console.log('setting', args)

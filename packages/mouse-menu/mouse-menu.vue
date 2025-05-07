@@ -36,7 +36,7 @@
           </span>
           <div
             v-show="hoverFlag"
-            v-if="item.children && item.children.length > 0"
+            v-if="item.children && item.children.length > 0 && !item.disabled"
             class="__menu__sub__wrapper"
             :style="{ width: `${menuWidth}px`, top: `${subTop}px`, left: `${subLeft}px` }"
           >

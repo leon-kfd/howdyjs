@@ -19,16 +19,16 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: yarn
+        run: npm i
       
       - name: Bootstrap
-        run: yarn bootstrap
+        run: npm run bootstrap
 
       - name: Build Pkgs
-        run: yarn build:lib
+        run: npm run build:lib
 
       - name: Build Example
-        run: yarn build:hash
+        run: npm run build:hash
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
@@ -36,3 +36,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
+

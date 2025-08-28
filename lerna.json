@@ -3,8 +3,8 @@
   "version": "independent",
   "command": {
     "bootstrap": {
-      "npmClientArgs": ["--registry=https://registry.npm.taobao.org"],
-      "npmClient": "yarn"
+      "npmClientArgs": ["--registry=https://registry.npmmirror.com/"],
+      "npmClient": "npm"
     }
   }
 }

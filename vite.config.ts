@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import { parse } from 'marked';
 import hljs from 'highlight.js';
 import path from 'path';
+import { VitePWA } from 'vite-plugin-pwa'
 
 const isHashRouterMode = process.env.VITE_ROUTER_MODE === 'hash';
 const basePath = isHashRouterMode ? './' : '/howdy/';
@@ -46,6 +47,32 @@ export default {
       smartLists: true,
       smartypants: false,
       xhtml: false
+    }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      strategies: "generateSW",
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
+      includeAssets: ['favicon.ico', 'logo_192x192.png'],
+      manifest: {
+        name: "Howdyjs",
+        short_name: "Howdyjs",
+        description: "Howdyjs文档",
+        theme_color: "#ffffff",
+        icons: [
+          {
+            src: "logo_192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "logo_512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
     })
   ],
   server: {
